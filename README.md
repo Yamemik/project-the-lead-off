@@ -3,10 +3,10 @@
 
 
 
-## list of commads:
-### npm run start:dev - start server for development
+### list of commads:
+    npm run start:dev - start server for development
 
-## mongodb (mongosh):
-### show dbs
+### mongodb (mongosh):
+    show dbs
 
 ### by Yamemik
