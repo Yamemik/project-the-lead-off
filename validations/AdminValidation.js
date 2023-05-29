@@ -1,17 +1,13 @@
 import { body } from 'express-validator';
 
-export const preRegisterValidation = [
-   body('email','Неверный формат почты').isEmail(),
-   body('rate', 'Выберете тариф').isArray(),
-]
 export const registerValidation = [
    body('family','Введите фамилию').isLength({ min: 3 }),
    body('name','Введите имя').isLength({ min: 3 }),
    body('password','Короткий пароль (от 8 символов)').isLength({ min: 8 }),
 ]
 export const loginValidation = [
-   body('email','Введите почту').isEmail(),
-   body('password','Введите пароль').isLength({ min: 8 }),
+   body('login','Введите логин').isLength({ min: 3 }),
+   body('password','Введите пароль').isLength({ min: 6 })
 ]
 
 export const lessonCreateValidation = [

@@ -4,12 +4,13 @@ import swaggerAutogen from 'swagger-autogen'
 
 const _dirname = dirname(fileURLToPath(import.meta.url))
 
+
 const doc = {
     info: {
       title: 'Проект по лидам',
       description: '',
     },
-    host: '',
+    host: 'localhost:7777',
     schemes: ['https'],
 };
 

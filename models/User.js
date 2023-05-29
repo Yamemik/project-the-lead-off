@@ -3,41 +3,40 @@ import mongoose, { Schema } from 'mongoose';
 const UserSchema = new mongoose.Schema({  
    fio:{
       type: String,
-      required: true
+      required: false
    },
    email:{
       type: String,
       required: true,
       unique: true      
    },
-   rate:{
+   telephone:{
       type: Array,      
-      require: true
+      require: false
    },
-   role:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Role',
-      required: true
+   organization:{
+      type: Boolean,
+      require: true
    },
    country:{
       type: String,
-      require: true
+      require: false
    },
    city:{
       type: String,
-      require: true
+      require: false
    },
-   dateBirth:{
-      type: String,
-      require: true
+   business_line:{
+      type: Array,
+      require: false
    },
-   gender:{
-      type: String,
-      require: true
+   access_to_open:{
+      type: Boolean,
+      require: false
    },
-   mobile:{
-      type: String,
-      require: true
+   balance:{
+      type: Number,
+      require: false
    },
    passwordHash:{
       type: String,
