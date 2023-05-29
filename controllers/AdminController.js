@@ -1,10 +1,10 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
+import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
 import AdminModel from '../models/Admin.js';
+//import nodemailer from './nodemailer/sendMail.js'
 
 
 export const login = async (req, res) => {
@@ -53,6 +53,47 @@ export const login = async (req, res) => {
       });
    }
 };
+
+export const createUser = async (req, res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Регистрация пользователя'
+   */
+      const password = generatePassword(12, false);
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+
+   try{
+      const doc = new UserModel({
+         fio: req.body.fio,
+         email: req.body.email,
+         telephone: req.body.telephone,
+         organization: req.body.organization,
+         country: req.body.country,
+         city: req.body.city,
+         business_line: req.body.business_line,
+         access_to_open: req.body.access_to_open,
+         balance: req.body.balance,
+         passwordHash: hash
+      });
+
+      const user = await doc.save();
+
+      //
+
+      const { passwordHash, ...userData } = user._doc;
+
+      res.json({
+         ...userData
+      });
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed to register"
+      })
+   }
+};
+
 
 export const getUserByID = async(req,res) => {
    /*
@@ -143,3 +184,4 @@ export const resentPassword = async (req, res) => {
       })
    }
 };
+

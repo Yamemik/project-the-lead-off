@@ -5,7 +5,7 @@
     "description": "",
     "version": "1.0.0"
   },
-  "host": "localhost:7777",
+  "host": "project-the-leads.onrender.com",
   "basePath": "/",
   "schemes": [
     "https"
@@ -52,6 +52,58 @@
           },
           "400": {
             "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/user/create": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Регистрация пользователя",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "fio": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "telephone": {
+                  "example": "any"
+                },
+                "organization": {
+                  "example": "any"
+                },
+                "country": {
+                  "example": "any"
+                },
+                "city": {
+                  "example": "any"
+                },
+                "business_line": {
+                  "example": "any"
+                },
+                "access_to_open": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "500": {
             "description": "Internal Server Error"

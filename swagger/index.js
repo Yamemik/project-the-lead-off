@@ -10,7 +10,7 @@ const doc = {
       title: 'Проект по лидам',
       description: '',
     },
-    host: 'localhost:7777',
+    host: 'project-the-leads.onrender.com',
     schemes: ['https'],
 };
 

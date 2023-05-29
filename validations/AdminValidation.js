@@ -1,9 +1,15 @@
 import { body } from 'express-validator';
 
 export const registerValidation = [
-   body('family','Введите фамилию').isLength({ min: 3 }),
-   body('name','Введите имя').isLength({ min: 3 }),
-   body('password','Короткий пароль (от 8 символов)').isLength({ min: 8 }),
+   body('fio','Введите фио').isLength({ min: 3 }),
+   body('email','Введите почту').isLength({ min: 3 }),
+   body('telephone','Введите номер телефона').isLength({ min: 3 }),
+   body('organization','Выберите форму организации').isLength({ min: 3 }),
+   body('country','Укажите страну').isLength({ min: 3 }),
+   body('city','Укажите город').isLength({ min: 3 }),
+   body('business_line','Выберите направления бизнеса').isLength({ min: 3 }),
+   body('access_to_open','Выберите доступ').isLength({ min: 3 }),
+   body('balance','').isNumeric()
 ]
 export const loginValidation = [
    body('login','Введите логин').isLength({ min: 3 }),
