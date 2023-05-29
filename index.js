@@ -4,10 +4,9 @@ import cors from 'cors';
 import fs from 'fs';
 import swaggerUi from 'swagger-ui-express';
 
-import { AdminController } from './controllers/index.js';
+import { AdminController,UserController } from './controllers/index.js';
 
-import { registerValidation, lessonCreateValidation, rateCreateValidation, loginValidation,
-   resentPasswordlidation, roleCreateValidation } from './validations/AdminValidation.js';
+import { registerValidation, loginValidation } from './validations/AdminValidation.js';
 import { checkAuth, handlValidationErrors } from './utils/index.js';
 
 //connect db
@@ -31,7 +30,7 @@ app.get('/', (req, res) => {
 
  //ADMIN
  router.post('/admin/auth/login', loginValidation, handlValidationErrors, AdminController.login);
- router.post('/admin/user/create', registerValidation, handlValidationErrors, AdminController.createUser);
+ router.post('/admin/user/create', registerValidation, handlValidationErrors, UserController.createUser);
 
 //run server
 app.listen(7777, (err) =>{

@@ -1,59 +1,37 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
-import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
+import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
-import RoleModel from '../models/Role.js';
 
-export const pre_register = async (req, res) => {
+export const createUser = async (req, res) => {
    /*
-      #swagger.tags = ["Auth"]
-      #swagger.summary = 'Пред регистрация аккаунта'
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Регистрация пользователя'
    */
-   try {
+      const password = generatePassword(12, false);
+      const salt = await bcrypt.genSalt(10);
+      const hash = await bcrypt.hash(password, salt);
+
+   try{
       const doc = new UserModel({
+         fio: req.body.fio,
          email: req.body.email,
-         rate: req.body.rate
+         telephone: req.body.telephone,
+         organization: req.body.organization,
+         country: req.body.country,
+         city: req.body.city,
+         business_line: req.body.business_line,
+         access_to_open: req.body.access_to_open,
+         balance: req.body.balance,
+         passwordHash: hash
       });
 
       const user = await doc.save();
 
-      //send email{
-      try{
-         dotenv.config({ path: './nodemailer/.env' });
-         const transporter = nodemailer.createTransport({
-            host: 'smtp.mail.ru',
-            port: 465,
-            secure: true,
-            auth: {
-               user: 'kuancarlos@mail.ru',
-               pass: 'crAxVSVTC3Kyktx6SVgA'
-            }
-         });
-         
-         const domen = req.get('host');
-         let htmlWithID = process.env.LETTER.replaceAll('#domen#',domen);
-         htmlWithID = htmlWithID.replaceAll('userID',doc._id);//
-         let result = await transporter.sendMail({
-            from: `"I am copyrighter!" <kuancarlos@mail.ru>`,
-            to: doc.email,
-            subject: 'Регистрация на курс по копирайтингу',
-            html: htmlWithID
-         });
-      }catch(err){
-         await UserModel.findByIdAndDelete(doc._id)
-            .then(()=>{console.log("user delete")})
-            .catch((err)=>{console.log(err)});
-         console.log(err);
-         return res.status(500).json({
-            message: "Не удалось отправить сообщение"
-         });
-      }
-      //}send email
+      //
 
-      const { passwordHash,family,name, ...userData } = user._doc;
+      const { passwordHash, ...userData } = user._doc;
 
       res.json({
          ...userData
@@ -61,65 +39,16 @@ export const pre_register = async (req, res) => {
    } catch (err) {
       console.log(err);
       res.status(500).json({
-         message: "Не удалось зарегистрироваться"
+         message: "Failed to register"
       })
    }
 };
 
-export const register = async (req, res) => {
-   /*
-      #swagger.tags = ["Auth"]
-      #swagger.summary = 'Регистрация аккаунта'
-   */
-   //hash password
-   const password = req.body.password;
-   const salt = await bcrypt.genSalt(10);
-   const hash = await bcrypt.hash(password, salt);
 
-   const userId = req.params.userId;
-   const doc = await UserModel.findById(userId);
-   const docRole = await RoleModel.findById("64662b00579e543b8b05632e");
 
-   if(!doc){
-      return res.status(404).json({
-         message: "Пользователь не зарегистрирован"
-      });
-   }
 
-   UserModel.updateOne({
-      _id: userId
-   },{
-      family: req.body.family,
-      name: req.body.name,
-      passwordHash: hash,
-      role: docRole
-   },{
-      returnDocument: 'after'
-   }).then(async()=>{
-      const token = jwt.sign(
-         {
-            _id: userId,
-         },
-         'key123',
-         {
-            expiresIn: '30d',
-         }
-      );
 
-      const doc = await UserModel.findById(userId);
-      const { passwordHash, ...userData } = doc._doc;
 
-      res.json({
-         ...userData,
-         token
-      }); 
-   }).catch((err)=>{
-      console.log(err);
-      res.status(500).json({
-         message: "Не удалось создать пользователя"
-      })
-   });
-};
 
 export const login = async (req, res) => {
    /*
