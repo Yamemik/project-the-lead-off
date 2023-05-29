@@ -32,8 +32,7 @@ export const createUser = async (req, res) => {
 
       const domen = req.get('host');
       mailer.sendToUser(user._id,user.email,password,domen)
-      .then(console.log("mail success"))
-      .catch((err) => console.log('mail ERROR:', err));
+         .catch((err) => console.log('mail ERROR:', err));
 
       const { passwordHash, ...userData } = user._doc;
 

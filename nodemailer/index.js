@@ -3,10 +3,7 @@ import dotenv from 'dotenv';
 
 export const sendToUser = async (id, email, password, domen) => {
    try{
-      dotenv.config({ path: '../nodemailer/.env' });
-
-      console.log(process.env.EMAIL)
-      console.log(process.env.PASSWORD)
+      dotenv.config();
          
       const transporter = nodemailer.createTransport({
          host: 'smtp.mail.ru',
@@ -19,17 +16,16 @@ export const sendToUser = async (id, email, password, domen) => {
       }); 
       //let htmlWithID = process.env.LETTER.replaceAll('#domen#',domen);
       //htmlWithID = htmlWithID.replaceAll('userID',id);
+      const reference = domen + '/user/auth/login?' + id;
       let result = await transporter.sendMail({
-         from: `LEADS <yamemik@mail.ru>`,
-         to: 'kuancarlos@mail.ru',
+         from: `LEADS <${process.env.EMAIL}>`,
+         to: email,
          subject: 'Регистрация',
-         //html: 
-         text: 'dfgd'
+         text: `Ваш логин - ${email} и пароль - ${password} ссылка - ${reference}`,
+         //html: htmlWithID
       });
       console.log(result);
    }catch(err){
       return console.log(err);     
    }   
 }
-
-sendToUser('dfdfg','kuancarlos@mail.ru','12345','fff');

@@ -32,6 +32,9 @@ app.get('/', (req, res) => {
  router.post('/admin/auth/login', loginValidation, handlValidationErrors, AdminController.login);
  router.post('/admin/user/create', registerValidation, handlValidationErrors, UserController.createUser);
 
+ //USER
+ //router.post('/user/auth/login/:userId', loginValidation, handlValidationErrors, UserController.login);
+
 //run server
 app.listen(7777, (err) =>{
     if (err){
