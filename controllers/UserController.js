@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
+import * as mailer from '../nodemailer/index.js';
 
 export const createUser = async (req, res) => {
    /*
@@ -29,7 +30,10 @@ export const createUser = async (req, res) => {
 
       const user = await doc.save();
 
-      //
+      const domen = req.get('host');
+      mailer.sendToUser(user._id,user.email,password,domen)
+      .then(console.log("mail success"))
+      .catch((err) => console.log('mail ERROR:', err));
 
       const { passwordHash, ...userData } = user._doc;
 
