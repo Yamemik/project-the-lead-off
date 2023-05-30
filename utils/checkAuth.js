@@ -5,7 +5,7 @@ export default (req, res, next) => {
 
    if(token){
       try{
-         const decoded = jwt.verify(token, 'key123');
+         const decoded = jwt.verify(token, 'leads_user');
 
          req.userId = decoded._id;
 

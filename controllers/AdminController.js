@@ -30,9 +30,9 @@ export const login = async (req, res) => {
          {
             _id: admin._id,
          },
-         'leads',
+         'leads_admin',
          {
-            expiresIn: '30d',
+            expiresIn: '7d',
          }
       );
 

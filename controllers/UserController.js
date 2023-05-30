@@ -47,23 +47,17 @@ export const createUser = async (req, res) => {
    }
 };
 
-
-
-
-
-
-
 export const login = async (req, res) => {
    /*
-      #swagger.tags = ["Auth"]
+      #swagger.tags = ["USER"]
       #swagger.summary = 'Вход в аккаунт'
    */   
    try {
-      const user = await UserModel.findOne({ email: req.body.email });
+      const user = await UserModel.findOne({ email: req.body.login });
 
       if (!user) {
          return res.status(403).json({
-            message: 'Неверный логин или пароль.'
+            message: 'invalid username or password'
          });
       }
 
@@ -71,7 +65,7 @@ export const login = async (req, res) => {
 
       if (!isValidPass) {
          return res.status(403).json({
-            message: 'Неверный логин или пароль.'
+            message: 'invalid username or password'
          });
       }
 
@@ -79,9 +73,9 @@ export const login = async (req, res) => {
          {
             _id: user._id,
          },
-         'key123',
+         'leads_user',
          {
-            expiresIn: '30d',
+            expiresIn: '7d',
          }
       );
 
@@ -95,7 +89,7 @@ export const login = async (req, res) => {
    } catch (err) {
       console.log(err);
       res.status(500).json({
-         message: "Не удалось авторизоваться"
+         message: "failed to log in"
       });
    }
 };
@@ -103,7 +97,7 @@ export const login = async (req, res) => {
 export const getMe = async(req,res) => {
    /*
       #swagger.tags = ["User"]
-      #swagger.summary = 'Личный кабинет'
+      #swagger.summary = 'Получить пользователя'
    */   
   try{
       const user = await UserModel.findById(req.userId).catch((err)=>{
