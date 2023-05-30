@@ -1,0 +1,127 @@
+.header {
+    height: 100px;
+    padding: 0 40px;
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0px 1px 0px rgba(49, 115, 175, 0.05), 0px 4px 24px rgba(0, 0, 0, 0.05);
+    &__left,
+    &__center,
+    &__right,
+    &__left-theme,
+    &__center-link,
+    &__right-wallet,
+    &__right-user {
+        display: flex;
+        align-items: center;
+    }
+    &__left,
+    &__right {
+        column-gap: 30px;
+    }
+    &__left {
+        &-logo {
+            cursor: pointer;
+            &-img {
+
+            }
+        }
+        &-theme {
+            column-gap: 10px;
+            &-toggler {
+                position: relative;
+                display: inline-block;
+                width: 52px;
+                height: 32px;
+                &-checkbox {
+                    display: none;
+                }
+                &-checkbox:checked + &-slider::before {
+                    transform: translateX(20px);
+                }
+                &-slider {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background-color: #3173b0;
+                    border-radius: 1000px;
+                    cursor: pointer;
+                    &::before {
+                        position: absolute;
+                        content: "";
+                        border-radius: 50%;
+                        height: 20px;
+                        width: 20px;
+                        left: 6px;
+                        bottom: 6px;
+                        background-color: #fff;
+                        transition: 0.4s;
+                    }
+                }
+            }
+        }
+    }
+    &__center {
+        column-gap: 100px;
+        &-link {
+            column-gap: 10px;
+            transition: opacity .2s;
+            &:hover {
+                opacity: 0.75;
+            }
+            &-text {
+                font-weight: 500;
+                font-size: 13px;
+            }
+        }
+    }
+    &__right {
+        &-wallet {
+            padding: 16px 20px;
+            background: #f1f4f7;
+            border-radius: 7px;
+            column-gap: 10px;
+            &-balance {
+                font-weight: 500;
+                font-size: 13px;
+            }
+        }
+        &-user {
+            &-avatar {
+                background: url("./../../../public/img/header/avatar.png") no-repeat center center / cover;
+                width: 60px;
+                height: 60px;
+            }
+            &-info {
+                padding: 0 15px 0 20px;
+                &-name {
+                    font-weight: 700;
+                    font-size: 18px;
+                }
+                &-email {
+                    color: #53596D;
+                    margin-top: 3px;
+                }
+            }
+        }
+        &-exit {
+            padding: 15px;
+            border: 1px solid #d6dcf1;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            &:hover {
+                background-color: #3173b0;
+                border-color: #3173b0;
+            }
+            &:hover &-icon {
+                filter: brightness(1000%);
+            }
+            &-icon {
+                transition: filter 0.2s;
+                display: block;
+            }
+        }
+    }
+}
