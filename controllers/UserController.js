@@ -47,9 +47,9 @@ export const createUser = async (req, res) => {
    }
 };
 
-export const login = async (req, res) => {
+export const log_in = async (req, res) => {
    /*
-      #swagger.tags = ["USER"]
+      #swagger.tags = ["User"]
       #swagger.summary = 'Вход в аккаунт'
    */   
    try {

@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
  router.post('/admin/user/create', registerValidation, handlValidationErrors, UserController.createUser);
 
  //USER
- router.post('/user/auth/login/', loginValidation, handlValidationErrors, UserController.login);
+ router.post('/user/auth/login/', loginValidation, handlValidationErrors, UserController.log_in);
 
  router.get('/user/me', checkAuth, UserController.getMe);
 

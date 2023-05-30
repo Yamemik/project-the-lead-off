@@ -117,9 +117,9 @@
     "/api/user/auth/login/": {
       "post": {
         "tags": [
-          "Admin"
+          "User"
         ],
-        "summary": "Вход в админку",
+        "summary": "Вход в аккаунт",
         "description": "",
         "parameters": [
           {
@@ -142,8 +142,8 @@
           "200": {
             "description": "OK"
           },
-          "400": {
-            "description": "Bad Request"
+          "403": {
+            "description": "Forbidden"
           },
           "500": {
             "description": "Internal Server Error"
