@@ -1,0 +1,13 @@
+.addition {
+    border: 1px solid #cdd5dc;
+    border-radius: 7px;
+    padding: 9px;
+    display: inline-flex;
+    &--cart {
+        background-color: #3173B0;
+        border: none;
+    }
+    &__img {
+        display: block;
+    }
+}

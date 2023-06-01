@@ -1,6 +1,9 @@
+import { useState } from "react";
 import "./Header.scss";
 
 const Header = () => {
+    const [popupOrders, setPopupOrders] = useState(false);
+
     return (
         <header className="header">
             <div className="header__left">
@@ -21,15 +24,32 @@ const Header = () => {
                     <img className="header__center-link-icon" src="/img/header/home.svg" alt="" />
                     <p className="header__center-link-text">Главная</p>
                 </a>
-                <a className="header__center-link" href="#">
+                <a className="header__center-link" href="#" onClick={() => setPopupOrders(!popupOrders)}>
                     <img className="header__center-link-icon" src="/img/header/orders.svg" alt="" />
                     <p className="header__center-link-text">Заявки</p>
-                    <img className="header__center-link-icon" src="/img/header/arrow-down.svg" alt="Заявки (открыть)" />
+                    <img
+                        className="header__center-link-icon"
+                        src="/img/header/arrow-down.svg"
+                        alt="Заявки (открыть)"
+                        style={{
+                            transform: `rotate(${popupOrders ? "-180deg" : "0deg"})`,
+                            transition: "transform .2s",
+                        }}
+                    />
                 </a>
                 <a className="header__center-link" href="#">
                     <img className="header__center-link-icon" src="/img/header/user.svg" alt="" />
                     <p className="header__center-link-text">Личный счёт и информация</p>
                 </a>
+                {popupOrders && (
+                    <div className="header__center-popupOrders">
+                        {["Подходящие", "Активные", "Отказы", "Архив", "Распродажа"].map(page => (
+                            <a href="#" className="header__center-popupOrders-link">
+                                {page}
+                            </a>
+                        ))}
+                    </div>
+                )}
             </nav>
             <div className="header__right">
                 <div className="header__right-wallet">

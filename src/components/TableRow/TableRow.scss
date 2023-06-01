@@ -1,0 +1,49 @@
+.tableRow {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f1f4f7;
+    border-radius: 12px;
+    &__id,
+    &__productGroup,
+    &__nomenclature,
+    &__region,
+    &__price,
+    &__estimation {
+        &-title,
+        &-text {
+            line-height: 135%;
+        }
+        &-title {
+            color: #53596d;
+        }
+        &-text {
+            font-weight: 700;
+        }
+    }
+    &__id {
+        width: 8%;
+    }
+    &__productGroup {
+        width: 17%;
+    }
+    &__nomenclature {
+        width: 17%;
+    }
+    &__region {
+        width: 8%;
+    }
+    &__estimation {
+        width: 8%;
+    }
+    &__price {
+        width: 8%;
+    }
+    &__additions {
+        width: 34%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        column-gap: 5px;
+    }
+}
