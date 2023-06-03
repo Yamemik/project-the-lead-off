@@ -7,7 +7,7 @@ import * as mailer from '../nodemailer/index.js';
 
 export const createUser = async (req, res) => {
    /*
-      #swagger.tags = ["Admin"]
+      #swagger.tags = ["Auth"]
       #swagger.summary = 'Регистрация пользователя'
    */
       const password = generatePassword(12, false);
@@ -24,6 +24,7 @@ export const createUser = async (req, res) => {
          city: req.body.city,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
+         isAdmin: req.body.isAdmin,
          balance: req.body.balance,
          passwordHash: hash
       });
@@ -49,7 +50,7 @@ export const createUser = async (req, res) => {
 
 export const log_in = async (req, res) => {
    /*
-      #swagger.tags = ["User"]
+      #swagger.tags = ["Auth"]
       #swagger.summary = 'Вход в аккаунт'
    */   
    try {
@@ -102,7 +103,7 @@ export const getMe = async(req,res) => {
   try{
       const user = await UserModel.findById(req.userId).catch((err)=>{
          res.status(404).json({
-            message: 'Пользователь не найден'
+            message: 'user not found'
          })
       });
    
@@ -111,42 +112,100 @@ export const getMe = async(req,res) => {
    }catch(err){
       console.log(err);
       res.status(500).json({
-         message: "Нет доступа"
+         message: "no access"
       });
    }
 };
 
 export const getUserByID = async(req,res) => {
    /*
-      #swagger.tags = ["User"]
-      #swagger.summary = 'Получить пользователя по ид, если ид=="", то всех'
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Получить одного пользователя по id или всех'
    */   
    try{
-      let user;
       const userId = req.params.id;
-      if(!userId){
-         user = await UserModel.find().exec().catch((err)=>{
-            res.status(404).json({
-               message: 'Пользователи не найдены'
-            })
-         });
-      }else{
-         user = await UserModel.findById(userId).catch((err)=>{
-            res.status(404).json({
-               message: 'Пользователь не найден'
-            })
-         });
-      }
 
-      //const { passwordHash, ...userData } = user?._doc;
-      res.json(user);
+      const user = await UserModel.findById(userId).catch((err)=>{
+         res.status(404).json({
+            message: 'user not found'
+         })
+      });
+
+      const { passwordHash, ...userData } = user._doc;
+      res.json(userData);        
    }catch(err){
       console.log(err);
       res.status(500).json({
-         message: "Нет доступа"
+         message: "server error"
       });
    }
 };
+
+export const getUsers = async(req,res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Получить всех пользователей'
+   */   
+   try{
+      const users = await UserModel.find().exec().catch((err)=>{
+         res.status(404).json({
+            message: 'users not found'
+         })
+      });
+
+      res.json(users);   
+   }catch(err){
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
+export const remove = async(req,res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'удалить пользователя'
+   */   
+   await UserModel.findByIdAndDelete(req.params.id)
+   .then(()=> res.json({
+      access: true
+   })).catch((err)=>{
+      console.log(err);
+      res.status(404).json({
+         message: "user not found or delete"
+      });
+   });
+}
+
+export const update = async(req,res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'изменить пользователя'
+   */   
+   await UserModel.updateOne({_id:req.params.id},{
+      fio: req.body.fio,
+      email: req.body.email,
+      telephone: req.body.telephone,
+      organization: req.body.organization,
+      country: req.body.country,
+      city: req.body.city,
+      business_line: req.body.business_line,
+      access_to_open: req.body.access_to_open,
+      isAdmin: req.body.isAdmin,
+      balance: req.body.balance,
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "user not found or update"
+         });
+   });
+}
+
+
+
 
 export const resentPassword = async (req, res) => {
    /*

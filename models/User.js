@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
    },
    organization:{
       type: Boolean,
-      require: true
+      require: false
    },
    country:{
       type: String,
@@ -33,6 +33,10 @@ const UserSchema = new mongoose.Schema({
    access_to_open:{
       type: Boolean,
       require: false
+   },
+   isAdmin:{
+      type: Boolean,
+      require: true
    },
    balance:{
       type: Number,

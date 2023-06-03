@@ -4,10 +4,10 @@ import cors from 'cors';
 import fs from 'fs';
 import swaggerUi from 'swagger-ui-express';
 
-import { AdminController,UserController } from './controllers/index.js';
+import { UserController } from './controllers/index.js';
 
 import { registerValidation, loginValidation } from './validations/AdminValidation.js';
-import { checkAuth, handlValidationErrors } from './utils/index.js';
+import { checkAuth, checkAuthIsAdmin, handlValidationErrors } from './utils/index.js';
 
 //connect db
 mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead?retryWrites=true&w=majority')
@@ -25,17 +25,21 @@ app.use("/api", router);
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 app.get('/', (req, res) => {
-    res.send('test');
+    res.send('test of leads');
  });
 
- //ADMIN
- router.post('/admin/auth/login', loginValidation, handlValidationErrors, AdminController.login);
- router.post('/admin/user/create', registerValidation, handlValidationErrors, UserController.createUser);
+//AUTH
+router.post('/auth/reg', checkAuthIsAdmin,registerValidation, handlValidationErrors, UserController.createUser);
+router.post('/auth/log', loginValidation, handlValidationErrors, UserController.log_in);
 
- //USER
- router.post('/user/auth/login/', loginValidation, handlValidationErrors, UserController.log_in);
+//ADMIN
+router.get('/admin/user/:id',checkAuthIsAdmin, UserController.getUserByID);
+router.get('/admin/users',checkAuthIsAdmin, UserController.getUsers);
+router.patch('/admin/user/:id',checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.update);
+router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 
- router.get('/user/me', checkAuth, UserController.getMe);
+//USER
+router.get('/user/me', checkAuth, UserController.getMe);
 
  
 //run server
