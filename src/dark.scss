@@ -1,0 +1,204 @@
+.root--dark {
+    .pagination {
+        &__next, &__prev {
+            background-color: #243140;
+        }
+        &__next {
+            background-image: url("./../public/img/pagination/arrow-left-dark.svg");
+        }
+        &__prev {
+            background-image: url("./../public/img/pagination/arrow-right-dark.svg");
+        }
+        &__page, .break {
+            color: rgba(#fff, .5);
+        }
+        &__active {
+            color: #fff;
+        }
+    }
+    .popupMenuMobile {
+        &__body {
+            background-color: #1F2A37;
+            &-header {
+                &-close {
+                    filter: brightness(1000%);
+                }
+            }
+            &-list {
+                border-top-color: #243140;
+                &-link {
+                    border-bottom-color: #243140;
+                    &-orders {
+                        .popupMenuMobile__body-list-link-orders-order + .popupMenuMobile__body-list-link-orders-order {
+                            border-top-color: #243140;
+                        }
+                        &-order {
+                            color: #fff;
+                        }
+                    }
+                    &-box {
+                        &-icon {
+                            filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                        }
+                        &-text {
+                            color: #fff;
+                        }
+                    }
+                    &-icon {
+                        filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                    }
+                    &-text {
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+    .header {
+        background-color: #1f2a37;
+        &__center {
+            &-link {
+                &-icon {
+                    filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                }
+                &-text {
+                    color: #fff;
+                }
+            }
+            &-popupOrders {
+                background-color: #1f2a37;
+                box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.05), inset 0px 1px 0px #3173b0;
+                .header__center-popupOrders-link + .header__center-popupOrders-link {
+                    border-top-color: #243140;
+                }
+                &-link {
+                    color: #fff;
+                }
+            }
+        }
+        &__right {
+            &-wallet {
+                background-color: #243140;
+                &-icon {
+                    filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                }
+                &-balance {
+                    color: #fff;
+                }
+            }
+            &-user {
+                &-info {
+                    &-name {
+                        color: #fff;
+                    }
+                    &-email {
+                        color: #9da8c8;
+                    }
+                }
+            }
+            &-userMobile {
+                &-arrow {
+                    filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                }
+            }
+            &-exit {
+                border-color: #39415a;
+                &:hover {
+                    background-color: #438bce;
+                    border-color: #438bce;
+                }
+                &-icon {
+                    filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                }
+            }
+        }
+        &__popupUserMobile {
+            background-color: #1f2a37;
+            &-info {
+                &-about {
+                    &-name {
+                        color: #fff;
+                    }
+                    &-email {
+                        color: #9da8c8;
+                    }
+                }
+                &-exit {
+                    border-color: #39415a;
+                    &:hover {
+                        background-color: #438bce;
+                        border-color: #438bce;
+                    }
+                    &-icon {
+                        filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                    }
+                }
+            }
+            &-wallet {
+                background-color: #243140;
+                &-icon {
+                    filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                }
+                &-balance {
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .themeToggler {
+        &__toggler {
+            &-slider {
+                background-color: #438bce;
+            }
+        }
+    }
+    .layoutPage {
+        background-color: #1a232e;
+        &__title {
+            color: #fff;
+        }
+    }
+    .layoutBlocks {
+        background-color: #19212a;
+    }
+    .layoutBlock {
+        background-color: #1f2a37;
+        &__subtitle {
+            color: #fff;
+        }
+    }
+    .tableRow {
+        background-color: #243140;
+        &__id,
+        &__productGroup,
+        &__nomenclature,
+        &__region,
+        &__estimation,
+        &__price {
+            &-title {
+                color: #9da8c8;
+            }
+            &-text {
+                color: #fff;
+            }
+        }
+        &__additions {
+            .addition {
+                border-color: #34506c;
+                &__img {
+                    &:not([src="/img/tableRow/additions/express.svg"]) {
+                        filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                    }
+                }
+            }
+        }
+    }
+    .seeAllButton {
+        &__btn {
+            color: #fff;
+            &:hover {
+                color: #27659e;
+            }
+        }
+    }
+}

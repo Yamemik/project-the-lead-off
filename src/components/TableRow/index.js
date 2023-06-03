@@ -26,12 +26,12 @@ const TableRow = ({ id, productGroup, nomenclature, region, estimation, price, a
             </div>
             <div className="tableRow__price">
                 <h6 className="tableRow__price-title">Стоимость</h6>
-                <p className="tableRow__price-text">{price} руб.</p>
+                <p className="tableRow__price-text" style={{
+                    color: additions.includes("express") ? "#EF5C5C" : "#438BCE"
+                }}>{price} руб.</p>
             </div>
             <div className="tableRow__additions">
-                <Addition name="lock" />
-                <Addition name="clock" />
-                <Addition name="fire" />
+                {additions && additions.map(addition => <Addition name={addition} />)}
             </div>
         </div>
     );

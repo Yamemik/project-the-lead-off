@@ -1,0 +1,38 @@
+.themeToggler {
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    &__toggler {
+        position: relative;
+        display: inline-block;
+        width: 52px;
+        height: 32px;
+        &-checkbox {
+            display: none;
+        }
+        &-checkbox:checked + &-slider::before {
+            transform: translateX(20px);
+        }
+        &-slider {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #3173b0;
+            border-radius: 1000px;
+            cursor: pointer;
+            &::before {
+                position: absolute;
+                content: "";
+                border-radius: 50%;
+                height: 20px;
+                width: 20px;
+                left: 6px;
+                bottom: 6px;
+                background-color: #fff;
+                transition: 0.4s;
+            }
+        }
+    }
+}
