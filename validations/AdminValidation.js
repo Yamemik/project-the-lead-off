@@ -12,8 +12,13 @@ export const registerValidation = [
    body('isAdmin','').isBoolean(),
    body('balance','').isNumeric()
 ]
+
 export const loginValidation = [
    body('login','Введите логин').isLength({ min: 3 }),
    body('password','Введите пароль').isLength({ min: 6 })
 ]
 
+export const createRegionValidation = [
+   body('country','Введите страну').isLength({ min: 3 }),
+   body('city','Введите город').isLength({ min: 3 })
+]

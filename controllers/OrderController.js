@@ -1,21 +1,13 @@
-import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
-import generatePassword from 'password-generator';
+import OrderModel from '../models/Order.js';
 
-import UserModel from '../models/User.js';
-import * as mailer from '../nodemailer/index.js';
-
-export const createUser = async (req, res) => {
+export const createOrder = async (req, res) => {
    /*
       #swagger.tags = ["Auth"]
       #swagger.summary = 'Регистрация пользователя'
    */
-      const password = generatePassword(12, false);
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(password, salt);
 
    try{
-      const doc = new UserModel({
+      const doc = new OrderModel({
          fio: req.body.fio,
          email: req.body.email,
          telephone: req.body.telephone,
@@ -204,63 +196,21 @@ export const update = async(req,res) => {
    });
 }
 
-
-
-
-export const resentPassword = async (req, res) => {
+export const cpUpload = async (req, res) => {
    /*
-      #swagger.tags = ["Auth"]
-      #swagger.summary = 'Восстановление пароля'
+      #swagger.tags = ["Order"]
+      #swagger.summary = 'Загрузка файла'
    */
-   try {
-      const email = req.body.email;
-      const doc = await UserModel.findOne({ "email": email });
-
-      if(!doc){
-         return res.status(501).json({
-            message: 'email is not find'
-         });
-      }
-
-      //send email{
-      try{
-         dotenv.config({ path: './nodemailer/.env' });
-         const transporter = nodemailer.createTransport({
-            host: 'smtp.mail.ru',
-            port: 465,
-            secure: true,
-            auth: {
-               user: 'kuancarlos@mail.ru',
-               pass: 'crAxVSVTC3Kyktx6SVgA'
-            }
-         });
- 
-         const domen = req.get('host');
-         let htmlWithID = process.env.RESENTPASSLETTER.replaceAll('#domen#',domen);
-         htmlWithID = htmlWithID.replaceAll('userID',doc._id);
-         let result = await transporter.sendMail({
-            from: `"I am copyrighter!" <kuancarlos@mail.ru>`,
-            to: email,
-            subject: 'Восстановление пароля',
-            html: htmlWithID
-         });
-      }catch(err){
-         console.log(err);
-         return res.status(505).json({
-            message: "Не удалось отправить сообщение"
-         })
-      }
-      //}send email
-
-      const { passwordHash, ...userData } = doc._doc;
-
-      res.json({
-         ...userData
-      });
-   } catch (err) {
+   res.json({
+      url: `/uploads/${req.file.originalname}`
+   }).then(()=> res.json({
+      access: true
+   })).catch((err)=>{
       console.log(err);
-      res.status(500).json({
-         message: "Не удалось восстановить пароль"
-      })
-   }
-};
+      res.status(404).json({
+         message: "failed to upload"
+      });
+   });
+
+   
+}

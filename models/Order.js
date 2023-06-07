@@ -1,47 +1,75 @@
 import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({  
-   fio:{
+   productGroup:{
       type: String,
       required: true
    },
-   email:{
+   nomenclature:{
       type: String,
       required: true,
       unique: true      
    },
-   passwordHash:{
+   region:{
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'Region',
+      required: true
+   },
+   text:{
+      type: String,      
+      require: false
+   },
+   upload:{
       type: String,
       require: false
    },
-   rate:{
-      type: Array,      
+   email:{
+      type: String,
+      require: false
+   },
+   telephone:{
+      type: Array,
+      require: false
+   },
+   fio:{
+      type: String,
+      require: false
+   },
+   score:{
+      type: String,
+      require: false
+   },
+   typeBuyer:{
+      type: Boolean,
+      require: false
+   },
+   isTender:{
+      type: Boolean,
+      require: false
+   },
+   isImmediate:{
+      type: Boolean,
+      require: false
+   },
+   isOpen:{
+      type: Boolean,
+      require: false
+   },
+   price:{
+      type: Number,
+      require: false
+   },
+   isArchive:{
+      type: Boolean,
       require: true
    },
-   role:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Role',
-      required: false
+   isDiscount:{
+      type: Boolean,
+      require: true
    },
-   country:{
-      type: String,
-      require: false
-   },
-   city:{
-      type: String,
-      require: false
-   },
-   dateBirth:{
-      type: String,
-      require: false
-   },
-   gender:{
-      type: String,
-      require: false
-   },
-   mobile:{
-      type: String,
-      require: false
+   isCancel:{
+      type: Boolean,
+      require: true
    }
 
 
