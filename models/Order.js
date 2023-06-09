@@ -11,8 +11,7 @@ const OrderSchema = new mongoose.Schema({
       unique: true      
    },
    region:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Region',
+      type: Array,
       required: true
    },
    text:{

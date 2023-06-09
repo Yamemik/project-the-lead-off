@@ -1,7 +1,7 @@
 import RegionModel from '../models/Region.js';
 
 
-export const createRegion = async (req, res) => {
+export const create = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание региона'
@@ -24,7 +24,7 @@ export const createRegion = async (req, res) => {
     }
  };
  
- export const getRegions = async(req,res) => {
+ export const getAll = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить все регионы'
@@ -45,7 +45,7 @@ export const createRegion = async (req, res) => {
     }
  }
  
- export const getOneRegion = async(req,res) => {
+ export const getOne = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить один регион'
@@ -67,4 +67,54 @@ export const createRegion = async (req, res) => {
        });
     }
  };
- 
+
+ export const update = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'Поменять коэффициент'
+   */   
+   await RegionModel.updateOne({_id:req.params.id},{
+      country: req.body.country,
+      city: req.body.city
+}).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "region not found or update"
+         });
+   });
+}
+
+export const remove = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'удалить регион'
+   */   
+   await RegionModel.findByIdAndDelete(req.params.id)
+   .then(()=> res.json({
+      access: true
+   })).catch((err)=>{
+      console.log(err);
+      res.status(404).json({
+         message: "region not found or delete"
+      });
+   });
+}
+
+ export const updateIndex = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'Поменять коэффициент'
+   */   
+   await RegionModel.updateOne({_id:req.params.id},{
+      index: req.body.index,
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "region not found or update"
+         });
+   });
+}

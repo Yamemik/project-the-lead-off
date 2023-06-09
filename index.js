@@ -5,7 +5,7 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, SettingController } from './controllers/index.js';
+import { UserController, OrderController, RegionController } from './controllers/index.js';
 
 import { registerValidation, loginValidation,createRegionValidation } from './validations/AdminValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors } from './utils/index.js';
@@ -52,10 +52,15 @@ router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
 
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
-//settings
-router.post('/admin/settings/region',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, SettingController.createRegion);
-router.get('/admin/settings/region/:id',checkAuthIsAdmin, SettingController.getOneRegion);
-router.get('/admin/settings/region',checkAuthIsAdmin, SettingController.getRegions);
+
+//SETTINGS
+//region
+router.post('/admin/settings/region',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.create);
+router.get('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.getOne);
+router.get('/admin/settings/region',checkAuthIsAdmin, RegionController.getAll);
+router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.update);
+router.delete('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.remove);
+//router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateIndex);
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
