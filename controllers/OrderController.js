@@ -2,150 +2,78 @@ import OrderModel from '../models/Order.js';
 
 export const createOrder = async (req, res) => {
    /*
-      #swagger.tags = ["Auth"]
-      #swagger.summary = 'Регистрация пользователя'
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Создание заявки'
    */
 
    try{
       const doc = new OrderModel({
-         fio: req.body.fio,
+         productGroup: req.body.productGroup,
+         nomenclature: req.body.nomenclature,
+         region: req.body.region,
+         text: req.body.text,
+         upload: req.body.upload,
          email: req.body.email,
          telephone: req.body.telephone,
-         organization: req.body.organization,
-         country: req.body.country,
-         city: req.body.city,
-         business_line: req.body.business_line,
-         access_to_open: req.body.access_to_open,
-         isAdmin: req.body.isAdmin,
-         balance: req.body.balance,
-         passwordHash: hash
+         fio: req.body.fio,
+         score: req.body.score,
+         typeBuyer: req.body.typeBuyer,
+         isTender: req.body.isTender,
+         isImmediate: req.body.isImmediate,
+         isOpen: req.body.isOpen,
+         price: req.body.price,
+         isArchive: false,
+         isDiscount: false,
+         isCancel: false
       });
 
-      const user = await doc.save();
+      const order = await doc.save();
 
-      const domen = req.get('host');
-      mailer.sendToUser(user._id,user.email,password,domen)
-         .catch((err) => console.log('mail ERROR:', err));
-
-      const { passwordHash, ...userData } = user._doc;
-
-      res.json({
-         ...userData
-      });
+      res.json(order);
    } catch (err) {
       console.log(err);
       res.status(500).json({
-         message: "Failed to register"
-      })
-   }
-};
-
-export const log_in = async (req, res) => {
-   /*
-      #swagger.tags = ["Auth"]
-      #swagger.summary = 'Вход в аккаунт'
-   */   
-   try {
-      const user = await UserModel.findOne({ email: req.body.login });
-
-      if (!user) {
-         return res.status(403).json({
-            message: 'invalid username or password'
-         });
-      }
-
-      const isValidPass = await bcrypt.compare(req.body.password, user._doc.passwordHash);
-
-      if (!isValidPass) {
-         return res.status(403).json({
-            message: 'invalid username or password'
-         });
-      }
-
-      const token = jwt.sign(
-         {
-            _id: user._id,
-         },
-         'leads_user',
-         {
-            expiresIn: '7d',
-         }
-      );
-
-      const { passwordHash, ...userData } = user._doc;
-
-      res.json({
-         ...userData,
-         token
-      })
-
-   } catch (err) {
-      console.log(err);
-      res.status(500).json({
-         message: "failed to log in"
+         message: "Failed to created"
       });
    }
-};
+}
 
-export const getMe = async(req,res) => {
+export const getOne = async(req,res) => {
    /*
       #swagger.tags = ["User"]
-      #swagger.summary = 'Получить текущего пользователя'
-   */   
-  try{
-      const user = await UserModel.findById(req.userId).catch((err)=>{
-         res.status(404).json({
-            message: 'user not found'
-         })
-      });
-   
-      const { passwordHash, ...userData } = user._doc;
-      res.json(userData);
-   }catch(err){
-      console.log(err);
-      res.status(500).json({
-         message: "no access"
-      });
-   }
-};
-
-export const getUserByID = async(req,res) => {
-   /*
-      #swagger.tags = ["Admin"]
-      #swagger.summary = 'Получить одного пользователя по id или всех'
+      #swagger.summary = 'Получить одну заявку
    */   
    try{
-      const userId = req.params.id;
+      const orderId = req.params.id;
 
-      const user = await UserModel.findById(userId).catch((err)=>{
+      const order = await OrderModel.findById(orderId).catch((err)=>{
          res.status(404).json({
-            message: 'user not found'
+            message: 'order not found'
          })
       });
 
-      const { passwordHash, ...userData } = user._doc;
-      res.json(userData);        
+      res.json(order);        
    }catch(err){
       console.log(err);
       res.status(500).json({
          message: "server error"
       });
    }
-};
+}
 
-export const getUsers = async(req,res) => {
+export const getAll = async(req,res) => {
    /*
-      #swagger.tags = ["Admin"]
-      #swagger.summary = 'Получить всех пользователей'
+      #swagger.tags = ["User"]
+      #swagger.summary = 'Получить все заявки'
    */   
    try{
-      const users = await UserModel.find().exec().catch((err)=>{
+      const orders = await OrderModel.find().exec().catch((err)=>{
          res.status(404).json({
-            message: 'users not found'
+            message: 'orders not found'
          })
       });
 
-      res.json(users);   
+      res.json(orders);   
    }catch(err){
       console.log(err);
       res.status(500).json({
@@ -210,7 +138,74 @@ export const cpUpload = async (req, res) => {
       res.status(404).json({
          message: "failed to upload"
       });
-   });
+   });   
+}
 
-   
+export const setIsArchive = async(req,res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'установить заявке архив'
+   */   
+   await OrderModel.updateOne({_id:req.params.id},{
+      isArchive: true,
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or update"
+         });
+   });
+}
+
+export const setIsDiscount = async(req,res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'установить заявке распродажа'
+   */   
+   await OrderModel.updateOne({_id:req.params.id},{
+      isDiscount: true,
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or update"
+         });
+   });
+}
+
+export const sendCancel = async(req,res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'отправить заявку на отмену'
+   */   
+   await OrderModel.updateOne({_id:req.params.id},{
+      isCanceled: true,
+      isCanceledText: req.body.isCanceledText
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or update"
+         });
+   });
+}
+
+export const setIsCancel = async(req,res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'одобрить или отказать отмене'
+   */   
+   await OrderModel.updateOne({_id:req.params.id},{
+      isCancel: true
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or update"
+         });
+   });
 }

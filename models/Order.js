@@ -66,13 +66,18 @@ const OrderSchema = new mongoose.Schema({
       type: Boolean,
       require: true
    },
+   isCanceled:{
+      type: Boolean,
+      require: false
+   },
+   isCanceledText:{
+      type: String,
+      require: false
+   },
    isCancel:{
       type: Boolean,
-      require: true
+      require: false
    }
-
-
-
 },{
    timestamps: true,
 });
