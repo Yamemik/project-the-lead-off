@@ -1,29 +1,24 @@
 import TypeBuyerModel from '../models/TypeBuyer.js';
 
 
-export const create = async (req, res) => {
-    /*
-       #swagger.tags = ["Settings"]
-       #swagger.summary = 'Создание типa организации'
-    */
-    try{
-       const doc = new TypeBuyerModel({
-         name: req.body.name,
-         index: 1
-       });
+export const updateIndexTB = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'Изменить индекс у типа покупателя'
+   */   
+   await TypeBuyerModel.updateOne({_id:req.params.id},{
+      index: req.body.index
+}).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "not found or update"
+         });
+   });
+}
  
-       const entity = await doc.save();
- 
-       res.json(entity);   
-    } catch (err) {
-       console.log(err);
-       res.status(500).json({
-          message: "Failed to create"
-       })
-    }
- };
- 
- export const getAll = async(req,res) => {
+ export const getAllTB = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить все типы организации'
@@ -44,7 +39,7 @@ export const create = async (req, res) => {
     }
  }
  
- export const getOne = async(req,res) => {
+ export const getOneTB = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить одну категорию'
@@ -67,10 +62,36 @@ export const create = async (req, res) => {
     }
  };
 
- export const update = async(req,res) => {
+ //скрытые запросы//
+
+ export const createTB = async (req, res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'Создание типa организации'
+      #swagger.deprecated = true
+   */
+   try{
+      const doc = new TypeBuyerModel({
+        name: req.body.name,
+        index: 1
+      });
+
+      const entity = await doc.save();
+
+      res.json(entity);   
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed to create"
+      })
+   }
+};
+
+ export const updateTB = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить категорию'
+      #swagger.deprecated = true
    */   
    await TypeBuyerModel.updateOne({_id:req.params.id},{
       group: req.body.group,
@@ -85,10 +106,11 @@ export const create = async (req, res) => {
    });
 }
 
-export const remove = async(req,res) => {
+export const removeTB = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категорию'
+      #swagger.deprecated = true
    */   
    await TypeBuyerModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({

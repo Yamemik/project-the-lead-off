@@ -7,7 +7,7 @@ const _dirname = dirname(fileURLToPath(import.meta.url))
 
 const doc = {
     info: {
-      title: 'Проект по лидам',
+      title: 'Проект lead-off',
       description: '',
     },
     host: 'project-the-leads.onrender.com',

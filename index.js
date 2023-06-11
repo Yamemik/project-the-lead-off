@@ -5,9 +5,10 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, TypeBuyerController } from './controllers/index.js';
 
-import { registerValidation, loginValidation,createRegionValidation, createCaregoryValidation } from './validations/AdminValidation.js';
+import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
+import { createCaregoryValidation, createRegionValidation, createTBValidation } from './validations/SettingsValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -37,7 +38,7 @@ app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 app.get('/', (req, res) => {
-    res.send('test of leads');
+    res.send('test of lead-off');
  });
 
 //AUTH
@@ -68,6 +69,11 @@ router.get('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.g
 router.get('/admin/settings/category',checkAuthIsAdmin, CategoryController.getAll);
 router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, CategoryController.update);
 router.delete('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.remove);
+//type buyer
+router.post('/admin/settings/typebuyer',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, TypeBuyerController.createTB);
+router.get('/admin/settings/typebuyer/:id',checkAuthIsAdmin, TypeBuyerController.getOneTB);
+router.get('/admin/settings/typebuyer',checkAuthIsAdmin, TypeBuyerController.getAllTB);
+router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, createTBValidation, handlValidationErrors, TypeBuyerController.updateIndexTB);
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
