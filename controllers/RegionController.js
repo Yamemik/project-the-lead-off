@@ -1,7 +1,7 @@
 import RegionModel from '../models/Region.js';
 
 
-export const create = async (req, res) => {
+export const createRg = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание региона'
@@ -24,7 +24,7 @@ export const create = async (req, res) => {
     }
  };
  
- export const getAll = async(req,res) => {
+ export const getAllRg = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить все регионы'
@@ -45,7 +45,7 @@ export const create = async (req, res) => {
     }
  }
  
- export const getOne = async(req,res) => {
+ export const getOneRg = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить один регион'
@@ -68,15 +68,15 @@ export const create = async (req, res) => {
     }
  };
 
- export const update = async(req,res) => {
+ export const updateRg = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Поменять коэффициент'
+      #swagger.summary = 'Изменить регион'
    */   
    await RegionModel.updateOne({_id:req.params.id},{
       country: req.body.country,
       city: req.body.city
-}).then(()=> res.json({
+   }).then(()=> res.json({
          access: true
    })).catch((err)=>{
          console.log(err);
@@ -86,7 +86,7 @@ export const create = async (req, res) => {
    });
 }
 
-export const remove = async(req,res) => {
+export const removeRg = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить регион'
@@ -102,7 +102,7 @@ export const remove = async(req,res) => {
    });
 }
 
- export const updateIndex = async(req,res) => {
+ export const updateIndexRg = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Поменять коэффициент'

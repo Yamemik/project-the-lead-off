@@ -1,12 +1,12 @@
-import TypeBuyerModel from '../models/TypeBuyer.js';
+import ScoreModel from '../models/Score.js';
 
 
-export const updateIndexTB = async(req,res) => {
+export const updateIndexSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить индекс у типа покупателя'
+      #swagger.summary = 'Изменить индекс у оценки'
    */   
-   await TypeBuyerModel.updateOne({_id:req.params.id},{
+   await ScoreModel.updateOne({_id:req.params.id},{
       index: req.body.index
 }).then(()=> res.json({
          access: true
@@ -18,13 +18,13 @@ export const updateIndexTB = async(req,res) => {
    });
 }
  
- export const getAllTB = async(req,res) => {
+ export const getAllSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить все типы организации'
+       #swagger.summary = 'Получить все оценки'
     */   
     try{
-       const entity = await TypeBuyerModel.find().exec().catch((err)=>{
+       const entity = await ScoreModel.find().exec().catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -39,15 +39,15 @@ export const updateIndexTB = async(req,res) => {
     }
  }
  
- export const getOneTB = async(req,res) => {
+ export const getOneSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить один тип орг'
+       #swagger.summary = 'Получить оценку'
     */   
     try{
        const entityId = req.params.id;
  
-       const entity = await TypeBuyerModel.findById(entityId).catch((err)=>{
+       const entity = await ScoreModel.findById(entityId).catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -64,14 +64,14 @@ export const updateIndexTB = async(req,res) => {
 
  //скрытые запросы//
 
- export const createTB = async (req, res) => {
+ export const createSc = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Создание типa организации'
+      #swagger.summary = 'Создание оценки'
       #swagger.deprecated = true
    */
    try{
-      const doc = new TypeBuyerModel({
+      const doc = new ScoreModel({
         name: req.body.name,
         index: 1
       });
@@ -87,13 +87,13 @@ export const updateIndexTB = async(req,res) => {
    }
 };
 
- export const updateTB = async(req,res) => {
+ export const updateSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить тип орг'
+      #swagger.summary = 'Изменить оценку'
       #swagger.deprecated = true
    */   
-   await TypeBuyerModel.updateOne({_id:req.params.id},{
+   await ScoreModel.updateOne({_id:req.params.id},{
       name: req.body.name
 }).then(()=> res.json({
          access: true
@@ -105,13 +105,13 @@ export const updateIndexTB = async(req,res) => {
    });
 }
 
-export const removeTB = async(req,res) => {
+export const removeSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить тип орг'
+      #swagger.summary = 'удалить оценку'
       #swagger.deprecated = true
    */   
-   await TypeBuyerModel.findByIdAndDelete(req.params.id)
+   await ScoreModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
       access: true
    })).catch((err)=>{

@@ -374,9 +374,9 @@
       },
       "get": {
         "tags": [
-          "User"
+          "Settings"
         ],
-        "summary": "Получить все заявки",
+        "summary": "Получить все регионы",
         "description": "",
         "parameters": [],
         "responses": {
@@ -395,9 +395,9 @@
     "/api/admin/settings/region/{id}": {
       "get": {
         "tags": [
-          "User"
+          "Settings"
         ],
-        "summary": "Получить одну заявку",
+        "summary": "Получить один регион",
         "description": "",
         "parameters": [
           {
@@ -407,13 +407,23 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
       "patch": {
         "tags": [
-          "Admin"
+          "Settings"
         ],
-        "summary": "изменить пользователя",
+        "summary": "Поменять коэффициент",
         "description": "",
         "parameters": [
           {
@@ -428,34 +438,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "fio": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "organization": {
-                  "example": "any"
-                },
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "business_line": {
-                  "example": "any"
-                },
-                "access_to_open": {
-                  "example": "any"
-                },
-                "isAdmin": {
-                  "example": "any"
-                },
-                "balance": {
+                "index": {
                   "example": "any"
                 }
               }
@@ -473,9 +456,9 @@
       },
       "delete": {
         "tags": [
-          "Admin"
+          "Settings"
         ],
-        "summary": "удалить пользователя",
+        "summary": "удалить регион",
         "description": "",
         "parameters": [
           {
@@ -500,7 +483,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Создание региона",
+        "summary": "Создание категории",
         "description": "",
         "parameters": [
           {
@@ -509,10 +492,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "country": {
+                "group": {
                   "example": "any"
                 },
-                "city": {
+                "name": {
                   "example": "any"
                 }
               }
@@ -530,9 +513,9 @@
       },
       "get": {
         "tags": [
-          "User"
+          "Settings"
         ],
-        "summary": "Получить все заявки",
+        "summary": "Получить все категории",
         "description": "",
         "parameters": [],
         "responses": {
@@ -551,9 +534,9 @@
     "/api/admin/settings/category/{id}": {
       "get": {
         "tags": [
-          "User"
+          "Settings"
         ],
-        "summary": "Получить одну заявку",
+        "summary": "Получить одну категорию",
         "description": "",
         "parameters": [
           {
@@ -563,13 +546,23 @@
             "type": "string"
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       },
       "patch": {
         "tags": [
-          "Admin"
+          "Settings"
         ],
-        "summary": "изменить пользователя",
+        "summary": "Изменить категорию",
         "description": "",
         "parameters": [
           {
@@ -584,34 +577,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "fio": {
+                "group": {
                   "example": "any"
                 },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "organization": {
-                  "example": "any"
-                },
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "business_line": {
-                  "example": "any"
-                },
-                "access_to_open": {
-                  "example": "any"
-                },
-                "isAdmin": {
-                  "example": "any"
-                },
-                "balance": {
+                "name": {
                   "example": "any"
                 }
               }
@@ -629,9 +598,9 @@
       },
       "delete": {
         "tags": [
-          "Admin"
+          "Settings"
         ],
-        "summary": "удалить пользователя",
+        "summary": "удалить категорию",
         "description": "",
         "parameters": [
           {
@@ -707,7 +676,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Получить одну категорию",
+        "summary": "Получить один тип орг",
         "description": "",
         "parameters": [
           {
@@ -734,6 +703,234 @@
           "Settings"
         ],
         "summary": "Изменить индекс у типа покупателя",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/isimmediate": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Создание типa срочности",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "deprecated": true
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить все типы срочности",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/isimmediate/{id}": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить один тип срочности",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить индекс у срочности",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/score": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Создание оценки",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "deprecated": true
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить все оценки",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/score/{id}": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить оценку",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить индекс у оценки",
         "description": "",
         "parameters": [
           {

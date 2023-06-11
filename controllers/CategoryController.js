@@ -1,7 +1,7 @@
 import CategoryModel from '../models/Category.js';
 
 
-export const create = async (req, res) => {
+export const createCt = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание категории'
@@ -23,7 +23,7 @@ export const create = async (req, res) => {
     }
  };
  
- export const getAll = async(req,res) => {
+ export const getAllCt = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить все категории'
@@ -44,7 +44,7 @@ export const create = async (req, res) => {
     }
  }
  
- export const getOne = async(req,res) => {
+ export const getOneCt = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить одну категорию'
@@ -67,7 +67,7 @@ export const create = async (req, res) => {
     }
  };
 
- export const update = async(req,res) => {
+ export const updateCt = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить категорию'
@@ -85,7 +85,7 @@ export const create = async (req, res) => {
    });
 }
 
-export const remove = async(req,res) => {
+export const removeCt = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категорию'
