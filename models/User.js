@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const UserSchema = new mongoose.Schema({  
    fio:{
       type: String,
-      required: false
+      required: true
    },
    email:{
       type: String,
@@ -12,11 +12,11 @@ const UserSchema = new mongoose.Schema({
    },
    telephone:{
       type: Array,      
-      require: false
+      require: true
    },
    organization:{
       type: Boolean,
-      require: false
+      require: true
    },
    country:{
       type: String,

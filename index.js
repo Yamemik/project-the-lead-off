@@ -5,10 +5,11 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, TypeBuyerController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, TypeBuyerController,
+   IsImmediateController, } from './controllers/index.js';
 
 import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
-import { createCaregoryValidation, createRegionValidation, createTBValidation } from './validations/SettingsValidation.js';
+import { createCaregoryValidation, createRegionValidation, createValidationName, updateIndexValidation } from './validations/SettingsValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -70,10 +71,18 @@ router.get('/admin/settings/category',checkAuthIsAdmin, CategoryController.getAl
 router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, CategoryController.update);
 router.delete('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.remove);
 //type buyer
-router.post('/admin/settings/typebuyer',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, TypeBuyerController.createTB);
+router.post('/admin/settings/typebuyer',checkAuthIsAdmin, createValidationName, handlValidationErrors, TypeBuyerController.createTB);
 router.get('/admin/settings/typebuyer/:id',checkAuthIsAdmin, TypeBuyerController.getOneTB);
 router.get('/admin/settings/typebuyer',checkAuthIsAdmin, TypeBuyerController.getAllTB);
-router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, createTBValidation, handlValidationErrors, TypeBuyerController.updateIndexTB);
+router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeBuyerController.updateIndexTB);
+//is immediate
+router.post('/admin/settings/isimmediate',checkAuthIsAdmin, createValidationName, handlValidationErrors, IsImmediateController.createII);
+router.get('/admin/settings/isimmediate/:id',checkAuthIsAdmin, IsImmediateController.getOneII);
+router.get('/admin/settings/isimmediate',checkAuthIsAdmin, IsImmediateController.getAllII);
+router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, IsImmediateController.updateIndexII);
+
+
+
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);

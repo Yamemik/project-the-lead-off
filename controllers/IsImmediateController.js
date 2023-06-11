@@ -1,12 +1,12 @@
-import TypeBuyerModel from '../models/TypeBuyer.js';
+import IsImmediate from '../models/IsImmediate.js';
 
 
-export const updateIndexTB = async(req,res) => {
+export const updateIndexII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить индекс у типа покупателя'
+      #swagger.summary = 'Изменить индекс у срочности'
    */   
-   await TypeBuyerModel.updateOne({_id:req.params.id},{
+   await IsImmediate.updateOne({_id:req.params.id},{
       index: req.body.index
 }).then(()=> res.json({
          access: true
@@ -18,13 +18,13 @@ export const updateIndexTB = async(req,res) => {
    });
 }
  
- export const getAllTB = async(req,res) => {
+ export const getAllII = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить все типы организации'
+       #swagger.summary = 'Получить все типы срочности'
     */   
     try{
-       const entity = await TypeBuyerModel.find().exec().catch((err)=>{
+       const entity = await IsImmediate.find().exec().catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -39,15 +39,15 @@ export const updateIndexTB = async(req,res) => {
     }
  }
  
- export const getOneTB = async(req,res) => {
+ export const getOneII = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить один тип орг'
+       #swagger.summary = 'Получить один тип срочности'
     */   
     try{
-       const categoryId = req.params.id;
+       const entityId = req.params.id;
  
-       const entity = await TypeBuyerModel.findById(categoryId).catch((err)=>{
+       const entity = await IsImmediate.findById(entityId).catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -64,14 +64,14 @@ export const updateIndexTB = async(req,res) => {
 
  //скрытые запросы//
 
- export const createTB = async (req, res) => {
+ export const createII = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Создание типa организации'
+      #swagger.summary = 'Создание типa срочности'
       #swagger.deprecated = true
    */
    try{
-      const doc = new TypeBuyerModel({
+      const doc = new IsImmediate({
         name: req.body.name,
         index: 1
       });
@@ -87,13 +87,13 @@ export const updateIndexTB = async(req,res) => {
    }
 };
 
- export const updateTB = async(req,res) => {
+ export const updateII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить тип орг'
+      #swagger.summary = 'Изменить тип срочности'
       #swagger.deprecated = true
    */   
-   await TypeBuyerModel.updateOne({_id:req.params.id},{
+   await IsImmediate.updateOne({_id:req.params.id},{
       name: req.body.name
 }).then(()=> res.json({
          access: true
@@ -105,13 +105,13 @@ export const updateIndexTB = async(req,res) => {
    });
 }
 
-export const removeTB = async(req,res) => {
+export const removeII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить тип орг'
+      #swagger.summary = 'удалить тип срочности'
       #swagger.deprecated = true
    */   
-   await TypeBuyerModel.findByIdAndDelete(req.params.id)
+   await IsImmediate.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
       access: true
    })).catch((err)=>{

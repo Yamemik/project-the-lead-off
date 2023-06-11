@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 const ScoreSchema = new mongoose.Schema({  
    name:{
       type: String,
-      require: false
+      require: true
    },
    index:{
       type: Number,

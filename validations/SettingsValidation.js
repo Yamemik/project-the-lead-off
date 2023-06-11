@@ -11,13 +11,13 @@ export const createRegionValidation = [
     body('name','Введите название').isLength({ min: 3 })
  ]
 
- export const createTBValidation = [
-    body('name','Введите родителя').isLength({ min: 3 })
+ export const createValidationName = [
+    body('name','Введите название').isLength({ min: 2 })
  ]
 
 
 
- 
+
  export const updateIndexValidation = [
     body('index','Введите индекс').isNumeric().isLength({ min: 1 })
  ]
