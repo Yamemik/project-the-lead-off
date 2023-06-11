@@ -4,7 +4,7 @@ import TypeOrderModel from '../models/TypeOrder.js';
 export const updateIndexTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить индекс у оценки'
+      #swagger.summary = 'Изменить индекс у типа завяки'
    */   
    await TypeOrderModel.updateOne({_id:req.params.id},{
       index: req.body.index
@@ -21,7 +21,7 @@ export const updateIndexTO = async(req,res) => {
  export const getAllTO = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить все оценки'
+       #swagger.summary = 'Получить все типы заявок'
     */   
     try{
        const entity = await TypeOrderModel.find().exec().catch((err)=>{
@@ -42,7 +42,7 @@ export const updateIndexTO = async(req,res) => {
  export const getOneTO = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить оценку'
+       #swagger.summary = 'Получить тип заявки'
     */   
     try{
        const entityId = req.params.id;
@@ -67,7 +67,7 @@ export const updateIndexTO = async(req,res) => {
  export const createTO = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Создание оценки'
+      #swagger.summary = 'Создание типа заявки'
       #swagger.deprecated = true
    */
    try{
@@ -90,7 +90,7 @@ export const updateIndexTO = async(req,res) => {
  export const updateTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить оценку'
+      #swagger.summary = 'Изменить тип заявки'
       #swagger.deprecated = true
    */   
    await TypeOrderModel.updateOne({_id:req.params.id},{
@@ -108,7 +108,7 @@ export const updateIndexTO = async(req,res) => {
 export const removeTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить оценку'
+      #swagger.summary = 'удалить тип заявки'
       #swagger.deprecated = true
    */   
    await TypeOrderModel.findByIdAndDelete(req.params.id)

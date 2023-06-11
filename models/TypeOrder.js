@@ -1,6 +1,6 @@
 import mongoose, { Schema } from 'mongoose';
 
-const ScoreSchema = new mongoose.Schema({  
+const TypeOrderSchema = new mongoose.Schema({  
    name:{
       type: String,
       require: true
@@ -13,4 +13,4 @@ const ScoreSchema = new mongoose.Schema({
    timestamps: true,
 });
 
-export default mongoose.model("Score",ScoreSchema);
+export default mongoose.model("TypeOrder",TypeOrderSchema);
