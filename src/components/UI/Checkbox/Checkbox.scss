@@ -1,0 +1,42 @@
+.checkbox {
+    display: flex;
+    &__input {
+        &:checked,
+        &:not(:checked) {
+            position: absolute;
+            left: -9999px;
+            & + label {
+                display: inline-block;
+                position: relative;
+                padding-left: 30px;
+                line-height: 19px;
+                cursor: pointer;
+                &::after, &::before {
+                    position: absolute;
+                    content: "";
+                }
+                &::before {
+                    left: 0px;
+                    top: 0px;
+                    width: 20px;
+                    height: 20px;
+                    background-color: rgba(49, 115, 176, 0.1);
+                    border-radius: 5px;
+                }
+                &::after {
+                    left: 6px;
+                    bottom: 7px;
+                    width: 15px;
+                    height: 15px;
+                    background-image: url("./../../../../public/img/filters/checkmark.svg");
+                }
+            }
+        }
+        &:not(:checked) + label:after {
+            opacity: 0;
+        }
+        &:checked + label:after {
+            opacity: 1;
+        }
+    }
+}

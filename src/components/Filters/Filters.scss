@@ -1,0 +1,53 @@
+.filters {
+    display: flex;
+    justify-content: space-between;
+    &__filter {
+        display: flex;
+        flex-direction: column;
+        row-gap: 10px;
+        &-add {
+            &-wrapper {
+                display: inline-flex;
+                align-items: center;
+                column-gap: 5px;
+                cursor: pointer;
+                &:hover {
+                    opacity: .75;
+                }
+                &-text {
+                    color: #3173b0;
+                }
+            }
+        }
+        &-price {
+            &-box {
+                display: flex;
+                column-gap: 5px;
+                max-width: 300px;
+            }
+        }
+    }
+}
+
+@media(max-width: 1800px) {
+    .filters {
+        .dropdown {
+            min-width: 200px;
+        }
+    }
+}
+
+@media(max-width: 1600px) {
+    .filters {
+        flex-wrap: wrap;
+        gap: 30px 30px;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        row-gap: 20px;
+    }
+}

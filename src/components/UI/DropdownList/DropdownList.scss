@@ -1,0 +1,35 @@
+.dropdown {
+    display: flex;
+    align-items: center;
+    padding: 18px 30px;
+    justify-content: space-between;
+    border: 1px solid #D6DCF1;
+    border-radius: 7px;
+    min-width: 300px;
+    cursor: pointer;
+    max-height: 52px;
+    position: relative;
+    &__text {
+        color: #53596D;
+    }
+    &__list {
+        z-index: 999;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        transform: translateY(calc(100% + 2px));
+        background: #F1F4F7;
+        border-radius: 7px;
+        &-item {
+            color: #53596D;
+            padding: 16px 30px;
+            &:hover {
+                opacity: .75;
+            }
+            & + & {
+                border-top: 1px solid #fff;
+            }
+        }
+    }
+}

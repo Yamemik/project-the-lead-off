@@ -7,6 +7,35 @@
         font-weight: 700;
         font-size: 20px;
         margin-bottom: 20px;
+        &--wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        &--showMobileFilters {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            column-gap: 10px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            &:hover {
+                opacity: .75;
+            }
+            &-text {
+                color: #3173b0;
+                position: relative;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    right: 0;
+                    left: 0;
+                    height: 1px;
+                    background-color: #3173B0;
+                    bottom: -3px;
+                }
+            }
+        }
     }
 }
 

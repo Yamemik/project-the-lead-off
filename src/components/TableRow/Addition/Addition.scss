@@ -6,6 +6,20 @@
     &--cart {
         background-color: #3173B0;
         border: none;
+        cursor: pointer;
+        &:hover {
+            opacity: .75;
+        }
+    }
+    &--sale, &--close {
+        background-color: #EF5C5C;
+        border: none;
+    }
+    &--close {
+        cursor: pointer;
+        &:hover {
+            opacity: .75;
+        }
     }
     &__img {
         display: block;

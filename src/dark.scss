@@ -1,6 +1,15 @@
 .root--dark {
+    input {
+        background-color: #1F2A37;
+        border-color: #373F5B;
+        color: #9DA8C8;
+        &::placeholder {
+            color: rgba(#9DA8C8, .5);
+        }
+    }
     .pagination {
-        &__next, &__prev {
+        &__next,
+        &__prev {
             background-color: #243140;
         }
         &__next {
@@ -9,8 +18,9 @@
         &__prev {
             background-image: url("./../public/img/pagination/arrow-right-dark.svg");
         }
-        &__page, .break {
-            color: rgba(#fff, .5);
+        &__page,
+        .break {
+            color: rgba(#fff, 0.5);
         }
         &__active {
             color: #fff;
@@ -18,7 +28,7 @@
     }
     .popupMenuMobile {
         &__body {
-            background-color: #1F2A37;
+            background-color: #1f2a37;
             &-header {
                 &-close {
                     filter: brightness(1000%);
@@ -38,7 +48,8 @@
                     }
                     &-box {
                         &-icon {
-                            filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
+                            filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%)
+                                contrast(108%);
                         }
                         &-text {
                             color: #fff;
@@ -185,6 +196,17 @@
         &__additions {
             .addition {
                 border-color: #34506c;
+                &--cart {
+                    background: #438BCE;
+                    .addition__img {
+                        filter: unset !important;
+                    }
+                }
+                &--sale, &--close {
+                    .addition__img {
+                        filter: unset !important;
+                    }
+                }
                 &__img {
                     &:not([src="/img/tableRow/additions/express.svg"]) {
                         filter: invert(50%) sepia(20%) saturate(1207%) hue-rotate(168deg) brightness(96%) contrast(108%);
@@ -193,12 +215,57 @@
             }
         }
     }
-    .seeAllButton {
-        &__btn {
+    .button {
+        &__content {
             color: #fff;
             &:hover {
                 color: #27659e;
             }
+        }
+    }
+    .dropdown {
+        border-color: #373f5b;
+        &__text {
+            color: #9da8c8;
+        }
+        &__list {
+            background: #243140;
+            &-item {
+                color: #fff;
+            }
+            .dropdown__list-item + .dropdown__list-item {
+                border-top: 1px solid #1F2A37;
+            }
+        }
+    }
+    .filters {
+        &__filter {
+            &-title {
+                color: #fff;
+            }
+            &-add {
+                &-wrapper {
+                    &-img {
+                        filter: invert(64%) sepia(88%) saturate(2770%) hue-rotate(184deg) brightness(84%) contrast(92%);
+                    }
+                    &-text {
+                        color: #438BCE;
+                    }
+                }
+            }
+        }
+    }
+    .checkbox {
+        &__input {
+            &:checked,
+            &:not(:checked) {
+                & + label::after {
+                    background-image: url("./../public/img/filters/checkmark-for-dark.svg");
+                }
+            }
+        }
+        &__label {
+            color: #9DA8C8;
         }
     }
 }

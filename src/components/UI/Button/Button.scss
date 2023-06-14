@@ -1,0 +1,33 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+    &__content {
+        border-radius: 7px;
+        padding: 18px 50px;
+        font-weight: 600;
+    }
+    &--default {
+        .button {
+            &__content {
+                border: 2px solid #3173b0;
+                &:hover {
+                    color: #27659e;
+                    border-color: #27659e;
+                }
+            }
+        }
+    }
+    &--fill {
+        .button {
+            &__content {
+                background-color: #3173b0;
+                color: #fff;
+                &:hover {
+                    background-color: #27659e;
+                }
+            }
+        }
+    }
+}

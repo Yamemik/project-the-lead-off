@@ -9,11 +9,11 @@ const Header = () => {
 
     useEffect(() => {
         if (theme === "dark") {
-            document.getElementById("root").className = "root--dark"
+            document.getElementById("root").className = "root--dark";
         } else {
-            document.getElementById("root").className = "root--light"
+            document.getElementById("root").className = "root--light";
         }
-    }, [theme])
+    }, [theme]);
 
     const [popupOrders, setPopupOrders] = useState(false);
 
@@ -31,15 +31,13 @@ const Header = () => {
                     <div class="header__burger-line"></div>
                 </div>
                 <div className="header__left">
-                    <a className="header__left-logo" href="/">
+                    <a className="header__left-logo" href="/platform/home">
                         <img className="header__left-logo-img" src={`/img/header/logo-${theme}.svg`} alt="Логотип" />
                     </a>
-                    {
-                        window.innerWidth >= 1280 && <ThemeToggler />
-                    }
+                    {window.innerWidth >= 1280 && <ThemeToggler />}
                 </div>
                 <nav className="header__center">
-                    <a className="header__center-link" href="#">
+                    <a className="header__center-link" href="/platform/home">
                         <img className="header__center-link-icon" src="/img/header/home.svg" alt="" />
                         <p className="header__center-link-text">Главная</p>
                     </a>
@@ -62,11 +60,21 @@ const Header = () => {
                     </a>
                     {popupOrders && (
                         <div className="header__center-popupOrders">
-                            {["Подходящие", "Активные", "Отказы", "Архив", "Распродажа"].map(page => (
-                                <a href="#" className="header__center-popupOrders-link">
-                                    {page}
-                                </a>
-                            ))}
+                            <a href="/platform/suitable-orders" className="header__center-popupOrders-link">
+                                Подходящие
+                            </a>
+                            <a href="/platform/active-orders" className="header__center-popupOrders-link">
+                                Активные
+                            </a>
+                            <a href="#" className="header__center-popupOrders-link">
+                                Отказы
+                            </a>
+                            <a href="#" className="header__center-popupOrders-link">
+                                Архив
+                            </a>
+                            <a href="/platform/sale-orders" className="header__center-popupOrders-link">
+                                Распродажа
+                            </a>
                         </div>
                     )}
                 </nav>
@@ -165,38 +173,28 @@ const Header = () => {
                             </div>
                             {popupOrdersMobile && (
                                 <div className="popupMenuMobile__body-list-link-orders">
-                                    {["Подходящие", "Активные", "Отказы", "Архив", "Распродажа"].map(page => (
-                                        <a href="#" className="popupMenuMobile__body-list-link-orders-order">
-                                            {page}
-                                        </a>
-                                    ))}
+                                    <a
+                                        href="/platform/suitable-orders"
+                                        className="popupMenuMobile__body-list-link-orders-order">
+                                        Подходящие
+                                    </a>
+                                    <a href="/platform/active-orders" className="popupMenuMobile__body-list-link-orders-order">
+                                        Активные
+                                    </a>
+                                    <a href="#" className="popupMenuMobile__body-list-link-orders-order">
+                                        Отказы
+                                    </a>
+                                    <a href="#" className="popupMenuMobile__body-list-link-orders-order">
+                                        Архив
+                                    </a>
+                                    <a
+                                        href="/platform/sale-orders"
+                                        className="popupMenuMobile__body-list-link-orders-order">
+                                        Распродажа
+                                    </a>
                                 </div>
                             )}
                         </a>
-                        {/* <div className="popupMenuMobile__body-list-linkOrder">
-                                <div className="popupMenuMobile__body-list-linkOrder-box">
-                                    <img className="popupMenuMobile__body-list-linkOrder-box-icon" src="/img/header/orders.svg" alt="" />
-                                    <p className="popupMenuMobile__body-list-linkOrder-box-text">Заявки</p>
-                                    <img
-                                        className="popupMenuMobile__body-list-linkOrder-box-icon"
-                                        src="/img/header/arrow-down.svg"
-                                        alt="Заявки (открыть)"
-                                        style={{
-                                            transform: `rotate(${popupOrdersMobile ? "-180deg" : "0deg"})`,
-                                            transition: "transform .2s",
-                                        }}
-                                    />
-                                </div>
-                                {popupOrdersMobile && (
-                                    <div className="popupMenuMobile__body-list-link-orders">
-                                        {["Подходящие", "Активные", "Отказы", "Архив", "Распродажа"].map(page => (
-                                            <a href="#" className="popupMenuMobile__body-list-link-orders-order">
-                                                {page}
-                                            </a>
-                                        ))}
-                                    </div>
-                                )}
-                            </div> */}
                         <a className="popupMenuMobile__body-list-link" href="#">
                             <img className="popupMenuMobile__body-list-link-icon" src="/img/header/user.svg" alt="" />
                             <p className="popupMenuMobile__body-list-link-text">Личный счёт и информация</p>
