@@ -54,7 +54,7 @@ export const log_in = async (req, res) => {
       #swagger.summary = 'Вход в аккаунт'
    */   
    try {
-      const user = await UserModel.findOne({ email: req.body.login });
+      const user = await UserModel.findOne({ $or:[{email: req.body.login}, {telephone: req.body.login}]});
 
       if (!user) {
          return res.status(403).json({

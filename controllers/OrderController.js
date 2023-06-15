@@ -6,17 +6,17 @@ export const createOrder = async (req, res) => {
       #swagger.summary = 'Создание заявки'
    */
 
-   try{
+   try{      
       const doc = new OrderModel({
          productGroup: req.body.productGroup,
          nomenclature: req.body.nomenclature,
-         region: req.body.region,
+         region: req.body.regionID,
          text: req.body.text,
          upload: req.body.upload,
          email: req.body.email,
          telephone: req.body.telephone,
          fio: req.body.fio,
-         score: req.body.score,
+         score: req.body.scoreID,
          typeBuyer: req.body.typeBuyer,
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
@@ -122,6 +122,33 @@ export const update = async(req,res) => {
             message: "user not found or update"
          });
    });
+}
+
+export const findDublicate = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'Получить дубли'
+   */
+
+   try{      
+      const now = new Date();
+      now.setDate(now.getDate() - 6);   
+
+      const ordersDuplicate = await OrderModel.find({$or:[{email:req.body.email},{telephone: req.body.telephone}],
+         isArchive: false, isCancel: false})
+      .exec().catch((err)=>{
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      }); 
+
+      res.json(ordersDuplicate);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed to created"
+      });
+   }
 }
 
 export const cpUpload = async (req, res) => {

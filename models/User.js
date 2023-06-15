@@ -12,7 +12,8 @@ const UserSchema = new mongoose.Schema({
    },
    telephone:{
       type: Array,      
-      require: true
+      require: true,
+      unique: true
    },
    organization:{
       type: Boolean,
@@ -45,6 +46,10 @@ const UserSchema = new mongoose.Schema({
    passwordHash:{
       type: String,
       require: true
+   },
+   orders:{
+      type: Number,
+      require: false
    }
 },{
    timestamps: true,

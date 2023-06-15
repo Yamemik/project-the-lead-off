@@ -11,8 +11,8 @@ const OrderSchema = new mongoose.Schema({
       unique: true      
    },
    region:{
-      type: Array,
-      required: true
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'Region',
    },
    text:{
       type: String,      
@@ -35,7 +35,8 @@ const OrderSchema = new mongoose.Schema({
       require: false
    },
    score:{
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'Score',
       require: false
    },
    typeBuyer:{
@@ -76,7 +77,7 @@ const OrderSchema = new mongoose.Schema({
    },
    isCancel:{
       type: Boolean,
-      require: false
+      require: true
    }
 },{
    timestamps: true,

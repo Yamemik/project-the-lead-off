@@ -25,11 +25,5 @@ export default async (req,res,next) => {
          console.log(err);
    });
 
-   await RegionModel.updateMany({createdAt: { $lte: nowDiscount}},{
-      index: 44
-   }).catch((err)=>{
-         console.log(err);
-   });
-
    next();
 }

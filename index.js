@@ -10,6 +10,7 @@ import { UserController, OrderController, RegionController, CategoryController, 
 
 import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
 import { createCaregoryValidation, createRegionValidation, createValidationName, updateIndexValidation } from './validations/SettingsValidation.js';
+import { createOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -53,7 +54,8 @@ router.get('/admin/users',checkAuthIsAdmin, UserController.getUsers);
 router.patch('/admin/user/:id',checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.update);
 router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
-router.post('/admin/order',checkAuthIsAdmin, OrderController.createOrder);
+router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
+router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
 
 //SETTING
