@@ -5,11 +5,12 @@ export const createCt = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание категории'
+       #swagger.ignore = true
     */
     try{
        const doc = new CategoryModel({
-         group: req.body.group,
-         name: req.body.name
+         name: req.body.name,
+         basePrice: 0
        });
  
        const category = await doc.save();
@@ -71,6 +72,7 @@ export const createCt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить категорию'
+      #swagger.ignore = true
    */   
    await CategoryModel.updateOne({_id:req.params.id},{
       group: req.body.group,
@@ -89,6 +91,7 @@ export const removeCt = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категорию'
+      #swagger.ignore = true
    */   
    await CategoryModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
@@ -100,3 +103,47 @@ export const removeCt = async(req,res) => {
       });
    });
 }
+
+export const updateBasePrice = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'добавление базовой цены'
+      #swagger.ignored = false
+   */   
+   await CategoryModel.updateOne({_id:req.params.id},{
+      basePrice: req.body.index,
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "region not found or update"
+         });
+   });
+}
+
+//category2,3
+export const createCt2 = async (req, res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'Создание категории2,3'
+      #swagger.ignored = ignore
+   */
+   try{
+      const doc = new Category2Model({
+         parent: req.body.parentID,
+         name: req.body.name
+      });
+
+      const category = await doc.save();
+
+      res.json(category);   
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed to create"
+      })
+   }
+};
+
+

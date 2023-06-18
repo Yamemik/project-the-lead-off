@@ -68,7 +68,7 @@ export const updateIndexTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание типа заявки'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */
    try{
       const doc = new TypeOrderModel({
@@ -91,7 +91,7 @@ export const updateIndexTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить тип заявки'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await TypeOrderModel.updateOne({_id:req.params.id},{
       name: req.body.name
@@ -109,7 +109,7 @@ export const removeTO = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить тип заявки'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await TypeOrderModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({

@@ -68,7 +68,7 @@ export const updateIndexTB = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание типa организации'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */
    try{
       const doc = new TypeBuyerModel({
@@ -91,7 +91,7 @@ export const updateIndexTB = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить тип орг'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await TypeBuyerModel.updateOne({_id:req.params.id},{
       name: req.body.name
@@ -109,7 +109,7 @@ export const removeTB = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить тип орг'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await TypeBuyerModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({

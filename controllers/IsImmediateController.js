@@ -68,7 +68,7 @@ export const updateIndexII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание типa срочности'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */
    try{
       const doc = new IsImmediate({
@@ -91,7 +91,7 @@ export const updateIndexII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить тип срочности'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await IsImmediate.updateOne({_id:req.params.id},{
       name: req.body.name
@@ -109,7 +109,7 @@ export const removeII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить тип срочности'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await IsImmediate.findByIdAndDelete(req.params.id)
    .then(()=> res.json({

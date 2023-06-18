@@ -48,10 +48,7 @@
                 "organization": {
                   "example": "any"
                 },
-                "country": {
-                  "example": "any"
-                },
-                "city": {
+                "region": {
                   "example": "any"
                 },
                 "business_line": {
@@ -122,7 +119,7 @@
         "tags": [
           "Admin"
         ],
-        "summary": "Получить одного пользователя по id или всех",
+        "summary": "Получить одного пользователя по id",
         "description": "",
         "parameters": [
           {
@@ -175,10 +172,7 @@
                 "organization": {
                   "example": "any"
                 },
-                "country": {
-                  "example": "any"
-                },
-                "city": {
+                "region": {
                   "example": "any"
                 },
                 "business_line": {
@@ -265,10 +259,13 @@
             "schema": {
               "type": "object",
               "properties": {
-                "productGroup": {
+                "category1": {
                   "example": "any"
                 },
-                "nomenclature": {
+                "category2": {
+                  "example": "any"
+                },
+                "category3": {
                   "example": "any"
                 },
                 "region": {
@@ -292,7 +289,7 @@
                 "score": {
                   "example": "any"
                 },
-                "typeBuyer": {
+                "typeOfBuyer": {
                   "example": "any"
                 },
                 "isTender": {
@@ -314,6 +311,43 @@
         "responses": {
           "200": {
             "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/order/finddublicate": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Получить дубли",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                },
+                "telephone": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -423,7 +457,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Поменять коэффициент",
+        "summary": "Изменить регион",
         "description": "",
         "parameters": [
           {
@@ -438,7 +472,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "index": {
+                "country": {
+                  "example": "any"
+                },
+                "city": {
                   "example": "any"
                 }
               }
@@ -478,6 +515,43 @@
         }
       }
     },
+    "/api/admin/settings/region/index/{id}": {
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Поменять коэффициент",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/api/admin/settings/category": {
       "post": {
         "tags": [
@@ -492,9 +566,6 @@
             "schema": {
               "type": "object",
               "properties": {
-                "group": {
-                  "example": "any"
-                },
                 "name": {
                   "example": "any"
                 }
@@ -620,6 +691,43 @@
         }
       }
     },
+    "/api/admin/settings/category/index/{id}": {
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "добавление базовой цены",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "index": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/api/admin/settings/score": {
       "post": {
         "tags": [
@@ -648,8 +756,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -698,6 +805,43 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить оценку",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/score/index/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -762,8 +906,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -812,6 +955,43 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить тип орг",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/typebuyer/index/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -876,8 +1056,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -926,6 +1105,43 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить тип заявки",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/typeorder/index/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -990,8 +1206,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -1040,6 +1255,43 @@
           }
         }
       },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Изменить тип срочности",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/isimmediate/index/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -1132,6 +1384,31 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/order/adduser/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "добавить пользователя во владельцы заказом",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }

@@ -20,8 +20,7 @@ export const createUser = async (req, res) => {
          email: req.body.email,
          telephone: req.body.telephone,
          organization: req.body.organization,
-         country: req.body.country,
-         city: req.body.city,
+         region: req.body.region,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
          isAdmin: req.body.isAdmin,
@@ -120,7 +119,7 @@ export const getMe = async(req,res) => {
 export const getUserByID = async(req,res) => {
    /*
       #swagger.tags = ["Admin"]
-      #swagger.summary = 'Получить одного пользователя по id или всех'
+      #swagger.summary = 'Получить одного пользователя по id'
    */   
    try{
       const userId = req.params.id;
@@ -139,7 +138,7 @@ export const getUserByID = async(req,res) => {
          message: "server error"
       });
    }
-};
+}
 
 export const getUsers = async(req,res) => {
    /*
@@ -188,8 +187,7 @@ export const update = async(req,res) => {
       email: req.body.email,
       telephone: req.body.telephone,
       organization: req.body.organization,
-      country: req.body.country,
-      city: req.body.city,
+      region: req.body.region,
       business_line: req.body.business_line,
       access_to_open: req.body.access_to_open,
       isAdmin: req.body.isAdmin,
@@ -203,9 +201,6 @@ export const update = async(req,res) => {
          });
    });
 }
-
-
-
 
 export const resentPassword = async (req, res) => {
    /*
@@ -263,4 +258,4 @@ export const resentPassword = async (req, res) => {
          message: "Не удалось восстановить пароль"
       })
    }
-};
+}

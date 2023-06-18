@@ -1,14 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({  
-   productGroup:{
-      type: String,
-      required: true
+   category1:{
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'Category',
    },
-   nomenclature:{
+   category2:{
       type: String,
       required: true,
-      unique: true      
+   },   
+   category3:{
+      type: String,
+      required: true,
    },
    region:{
       type: mongoose.Schema.Types.ObjectId,      
@@ -36,20 +39,19 @@ const OrderSchema = new mongoose.Schema({
    },
    score:{
       type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Score',
-      require: false
+      ref: 'Score'
    },
    typeBuyer:{
-      type: Boolean,
-      require: false
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'TypeBuyer'
    },
    isTender:{
-      type: Boolean,
-      require: false
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'TypeOrder'
    },
    isImmediate:{
-      type: Boolean,
-      require: false
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'IsImmediate'
    },
    isOpen:{
       type: Boolean,
@@ -66,6 +68,11 @@ const OrderSchema = new mongoose.Schema({
    isDiscount:{
       type: Boolean,
       require: true
+   },
+   user:{
+      type: mongoose.Schema.Types.ObjectId,      
+      ref: 'User',
+      require: false
    },
    isCanceled:{
       type: Boolean,

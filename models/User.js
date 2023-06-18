@@ -11,7 +11,7 @@ const UserSchema = new mongoose.Schema({
       unique: true      
    },
    telephone:{
-      type: Array,      
+      type: String,      
       require: true,
       unique: true
    },
@@ -19,12 +19,8 @@ const UserSchema = new mongoose.Schema({
       type: Boolean,
       require: true
    },
-   country:{
-      type: String,
-      require: false
-   },
-   city:{
-      type: String,
+   region:{
+      type: Array,
       require: false
    },
    business_line:{
@@ -46,13 +42,9 @@ const UserSchema = new mongoose.Schema({
    passwordHash:{
       type: String,
       require: true
-   },
-   orders:{
-      type: Number,
-      require: false
    }
 },{
-   timestamps: true,
+   timestamps: true
 });
 
 export default mongoose.model("User",UserSchema);

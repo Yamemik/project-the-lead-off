@@ -9,12 +9,12 @@ import { UserController, OrderController, RegionController, CategoryController, 
    IsImmediateController, ScoreController, TypeOrderController } from './controllers/index.js';
 
 import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
-import { createCaregoryValidation, createRegionValidation, createValidationName, updateIndexValidation } from './validations/SettingsValidation.js';
+import { createRegionValidation, createValidationName, updateIndexValidation } from './validations/SettingsValidation.js';
 import { createOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
-mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority')
    .then(() => console.log('db.....ok!!'))
    .catch((err) => console.log('db ERROR:', err));
 
@@ -65,33 +65,38 @@ router.get('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.getOn
 router.get('/admin/settings/region',checkAuthIsAdmin, RegionController.getAllRg);
 router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
 router.delete('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.removeRg);
-router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateIndexRg);
+router.patch('/admin/settings/region/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, RegionController.updateIndexRg);
 //category
-router.post('/admin/settings/category',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, CategoryController.createCt);
+router.post('/admin/settings/category',checkAuthIsAdmin, createValidationName, handlValidationErrors, CategoryController.createCt);
 router.get('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.getOneCt);
 router.get('/admin/settings/category',checkAuthIsAdmin, CategoryController.getAllCt);
-router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createCaregoryValidation, handlValidationErrors, CategoryController.updateCt);
+router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createValidationName, handlValidationErrors, CategoryController.updateCt);
+router.patch('/admin/settings/category/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, CategoryController.updateBasePrice);
 router.delete('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.removeCt);
 //score
 router.post('/admin/settings/score',checkAuthIsAdmin, createValidationName, handlValidationErrors, ScoreController.createSc);
 router.get('/admin/settings/score/:id',checkAuthIsAdmin, ScoreController.getOneSc);
 router.get('/admin/settings/score',checkAuthIsAdmin, ScoreController.getAllSc);
-router.patch('/admin/settings/score/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, ScoreController.updateIndexSc);
+router.patch('/admin/settings/score/:id',checkAuthIsAdmin, createValidationName, handlValidationErrors, ScoreController.updateSc);
+router.patch('/admin/settings/score/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, ScoreController.updateIndexSc);
 //type buyer
 router.post('/admin/settings/typebuyer',checkAuthIsAdmin, createValidationName, handlValidationErrors, TypeBuyerController.createTB);
 router.get('/admin/settings/typebuyer/:id',checkAuthIsAdmin, TypeBuyerController.getOneTB);
 router.get('/admin/settings/typebuyer',checkAuthIsAdmin, TypeBuyerController.getAllTB);
-router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeBuyerController.updateIndexTB);
+router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeBuyerController.updateTB);
+router.patch('/admin/settings/typebuyer/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeBuyerController.updateIndexTB);
 //type order
 router.post('/admin/settings/typeorder',checkAuthIsAdmin, createValidationName, handlValidationErrors, TypeOrderController.createTO);
 router.get('/admin/settings/typeorder/:id',checkAuthIsAdmin, TypeOrderController.getOneTO);
 router.get('/admin/settings/typeorder',checkAuthIsAdmin, TypeOrderController.getAllTO);
-router.patch('/admin/settings/typeorder/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeOrderController.updateIndexTO);
+router.patch('/admin/settings/typeorder/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeOrderController.updateTO);
+router.patch('/admin/settings/typeorder/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeOrderController.updateIndexTO);
 //is immediate
 router.post('/admin/settings/isimmediate',checkAuthIsAdmin, createValidationName, handlValidationErrors, IsImmediateController.createII);
 router.get('/admin/settings/isimmediate/:id',checkAuthIsAdmin, IsImmediateController.getOneII);
 router.get('/admin/settings/isimmediate',checkAuthIsAdmin, IsImmediateController.getAllII);
-router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, IsImmediateController.updateIndexII);
+router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, IsImmediateController.updateII);
+router.patch('/admin/settings/isimmediate/index/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, IsImmediateController.updateIndexII);
 
 
 
@@ -101,6 +106,7 @@ router.get('/user/me', checkAuth, UserController.getMe);
 //order
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
 router.get('/user/orders',checkAuth, OrderController.getAll);
+router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
 
 router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);

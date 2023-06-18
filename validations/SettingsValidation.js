@@ -6,8 +6,8 @@ export const createRegionValidation = [
     body('city','Введите город').isLength({ min: 3 })
  ]
  
- export const createCaregoryValidation = [
-    body('group','Введите родителя').isLength({ min: 3 }),
+ export const createNomenclatureValidation = [
+    body('category','Введите родителя').isLength({ min: 3 }),
     body('name','Введите название').isLength({ min: 3 })
  ]
 

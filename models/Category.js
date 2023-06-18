@@ -1,12 +1,12 @@
 import mongoose, { Schema } from 'mongoose';
 
 const CategorySchema = new mongoose.Schema({  
-   group:{
+   name:{
       type: String,
       require: true
    },
-   name:{
-      type: String,
+   basePrice:{
+      type: Number,
       require: true
    }
 },{

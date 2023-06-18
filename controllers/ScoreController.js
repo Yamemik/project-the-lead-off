@@ -68,7 +68,7 @@ export const updateIndexSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание оценки'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */
    try{
       const doc = new ScoreModel({
@@ -91,7 +91,7 @@ export const updateIndexSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить оценку'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await ScoreModel.updateOne({_id:req.params.id},{
       name: req.body.name
@@ -109,7 +109,7 @@ export const removeSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить оценку'
-      #swagger.deprecated = true
+      #swagger.ignore = true
    */   
    await ScoreModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({

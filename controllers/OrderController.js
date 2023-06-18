@@ -8,16 +8,17 @@ export const createOrder = async (req, res) => {
 
    try{      
       const doc = new OrderModel({
-         productGroup: req.body.productGroup,
-         nomenclature: req.body.nomenclature,
-         region: req.body.regionID,
+         category1: req.body.category1,
+         category2: req.body.category2,
+         category3: req.body.category3,
+         region: req.body.region,
          text: req.body.text,
          upload: req.body.upload,
          email: req.body.email,
          telephone: req.body.telephone,
          fio: req.body.fio,
-         score: req.body.scoreID,
-         typeBuyer: req.body.typeBuyer,
+         score: req.body.score,
+         typeBuyer: req.body.typeOfBuyer,
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
          isOpen: req.body.isOpen,
@@ -46,7 +47,7 @@ export const getOne = async(req,res) => {
    try{
       const orderId = req.params.id;
 
-      const order = await OrderModel.findById(orderId).catch((err)=>{
+      const order = await OrderModel.findById(orderId).populate(['category1','region','score','isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err)=>{
          res.status(404).json({
             message: 'order not found'
          })
@@ -67,7 +68,7 @@ export const getAll = async(req,res) => {
       #swagger.summary = 'Получить все заявки'
    */   
    try{
-      const orders = await OrderModel.find().exec().catch((err)=>{
+      const orders = await OrderModel.find().populate(['category1','region','score','isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err)=>{
          res.status(404).json({
             message: 'orders not found'
          })
@@ -85,15 +86,15 @@ export const getAll = async(req,res) => {
 export const remove = async(req,res) => {
    /*
       #swagger.tags = ["Admin"]
-      #swagger.summary = 'удалить пользователя'
+      #swagger.summary = 'удалить заказ'
    */   
-   await UserModel.findByIdAndDelete(req.params.id)
+   await OrderModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
       access: true
    })).catch((err)=>{
       console.log(err);
       res.status(404).json({
-         message: "user not found or delete"
+         message: "order not found or delete"
       });
    });
 }
@@ -101,32 +102,40 @@ export const remove = async(req,res) => {
 export const update = async(req,res) => {
    /*
       #swagger.tags = ["Admin"]
-      #swagger.summary = 'изменить пользователя'
+      #swagger.summary = 'изменить заказ'
    */   
-   await UserModel.updateOne({_id:req.params.id},{
-      fio: req.body.fio,
+   await OrderModel.updateOne({_id:req.params.id},{
+      category1: req.body.category1,
+      category2: req.body.category2,
+      category3: req.body.category3,
+      region: req.body.region,
+      text: req.body.text,
+      upload: req.body.upload,
       email: req.body.email,
       telephone: req.body.telephone,
-      organization: req.body.organization,
-      country: req.body.country,
-      city: req.body.city,
-      business_line: req.body.business_line,
-      access_to_open: req.body.access_to_open,
-      isAdmin: req.body.isAdmin,
-      balance: req.body.balance,
-   }).then(()=> res.json({
+      fio: req.body.fio,
+      score: req.body.score,
+      typeBuyer: req.body.typeOfBuyer,
+      isTender: req.body.isTender,
+      isImmediate: req.body.isImmediate,
+      isOpen: req.body.isOpen,
+      price: req.body.price,
+      isArchive: false,
+      isDiscount: false,
+      isCancel: false
+}).then(()=> res.json({
          access: true
    })).catch((err)=>{
          console.log(err);
          res.status(404).json({
-            message: "user not found or update"
+            message: "order not found or update"
          });
    });
 }
 
 export const findDublicate = async (req, res) => {
    /*
-      #swagger.tags = ["User"]
+      #swagger.tags = ["Admin"]
       #swagger.summary = 'Получить дубли'
    */
 
@@ -149,6 +158,23 @@ export const findDublicate = async (req, res) => {
          message: "Failed to created"
       });
    }
+}
+
+export const addUser = async(req,res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'добавить пользователя во владельцы заказом'
+   */
+   await OrderModel.updateOne({_id:req.params.id},{
+      user: req.userId
+   }).then(()=> res.json({
+         access: true
+   })).catch((err)=>{
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or update"
+         });
+   });
 }
 
 export const cpUpload = async (req, res) => {
