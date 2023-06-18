@@ -10,6 +10,13 @@
   "schemes": [
     "https"
   ],
+  "securityDefinitions": {
+    "bearerAuth": {
+      "type": "apiKey",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  },
   "paths": {
     "/": {
       "get": {

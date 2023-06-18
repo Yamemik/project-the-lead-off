@@ -12,7 +12,7 @@ const doc = {
     },
     securityDefinitions: {
       bearerAuth: {
-          type: 'http',
+          type: 'apiKey',
           scheme: 'bearer',
           bearerFormat: 'JWT'
       }
