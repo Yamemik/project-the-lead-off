@@ -5,7 +5,7 @@ export const createCt = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание категории'
-       #swagger.ignore = true
+       #swagger.deprecated = true
     */
     try{
        const doc = new CategoryModel({
@@ -72,7 +72,7 @@ export const createCt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить категорию'
-      #swagger.ignore = true
+      #swagger.deprecated = true
    */   
    await CategoryModel.updateOne({_id:req.params.id},{
       group: req.body.group,
@@ -91,7 +91,7 @@ export const removeCt = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категорию'
-      #swagger.ignore = true
+      #swagger.deprecated = true
    */   
    await CategoryModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
@@ -108,7 +108,6 @@ export const updateBasePrice = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'добавление базовой цены'
-      #swagger.ignored = false
    */   
    await CategoryModel.updateOne({_id:req.params.id},{
       basePrice: req.body.index,
@@ -127,7 +126,7 @@ export const createCt2 = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание категории2,3'
-      #swagger.ignored = ignore
+      #swagger.deprecated = true
    */
    try{
       const doc = new Category2Model({

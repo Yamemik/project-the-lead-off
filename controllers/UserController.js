@@ -98,6 +98,9 @@ export const getMe = async(req,res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'Получить текущего пользователя'
+      #swagger.security = [{
+               "bearerAuth": []
+      }]
    */   
   try{
       const user = await UserModel.findById(req.userId).catch((err)=>{
