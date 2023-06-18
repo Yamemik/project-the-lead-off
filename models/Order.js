@@ -1,21 +1,13 @@
 import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({  
-   category1:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Category',
-   },
-   category2:{
-      type: String,
+   nomeclature:{
+      type: Array,
       required: true,
    },   
-   category3:{
-      type: String,
-      required: true,
-   },
    region:{
       type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Region',
+      ref: 'Region'
    },
    text:{
       type: String,      
@@ -56,6 +48,10 @@ const OrderSchema = new mongoose.Schema({
    isOpen:{
       type: Boolean,
       require: false
+   },
+   is_express:{
+      type: Boolean,
+      require: true
    },
    price:{
       type: Number,

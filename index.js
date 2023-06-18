@@ -54,6 +54,7 @@ router.get('/admin/users',checkAuthIsAdmin, UserController.getUsers);
 router.patch('/admin/user/:id',checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.update);
 router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
+router.get('/admin/orders',checkAuth, OrderController.getAll);
 router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
 router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
@@ -105,7 +106,7 @@ router.patch('/admin/settings/isimmediate/index/:id',checkAuthIsAdmin, updateInd
 router.get('/user/me', checkAuth, UserController.getMe);
 //order
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
-router.get('/user/orders',checkAuth, OrderController.getAll);
+router.get('/user/orders',checkAuth, OrderController.getAllWithFilter);
 router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
 
 router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);

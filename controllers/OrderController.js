@@ -1,4 +1,5 @@
 import OrderModel from '../models/Order.js';
+import UserModel from '../models/User.js';
 
 export const createOrder = async (req, res) => {
    /*
@@ -8,9 +9,7 @@ export const createOrder = async (req, res) => {
 
    try{      
       const doc = new OrderModel({
-         category1: req.body.category1,
-         category2: req.body.category2,
-         category3: req.body.category3,
+         category: req.body.category,
          region: req.body.region,
          text: req.body.text,
          upload: req.body.upload,
@@ -22,6 +21,7 @@ export const createOrder = async (req, res) => {
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
          isOpen: req.body.isOpen,
+         is_express: true,
          price: req.body.price,
          isArchive: false,
          isDiscount: false,
@@ -82,6 +82,40 @@ export const getAll = async(req,res) => {
       });
    }
 }
+
+export const getAllWithFilter = async(req,res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя'
+   */   
+   try{
+      const user = await UserModel.findById(req.userId)
+      .catch((err)=>{
+         res.status(404).json({
+            message: 'user not found'
+         })
+      });
+      
+      const orders = await OrderModel.find({ $or:[
+         {nomeclature:  { $all: user.business_line }},
+         {region:       {$in: user.region }}
+         ]
+      })
+      .catch((err)=>{
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);   
+   }catch(err){
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
 
 export const remove = async(req,res) => {
    /*
