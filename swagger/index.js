@@ -10,6 +10,13 @@ const doc = {
       title: 'Проект lead-off',
       description: '',
     },
+    securityDefinitions: {
+      bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT'
+      }
+    },
     host: 'project-the-leads.onrender.com',
     schemes: ['https'],
 };
