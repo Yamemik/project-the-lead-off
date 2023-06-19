@@ -6,15 +6,15 @@ const OrderSchema = new mongoose.Schema({
       required: true,
    },   
    region:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Region'
+      type: Array,
+      required: true,
    },
    text:{
       type: String,      
       require: false
    },
    upload:{
-      type: String,
+      type: Array,
       require: false
    },
    email:{
@@ -23,7 +23,7 @@ const OrderSchema = new mongoose.Schema({
    },
    telephone:{
       type: Array,
-      require: false
+      require: true
    },
    fio:{
       type: String,
@@ -68,6 +68,10 @@ const OrderSchema = new mongoose.Schema({
    user:{
       type: mongoose.Schema.Types.ObjectId,      
       ref: 'User',
+      require: false
+   },
+   date_buy:{
+      type: Date,
       require: false
    },
    isCanceled:{

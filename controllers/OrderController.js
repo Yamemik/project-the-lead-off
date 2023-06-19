@@ -6,10 +6,9 @@ export const createOrder = async (req, res) => {
       #swagger.tags = ["Admin"]
       #swagger.summary = 'Создание заявки'
    */
-
    try{      
       const doc = new OrderModel({
-         category: req.body.category,
+         nomeclature: req.body.nomeclature,
          region: req.body.region,
          text: req.body.text,
          upload: req.body.upload,
@@ -17,14 +16,14 @@ export const createOrder = async (req, res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.typeOfBuyer,
+         typeBuyer: req.body.typeBuyer,
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
          isOpen: req.body.isOpen,
-         is_express: true,
          price: req.body.price,
          isArchive: false,
          isDiscount: false,
+         is_express: true,
          isCancel: false
       });
 
@@ -136,13 +135,11 @@ export const remove = async(req,res) => {
 export const update = async(req,res) => {
    /*
       #swagger.tags = ["Admin"]
-      #swagger.summary = 'изменить заказ'
+      #swagger.summary = 'изменить заявку'
    */   
    await OrderModel.updateOne({_id:req.params.id},{
       $set:{
-         category1: req.body.category1,
-         category2: req.body.category2,
-         category3: req.body.category3,
+         nomeclature: req.body.nomeclature,
          region: req.body.region,
          text: req.body.text,
          upload: req.body.upload,
@@ -150,16 +147,20 @@ export const update = async(req,res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.typeOfBuyer,
+         typeBuyer: req.body.typeBuyer,
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
          isOpen: req.body.isOpen,
          price: req.body.price,
-         isArchive: false,
-         isDiscount: false,
-         isCancel: false
+         isArchive: req.body.isArchive,
+         isDiscount: req.body.isDiscount,
+         is_express: req.body.is_express,
+         user: req.body.user,
+         isCanceled: req.body.isCanceled,
+         isCanceled: req.body.isCanceled,
+         isCancel: req.body.isCancel
       }
-}).then(()=> res.json({
+   }).then(()=> res.json({
          access: true
    })).catch((err)=>{
          console.log(err);
@@ -179,8 +180,10 @@ export const findDublicate = async (req, res) => {
       const now = new Date();
       now.setDate(now.getDate() - 6);   
 
-      const ordersDuplicate = await OrderModel.find({$or:[{email:req.body.email},{telephone: req.body.telephone}],
-         isArchive: false, isCancel: false})
+      const ordersDuplicate = await OrderModel.find({
+         $or:[{email:req.body.email},{telephone:{$all:req.body.telephone}}],
+         createdAt: { $lte: nowArchive}
+      })
       .exec().catch((err)=>{
          res.status(404).json({
             message: 'orders not found'
@@ -201,14 +204,16 @@ export const addUser = async(req,res) => {
       #swagger.tags = ["User"]
       #swagger.summary = 'добавить пользователя во владельцы заказом'
    */
+   const now = new Date();
    await OrderModel.updateOne({_id:req.params.id},{
-      user: req.userId
+      user: req.userId,
+      date_buy: now
    }).then(()=> res.json({
          access: true
    })).catch((err)=>{
          console.log(err);
          res.status(404).json({
-            message: "order not found or update"
+            message: "error buy"
          });
    });
 }
@@ -230,46 +235,16 @@ export const cpUpload = async (req, res) => {
    });   
 }
 
-export const setIsArchive = async(req,res) => {
-   /*
-      #swagger.tags = ["User"]
-      #swagger.summary = 'установить заявке архив'
-   */   
-   await OrderModel.updateOne({_id:req.params.id},{
-      isArchive: true,
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "order not found or update"
-         });
-   });
-}
 
-export const setIsDiscount = async(req,res) => {
-   /*
-      #swagger.tags = ["User"]
-      #swagger.summary = 'установить заявке распродажа'
-   */   
-   await OrderModel.updateOne({_id:req.params.id},{
-      isDiscount: true,
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "order not found or update"
-         });
-   });
-}
 
 export const sendCancel = async(req,res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'отправить заявку на отмену'
-   */   
-   await OrderModel.updateOne({_id:req.params.id},{
+   */
+   const now = new Date();
+   now.setDate(now.getDate() - 1);
+   await OrderModel.updateOne({_id:req.params.id, date_buy: { $lte: now}},{
       isCanceled: true,
       isCanceledText: req.body.isCanceledText
    }).then(()=> res.json({
@@ -288,7 +263,9 @@ export const setIsCancel = async(req,res) => {
       #swagger.summary = 'одобрить или отказать отмене'
    */   
    await OrderModel.updateOne({_id:req.params.id},{
-      isCancel: true
+      isCancel: req.body.isCancel,
+      $push: { isCanceledText: req.body.answer },
+      isCanceled: false
    }).then(()=> res.json({
          access: true
    })).catch((err)=>{

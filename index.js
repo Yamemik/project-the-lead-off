@@ -10,7 +10,7 @@ import { UserController, OrderController, RegionController, CategoryController, 
 
 import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationName, updateIndexValidation, createGroupValidation } from './validations/SettingsValidation.js';
-import { createOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
+import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -50,11 +50,11 @@ router.post('/auth/log', loginValidation, handlValidationErrors, UserController.
 //ADMIN
 //users
 router.get('/admin/user/:id',checkAuthIsAdmin, UserController.getUserByID);
-router.get('/admin/users',checkAuthIsAdmin, UserController.getUsers);
+router.get('/admin/user',checkAuthIsAdmin, UserController.getUsers);
 router.patch('/admin/user/:id',checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.update);
 router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
-router.get('/admin/orders',checkAuth, OrderController.getAll);
+router.get('/admin/order',checkAuth, OrderController.getAll);
 router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
 router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
@@ -106,11 +106,11 @@ router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexVali
 router.get('/user/me', checkAuth, UserController.getMe);
 //order
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
-router.get('/user/orders',checkAuth, OrderController.getAllWithFilter);
+router.get('/user/order',checkAuth, OrderController.getAllWithFilter);
 router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
-
-router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
-router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);
+router.patch('/user/order/:id',checkAuth, updateOrderValidation, handlValidationErrors,OrderController.update);
+//router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
+//router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);
 
 
 
