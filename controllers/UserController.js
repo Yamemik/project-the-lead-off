@@ -186,15 +186,17 @@ export const update = async(req,res) => {
       #swagger.summary = 'изменить пользователя'
    */   
    await UserModel.updateOne({_id:req.params.id},{
-      fio: req.body.fio,
-      email: req.body.email,
-      telephone: req.body.telephone,
-      organization: req.body.organization,
-      region: req.body.region,
-      business_line: req.body.business_line,
-      access_to_open: req.body.access_to_open,
-      isAdmin: req.body.isAdmin,
-      balance: req.body.balance,
+      $set:{
+         fio: req.body.fio,
+         email: req.body.email,
+         telephone: req.body.telephone,
+         organization: req.body.organization,
+         region: req.body.region,
+         business_line: req.body.business_line,
+         access_to_open: req.body.access_to_open,
+         isAdmin: req.body.isAdmin,
+         balance: req.body.balance
+      }
    }).then(()=> res.json({
          access: true
    })).catch((err)=>{

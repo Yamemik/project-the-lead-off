@@ -252,6 +252,27 @@
         }
       }
     },
+    "/api/admin/orders": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все заявки",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/admin/order": {
       "post": {
         "tags": [
@@ -266,13 +287,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "category1": {
-                  "example": "any"
-                },
-                "category2": {
-                  "example": "any"
-                },
-                "category3": {
+                "category": {
                   "example": "any"
                 },
                 "region": {
@@ -1395,7 +1410,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Получить все заявки",
+        "summary": "Получить все заявки по номенклатуре и региону пользователя",
         "description": "",
         "parameters": [],
         "responses": {

@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema({
    },
    organization:{
       type: Boolean,
-      require: true
+      require: false
    },
    region:{
       type: Array,
@@ -37,7 +37,7 @@ const UserSchema = new mongoose.Schema({
    },
    balance:{
       type: Number,
-      require: false
+      default: 0
    },
    passwordHash:{
       type: String,

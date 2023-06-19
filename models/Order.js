@@ -55,7 +55,7 @@ const OrderSchema = new mongoose.Schema({
    },
    price:{
       type: Number,
-      require: false
+      default: 0
    },
    isArchive:{
       type: Boolean,

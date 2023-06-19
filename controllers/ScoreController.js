@@ -1,23 +1,6 @@
 import ScoreModel from '../models/Score.js';
 
 
-export const updateIndexSc = async(req,res) => {
-   /*
-      #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить индекс у оценки'
-   */   
-   await ScoreModel.updateOne({_id:req.params.id},{
-      index: req.body.index
-}).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "not found or update"
-         });
-   });
-}
- 
  export const getAllSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
@@ -73,7 +56,7 @@ export const updateIndexSc = async(req,res) => {
    try{
       const doc = new ScoreModel({
         name: req.body.name,
-        index: 1
+        index: req.body.index
       });
 
       const entity = await doc.save();
@@ -91,11 +74,13 @@ export const updateIndexSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить оценку'
-      #swagger.deprecated = true
-   */   
+   */
    await ScoreModel.updateOne({_id:req.params.id},{
-      name: req.body.name
-}).then(()=> res.json({
+      $set: { 
+         name: req.body.name, 
+         index: req.body.index 
+      }
+   }).then(()=> res.json({
          access: true
    })).catch((err)=>{
          console.log(err);

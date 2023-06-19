@@ -18,7 +18,7 @@ export const sendToUser = async (id, email, password, domen) => {
       //htmlWithID = htmlWithID.replaceAll('userID',id);
       const reference = domen + '/user/auth/login?' + id;
       let result = await transporter.sendMail({
-         from: `LEADS <${process.env.EMAIL}>`,
+         from: `LEAD-OFF <${process.env.EMAIL}>`,
          to: email,
          subject: 'Регистрация',
          text: `Ваш логин - ${email} и пароль - ${password} ссылка - ${reference}`,

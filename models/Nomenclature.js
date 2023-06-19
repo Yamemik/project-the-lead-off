@@ -1,16 +1,16 @@
 import mongoose, { Schema } from 'mongoose';
 
-const NomeclatureSchema = new mongoose.Schema({  
+const NomenclatureSchema = new mongoose.Schema({  
    group:{
       type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Category',
+      ref: 'Group',
    },
    name:{
       type: String,
-      require: true
+      default: 0
    }
 },{
    timestamps: true,
 });
 
-export default mongoose.model("Nomeclature",NomeclatureSchema);
+export default mongoose.model("Nomenclature",NomenclatureSchema);

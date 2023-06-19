@@ -7,7 +7,7 @@ const CategorySchema = new mongoose.Schema({
    },
    basePrice:{
       type: Number,
-      require: true
+      default: 0
    }
 },{
    timestamps: true,

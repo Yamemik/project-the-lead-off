@@ -139,24 +139,26 @@ export const update = async(req,res) => {
       #swagger.summary = 'изменить заказ'
    */   
    await OrderModel.updateOne({_id:req.params.id},{
-      category1: req.body.category1,
-      category2: req.body.category2,
-      category3: req.body.category3,
-      region: req.body.region,
-      text: req.body.text,
-      upload: req.body.upload,
-      email: req.body.email,
-      telephone: req.body.telephone,
-      fio: req.body.fio,
-      score: req.body.score,
-      typeBuyer: req.body.typeOfBuyer,
-      isTender: req.body.isTender,
-      isImmediate: req.body.isImmediate,
-      isOpen: req.body.isOpen,
-      price: req.body.price,
-      isArchive: false,
-      isDiscount: false,
-      isCancel: false
+      $set:{
+         category1: req.body.category1,
+         category2: req.body.category2,
+         category3: req.body.category3,
+         region: req.body.region,
+         text: req.body.text,
+         upload: req.body.upload,
+         email: req.body.email,
+         telephone: req.body.telephone,
+         fio: req.body.fio,
+         score: req.body.score,
+         typeBuyer: req.body.typeOfBuyer,
+         isTender: req.body.isTender,
+         isImmediate: req.body.isImmediate,
+         isOpen: req.body.isOpen,
+         price: req.body.price,
+         isArchive: false,
+         isDiscount: false,
+         isCancel: false
+      }
 }).then(()=> res.json({
          access: true
    })).catch((err)=>{

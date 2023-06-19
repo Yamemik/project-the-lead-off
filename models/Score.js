@@ -7,7 +7,7 @@ const ScoreSchema = new mongoose.Schema({
    },
    index:{
       type: Number,
-      require: true
+      default: 1
    }
 },{
    timestamps: true,

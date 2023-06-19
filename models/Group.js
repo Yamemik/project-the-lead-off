@@ -3,11 +3,11 @@ import mongoose, { Schema } from 'mongoose';
 const GroupSchema = new mongoose.Schema({  
    category:{
       type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Group',
+      ref: 'Category',
    },
    name:{
       type: String,
-      require: true
+      default: 0
    }
 },{
    timestamps: true,

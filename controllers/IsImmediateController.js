@@ -1,23 +1,6 @@
 import IsImmediate from '../models/IsImmediate.js';
 
 
-export const updateIndexII = async(req,res) => {
-   /*
-      #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить индекс у срочности'
-   */   
-   await IsImmediate.updateOne({_id:req.params.id},{
-      index: req.body.index
-}).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "not found or update"
-         });
-   });
-}
- 
  export const getAllII = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
@@ -73,7 +56,7 @@ export const updateIndexII = async(req,res) => {
    try{
       const doc = new IsImmediate({
         name: req.body.name,
-        index: 1
+        index: req.body.index
       });
 
       const entity = await doc.save();
@@ -91,10 +74,12 @@ export const updateIndexII = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить тип срочности'
-      #swagger.deprecated = true
    */   
    await IsImmediate.updateOne({_id:req.params.id},{
-      name: req.body.name
+      $set: { 
+         name: req.body.name, 
+         index: req.body.index 
+      }
 }).then(()=> res.json({
          access: true
    })).catch((err)=>{

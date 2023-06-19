@@ -7,7 +7,7 @@ const TypeBuyerSchema = new mongoose.Schema({
    },
    index:{
       type: Number,
-      require: true
+      default: 0
    }
 },{
    timestamps: true,

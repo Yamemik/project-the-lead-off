@@ -10,7 +10,7 @@ export const createRg = async (req, res) => {
        const doc = new RegionModel({
           country: req.body.country,
           city: req.body.city,
-          index: 1
+          index: req.body.index
        });
  
        const region = await doc.save();
@@ -74,8 +74,11 @@ export const createRg = async (req, res) => {
       #swagger.summary = 'Изменить регион'
    */   
    await RegionModel.updateOne({_id:req.params.id},{
-      country: req.body.country,
-      city: req.body.city
+      $set:{
+         country: req.body.country,
+         city: req.body.city,
+         index: req.body.index
+      }   
    }).then(()=> res.json({
          access: true
    })).catch((err)=>{
@@ -99,22 +102,5 @@ export const removeRg = async(req,res) => {
       res.status(404).json({
          message: "region not found or delete"
       });
-   });
-}
-
- export const updateIndexRg = async(req,res) => {
-   /*
-      #swagger.tags = ["Settings"]
-      #swagger.summary = 'Поменять коэффициент'
-   */   
-   await RegionModel.updateOne({_id:req.params.id},{
-      index: req.body.index,
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "region not found or update"
-         });
    });
 }
