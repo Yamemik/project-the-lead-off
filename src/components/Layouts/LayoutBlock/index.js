@@ -1,12 +1,25 @@
 import "./LayoutBlock.scss";
 
-const LayoutBlock = ({ title = "Подзаголовок", children = "Пустой блок", isHaveFiltersInPage, isOpenMobileFilters, setIsOpenMobileFilters }) => {
+const LayoutBlock = ({
+    title,
+    children = "Пустой блок",
+    isHaveFiltersInPage,
+    isOpenMobileFilters,
+    setIsOpenMobileFilters,
+}) => {
     return (
         <div className="layoutBlock">
             {isHaveFiltersInPage && window.innerWidth <= 768 ? (
                 <>
                     <div className="layoutBlock__subtitle--wrapper">
-                        <h6 className="layoutBlock__subtitle">{title}</h6>
+                        {title && typeof title === "string" ? (
+                            <h6 className="layoutBlock__subtitle">{title}</h6>
+                        ) : (
+                            <h6 className="layoutBlock__subtitle">
+                                {title[0]}
+                                <img src={`/img/adminPanel/${title[1]}.svg`} alt="" />
+                            </h6>
+                        )}
                         <div
                             className="layoutBlock__subtitle--showMobileFilters"
                             onClick={() => setIsOpenMobileFilters(!isOpenMobileFilters)}>
@@ -27,7 +40,16 @@ const LayoutBlock = ({ title = "Подзаголовок", children = "Пуст�
                 </>
             ) : (
                 <>
-                    <h6 className="layoutBlock__subtitle">{title}</h6>
+                    {title && typeof title === "string" ? (
+                        <h6 className="layoutBlock__subtitle">{title}</h6>
+                    ) : (
+                        <h6 className="layoutBlock__subtitle">
+                            <img src={`/img/adminPanel/${title[1]}.svg`} alt="" style={{
+                                filter: "invert(41%) sepia(65%) saturate(579%) hue-rotate(167deg) brightness(85%) contrast(87%)"
+                            }}/>
+                            {title[0]}
+                        </h6>
+                    )}
                     {children}
                 </>
             )}

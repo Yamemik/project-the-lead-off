@@ -1,7 +1,18 @@
 import "./TableRow.scss";
 import Addition from "./Addition";
 
-const TableRow = ({ id, productGroup, nomenclature, region, estimation, price, additions }) => {
+const TableRow = ({
+    id,
+    productGroup,
+    nomenclature,
+    region,
+    estimation,
+    price,
+    additions,
+    isHaveDateDelete,
+    isHaveStatus,
+    status
+}) => {
     return (
         <div className="tableRow">
             <div className="tableRow__id">
@@ -35,7 +46,21 @@ const TableRow = ({ id, productGroup, nomenclature, region, estimation, price, a
                 </p>
             </div>
             <div className="tableRow__additions">
-                {additions && additions.map(addition => <Addition name={addition} />)}
+                {isHaveStatus && (
+                    <div className="tableRow__additions-dateDelete">
+                        <img src={`/img/tableRow/${status}.svg`} alt={status}/>
+                        {status === "approved" ? "Одобрено" : "Отказано"}
+                    </div>
+                )}
+                {isHaveDateDelete && (
+                    <div className="tableRow__additions-dateDelete">
+                        {window.innerWidth < 375 ? "Удаление" : "Дата удаления"}: 07.04.2023
+                    </div>
+                )}
+                {additions &&
+                    !isHaveDateDelete &&
+                    !isHaveStatus &&
+                    additions.map(addition => <Addition name={addition} />)}
             </div>
         </div>
     );

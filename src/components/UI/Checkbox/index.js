@@ -2,11 +2,11 @@ import cryptoRandomString from "crypto-random-string";
 
 import "./Checkbox.scss";
 
-const Checkbox = ({ isChecked, handleChecked, text = "Чекбокс" }) => {
+const Checkbox = ({ isChecked, handleChecked, text = "Чекбокс", children, addClass }) => {
     const randomString = cryptoRandomString({ length: 12 });
 
     return (
-        <div className="checkbox">
+        <div className={`checkbox ${addClass}`}>
             <input
                 className="checkbox__input"
                 type="checkbox"
@@ -15,7 +15,7 @@ const Checkbox = ({ isChecked, handleChecked, text = "Чекбокс" }) => {
                 onChange={handleChecked}
             />
             <label className="checkbox__label" for={randomString}>
-                {text}
+                {children ? children : text}
             </label>
         </div>
     );

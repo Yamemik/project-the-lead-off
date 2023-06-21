@@ -5,4 +5,41 @@
     display: flex;
     flex-direction: column;
     row-gap: 10px;
+    &__profile {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 10px;
+        justify-content: center;
+        .layoutBlock {
+            flex: 0 1 calc(50% - 10px);
+        }
+    }
+    &__adminPanelHome {
+        gap: 10px;
+        flex-direction: row;
+        .layoutBlock {
+            flex: 0 1 33%;
+        }
+    }
+}
+
+@media(max-width: 1280px) {
+    .layoutBlocks {
+        &__profile {
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            .layoutBlock {
+                flex: 0 1 100%;
+            }
+        }
+    }
+}
+
+@media(max-width: 1200px) {
+    .layoutBlocks {
+        &__adminPanelHome {
+            flex-direction: column;
+        }
+    }
 }

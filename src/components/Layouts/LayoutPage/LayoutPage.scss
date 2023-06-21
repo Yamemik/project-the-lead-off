@@ -10,6 +10,12 @@
     }
 }
 
+@media(max-width: 1280px) {
+    .layoutPage {
+        min-height: calc(100vh - 60px);
+    }
+}
+
 @media (max-width: 768px) {
     .layoutPage {
         padding: 20px;

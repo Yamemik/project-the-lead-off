@@ -17,10 +17,10 @@ const ActiveOrders = () => {
     }, []);
 
     return (
-        <LayoutPage title="Активные заявки">
+        <LayoutPage title="Архив">
             <LayoutBlocks>
-                <LayoutBlock title="Фильтры">
-                    <Pagination items={orders} itemsPerPage={3} isCanClose />
+                <LayoutBlock>
+                    <Pagination items={orders} itemsPerPage={3} isHaveDateDelete/>
                 </LayoutBlock>
             </LayoutBlocks>
         </LayoutPage>

@@ -194,6 +194,10 @@
             }
         }
         &__additions {
+            &-dateDelete {
+                color: #9DA8C8;
+                border-color: #34506C;
+            }
             .addition {
                 border-color: #34506c;
                 &--cart {
@@ -218,9 +222,6 @@
     .button {
         &__content {
             color: #fff;
-            &:hover {
-                color: #27659e;
-            }
         }
     }
     .dropdown {
@@ -266,6 +267,68 @@
         }
         &__label {
             color: #9DA8C8;
+        }
+    }
+    .profile {
+        &__info {
+            &-row {
+                &-title {
+                    color: #fff;
+                }
+                &-text {
+                    color: #438BCE;
+                }
+            }
+            .profile__info-row + .profile__info-row {
+                &::before {
+                    background-color: #243140;
+                }
+            }
+        }
+        &__deposit {
+            &-box {
+                &-input {
+                    color: #fff;
+                }
+                &::after {
+                    color: #9DA8C8;
+                }
+            }
+            &-offert {
+                color: #438BCE;
+            }
+        }
+    }
+    .order {
+        &__row {
+            &-title {
+                color: #fff;
+            }
+            &-text, pre {
+                color: #438BCE;
+            }
+            
+        }
+        .order__row + .order__row {
+            &::before {
+                background-color: #243140;
+            }
+        }
+    }
+    .financeTable {
+        &-row {
+            &--title {
+                background-color: #438BCE;
+            }
+            &--content {
+                background-color: #243140;
+                .financeTable-row-text {
+                    color: #9DA8C8;
+                    &-id {
+                        color: #438BCE;
+                    }
+                }
+            }
         }
     }
 }

@@ -49,6 +49,15 @@
         align-items: center;
         justify-content: flex-end;
         column-gap: 5px;
+        &-dateDelete {
+            color: #53596D;
+            border: 1px solid #CDD5DC;
+            border-radius: 7px;
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+        }
     }
 }
 

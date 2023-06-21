@@ -3,3 +3,196 @@
         margin-bottom: 20px;
     }
 }
+
+.profile {
+    &__info {
+        display: flex;
+        flex-direction: column;
+        row-gap: 30px;
+        &-row {
+            & + & {
+                position: relative;
+                &::before {
+                    content: "";
+                    position: absolute;
+                    top: -16px;
+                    left: -30px;
+                    background-color: #F1F4F7;
+                    height: 1px;
+                    width: calc(100% + 60px);
+                }
+            }
+            &-title, &-text {
+                display: inline-block;
+                line-height: 18px;
+            }
+            &-title {
+                width: 30%;
+                font-weight: 700;
+                padding-right: 10px;
+            }
+            &-text {
+                width: 70%;
+                color: #3173B0;
+                overflow-wrap: break-word;
+                word-wrap: break-word;
+            }
+        }
+    }
+    &__deposit {
+        &-box {
+            position: relative;
+            margin-top: 40px;
+            &-input {
+                max-width: unset !important;
+                width: 300px;
+            }
+            &-button {
+                display: inline-block;
+                margin-top: unset;
+                margin-left: 10px;
+                margin-bottom: 35px;
+            }
+            &::after {
+                content: "Сумма:";
+                position: absolute;
+                top: -5px;
+                transform: translateY(-100%);
+                left: 0;
+                font-size: 13px;
+                color: #53596D;
+            }
+        }
+        &-offert {
+            color: #3173B0;
+            position: relative;
+            &:hover {
+                opacity: .75;
+            }
+            &::after {
+                position: absolute;
+                content: "";
+                height: 1px;
+                width: 100%;
+                background-color: #3173B0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+            }
+        }
+    }
+}
+
+.order {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+    &__row {
+        display: flex;
+        & + & {
+            position: relative;
+            &::before {
+                content: "";
+                position: absolute;
+                top: -16px;
+                left: -30px;
+                background-color: #F1F4F7;
+                height: 1px;
+                width: calc(100% + 60px);
+            }
+        }
+        &-title, &-text {
+            line-height: 18px;
+        }
+        &-title {
+            font-weight: 700;
+            flex: 0 1 15%;
+            padding-right: 15px;
+        }
+        &-text, pre {
+            flex: 1 1 85%;
+            color: #3173B0;
+        }
+    }
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        column-gap: 15px;
+        .button__content {
+            height: 52px;
+        }
+    }
+}
+
+@media(max-width: 1280px) {
+    .profile {
+        &__info {
+            &-row {
+                display: flex;
+                flex-direction: column;
+                row-gap: 5px;
+                &-title {
+                    width: unset;
+                }
+            }
+        }
+        &__deposit {
+            &-box {
+                &-input {
+                    width: 35%;
+                }
+                &-button {
+                    margin-bottom: 10px;
+                    width: 60%;
+                    max-width: 165px;
+                    button {
+                        padding: 18px 10px;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+        &__checkbox {
+            label, span {
+                font-size: 12px;
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .profile {
+        &__info {
+            &-row {
+                & + & {
+                    position: relative;
+                    &::before {
+                        left: -20px;
+                        width: calc(100% + 40px);
+                    }
+                }
+            }
+        }
+    }
+    .order {
+        row-gap: 30px;
+        &__row {
+            flex-direction: column;
+            & + & {
+                &::before {
+                    left: -20px;
+                    width: calc(100% + 40px);
+                }
+            }
+            &-title {
+                margin-bottom: 5px;
+                flex: unset;
+                padding-right: unset;
+            }
+            &-text, pre {
+                flex: unset;
+            }
+        }
+    }
+}

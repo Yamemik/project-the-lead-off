@@ -1,7 +1,7 @@
 import "./LayoutBlocks.scss";
 
-const LayoutBlocks = ({ children }) => {
-    return <div className="layoutBlocks">{children}</div>;
+const LayoutBlocks = ({ children, addClass }) => {
+    return <div className={`layoutBlocks ${addClass}`}>{children}</div>;
 };
 
 export default LayoutBlocks;

@@ -1,6 +1,8 @@
 {
     "items": [
         {
+            "create_date": "1687101169940",
+            "text": "Lorem ipsum solor a de mate",
             "id": 1,
             "product_group": "Металлы",
             "nomenclature": "116",
@@ -8,7 +10,9 @@
             "estimation": "мелкая",
             "price": 800,
             "additions": ["private", "express"],
-            "is_sale": true
+            "is_sale": true,
+            "status": "rejected",
+            "attachments": ["здесь буду вложения"]
         },
         {
             "id": 2,
@@ -18,7 +22,8 @@
             "estimation": "крупная+",
             "price": 800,
             "additions": ["urgent"],
-            "is_sale": true
+            "is_sale": true,
+            "status": "rejected"
         },
         {
             "id": 3,
@@ -28,7 +33,8 @@
             "estimation": "крупная",
             "price": 800,
             "additions": ["state", "tender", "express"],
-            "is_sale": false
+            "is_sale": false,
+            "status": "approved"
         },
         {
             "id": 4,
@@ -38,7 +44,8 @@
             "estimation": "средняя",
             "price": 800,
             "additions": [],
-            "is_sale": false
+            "is_sale": false,
+            "status": "approved"
         },
         {
             "id": 5,
@@ -48,7 +55,8 @@
             "estimation": "мелкая",
             "price": 800,
             "additions": ["tender", "express"],
-            "is_sale": false
+            "is_sale": false,
+            "status": "rejected"
         },
         {
             "id": 6,
@@ -58,7 +66,8 @@
             "estimation": "крупная+",
             "price": 800,
             "additions": ["private"],
-            "is_sale": true
+            "is_sale": true,
+            "status": "rejected"
         },
         {
             "id": 7,
@@ -68,7 +77,8 @@
             "estimation": "мелкая",
             "price": 800,
             "additions": ["tender"],
-            "is_sale": false
+            "is_sale": false,
+            "status": "approved"
         },
         {
             "id": 8,
@@ -78,7 +88,8 @@
             "estimation": "средняя",
             "price": 800,
             "additions": [],
-            "is_sale": true
+            "is_sale": true,
+            "status": "rejected"
         }
     ]
 }

@@ -1,0 +1,19 @@
+.adminPanelHome {
+    &__rows {
+        display: flex;
+        flex-direction: column;
+        row-gap: 15px;
+        &-row {
+            background-color: #F1F4F7;
+            padding: 15px 20px;
+            border-radius: 12px;
+            line-height: 18px;
+            color: #53596D;
+            span {
+                font-weight: 700;
+                line-height: 18px;
+                color: #1F2A37;
+            }
+        }
+    }
+}

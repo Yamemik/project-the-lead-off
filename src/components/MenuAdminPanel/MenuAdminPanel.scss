@@ -1,0 +1,91 @@
+.menuAdminPanel {
+    background-color: #1F2A37;
+    width: 120px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: -40px;
+    transition: width .25s;
+    & + div {
+        padding: 40px 30px 40px 150px;
+        transition: all .25s;
+    }
+    &--mini {
+        width: 60px;
+        .menuAdminPanel {
+            &__item {
+                &-link {
+                    &-text {
+                        display: none;
+                    }
+                }
+            }
+        }
+        & + div {
+            padding: 40px 30px 40px 100px;
+        }
+    }
+    &__item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        &-burger {
+            row-gap: 10px;
+            height: 100px;
+            background-color: #3173B0;
+            cursor: pointer;
+            &-line {
+                background-color: #fff;
+                width: 34px;
+                height: 2px;
+            }
+        }
+        &-link {
+            row-gap: 5px;
+            padding: 28px 0;
+            &--active, &:hover {
+                background-color: #3173B0;
+            }
+            &-text {
+                color: #fff;
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 16px;
+            }
+            & + & {
+                border-top: 1px solid #26313E;
+            }
+        }
+    }
+}
+
+@media(max-width: 768px) {
+    .menuAdminPanel {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100vw;
+        bottom: unset;
+        top: 80px;
+        &__item {
+            &-burger {
+                display: none;
+            }
+            &-link {
+                border-top: unset !important;
+                &-text {
+                    display: none;
+                }
+                padding: 15px;
+                & + & {
+                    border-left: 1px solid #26313E;
+                }
+            }
+        }
+        & + .layoutPage {
+            padding: 85px 20px 20px 20px;
+            min-height: unset;
+        }
+    }
+}

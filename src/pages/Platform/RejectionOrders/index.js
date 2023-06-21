@@ -6,7 +6,7 @@ import LayoutBlocks from "./../../../components/Layouts/LayoutBlocks";
 import LayoutPage from "./../../../components/Layouts/LayoutPage";
 import Pagination from "../../../components/Pagination";
 
-const ActiveOrders = () => {
+const RejectionOrders = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
@@ -17,14 +17,14 @@ const ActiveOrders = () => {
     }, []);
 
     return (
-        <LayoutPage title="Активные заявки">
+        <LayoutPage title="Отказы">
             <LayoutBlocks>
-                <LayoutBlock title="Фильтры">
-                    <Pagination items={orders} itemsPerPage={3} isCanClose />
+                <LayoutBlock>
+                    <Pagination items={orders} itemsPerPage={3} isHaveStatus />
                 </LayoutBlock>
             </LayoutBlocks>
         </LayoutPage>
     );
 };
 
-export default ActiveOrders;
+export default RejectionOrders;

@@ -54,7 +54,7 @@ const Header = () => {
                             }}
                         />
                     </a>
-                    <a className="header__center-link" href="#">
+                    <a className="header__center-link" href="/platform/profile">
                         <img className="header__center-link-icon" src="/img/header/user.svg" alt="" />
                         <p className="header__center-link-text">Личный счёт и информация</p>
                     </a>
@@ -66,10 +66,10 @@ const Header = () => {
                             <a href="/platform/active-orders" className="header__center-popupOrders-link">
                                 Активные
                             </a>
-                            <a href="#" className="header__center-popupOrders-link">
+                            <a href="/platform/rejection-orders" className="header__center-popupOrders-link">
                                 Отказы
                             </a>
-                            <a href="#" className="header__center-popupOrders-link">
+                            <a href="/platform/archive-orders" className="header__center-popupOrders-link">
                                 Архив
                             </a>
                             <a href="/platform/sale-orders" className="header__center-popupOrders-link">
@@ -147,7 +147,7 @@ const Header = () => {
                         />
                     </div>
                     <div className="popupMenuMobile__body-list">
-                        <a className="popupMenuMobile__body-list-link" href="#">
+                        <a className="popupMenuMobile__body-list-link" href="/platform/home">
                             <img className="popupMenuMobile__body-list-link-icon" src="/img/header/home.svg" alt="" />
                             <p className="popupMenuMobile__body-list-link-text">Главная</p>
                         </a>
@@ -181,10 +181,10 @@ const Header = () => {
                                     <a href="/platform/active-orders" className="popupMenuMobile__body-list-link-orders-order">
                                         Активные
                                     </a>
-                                    <a href="#" className="popupMenuMobile__body-list-link-orders-order">
+                                    <a href="/platform/rejection-orders" className="popupMenuMobile__body-list-link-orders-order">
                                         Отказы
                                     </a>
-                                    <a href="#" className="popupMenuMobile__body-list-link-orders-order">
+                                    <a href="/platform/archive-orders" className="popupMenuMobile__body-list-link-orders-order">
                                         Архив
                                     </a>
                                     <a
@@ -195,7 +195,7 @@ const Header = () => {
                                 </div>
                             )}
                         </a>
-                        <a className="popupMenuMobile__body-list-link" href="#">
+                        <a className="popupMenuMobile__body-list-link" href="/platform/profile">
                             <img className="popupMenuMobile__body-list-link-icon" src="/img/header/user.svg" alt="" />
                             <p className="popupMenuMobile__body-list-link-text">Личный счёт и информация</p>
                         </a>
