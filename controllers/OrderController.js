@@ -82,7 +82,7 @@ export const getAll = async(req,res) => {
    }
 }
 
-export const getAllWithFilter = async(req,res) => {
+export const getAllForUser = async(req,res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя'
@@ -275,3 +275,42 @@ export const setIsCancel = async(req,res) => {
          });
    });
 }
+
+//отчетность
+export const getAllWithFilter = async(req,res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Получить все заявки по фильтру для отчетности'
+   */   
+   try{      
+      const orders = await OrderModel.find( 
+         {$set:{
+            user:          { $in: req.body.user },
+            region:        { $in: req.body.region },
+            nomeclature:   { $all: req.body.nomeclature },
+            score:         { $in: req.body.score },
+            typeBuyer:     { $in: req.body.typeBuyer },
+            isTender:      { $in: req.body.isTender },
+            isImmediate:   { $in: req.body.isImmediate },
+            price:         { $in: req.body.price },
+            isArchive:     { $in: req.body.isArchive },
+            isDiscount:    { $in: req.body.isDiscount },
+            is_express:    { $in: req.body.is_express },
+            isCancel:      { $in: req.body.isCancel}
+         }}
+      )
+      .catch((err)=>{
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);   
+   }catch(err){
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+

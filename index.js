@@ -106,7 +106,7 @@ router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexVali
 router.get('/user/me', checkAuth, UserController.getMe);
 //order
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
-router.get('/user/order',checkAuth, OrderController.getAllWithFilter);
+router.get('/user/order',checkAuth, OrderController.getAllForUser);
 router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
 router.patch('/user/order/:id',checkAuth, updateOrderValidation, handlValidationErrors,OrderController.update);
 //router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
