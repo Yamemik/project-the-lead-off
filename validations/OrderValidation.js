@@ -26,8 +26,8 @@ export const createOrderValidation = [
    body('fio').optional().isString().isLength({ min: 1 }),
    body('score').optional().isString().isLength({ min: 1 }),
    body('typeBuyer').optional().isString().isLength({ min: 1 }),
-   body('isTender').optional().isString().isLength({ min: 1 }),
-   body('isImmediate').optional().isString().isLength({ min: 1 }),
+   body('isTender').optional().isString(),
+   body('isImmediate').optional().isBoolean(),
    body('isOpen').optional().isBoolean(),
    body('price').optional().isNumeric()
 ]

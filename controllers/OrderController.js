@@ -20,11 +20,7 @@ export const createOrder = async (req, res) => {
          isTender: req.body.isTender,
          isImmediate: req.body.isImmediate,
          isOpen: req.body.isOpen,
-         price: req.body.price,
-         isArchive: false,
-         isDiscount: false,
-         is_express: true,
-         isCancel: false
+         price: req.body.price
       });
 
       const order = await doc.save();

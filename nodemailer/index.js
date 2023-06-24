@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
-export const sendToUser = async (id, email, password, domen) => {
+export const sendToUser = async (email, password, domen) => {
    try{
       dotenv.config();
          
@@ -16,12 +16,12 @@ export const sendToUser = async (id, email, password, domen) => {
       }); 
       //let htmlWithID = process.env.LETTER.replaceAll('#domen#',domen);
       //htmlWithID = htmlWithID.replaceAll('userID',id);
-      const reference = domen + '/user/auth/login?' + id;
+      //const reference = domen + '/user/auth/login?' + id;
       let result = await transporter.sendMail({
          from: `LEAD-OFF <${process.env.EMAIL}>`,
          to: email,
          subject: 'Регистрация',
-         text: `Ваш логин - ${email} и пароль - ${password} ссылка - ${reference}`,
+         text: `Ваш логин - ${email} и пароль - ${password}`,
          //html: htmlWithID
       });
       console.log(result);

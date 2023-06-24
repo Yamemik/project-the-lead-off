@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import { UserController, OrderController, RegionController, CategoryController, TypeBuyerController,
    IsImmediateController, ScoreController, TypeOrderController } from './controllers/index.js';
 
-import { registerValidation, loginValidation,  } from './validations/AdminValidation.js';
+import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationName, updateIndexValidation, createGroupValidation } from './validations/SettingsValidation.js';
 import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
@@ -51,7 +51,7 @@ router.post('/auth/log', loginValidation, handlValidationErrors, UserController.
 //users
 router.get('/admin/user/:id',checkAuthIsAdmin, UserController.getUserByID);
 router.get('/admin/user',checkAuthIsAdmin, UserController.getUsers);
-router.patch('/admin/user/:id',checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.update);
+router.patch('/admin/user/:id',checkAuthIsAdmin, updateValidation, handlValidationErrors, UserController.update);
 router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
 router.get('/admin/order',checkAuth, OrderController.getAll);
@@ -104,6 +104,7 @@ router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexVali
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
+router.post('/user/resentpass', resentPassValidation, handlValidationErrors,UserController.resentPassword);
 //order
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
 router.get('/user/order',checkAuth, OrderController.getAllForUser);

@@ -24,16 +24,18 @@ export default async (req,res,next) => {
 
    const nowDiscount = new Date();
    nowDiscount.setDate(nowDiscount.getDate() - 3);
+   const nowBuy = new Date();
+   nowBuy.setDate(nowBuy.getDate() - 1);
 
    await OrderModel.updateMany(
       {
          createdAt: { $lte: nowDiscount},
          isDiscount: false,
          isArchive: false,
-         date_buy: { $gte: createdAt}
+         isBuy: false
       },
       {
-      isDiscount: true
+         isDiscount: true
       }
    ).catch((err)=>{
          console.log(err);

@@ -16,3 +16,19 @@ export const loginValidation = [
    body('login','Введите логин').isLength({ min: 3 }),
    body('password','Введите пароль').isLength({ min: 6 })
 ]
+
+export const resentPassValidation = [
+   body('email','Введите email').isEmail()
+]
+
+export const updateValidation = [
+   body('fio','Введите фио').optional().isLength({ min: 3 }),
+   body('email','Введите почту').optional().isEmail(),
+   body('telephone','Введите ').optional().isString(),
+   body('organization','Выберите форму организации').optional().isBoolean(),
+   body('region','Укажите страну').optional().isArray(),
+   body('business_line','').optional().isArray(),
+   body('access_to_open','Выберите доступ').optional().isBoolean(),
+   body('isAdmin','').optional().isBoolean(),
+   body('balance','').optional().isNumeric()
+]

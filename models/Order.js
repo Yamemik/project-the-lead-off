@@ -30,20 +30,20 @@ const OrderSchema = new mongoose.Schema({
       require: false
    },
    score:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'Score'
+      type: String,
+      require: false
    },
    typeBuyer:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'TypeBuyer'
+      type: String,
+      require: true
    },
    isTender:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'TypeOrder'
+      type: String,
+      require: true
    },
    isImmediate:{
-      type: mongoose.Schema.Types.ObjectId,      
-      ref: 'IsImmediate'
+      type: Boolean,
+      require: true,
    },
    isOpen:{
       type: Boolean,
@@ -51,7 +51,8 @@ const OrderSchema = new mongoose.Schema({
    },
    is_express:{
       type: Boolean,
-      require: true
+      require: true,
+      default: true
    },
    price:{
       type: Number,
@@ -59,11 +60,13 @@ const OrderSchema = new mongoose.Schema({
    },
    isArchive:{
       type: Boolean,
-      require: true
+      require: true,
+      default: false
    },
    isDiscount:{
       type: Boolean,
-      require: true
+      require: true,
+      defalt: false
    },
    user:{
       type: mongoose.Schema.Types.ObjectId,      
@@ -74,9 +77,15 @@ const OrderSchema = new mongoose.Schema({
       type: Date,
       require: false
    },
+   isBuy:{
+      type: Boolean,
+      require: false,
+      default: false
+   },
    isCanceled:{
       type: Boolean,
-      require: false
+      require: false,
+      default: false
    },
    isCanceledText:{
       type: String,
@@ -84,7 +93,8 @@ const OrderSchema = new mongoose.Schema({
    },
    isCancel:{
       type: Boolean,
-      require: true
+      require: true,
+      defalt: false
    }
 },{
    timestamps: true,
