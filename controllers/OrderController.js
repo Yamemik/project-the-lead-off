@@ -16,10 +16,10 @@ export const createOrder = async (req, res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.typeBuyer,
-         isTender: req.body.isTender,
-         isImmediate: req.body.isImmediate,
-         isOpen: req.body.isOpen,
+         typeBuyer: req.body.type_buyer,
+         type_order: req.body.type_order,
+         is_urgent: req.body.is_urgent,
+         isOpen: req.body.is_open,
          price: req.body.price
       });
 
@@ -143,17 +143,19 @@ export const update = async(req,res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.typeBuyer,
-         isTender: req.body.isTender,
-         isImmediate: req.body.isImmediate,
-         isOpen: req.body.isOpen,
+         typeBuyer: req.body.type_buyer,
+         type_order: req.body.type_order,
+         is_urgent: req.body.is_urgent,
+         isOpen: req.body.is_open,
          price: req.body.price,
          isArchive: req.body.isArchive,
-         isDiscount: req.body.isDiscount,
+         is_sale: req.body.is_sale,
          is_express: req.body.is_express,
          user: req.body.user,
+         date_buy: req.body.date_buy,
+         isBuy: req.body.isBuy,
          isCanceled: req.body.isCanceled,
-         isCanceled: req.body.isCanceled,
+         isCanceledText: req.body.isCanceledText,
          isCancel: req.body.isCancel
       }
    }).then(()=> res.json({

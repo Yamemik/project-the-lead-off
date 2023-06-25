@@ -37,11 +37,11 @@ const OrderSchema = new mongoose.Schema({
       type: String,
       require: true
    },
-   isTender:{
+   type_order:{
       type: String,
       require: true
    },
-   isImmediate:{
+   is_urgent:{
       type: Boolean,
       require: true,
    },

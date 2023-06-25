@@ -45,8 +45,6 @@ import RateModel from '../models/Rate.js';
     }
  };
 
- //скрытые запросы//
-
  export const createSc = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
@@ -105,7 +103,7 @@ import RateModel from '../models/Rate.js';
 export const removeSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить тип заявки'
+      #swagger.summary = 'удалить коэф'
       #swagger.deprecated = true
    */   
    await RateModel.findByIdAndDelete(req.params.id)

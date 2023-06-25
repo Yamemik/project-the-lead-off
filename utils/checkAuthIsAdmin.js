@@ -13,7 +13,7 @@ export default async (req, res, next) => {
          req.userId = decoded._id;
          
          const user = await UserModel.findById(decoded._id).catch((err)=>{
-            res.status(404).json({
+            return res.status(404).json({
                message: 'user not found'
             })
          });
