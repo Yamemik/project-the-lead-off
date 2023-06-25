@@ -1,13 +1,13 @@
-import TypeOrderModel from '../models/TypeOrder.js';
+import RateModel from '../models/Rate.js';
 
 
- export const getAllTO = async(req,res) => {
+ export const getAllSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Получить все типы заявок'
     */   
     try{
-       const entity = await TypeOrderModel.find().exec().catch((err)=>{
+       const entity = await RateModel.find().exec().catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -22,15 +22,15 @@ import TypeOrderModel from '../models/TypeOrder.js';
     }
  }
  
- export const getOneTO = async(req,res) => {
+ export const getOneSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить тип заявки'
+       #swagger.summary = 'Получение 1 коэффициента'
     */   
     try{
        const entityId = req.params.id;
  
-       const entity = await TypeOrderModel.findById(entityId).catch((err)=>{
+       const entity = await RateModel.findById(entityId).catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
@@ -47,16 +47,22 @@ import TypeOrderModel from '../models/TypeOrder.js';
 
  //скрытые запросы//
 
- export const createTO = async (req, res) => {
+ export const createSc = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Создание типа заявки'
+      #swagger.summary = 'Создание коэффициентов'
       #swagger.deprecated = true
    */
    try{
-      const doc = new TypeOrderModel({
-        name: req.body.name,
-        index: req.body.index
+      const doc = new RateModel({
+         score:         req.body.score,
+         type_buyer:    req.body.type_buyer,
+         type_order:    req.body.type_order,
+         is_urgent:     req.body.is_urgent,
+         is_express:    req.body.is_express,
+         count_region:  req.body.count_region,
+         is_open:       req.body.is_open,
+         is_sale:       req.body.is_sale
       });
 
       const entity = await doc.save();
@@ -70,15 +76,21 @@ import TypeOrderModel from '../models/TypeOrder.js';
    }
 };
 
- export const updateTO = async(req,res) => {
+ export const updateSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Изменить тип заявки'
+      #swagger.summary = 'Измениние коэффициентов'
    */   
-   await TypeOrderModel.updateOne({_id:req.params.id},{
+   await RateModel.updateOne({_id:req.params.id},{
       $set: { 
-         name: req.body.name, 
-         index: req.body.index 
+         score:         req.body.score,
+         type_buyer:    req.body.type_buyer,
+         type_order:    req.body.type_order,
+         is_urgent:     req.body.is_urgent,
+         is_express:    req.body.is_express,
+         count_region:  req.body.count_region,
+         is_open:       req.body.is_open,
+         is_sale:       req.body.is_sale
       }
    }).then(()=> res.json({
          access: true
@@ -90,13 +102,13 @@ import TypeOrderModel from '../models/TypeOrder.js';
    });
 }
 
-export const removeTO = async(req,res) => {
+export const removeSc = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить тип заявки'
       #swagger.deprecated = true
    */   
-   await TypeOrderModel.findByIdAndDelete(req.params.id)
+   await RateModel.findByIdAndDelete(req.params.id)
    .then(()=> res.json({
       access: true
    })).catch((err)=>{

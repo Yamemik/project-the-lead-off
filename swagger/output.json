@@ -856,7 +856,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Создание оценки",
+        "summary": "Создание коэффициентов",
         "description": "",
         "parameters": [
           {
@@ -865,250 +865,28 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "score": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "deprecated": true
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все оценки",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/score/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить оценку",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменить оценку",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "type_buyer": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/typebuyer": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание типa организации",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "type_order": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "deprecated": true
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все типы организации",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/typebuyer/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить один тип орг",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменить тип орг",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "is_urgent": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/typeorder": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание типа заявки",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "is_express": {
                   "example": "any"
                 },
-                "index": {
+                "count_region": {
+                  "example": "any"
+                },
+                "is_open": {
+                  "example": "any"
+                },
+                "is_sale": {
                   "example": "any"
                 }
               }
@@ -1145,12 +923,12 @@
         }
       }
     },
-    "/api/admin/settings/typeorder/{id}": {
+    "/api/admin/settings/score/{id}": {
       "get": {
         "tags": [
           "Settings"
         ],
-        "summary": "Получить тип заявки",
+        "summary": "Получение 1 коэффициента",
         "description": "",
         "parameters": [
           {
@@ -1176,7 +954,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Изменить тип заявки",
+        "summary": "Измениние коэффициентов",
         "description": "",
         "parameters": [
           {
@@ -1191,130 +969,28 @@
             "schema": {
               "type": "object",
               "properties": {
-                "name": {
+                "score": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/isimmediate": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание типa срочности",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "type_buyer": {
                   "example": "any"
                 },
-                "index": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "deprecated": true
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все типы срочности",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/isimmediate/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить один тип срочности",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменить тип срочности",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
+                "type_order": {
                   "example": "any"
                 },
-                "index": {
+                "is_urgent": {
+                  "example": "any"
+                },
+                "is_express": {
+                  "example": "any"
+                },
+                "count_region": {
+                  "example": "any"
+                },
+                "is_open": {
+                  "example": "any"
+                },
+                "is_sale": {
                   "example": "any"
                 }
               }
@@ -1355,6 +1031,40 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/api/user/resentpass": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Восстановление пароля/повторная отправка",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/api/user/order/{id}": {

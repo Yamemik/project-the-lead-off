@@ -5,11 +5,10 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, TypeBuyerController,
-   IsImmediateController, ScoreController, TypeOrderController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, RateController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
-import { createRegionValidation, createValidationName, updateIndexValidation, createGroupValidation } from './validations/SettingsValidation.js';
+import { createRegionValidation, createValidationIndexes, createGroupValidation, createCategoryValidation } from './validations/SettingsValidation.js';
 import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
@@ -67,7 +66,7 @@ router.get('/admin/settings/region',checkAuthIsAdmin, RegionController.getAllRg)
 router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
 router.delete('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.removeRg);
 //category
-router.post('/admin/settings/category',checkAuthIsAdmin, createValidationName, handlValidationErrors, CategoryController.createCt);
+router.post('/admin/settings/category',checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
 router.post('/admin/settings/group',checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
 router.post('/admin/settings/nomenclature',checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
 router.get('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.getOneCt);
@@ -76,29 +75,13 @@ router.get('/admin/settings/group/:id',checkAuthIsAdmin, CategoryController.getO
 router.get('/admin/settings/group',checkAuthIsAdmin, CategoryController.getAllGroups);
 router.get('/admin/settings/nom/:id',checkAuthIsAdmin, CategoryController.getOneNom);
 router.get('/admin/settings/nom',checkAuthIsAdmin, CategoryController.getAllNoms);
-router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createValidationName, handlValidationErrors, CategoryController.updateCt);
+router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
 router.delete('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.removeCt);
-//score
-router.post('/admin/settings/score',checkAuthIsAdmin, createValidationName, handlValidationErrors, ScoreController.createSc);
-router.get('/admin/settings/score/:id',checkAuthIsAdmin, ScoreController.getOneSc);
-router.get('/admin/settings/score',checkAuthIsAdmin, ScoreController.getAllSc);
-router.patch('/admin/settings/score/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, ScoreController.updateSc);
-//type buyer
-router.post('/admin/settings/typebuyer',checkAuthIsAdmin, createValidationName, handlValidationErrors, TypeBuyerController.createTB);
-router.get('/admin/settings/typebuyer/:id',checkAuthIsAdmin, TypeBuyerController.getOneTB);
-router.get('/admin/settings/typebuyer',checkAuthIsAdmin, TypeBuyerController.getAllTB);
-router.patch('/admin/settings/typebuyer/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeBuyerController.updateTB);
-//type order
-router.post('/admin/settings/typeorder',checkAuthIsAdmin, createValidationName, handlValidationErrors, TypeOrderController.createTO);
-router.get('/admin/settings/typeorder/:id',checkAuthIsAdmin, TypeOrderController.getOneTO);
-router.get('/admin/settings/typeorder',checkAuthIsAdmin, TypeOrderController.getAllTO);
-router.patch('/admin/settings/typeorder/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, TypeOrderController.updateTO);
-//is immediate
-router.post('/admin/settings/isimmediate',checkAuthIsAdmin, createValidationName, handlValidationErrors, IsImmediateController.createII);
-router.get('/admin/settings/isimmediate/:id',checkAuthIsAdmin, IsImmediateController.getOneII);
-router.get('/admin/settings/isimmediate',checkAuthIsAdmin, IsImmediateController.getAllII);
-router.patch('/admin/settings/isimmediate/:id',checkAuthIsAdmin, updateIndexValidation, handlValidationErrors, IsImmediateController.updateII);
-
+//score and more indexes
+router.post('/admin/settings/score',checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.createSc);
+router.get('/admin/settings/score/:id',checkAuthIsAdmin, RateController.getOneSc);
+router.get('/admin/settings/score',checkAuthIsAdmin, RateController.getAllSc);
+router.patch('/admin/settings/score/:id',checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 
 
 
