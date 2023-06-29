@@ -55,6 +55,7 @@ router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
 router.get('/admin/order',checkAuth, OrderController.getAll);
 router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
+router.patch('/admin/order/:id',checkAuthIsAdmin, updateOrderValidation, handlValidationErrors,OrderController.update);
 router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
 
@@ -84,7 +85,6 @@ router.get('/admin/settings/score',checkAuthIsAdmin, RateController.getAllSc);
 router.patch('/admin/settings/score/:id',checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 
 
-
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors,UserController.resentPassword);
@@ -92,9 +92,8 @@ router.post('/user/resentpass', resentPassValidation, handlValidationErrors,User
 router.get('/user/order/:id',checkAuth, OrderController.getOne);
 router.get('/user/order',checkAuth, OrderController.getAllForUser);
 router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
-router.patch('/user/order/:id',checkAuth, updateOrderValidation, handlValidationErrors,OrderController.update);
-//router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
-//router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);
+router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
+router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);
 
 
 

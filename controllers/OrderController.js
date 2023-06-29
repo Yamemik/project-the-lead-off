@@ -201,7 +201,7 @@ export const findDublicate = async (req, res) => {
 export const addUser = async(req,res) => {
    /*
       #swagger.tags = ["User"]
-      #swagger.summary = 'добавить пользователя во владельцы заказом'
+      #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
    */
    const now = new Date();
    await OrderModel.updateOne({_id:req.params.id},{
@@ -234,8 +234,6 @@ export const cpUpload = async (req, res) => {
    });   
 }
 
-
-
 export const sendCancel = async(req,res) => {
    /*
       #swagger.tags = ["User"]
@@ -256,15 +254,13 @@ export const sendCancel = async(req,res) => {
    });
 }
 
-export const setIsCancel = async(req,res) => {
+export const setIsArchive = async(req,res) => {
    /*
-      #swagger.tags = ["Admin"]
-      #swagger.summary = 'одобрить или отказать отмене'
+      #swagger.tags = ["User"]
+      #swagger.summary = 'установить заявке архив'
    */   
    await OrderModel.updateOne({_id:req.params.id},{
-      isCancel: req.body.isCancel,
-      $push: { isCanceledText: req.body.answer },
-      isCanceled: false
+      isArchive: true,
    }).then(()=> res.json({
          access: true
    })).catch((err)=>{
@@ -274,6 +270,7 @@ export const setIsCancel = async(req,res) => {
          });
    });
 }
+
 
 //отчетность
 export const getAllWithFilter = async(req,res) => {
