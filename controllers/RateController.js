@@ -4,7 +4,7 @@ import RateModel from '../models/Rate.js';
  export const getAllSc = async(req,res) => {
     /*
        #swagger.tags = ["Settings"]
-       #swagger.summary = 'Получить все типы заявок'
+       #swagger.summary = 'Получить все коэф'
     */   
     try{
        const entity = await RateModel.find().exec().catch((err)=>{

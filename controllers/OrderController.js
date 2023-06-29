@@ -180,7 +180,8 @@ export const findDublicate = async (req, res) => {
 
       const ordersDuplicate = await OrderModel.find({
          $or:[{email:req.body.email},{telephone:{$all:req.body.telephone}}],
-         createdAt: { $lte: nowArchive}
+         isArchive: false,
+         isBuy: false
       })
       .exec().catch((err)=>{
          res.status(404).json({
@@ -242,7 +243,7 @@ export const sendCancel = async(req,res) => {
    */
    const now = new Date();
    now.setDate(now.getDate() - 1);
-   await OrderModel.updateOne({_id:req.params.id, date_buy: { $lte: now}},{
+   await OrderModel.updateOne({_id:req.params.id},{
       isCanceled: true,
       isCanceledText: req.body.isCanceledText
    }).then(()=> res.json({
