@@ -128,7 +128,7 @@ export const remove = async(req,res) => {
    });
 }
 
-export const update = async(req,res) => {
+export const updateOrder = async(req,res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'изменить заявку'

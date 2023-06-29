@@ -55,7 +55,7 @@ router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
 //orders
 router.get('/admin/order',checkAuth, OrderController.getAll);
 router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
-router.patch('/admin/order/:id',checkAuthIsAdmin, updateOrderValidation, handlValidationErrors,OrderController.update);
+router.patch('/admin/order/:id',checkAuthIsAdmin, updateOrderValidation, handlValidationErrors,OrderController.updateOrder);
 router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
 
