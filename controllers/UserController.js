@@ -23,7 +23,7 @@ export const createUser = async (req, res) => {
          region: req.body.region,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
-         isAdmin: req.body.isAdmin,
+         isAdmin: req.body.is_admin,
          balance: req.body.balance,
          passwordHash: hash
       });
@@ -194,7 +194,7 @@ export const update = async(req,res) => {
          region: req.body.region,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
-         isAdmin: req.body.isAdmin,
+         isAdmin: req.body.is_admin,
          balance: req.body.balance
       }
    }).then(()=> res.json({
