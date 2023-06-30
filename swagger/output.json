@@ -38,39 +38,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "user",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "fio": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "organization": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "business_line": {
-                  "example": "any"
-                },
-                "access_to_open": {
-                  "example": "any"
-                },
-                "is_admin": {
-                  "example": "any"
-                },
-                "balance": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -1292,6 +1265,78 @@
           }
         }
       }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "age": {
+          "type": "number",
+          "example": 29
+        },
+        "parents": {
+          "$ref": "#/definitions/Parents"
+        },
+        "diplomas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "school": {
+                "type": "string",
+                "example": "XYZ University"
+              },
+              "year": {
+                "type": "number",
+                "example": 2020
+              },
+              "completed": {
+                "type": "boolean",
+                "example": true
+              },
+              "internship": {
+                "type": "object",
+                "properties": {
+                  "hours": {
+                    "type": "number",
+                    "example": 290
+                  },
+                  "location": {
+                    "type": "string",
+                    "example": "XYZ Company"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "AddUser": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Jhon Doe"
+        },
+        "age": {
+          "type": "number",
+          "example": 29
+        },
+        "about": {
+          "type": "string",
+          "example": ""
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
     }
   }
 }

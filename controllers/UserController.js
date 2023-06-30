@@ -9,6 +9,12 @@ export const createUser = async (req, res) => {
    /*
       #swagger.tags = ["Auth"]
       #swagger.summary = 'Регистрация пользователя'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/User" }
+      }
    */
    const password = generatePassword(12, false);
    const salt = await bcrypt.genSalt(10);
