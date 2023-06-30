@@ -22,16 +22,18 @@ export const createUser = async (req, res) => {
 
    try {
       const doc = new UserModel({
-         fio: req.body.fio,
-         email: req.body.email,
-         telephone: req.body.telephone,
-         organization: req.body.organization,
-         region: req.body.region,
-         business_line: req.body.business_line,
-         access_to_open: req.body.access_to_open,
-         is_admin: req.body.is_admin,
-         balance: req.body.balance,
-         passwordHash: hash
+         $set: {
+            fio: req.body.fio,
+            email: req.body.email,
+            telephone: req.body.telephone,
+            organization: req.body.organization,
+            region: req.body.region,
+            business_line: req.body.business_line,
+            access_to_open: req.body.access_to_open,
+            is_admin: req.body.is_admin,
+            balance: req.body.balance,
+            passwordHash: hash
+         }
       });
 
       const user = await doc.save();
@@ -190,6 +192,12 @@ export const update = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'изменить пользователя'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/User" }
+      }
    */
    await UserModel.updateOne({ _id: req.params.id }, {
       $set: {

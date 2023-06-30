@@ -135,39 +135,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "user",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "fio": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "organization": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "business_line": {
-                  "example": "any"
-                },
-                "access_to_open": {
-                  "example": "any"
-                },
-                "is_admin": {
-                  "example": "any"
-                },
-                "balance": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/User"
             }
           }
         ],
@@ -933,36 +906,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "indexes",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "is_express": {
-                  "example": "any"
-                },
-                "count_region": {
-                  "example": "any"
-                },
-                "is_open": {
-                  "example": "any"
-                },
-                "is_sale": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Rate"
             }
           }
         ],
@@ -1037,36 +986,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "indexes",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "is_express": {
-                  "example": "any"
-                },
-                "count_region": {
-                  "example": "any"
-                },
-                "is_open": {
-                  "example": "any"
-                },
-                "is_sale": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Rate"
             }
           }
         ],
@@ -1271,6 +1196,67 @@
     "User": {
       "type": "object",
       "properties": {
+        "fio": {
+          "type": "string",
+          "example": "buyer1"
+        },
+        "email": {
+          "type": "string",
+          "example": "emmail@mail.ru"
+        },
+        "telephone": {
+          "type": "string",
+          "example": "+79998887766"
+        },
+        "organization": {
+          "type": "boolean",
+          "example": false
+        },
+        "region": {
+          "type": "array",
+          "example": [
+            "648da61bb1b77049cf3132ac",
+            "648da62db1b77049cf3132b1"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "business_line": {
+          "type": "array",
+          "example": [
+            "64905d35da79634eb9ca985a",
+            "64905d70da79634eb9ca986b",
+            "64905d01da79634eb9ca9850"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "access_to_open": {
+          "type": "boolean",
+          "example": false
+        },
+        "is_admin": {
+          "type": "boolean",
+          "example": false
+        },
+        "balance": {
+          "type": "number",
+          "example": 0
+        }
+      },
+      "required": [
+        "fio",
+        "email",
+        "telephone",
+        "region",
+        "business_line"
+      ]
+    },
+    "User1": {
+      "type": "object",
+      "properties": {
         "name": {
           "type": "string",
           "example": "Jhon Doe"
@@ -1317,26 +1303,105 @@
         }
       }
     },
-    "AddUser": {
+    "Rate": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "Jhon Doe"
+        "score": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "hard+": {
+                "type": "number",
+                "example": 1.4
+              }
+            }
+          }
         },
-        "age": {
-          "type": "number",
-          "example": 29
+        "type_buyer": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "private": {
+                "type": "number",
+                "example": 2.8
+              }
+            }
+          }
         },
-        "about": {
-          "type": "string",
-          "example": ""
+        "type_order": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "order": {
+                "type": "number",
+                "example": 4.8
+              }
+            }
+          }
+        },
+        "is_urgent": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "no": {
+                "type": "number",
+                "example": 6.8
+              }
+            }
+          }
+        },
+        "is_express": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "no": {
+                "type": "number",
+                "example": 8.8
+              }
+            }
+          }
+        },
+        "count_region": {
+          "type": "array",
+          "example": [
+            1.2,
+            1.1,
+            1
+          ],
+          "items": {
+            "type": "number"
+          }
+        },
+        "is_open": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "no": {
+                "type": "number",
+                "example": 0.6
+              }
+            }
+          }
+        },
+        "is_sale": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "no": {
+                "type": "number",
+                "example": 0.43
+              }
+            }
+          }
         }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+      }
     }
   }
 }

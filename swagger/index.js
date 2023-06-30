@@ -21,18 +21,17 @@ const doc = {
     schemes: ['https'],
     definitions: {
       User: {
-        fio: "buyer1",
-        email: "emmail@mail.ru",
-        telephone: "+79998887766",
-        organization: true,
-        region: ["648da61bb1b77049cf3132ac","648da62db1b77049cf3132b1"],
-        business_line: ["64905d35da79634eb9ca985a","64905d70da79634eb9ca986b","64905d01da79634eb9ca9850"],
-        access_to_open: true,
+        $fio: "buyer1",
+        $email: "emmail@mail.ru",
+        $telephone: "+79998887766",
+        organization: false,
+        $region: ["648da61bb1b77049cf3132ac","648da62db1b77049cf3132b1"],
+        $business_line: ["64905d35da79634eb9ca985a","64905d70da79634eb9ca986b","64905d01da79634eb9ca9850"],
+        access_to_open: false,
         is_admin: false,
-        balance: 0,
-        passwordHash: 'passwordHash'      
+        balance: 0
       },
-      User: {
+      User1: {
         name: 'Jhon Doe',
         age: 29,
         parents: {
@@ -50,12 +49,16 @@ const doc = {
           }
         ]
       },
-      AddUser: {
-        $name: 'Jhon Doe',
-        $age: 29,
-        about: ''
+      Rate: {
+        score: [{"easy": 0.8},{"medium": 1.0},{"hard": 1.2},{"hard+": 1.4}],
+        type_buyer: [{"state": 1.8},{"private": 2.8}],
+        type_order: [{"tender": 3.8},{"order": 4.8}],
+        is_urgent: [{"yes": 5.8},{"no": 6.8}],
+        is_express: [{"yes": 7.8},{"no": 8.8}],
+        count_region: [1.2,1.1,1],
+        is_open: [{"yes": 0.5},{"no": 0.6}],
+        is_sale: [{"yes": 0.9},{"no": 0.43}]      
       },
-      // { ... }
     }
 };
 

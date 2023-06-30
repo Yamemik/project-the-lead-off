@@ -50,6 +50,12 @@ import RateModel from '../models/Rate.js';
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание коэффициентов'
       #swagger.deprecated = true
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'indexes',
+                required: true,
+                schema: { $ref: "#/definitions/Rate" }
+      }
    */
    try{
       const doc = new RateModel({
@@ -78,17 +84,23 @@ import RateModel from '../models/Rate.js';
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Измениние коэффициентов'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'indexes',
+                required: true,
+                schema: { $ref: "#/definitions/Rate" }
+      }
    */   
    await RateModel.updateOne({_id:req.params.id},{
       $set: { 
-         score:         req.body.score,
-         type_buyer:    req.body.type_buyer,
-         type_order:    req.body.type_order,
-         is_urgent:     req.body.is_urgent,
-         is_express:    req.body.is_express,
-         count_region:  req.body.count_region,
-         is_open:       req.body.is_open,
-         is_sale:       req.body.is_sale
+         $score:         req.body.score,
+         $type_buyer:    req.body.type_buyer,
+         $type_order:    req.body.type_order,
+         $is_urgent:     req.body.is_urgent,
+         $is_express:    req.body.is_express,
+         $count_region:  req.body.count_region,
+         $is_open:       req.body.is_open,
+         $is_sale:       req.body.is_sale
       }
    }).then(()=> res.json({
          access: true

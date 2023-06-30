@@ -17,7 +17,8 @@ const UserSchema = new mongoose.Schema({
    },
    organization:{
       type: Boolean,
-      require: false
+      require: false,
+      default: false
    },
    region:{
       type: Array,
@@ -29,11 +30,13 @@ const UserSchema = new mongoose.Schema({
    },
    access_to_open:{
       type: Boolean,
-      require: false
+      require: false,
+      default: false
    },
    is_admin:{
       type: Boolean,
-      require: true
+      require: true,
+      default: false
    },
    balance:{
       type: Number,
