@@ -9,7 +9,7 @@ import { UserController, OrderController, RegionController, CategoryController, 
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createGroupValidation, createCategoryValidation } from './validations/SettingsValidation.js';
-import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation} from './validations/OrderValidation.js';
+import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -21,88 +21,88 @@ const app = express();  //create webapp
 const router = express.Router();
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
 const storage = multer.diskStorage({
-   destination: (req, file, cb)=>{
-      cb(null,'uploads');
+   destination: (req, file, cb) => {
+      cb(null, 'uploads');
    },
-   filename: (req,file,cb)=>{
-      cb(null,file.originalname);
+   filename: (req, file, cb) => {
+      cb(null, file.originalname);
    }
 });
-const uploads = multer({storage});
+const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json
 app.use(cors());
 app.use(handlers);
 app.use("/api", router);
-app.use('/uploads',express.static('uploads'));
+app.use('/uploads', express.static('uploads'));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 
 app.get('/', (req, res) => {
-    res.send('test of lead-off');
- });
+   res.send('test of lead-off');
+});
 
 //AUTH
-router.post('/auth/reg', checkAuthIsAdmin,registerValidation, handlValidationErrors, UserController.createUser);
+router.post('/auth/reg', checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.createUser);
 router.post('/auth/log', loginValidation, handlValidationErrors, UserController.log_in);
 
 //ADMIN
 //users
-router.get('/admin/user/:id',checkAuthIsAdmin, UserController.getUserByID);
-router.get('/admin/user',checkAuthIsAdmin, UserController.getUsers);
-router.patch('/admin/user/:id',checkAuthIsAdmin, updateValidation, handlValidationErrors, UserController.update);
-router.delete('/admin/user/:id',checkAuthIsAdmin, UserController.remove);
+router.get('/admin/user/:id', checkAuthIsAdmin, UserController.getUserByID);
+router.get('/admin/user', checkAuthIsAdmin, UserController.getUsers);
+router.patch('/admin/user/:id', checkAuthIsAdmin, updateValidation, handlValidationErrors, UserController.update);
+router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.remove);
 //orders
-router.get('/admin/order',checkAuth, OrderController.getAll);
-router.post('/admin/order',checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
-router.patch('/admin/order/:id',checkAuthIsAdmin, updateOrderValidation, handlValidationErrors,OrderController.updateOrder);
-router.post('/admin/order/finddublicate',checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
-router.post('/admin/uploads',checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
+router.get('/admin/order', checkAuth, OrderController.getAll);
+router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
+router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.updateOrder);
+router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
+router.post('/admin/uploads', checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
 
 //SETTING
 //region
-router.post('/admin/settings/region',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.createRg);
-router.get('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.getOneRg);
-router.get('/admin/settings/region',checkAuthIsAdmin, RegionController.getAllRg);
-router.patch('/admin/settings/region/:id',checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
-router.delete('/admin/settings/region/:id',checkAuthIsAdmin, RegionController.removeRg);
+router.post('/admin/settings/region', checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.createRg);
+router.get('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.getOneRg);
+router.get('/admin/settings/region', checkAuthIsAdmin, RegionController.getAllRg);
+router.patch('/admin/settings/region/:id', checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
+router.delete('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.removeRg);
 //category
-router.post('/admin/settings/category',checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
-router.post('/admin/settings/group',checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
-router.post('/admin/settings/nomenclature',checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
-router.get('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.getOneCt);
-router.get('/admin/settings/category',checkAuthIsAdmin, CategoryController.getAllCt);
-router.get('/admin/settings/group/:id',checkAuthIsAdmin, CategoryController.getOneGroup);
-router.get('/admin/settings/group',checkAuthIsAdmin, CategoryController.getAllGroups);
-router.get('/admin/settings/nom/:id',checkAuthIsAdmin, CategoryController.getOneNom);
-router.get('/admin/settings/nom',checkAuthIsAdmin, CategoryController.getAllNoms);
-router.patch('/admin/settings/category/:id',checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
-router.delete('/admin/settings/category/:id',checkAuthIsAdmin, CategoryController.removeCt);
+router.post('/admin/settings/category', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
+router.post('/admin/settings/group', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
+router.post('/admin/settings/nomenclature', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
+router.get('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.getOneCt);
+router.get('/admin/settings/category', checkAuthIsAdmin, CategoryController.getAllCt);
+router.get('/admin/settings/group/:id', checkAuthIsAdmin, CategoryController.getOneGroup);
+router.get('/admin/settings/group', checkAuthIsAdmin, CategoryController.getAllGroups);
+router.get('/admin/settings/nom/:id', checkAuthIsAdmin, CategoryController.getOneNom);
+router.get('/admin/settings/nom', checkAuthIsAdmin, CategoryController.getAllNoms);
+router.patch('/admin/settings/category/:id', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
+router.delete('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.removeCt);
 //score and more indexes
-router.post('/admin/settings/score',checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.createSc);
-router.get('/admin/settings/score/:id',checkAuthIsAdmin, RateController.getOneSc);
-router.get('/admin/settings/score',checkAuthIsAdmin, RateController.getAllSc);
-router.patch('/admin/settings/score/:id',checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
+router.post('/admin/settings/score', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.createSc);
+router.get('/admin/settings/score/:id', checkAuthIsAdmin, RateController.getOneSc);
+router.get('/admin/settings/score', checkAuthIsAdmin, RateController.getAllSc);
+router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
-router.post('/user/resentpass', resentPassValidation, handlValidationErrors,UserController.resentPassword);
+router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
-router.get('/user/order/:id',checkAuth, OrderController.getOne);
-router.get('/user/order',checkAuth, OrderController.getAllForUser);
-router.get('/user/order/adduser/:id',checkAuth, OrderController.addUser);
-router.patch('/user/order/setIsArchive/:id',checkAuth, OrderController.setIsArchive);
-router.patch('/user/order/sendCancel/:id',checkAuth, OrderController.sendCancel);
+router.get('/user/order/:id', checkAuth, OrderController.getOne);
+router.get('/user/order', checkAuth, OrderController.getAllForUser);
+router.get('/user/order/adduser/:id', checkAuth, OrderController.addUser);
+router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
+router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
 
 
 
 
- 
+
 //run server
-app.listen(7777, (err) =>{
-    if (err){
-       return (err);
-    }
-    console.log('webserver.....OK!');
- });
+app.listen(7777, (err) => {
+   if (err) {
+      return (err);
+   }
+   console.log('webserver.....OK!');
+});

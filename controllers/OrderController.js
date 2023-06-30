@@ -6,7 +6,7 @@ export const createOrder = async (req, res) => {
       #swagger.tags = ["Admin"]
       #swagger.summary = 'Создание заявки'
    */
-   try{      
+   try {
       const doc = new OrderModel({
          nomeclature: req.body.nomeclature,
          region: req.body.region,
@@ -34,22 +34,22 @@ export const createOrder = async (req, res) => {
    }
 }
 
-export const getOne = async(req,res) => {
+export const getOne = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'Получить одну заявку
-   */   
-   try{
+   */
+   try {
       const orderId = req.params.id;
 
-      const order = await OrderModel.findById(orderId).populate(['category1','region','score','isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err)=>{
+      const order = await OrderModel.findById(orderId).populate(['category1', 'region', 'score', 'isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err) => {
          res.status(404).json({
             message: 'order not found'
          })
       });
 
-      res.json(order);        
-   }catch(err){
+      res.json(order);
+   } catch (err) {
       console.log(err);
       res.status(500).json({
          message: "server error"
@@ -57,20 +57,20 @@ export const getOne = async(req,res) => {
    }
 }
 
-export const getAll = async(req,res) => {
+export const getAll = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'Получить все заявки'
-   */   
-   try{
-      const orders = await OrderModel.find().populate(['category1','region','score','isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err)=>{
+   */
+   try {
+      const orders = await OrderModel.find().populate(['category1', 'region', 'score', 'isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err) => {
          res.status(404).json({
             message: 'orders not found'
          })
       });
 
-      res.json(orders);   
-   }catch(err){
+      res.json(orders);
+   } catch (err) {
       console.log(err);
       res.status(500).json({
          message: "server error"
@@ -78,32 +78,33 @@ export const getAll = async(req,res) => {
    }
 }
 
-export const getAllForUser = async(req,res) => {
+export const getAllForUser = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя'
-   */   
-   try{
+   */
+   try {
       const user = await UserModel.findById(req.userId)
-      .catch((err)=>{
-         res.status(404).json({
-            message: 'user not found'
-         })
-      });
-      
-      const orders = await OrderModel.find({ $or:[
-         {nomeclature:  { $all: user.business_line }},
-         {region:       {$in: user.region }}
+         .catch((err) => {
+            res.status(404).json({
+               message: 'user not found'
+            })
+         });
+
+      const orders = await OrderModel.find({
+         $or: [
+            { nomeclature: { $all: user.business_line } },
+            { region: { $in: user.region } }
          ]
       })
-      .catch((err)=>{
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      });
+         .catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
-      res.json(orders);   
-   }catch(err){
+      res.json(orders);
+   } catch (err) {
       console.log(err);
       res.status(500).json({
          message: "server error"
@@ -112,29 +113,29 @@ export const getAllForUser = async(req,res) => {
 }
 
 
-export const remove = async(req,res) => {
+export const remove = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'удалить заказ'
-   */   
+   */
    await OrderModel.findByIdAndDelete(req.params.id)
-   .then(()=> res.json({
-      access: true
-   })).catch((err)=>{
-      console.log(err);
-      res.status(404).json({
-         message: "order not found or delete"
+      .then(() => res.json({
+         access: true
+      })).catch((err) => {
+         console.log(err);
+         res.status(404).json({
+            message: "order not found or delete"
+         });
       });
-   });
 }
 
-export const updateOrder = async(req,res) => {
+export const updateOrder = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'изменить заявку'
-   */   
-   await OrderModel.updateOne({_id:req.params.id},{
-      $set:{
+   */
+   await OrderModel.updateOne({ _id: req.params.id }, {
+      $set: {
          nomeclature: req.body.nomeclature,
          region: req.body.region,
          text: req.body.text,
@@ -158,13 +159,13 @@ export const updateOrder = async(req,res) => {
          isCanceledText: req.body.isCanceledText,
          isCancel: req.body.isCancel
       }
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "order not found or update"
-         });
+   }).then(() => res.json({
+      access: true
+   })).catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "order not found or update"
+      });
    });
 }
 
@@ -174,20 +175,20 @@ export const findDublicate = async (req, res) => {
       #swagger.summary = 'Получить дубли'
    */
 
-   try{      
+   try {
       const now = new Date();
-      now.setDate(now.getDate() - 6);   
+      now.setDate(now.getDate() - 6);
 
       const ordersDuplicate = await OrderModel.find({
-         $or:[{email:req.body.email},{telephone:{$all:req.body.telephone}}],
+         $or: [{ email: req.body.email }, { telephone: { $all: req.body.telephone } }],
          isArchive: false,
          isBuy: false
       })
-      .exec().catch((err)=>{
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      }); 
+         .exec().catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
       res.json(ordersDuplicate);
    } catch (err) {
@@ -198,22 +199,22 @@ export const findDublicate = async (req, res) => {
    }
 }
 
-export const addUser = async(req,res) => {
+export const addUser = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
    */
    const now = new Date();
-   await OrderModel.updateOne({_id:req.params.id},{
+   await OrderModel.updateOne({ _id: req.params.id }, {
       user: req.userId,
       date_buy: now
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "error buy"
-         });
+   }).then(() => res.json({
+      access: true
+   })).catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "error buy"
+      });
    });
 }
 
@@ -224,85 +225,87 @@ export const cpUpload = async (req, res) => {
    */
    res.json({
       url: `/uploads/${req.file.originalname}`
-   }).then(()=> res.json({
+   }).then(() => res.json({
       access: true
-   })).catch((err)=>{
+   })).catch((err) => {
       console.log(err);
       res.status(404).json({
          message: "failed to upload"
       });
-   });   
+   });
 }
 
-export const sendCancel = async(req,res) => {
+export const sendCancel = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'отправить заявку на отмену'
    */
    const now = new Date();
    now.setDate(now.getDate() - 1);
-   await OrderModel.updateOne({_id:req.params.id},{
+   await OrderModel.updateOne({ _id: req.params.id }, {
       isCanceled: true,
       isCanceledText: req.body.isCanceledText
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "order not found or update"
-         });
+   }).then(() => res.json({
+      access: true
+   })).catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "order not found or update"
+      });
    });
 }
 
-export const setIsArchive = async(req,res) => {
+export const setIsArchive = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'установить заявке архив'
-   */   
-   await OrderModel.updateOne({_id:req.params.id},{
+   */
+   await OrderModel.updateOne({ _id: req.params.id }, {
       isArchive: true,
-   }).then(()=> res.json({
-         access: true
-   })).catch((err)=>{
-         console.log(err);
-         res.status(404).json({
-            message: "order not found or update"
-         });
+   }).then(() => res.json({
+      access: true
+   })).catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "order not found or update"
+      });
    });
 }
 
 
 //отчетность
-export const getAllWithFilter = async(req,res) => {
+export const getAllWithFilter = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'Получить все заявки по фильтру для отчетности'
-   */   
-   try{      
-      const orders = await OrderModel.find( 
-         {$set:{
-            user:          { $in: req.body.user },
-            region:        { $in: req.body.region },
-            nomeclature:   { $all: req.body.nomeclature },
-            score:         { $in: req.body.score },
-            typeBuyer:     { $in: req.body.typeBuyer },
-            isTender:      { $in: req.body.isTender },
-            isImmediate:   { $in: req.body.isImmediate },
-            price:         { $in: req.body.price },
-            isArchive:     { $in: req.body.isArchive },
-            isDiscount:    { $in: req.body.isDiscount },
-            is_express:    { $in: req.body.is_express },
-            isCancel:      { $in: req.body.isCancel}
-         }}
+   */
+   try {
+      const orders = await OrderModel.find(
+         {
+            $set: {
+               user: { $in: req.body.user },
+               region: { $in: req.body.region },
+               nomeclature: { $all: req.body.nomeclature },
+               score: { $in: req.body.score },
+               typeBuyer: { $in: req.body.typeBuyer },
+               isTender: { $in: req.body.isTender },
+               isImmediate: { $in: req.body.isImmediate },
+               price: { $in: req.body.price },
+               isArchive: { $in: req.body.isArchive },
+               isDiscount: { $in: req.body.isDiscount },
+               is_express: { $in: req.body.is_express },
+               isCancel: { $in: req.body.isCancel }
+            }
+         }
       )
-      .catch((err)=>{
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      });
+         .catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
-      res.json(orders);   
-   }catch(err){
+      res.json(orders);
+   } catch (err) {
       console.log(err);
       res.status(500).json({
          message: "server error"

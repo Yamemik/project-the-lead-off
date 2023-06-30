@@ -1,103 +1,103 @@
 import mongoose, { Schema } from 'mongoose';
 
-const OrderSchema = new mongoose.Schema({  
-   nomeclature:{
-      type: Array,
-      required: true,
-   },   
-   region:{
+const OrderSchema = new mongoose.Schema({
+   nomeclature: {
       type: Array,
       required: true,
    },
-   text:{
-      type: String,      
+   region: {
+      type: Array,
+      required: true,
+   },
+   text: {
+      type: String,
       require: false
    },
-   upload:{
+   upload: {
       type: Array,
       require: false
    },
-   email:{
+   email: {
       type: String,
       require: false
    },
-   telephone:{
+   telephone: {
       type: Array,
       require: true
    },
-   fio:{
+   fio: {
       type: String,
       require: false
    },
-   score:{
+   score: {
       type: String,
       require: false
    },
-   typeBuyer:{
+   typeBuyer: {
       type: String,
       require: true
    },
-   type_order:{
+   type_order: {
       type: String,
       require: true
    },
-   is_urgent:{
+   is_urgent: {
       type: Boolean,
       require: true,
    },
-   isOpen:{
+   isOpen: {
       type: Boolean,
       require: false
    },
-   is_express:{
+   is_express: {
       type: Boolean,
       require: true,
       default: true
    },
-   price:{
+   price: {
       type: Number,
       default: 0
    },
-   isArchive:{
+   isArchive: {
       type: Boolean,
       require: true,
       default: false
    },
-   isDiscount:{
+   isDiscount: {
       type: Boolean,
       require: true,
       defalt: false
    },
-   user:{
-      type: mongoose.Schema.Types.ObjectId,      
+   user: {
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
       require: false
    },
-   date_buy:{
+   date_buy: {
       type: Date,
       require: false
    },
-   isBuy:{
+   isBuy: {
       type: Boolean,
       require: false,
       default: false
    },
-   isCanceled:{
+   isCanceled: {
       type: Boolean,
       require: false,
       default: false
    },
-   isCanceledText:{
+   isCanceledText: {
       type: String,
       require: false
    },
-   isCancel:{
+   isCancel: {
       type: Boolean,
       require: true,
       defalt: false
    }
-},{
+}, {
    timestamps: true,
 });
 
-export default mongoose.model("Order",OrderSchema);
+export default mongoose.model("Order", OrderSchema);

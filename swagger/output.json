@@ -64,7 +64,7 @@
                 "access_to_open": {
                   "example": "any"
                 },
-                "isAdmin": {
+                "is_admin": {
                   "example": "any"
                 },
                 "balance": {
@@ -188,7 +188,7 @@
                 "access_to_open": {
                   "example": "any"
                 },
-                "isAdmin": {
+                "is_admin": {
                   "example": "any"
                 },
                 "balance": {

@@ -2,9 +2,9 @@ import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 
 export const sendToUser = async (email, password, domen) => {
-   try{
+   try {
       dotenv.config();
-         
+
       const transporter = nodemailer.createTransport({
          host: 'smtp.mail.ru',
          port: 465,
@@ -13,7 +13,7 @@ export const sendToUser = async (email, password, domen) => {
             user: process.env.EMAIL,
             pass: process.env.PASSWORD
          }
-      }); 
+      });
       //let htmlWithID = process.env.LETTER.replaceAll('#domen#',domen);
       //htmlWithID = htmlWithID.replaceAll('userID',id);
       //const reference = domen + '/user/auth/login?' + id;
@@ -25,7 +25,7 @@ export const sendToUser = async (email, password, domen) => {
          //html: htmlWithID
       });
       console.log(result);
-   }catch(err){
-      return console.log(err);     
-   }   
+   } catch (err) {
+      return console.log(err);
+   }
 }

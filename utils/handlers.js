@@ -1,8 +1,7 @@
 import OrderModel from '../models/Order.js';
-import RegionModel from '../models/Region.js';
 
 
-export default async (req,res,next) => {
+export default async (req, res, next) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'изменить пользователя'
@@ -12,14 +11,14 @@ export default async (req,res,next) => {
 
    await OrderModel.updateMany(
       {
-         date_buy: { $lte: nowArchive},
+         date_buy: { $lte: nowArchive },
          isArchive: false
       },
       {
          isArchive: true
       }
-   ).catch((err)=>{
-         console.log(err);
+   ).catch((err) => {
+      console.log(err);
    });
 
    const nowDiscount = new Date();
@@ -27,7 +26,7 @@ export default async (req,res,next) => {
 
    await OrderModel.updateMany(
       {
-         createdAt: { $lte: nowDiscount},
+         createdAt: { $lte: nowDiscount },
          isDiscount: false,
          isArchive: false,
          isBuy: false
@@ -35,8 +34,8 @@ export default async (req,res,next) => {
       {
          isDiscount: true
       }
-   ).catch((err)=>{
-         console.log(err);
+   ).catch((err) => {
+      console.log(err);
    });
 
    next();
