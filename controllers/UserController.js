@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
-import * as mailer from '../nodemailer/index.js';
+import * as Mailer from '../nodemailer/index.js';
 
 export const createUser = async (req, res) => {
    /*
@@ -23,7 +23,7 @@ export const createUser = async (req, res) => {
          region: req.body.region,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
-         isAdmin: req.body.is_admin,
+         is_admin: req.body.is_admin,
          balance: req.body.balance,
          passwordHash: hash
       });
@@ -31,7 +31,7 @@ export const createUser = async (req, res) => {
       const user = await doc.save();
 
       const domen = req.get('host');
-      mailer.sendToUser(/*user._id,*/user.email, password, domen)
+      Mailer.sendToUser(/*user._id,*/user.email, password, domen)
          .catch((err) => console.log('mail ERROR:', err));
 
       const { passwordHash, ...userData } = user._doc;
@@ -194,7 +194,7 @@ export const update = async (req, res) => {
          region: req.body.region,
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
-         isAdmin: req.body.is_admin,
+         is_admin: req.body.is_admin,
          balance: req.body.balance
       }
    }).then(() => res.json({
@@ -222,7 +222,7 @@ export const resentPassword = async (req, res) => {
          .catch((err) => { console.log(err); res.status(404).json({ message: "user not found or update" }) });
 
       const domen = req.get('host');
-      mailer.sendToUser(email, password, domen)
+      Mailer.sendToUser(email, password, domen)
          .catch((err) => console.log('mail ERROR:', err));
 
       res.json({

@@ -14,9 +14,7 @@ export const sendToUser = async (email, password, domen) => {
             pass: process.env.PASSWORD
          }
       });
-      //let htmlWithID = process.env.LETTER.replaceAll('#domen#',domen);
-      //htmlWithID = htmlWithID.replaceAll('userID',id);
-      //const reference = domen + '/user/auth/login?' + id;
+
       let result = await transporter.sendMail({
          from: `LEAD-OFF <${process.env.EMAIL}>`,
          to: email,
@@ -24,6 +22,7 @@ export const sendToUser = async (email, password, domen) => {
          text: `Ваш логин - ${email} и пароль - ${password}`,
          //html: htmlWithID
       });
+
       console.log(result);
    } catch (err) {
       return console.log(err);

@@ -18,7 +18,7 @@ export default async (req, res, next) => {
             })
          });
 
-         if (!user.isAdmin) {
+         if (!user.is_admin) {
             return res.status(403).json({
                message: "no access (is not admin)"
             });
