@@ -309,16 +309,16 @@
                 "score": {
                   "example": "any"
                 },
-                "typeBuyer": {
+                "type_buyer": {
                   "example": "any"
                 },
-                "isTender": {
+                "type_order": {
                   "example": "any"
                 },
-                "isImmediate": {
+                "is_urgent": {
                   "example": "any"
                 },
-                "isOpen": {
+                "is_open": {
                   "example": "any"
                 },
                 "price": {
@@ -334,6 +334,106 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/order/{id}": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "изменить заявку",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nomeclature": {
+                  "example": "any"
+                },
+                "region": {
+                  "example": "any"
+                },
+                "text": {
+                  "example": "any"
+                },
+                "upload": {
+                  "example": "any"
+                },
+                "email": {
+                  "example": "any"
+                },
+                "telephone": {
+                  "example": "any"
+                },
+                "fio": {
+                  "example": "any"
+                },
+                "score": {
+                  "example": "any"
+                },
+                "type_buyer": {
+                  "example": "any"
+                },
+                "type_order": {
+                  "example": "any"
+                },
+                "is_urgent": {
+                  "example": "any"
+                },
+                "is_open": {
+                  "example": "any"
+                },
+                "price": {
+                  "example": "any"
+                },
+                "isArchive": {
+                  "example": "any"
+                },
+                "is_sale": {
+                  "example": "any"
+                },
+                "is_express": {
+                  "example": "any"
+                },
+                "user": {
+                  "example": "any"
+                },
+                "date_buy": {
+                  "example": "any"
+                },
+                "isBuy": {
+                  "example": "any"
+                },
+                "isCanceled": {
+                  "example": "any"
+                },
+                "isCanceledText": {
+                  "example": "any"
+                },
+                "isCancel": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -907,7 +1007,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Получить все типы заявок",
+        "summary": "Получить все коэф",
         "description": "",
         "parameters": [],
         "responses": {
@@ -1083,65 +1183,6 @@
           }
         ],
         "responses": {}
-      },
-      "patch": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "изменить пользователя",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "fio": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "organization": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "business_line": {
-                  "example": "any"
-                },
-                "access_to_open": {
-                  "example": "any"
-                },
-                "isAdmin": {
-                  "example": "any"
-                },
-                "balance": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
       }
     },
     "/api/user/order": {
@@ -1170,7 +1211,7 @@
         "tags": [
           "User"
         ],
-        "summary": "добавить пользователя во владельцы заказом",
+        "summary": "добавить пользователя во владельцы заказом(покупка)",
         "description": "",
         "parameters": [
           {
@@ -1178,6 +1219,68 @@
             "in": "path",
             "required": true,
             "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/order/setIsArchive/{id}": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "установить заявке архив",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/order/sendCancel/{id}": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "отправить заявку на отмену",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "isCanceledText": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
