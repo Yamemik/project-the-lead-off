@@ -226,51 +226,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "order",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "nomeclature": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "text": {
-                  "example": "any"
-                },
-                "upload": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "fio": {
-                  "example": "any"
-                },
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "is_open": {
-                  "example": "any"
-                },
-                "price": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Order"
             }
           }
         ],
@@ -448,21 +409,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "regions",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "index": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Region"
             }
           }
         ],
@@ -536,21 +488,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "regions",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "country": {
-                  "example": "any"
-                },
-                "city": {
-                  "example": "any"
-                },
-                "index": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Region"
             }
           }
         ],
@@ -596,18 +539,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "user",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "index": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Category"
             }
           }
         ],
@@ -650,18 +587,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "group",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "parent": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Group"
             }
           }
         ],
@@ -704,18 +635,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "nomenclature",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "parent": {
-                  "example": "any"
-                },
-                "name": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Nomenclature"
             }
           }
         ],
@@ -771,18 +696,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "user",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "example": "any"
-                },
-                "index": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Category"
             }
           }
         ],
@@ -1198,7 +1117,7 @@
       "properties": {
         "fio": {
           "type": "string",
-          "example": "buyer1"
+          "example": "фио"
         },
         "email": {
           "type": "string",
@@ -1215,8 +1134,8 @@
         "region": {
           "type": "array",
           "example": [
-            "648da61bb1b77049cf3132ac",
-            "648da62db1b77049cf3132b1"
+            "имя/id",
+            "имя/id"
           ],
           "items": {
             "type": "string"
@@ -1225,9 +1144,9 @@
         "business_line": {
           "type": "array",
           "example": [
-            "64905d35da79634eb9ca985a",
-            "64905d70da79634eb9ca986b",
-            "64905d01da79634eb9ca9850"
+            "имя/id",
+            "имя/id",
+            "имя/id"
           ],
           "items": {
             "type": "string"
@@ -1249,58 +1168,124 @@
       "required": [
         "fio",
         "email",
-        "telephone",
-        "organization",
-        "region",
-        "business_line"
+        "telephone"
       ]
     },
-    "User1": {
+    "Order": {
+      "type": "object",
+      "properties": {
+        "nomeclature": {
+          "type": "array",
+          "example": [
+            "nomen1.3.1",
+            "nomen1.2.1",
+            "group1.1"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "region": {
+          "type": "array",
+          "example": [
+            "reg1"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "text": {
+          "type": "string",
+          "example": ""
+        },
+        "upload": {
+          "type": "array",
+          "example": [
+            "url1",
+            "url2"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "email": {
+          "type": "string",
+          "example": "email.yandex.ru"
+        },
+        "telephone": {
+          "type": "array",
+          "example": [
+            "tel1",
+            "tel2"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "fio": {
+          "type": "string",
+          "example": "fio"
+        },
+        "score": {
+          "type": "string",
+          "example": "#/definitions/Rate.score[0]"
+        },
+        "typeBuyer": {
+          "type": "string",
+          "example": "#/definitions/Rate"
+        },
+        "isTender": {
+          "type": "string",
+          "example": "#/definitions/Rate"
+        },
+        "isImmediate": {
+          "type": "string",
+          "example": "#/definitions/Rate"
+        },
+        "isOpen": {
+          "type": "string",
+          "example": "#/definitions/Rate"
+        },
+        "price": {
+          "type": "number",
+          "example": 589
+        }
+      }
+    },
+    "Category": {
       "type": "object",
       "properties": {
         "name": {
           "type": "string",
-          "example": "Jhon Doe"
+          "example": "cat1"
         },
-        "age": {
+        "index": {
           "type": "number",
-          "example": 29
-        },
+          "example": 556
+        }
+      }
+    },
+    "Group": {
+      "type": "object",
+      "properties": {
         "parents": {
-          "$ref": "#/definitions/Parents"
+          "$ref": "#/definitions/Category"
         },
-        "diplomas": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "school": {
-                "type": "string",
-                "example": "XYZ University"
-              },
-              "year": {
-                "type": "number",
-                "example": 2020
-              },
-              "completed": {
-                "type": "boolean",
-                "example": true
-              },
-              "internship": {
-                "type": "object",
-                "properties": {
-                  "hours": {
-                    "type": "number",
-                    "example": 290
-                  },
-                  "location": {
-                    "type": "string",
-                    "example": "XYZ Company"
-                  }
-                }
-              }
-            }
-          }
+        "name": {
+          "type": "string",
+          "example": "group1.1"
+        }
+      }
+    },
+    "Nomenclature": {
+      "type": "object",
+      "properties": {
+        "parents": {
+          "$ref": "#/definitions/Group"
+        },
+        "name": {
+          "type": "string",
+          "example": "nom1.1.1"
         }
       }
     },
@@ -1403,6 +1388,27 @@
           }
         }
       }
+    },
+    "Region": {
+      "type": "object",
+      "properties": {
+        "country": {
+          "type": "string",
+          "example": "Qazakstan"
+        },
+        "city": {
+          "type": "string",
+          "example": "Astana"
+        },
+        "index": {
+          "type": "number",
+          "example": 1
+        }
+      },
+      "required": [
+        "country",
+        "city"
+      ]
     }
   }
 }

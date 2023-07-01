@@ -5,6 +5,12 @@ export const createOrder = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'Создание заявки'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'order',
+                required: true,
+                schema: { $ref: "#/definitions/Order" }
+      }
    */
    try {
       const doc = new OrderModel({

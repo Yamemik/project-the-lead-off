@@ -8,6 +8,12 @@ export const createCt = async (req, res) => {
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание категории (корневой эл-т)'
       #swagger.deprecated = true
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/Category" }
+      }
    */
    try {
       const doc = new CategoryModel({
@@ -74,6 +80,12 @@ export const updateCt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить категорию'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/Category" }
+      }
    */
    await CategoryModel.updateOne({ _id: req.params.id }, {
       $set: {
@@ -112,6 +124,12 @@ export const createGroup = async (req, res) => {
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание группы (средний эл-т иерархии)'
       #swagger.deprecated = true
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'group',
+                required: true,
+                schema: { $ref: "#/definitions/Group" }
+      }
    */
    try {
       const doc = new GroupModel({
@@ -178,6 +196,12 @@ export const createNomenclature = async (req, res) => {
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание номенклатуры (нижний эл-т иерархии)'
       #swagger.deprecated = true
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'nomenclature',
+                required: true,
+                schema: { $ref: "#/definitions/Nomenclature" }
+      }
    */
    try {
       const doc = new NomenclatureModel({

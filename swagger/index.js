@@ -31,23 +31,36 @@ const doc = {
         is_admin: false,
         balance: 0
       },
-      User1: {
-        name: 'Jhon Doe',
-        age: 29,
+      Order: {
+        nomeclature: ["nomen1.3.1","nomen1.2.1","group1.1"],
+        region: ["reg1"],
+        text: "",
+        upload: ["url1","url2"],
+        email: "email.yandex.ru",
+        telephone: ["tel1","tel2"],
+        fio: "fio",
+        score: "#/definitions/Rate.score[0]",
+        typeBuyer: "#/definitions/Rate",
+        isTender: "#/definitions/Rate",
+        isImmediate: "#/definitions/Rate",
+        isOpen: "#/definitions/Rate",
+        price: 589
+      },
+      Category: {        
+        name: "cat1",
+        index: 556,     
+      },
+      Group: {        
         parents: {
-          $ref: '#/definitions/Parents'
+          $ref: '#/definitions/Category'
         },
-        diplomas: [
-          {
-            school: 'XYZ University',
-            year: 2020,
-            completed: true,
-            internship: {
-              hours: 290,
-              location: 'XYZ Company'
-            }
-          }
-        ]
+        name: "group1.1"      
+      },
+      Nomenclature: {        
+        parents: {
+          $ref: '#/definitions/Group'
+        },
+        name: "nom1.1.1"      
       },
       Rate: {
         score: [{"easy": 0.8},{"medium": 1.0},{"hard": 1.2},{"hard+": 1.4}],
@@ -58,6 +71,11 @@ const doc = {
         count_region: [1.2,1.1,1],
         is_open: [{"yes": 0.5},{"no": 0.6}],
         is_sale: [{"yes": 0.9},{"no": 0.43}]      
+      },
+      Region: {
+        $country: "Qazakstan",
+        $city: "Astana",
+        index: 1      
       },
     }
 };

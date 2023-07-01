@@ -7,7 +7,7 @@ const NomenclatureSchema = new mongoose.Schema({
    },
    name:{
       type: String,
-      default: 0
+      require: true
    }
 },{
    timestamps: true,

@@ -5,6 +5,12 @@ export const createRg = async (req, res) => {
     /*
        #swagger.tags = ["Settings"]
        #swagger.summary = 'Создание региона'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'regions',
+                required: true,
+                schema: { $ref: "#/definitions/Region" }
+      }
     */
     try{
        const doc = new RegionModel({
@@ -72,6 +78,12 @@ export const createRg = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Изменить регион'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'regions',
+                required: true,
+                schema: { $ref: "#/definitions/Region" }
+      }
    */   
    await RegionModel.updateOne({_id:req.params.id},{
       $set:{
