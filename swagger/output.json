@@ -1209,8 +1209,8 @@
           "example": "+79998887766"
         },
         "organization": {
-          "type": "boolean",
-          "example": false
+          "type": "string",
+          "example": "неизвестно"
         },
         "region": {
           "type": "array",
