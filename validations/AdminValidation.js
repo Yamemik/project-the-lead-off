@@ -1,7 +1,7 @@
 import { body } from 'express-validator';
 
 export const registerValidation = [
-   body('fio','Введите фио').isLength({ min: 3 }),
+   body('fio','Введите фио').isString(),
    body('email','Введите почту').isEmail(),
    body('telephone','Введите ').isString(),
    body('organization','Выберите форму организации').optional().isString(),
