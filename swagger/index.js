@@ -24,7 +24,7 @@ const doc = {
         $fio: "buyer1",
         $email: "emmail@mail.ru",
         $telephone: "+79998887766",
-        organization: 'неизвестно',
+        $organization: 'неизвестно',
         $region: ["648da61bb1b77049cf3132ac","648da62db1b77049cf3132b1"],
         $business_line: ["64905d35da79634eb9ca985a","64905d70da79634eb9ca986b","64905d01da79634eb9ca9850"],
         access_to_open: false,

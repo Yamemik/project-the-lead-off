@@ -17,8 +17,7 @@ const UserSchema = new mongoose.Schema({
    },
    organization:{
       type: String,
-      require: false,
-      default: 'неизвестно'
+      require: false
    },
    region:{
       type: Array,

@@ -4,7 +4,7 @@ export const registerValidation = [
    body('fio','Введите фио').isString(),
    body('email','Введите почту').isEmail(),
    body('telephone','Введите ').isString(),
-   body('organization','Выберите форму организации').optional().isString(),
+   body('organization','Выберите форму организации').isString(),
    body('region','Укажите страну').optional().isArray(),
    body('business_line','').optional().isArray(),
    body('access_to_open','Выберите доступ').optional().isBoolean(),
