@@ -49,7 +49,7 @@ const doc = {
         is_sale: false,
         is_express: true,
         user: {
-          $ref: '#/definitions/Group'
+          $ref: '#/definitions/User'
         },
         date_buy: new Date(),
         isBuy: false,
