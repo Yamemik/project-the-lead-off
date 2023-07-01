@@ -32,20 +32,31 @@ const doc = {
         balance: 0
       },
       Order: {
-        nomeclature: ["nomen1.3.1","nomen1.2.1","group1.1"],
-        region: ["reg1"],
-        text: "",
+        $nomeclature: ["nomen1.3.1","nomen1.2.1","group1.1"],
+        $region: ["reg1"],
+        text: "text",
         upload: ["url1","url2"],
-        email: "email.yandex.ru",
-        telephone: ["tel1","tel2"],
-        fio: "fio",
-        score: "#/definitions/Rate.score[0]",
-        typeBuyer: "#/definitions/Rate",
-        isTender: "#/definitions/Rate",
-        isImmediate: "#/definitions/Rate",
-        isOpen: "#/definitions/Rate",
-        price: 589
-      },
+        $email: "email.yandex.ru",
+        $telephone: ["tel1","tel2"],
+        $fio: "fio",
+        $score: "мелкая",
+        $typeBuyer: "частная организация",
+        $type_order: "прямая закупка",
+        $is_urgent: "да",
+        $isOpen: "открытая",
+        price: 0,
+        isArchive: false,
+        is_sale: false,
+        is_express: true,
+        user: {
+          $ref: '#/definitions/Group'
+        },
+        date_buy: new Date(),
+        isBuy: false,
+        isCanceled: false,
+        isCanceledText: "хочу деньги назад",
+        isCancel: false
+     },
       Category: {        
         name: "cat1",
         index: 556,     
@@ -76,7 +87,7 @@ const doc = {
         $country: "Qazakstan",
         $city: "Astana",
         index: 1      
-      },
+      }
     }
 };
 

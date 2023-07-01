@@ -260,78 +260,12 @@
             "type": "string"
           },
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "order",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "nomeclature": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "text": {
-                  "example": "any"
-                },
-                "upload": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                },
-                "fio": {
-                  "example": "any"
-                },
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "is_open": {
-                  "example": "any"
-                },
-                "price": {
-                  "example": "any"
-                },
-                "isArchive": {
-                  "example": "any"
-                },
-                "is_sale": {
-                  "example": "any"
-                },
-                "is_express": {
-                  "example": "any"
-                },
-                "user": {
-                  "example": "any"
-                },
-                "date_buy": {
-                  "example": "any"
-                },
-                "isBuy": {
-                  "example": "any"
-                },
-                "isCanceled": {
-                  "example": "any"
-                },
-                "isCanceledText": {
-                  "example": "any"
-                },
-                "isCancel": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Order"
             }
           }
         ],
@@ -997,6 +931,15 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "order",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
           }
         ],
         "responses": {}
@@ -1196,7 +1139,7 @@
         },
         "text": {
           "type": "string",
-          "example": ""
+          "example": "text"
         },
         "upload": {
           "type": "array",
@@ -1228,29 +1171,76 @@
         },
         "score": {
           "type": "string",
-          "example": "#/definitions/Rate.score[0]"
+          "example": "мелкая"
         },
         "typeBuyer": {
           "type": "string",
-          "example": "#/definitions/Rate"
+          "example": "частная организация"
         },
-        "isTender": {
+        "type_order": {
           "type": "string",
-          "example": "#/definitions/Rate"
+          "example": "прямая закупка"
         },
-        "isImmediate": {
+        "is_urgent": {
           "type": "string",
-          "example": "#/definitions/Rate"
+          "example": "да"
         },
         "isOpen": {
           "type": "string",
-          "example": "#/definitions/Rate"
+          "example": "открытая"
         },
         "price": {
           "type": "number",
-          "example": 589
+          "example": 0
+        },
+        "isArchive": {
+          "type": "boolean",
+          "example": false
+        },
+        "is_sale": {
+          "type": "boolean",
+          "example": false
+        },
+        "is_express": {
+          "type": "boolean",
+          "example": true
+        },
+        "user": {
+          "$ref": "#/definitions/Group"
+        },
+        "date_buy": {
+          "type": "object",
+          "properties": {}
+        },
+        "isBuy": {
+          "type": "boolean",
+          "example": false
+        },
+        "isCanceled": {
+          "type": "boolean",
+          "example": false
+        },
+        "isCanceledText": {
+          "type": "string",
+          "example": "хочу деньги назад"
+        },
+        "isCancel": {
+          "type": "boolean",
+          "example": false
         }
-      }
+      },
+      "required": [
+        "nomeclature",
+        "region",
+        "email",
+        "telephone",
+        "fio",
+        "score",
+        "typeBuyer",
+        "type_order",
+        "is_urgent",
+        "isOpen"
+      ]
     },
     "Category": {
       "type": "object",

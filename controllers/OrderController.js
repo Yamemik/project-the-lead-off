@@ -139,6 +139,12 @@ export const updateOrder = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'изменить заявку'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'order',
+                required: true,
+                schema: { $ref: "#/definitions/Order" }
+      }
    */
    await OrderModel.updateOne({ _id: req.params.id }, {
       $set: {
@@ -155,15 +161,15 @@ export const updateOrder = async (req, res) => {
          is_urgent: req.body.is_urgent,
          isOpen: req.body.is_open,
          price: req.body.price,
-         isArchive: req.body.isArchive,
+         isArchive: req.body.is_archive,
          is_sale: req.body.is_sale,
          is_express: req.body.is_express,
          user: req.body.user,
          date_buy: req.body.date_buy,
-         isBuy: req.body.isBuy,
-         isCanceled: req.body.isCanceled,
-         isCanceledText: req.body.isCanceledText,
-         isCancel: req.body.isCancel
+         isBuy: req.body.is_buy,
+         isCanceled: req.body.is_canceled,
+         isCanceledText: req.body.is_canceled_text,
+         isCancel: req.body.is_cancel
       }
    }).then(() => res.json({
       access: true
