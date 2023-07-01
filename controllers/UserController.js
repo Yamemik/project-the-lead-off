@@ -22,18 +22,16 @@ export const createUser = async (req, res) => {
 
    try {
       const doc = new UserModel({
-         $set: {
-            fio: req.body.fio,
-            email: req.body.email,
-            telephone: req.body.telephone,
-            organization: req.body.organization,
-            region: req.body.region,
-            business_line: req.body.business_line,
-            access_to_open: req.body.access_to_open,
-            is_admin: req.body.is_admin,
-            balance: req.body.balance,
-            passwordHash: hash
-         }
+         fio: req.body.fio,
+         email: req.body.email,
+         telephone: req.body.telephone,
+         organization: req.body.organization,
+         region: req.body.region,
+         business_line: req.body.business_line,
+         access_to_open: req.body.access_to_open,
+         is_admin: req.body.is_admin,
+         balance: req.body.balance,
+         passwordHash: hash
       });
 
       const user = await doc.save();
