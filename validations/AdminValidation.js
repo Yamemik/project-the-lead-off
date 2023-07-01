@@ -8,7 +8,7 @@ export const registerValidation = [
    body('region','Укажите страну').optional().isArray(),
    body('business_line','').optional().isArray(),
    body('access_to_open','Выберите доступ').optional().isBoolean(),
-   body('is_admin','').isBoolean(),
+   body('is_admin','').optional().isBoolean(),
    body('balance','').optional().isNumeric()
 ]
 
