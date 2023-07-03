@@ -489,8 +489,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -537,8 +536,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       },
       "get": {
         "tags": [
@@ -585,8 +583,7 @@
           "500": {
             "description": "Internal Server Error"
           }
-        },
-        "deprecated": true
+        }
       }
     },
     "/api/admin/settings/category/{id}": {
