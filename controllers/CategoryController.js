@@ -7,7 +7,6 @@ export const createCt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание категории (корневой эл-т)'
-      #swagger.deprecated = true
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'user',
@@ -123,7 +122,6 @@ export const createGroup = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание группы (средний эл-т иерархии)'
-      #swagger.deprecated = true
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'group',
@@ -195,7 +193,6 @@ export const createNomenclature = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание номенклатуры (нижний эл-т иерархии)'
-      #swagger.deprecated = true
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'nomenclature',
