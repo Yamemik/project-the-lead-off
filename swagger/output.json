@@ -1206,7 +1206,7 @@
           "example": true
         },
         "user": {
-          "$ref": "#/definitions/Group"
+          "$ref": "#/definitions/User"
         },
         "date_buy": {
           "type": "object",
