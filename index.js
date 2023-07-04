@@ -68,14 +68,14 @@ router.patch('/admin/settings/region/:id', checkAuthIsAdmin, createRegionValidat
 router.delete('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.removeRg);
 //category
 router.post('/admin/settings/category', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
-router.post('/admin/settings/group', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
-router.post('/admin/settings/nomenclature', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
+//router.post('/admin/settings/group', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
+//router.post('/admin/settings/nomenclature', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
 router.get('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.getOneCt);
 router.get('/admin/settings/category', checkAuthIsAdmin, CategoryController.getAllCt);
-router.get('/admin/settings/group/:id', checkAuthIsAdmin, CategoryController.getOneGroup);
-router.get('/admin/settings/group', checkAuthIsAdmin, CategoryController.getAllGroups);
-router.get('/admin/settings/nom/:id', checkAuthIsAdmin, CategoryController.getOneNom);
-router.get('/admin/settings/nom', checkAuthIsAdmin, CategoryController.getAllNoms);
+//router.get('/admin/settings/group/:id', checkAuthIsAdmin, CategoryController.getOneGroup);
+//router.get('/admin/settings/group', checkAuthIsAdmin, CategoryController.getAllGroups);
+//router.get('/admin/settings/nom/:id', checkAuthIsAdmin, CategoryController.getOneNom);
+//router.get('/admin/settings/nom', checkAuthIsAdmin, CategoryController.getAllNoms);
 router.patch('/admin/settings/category/:id', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
 router.delete('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.removeCt);
 //score and more indexes

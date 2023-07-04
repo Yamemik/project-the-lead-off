@@ -81,7 +81,7 @@ export const updateCt = async (req, res) => {
       #swagger.summary = 'Изменить категорию'
       #swagger.parameters['obj'] = {
                 in: 'body',
-                description: 'user',
+                description: 'category',
                 required: true,
                 schema: { $ref: "#/definitions/Category" }
       }
@@ -105,7 +105,6 @@ export const removeCt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категорию'
-      #swagger.deprecated = true
    */
    await CategoryModel.findByIdAndDelete(req.params.id)
       .then(() => res.json({

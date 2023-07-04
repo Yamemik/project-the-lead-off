@@ -1,8 +1,8 @@
 import mongoose, { Schema } from 'mongoose';
 
 const CategorySchema = new mongoose.Schema({  
-   name:{
-      type: String,
+   category:{
+      type: Array,
       require: true
    },
    basePrice:{
