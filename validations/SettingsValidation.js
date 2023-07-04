@@ -12,8 +12,8 @@ export const createRegionValidation = [
    body('name','Введите название').optional().isString()
 ]
 export const createCategoryValidation = [
-   body('basePrice','Введите базовую стоимость').optional().isNumeric(),
-   body('name','Введите категорию в иерархии').optional().isArray()
+   body('base_price','Введите базовую стоимость').optional().isNumeric(),
+   body('category','Введите категорию в иерархии').optional().isArray()
 ]
 
  export const createValidationIndexes = [

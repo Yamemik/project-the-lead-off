@@ -59,7 +59,7 @@ const doc = {
      },
       Category: {        
         category: ["cat1","cat2","cat3"],
-        index: 556,     
+        base_price: 556,     
       },
       Rate: {
         score: [{"easy": 0.8},{"medium": 1.0},{"hard": 1.2},{"hard+": 1.4}],

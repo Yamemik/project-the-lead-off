@@ -16,8 +16,8 @@ export const createCt = async (req, res) => {
    */
    try {
       const doc = new CategoryModel({
-         name: req.body.name,
-         basePrice: req.body.index
+         category: req.body.category,
+         basePrice: req.body.base_price
       });
 
       const category = await doc.save();
@@ -88,8 +88,8 @@ export const updateCt = async (req, res) => {
    */
    await CategoryModel.updateOne({ _id: req.params.id }, {
       $set: {
-         name: req.body.name,
-         basePrice: req.body.index
+         category: req.body.category,
+         basePrice: req.body.base_price
       }
    }).then(() => res.json({
       access: true
