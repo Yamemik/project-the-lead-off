@@ -511,81 +511,6 @@
         }
       }
     },
-    "/api/admin/settings/group": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание группы (средний эл-т иерархии)",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "group",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Group"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все группы",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/nomenclature": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание номенклатуры (нижний эл-т иерархии)",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "nomenclature",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Nomenclature"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/api/admin/settings/category/{id}": {
       "get": {
         "tags": [
@@ -629,7 +554,7 @@
           {
             "name": "obj",
             "in": "body",
-            "description": "user",
+            "description": "category",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Category"
@@ -665,84 +590,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/api/admin/settings/group/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить одну группу",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/nom/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить одну номенклатуру",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/nom": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все номенклатуры",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1242,37 +1089,20 @@
     "Category": {
       "type": "object",
       "properties": {
-        "name": {
-          "type": "string",
-          "example": "cat1"
+        "category": {
+          "type": "array",
+          "example": [
+            "cat1",
+            "cat2",
+            "cat3"
+          ],
+          "items": {
+            "type": "string"
+          }
         },
         "index": {
           "type": "number",
           "example": 556
-        }
-      }
-    },
-    "Group": {
-      "type": "object",
-      "properties": {
-        "parents": {
-          "$ref": "#/definitions/Category"
-        },
-        "name": {
-          "type": "string",
-          "example": "group1.1"
-        }
-      }
-    },
-    "Nomenclature": {
-      "type": "object",
-      "properties": {
-        "parents": {
-          "$ref": "#/definitions/Group"
-        },
-        "name": {
-          "type": "string",
-          "example": "nom1.1.1"
         }
       }
     },

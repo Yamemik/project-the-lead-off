@@ -58,20 +58,8 @@ const doc = {
         isCancel: false
      },
       Category: {        
-        name: "cat1",
+        category: ["cat1","cat2","cat3"],
         index: 556,     
-      },
-      Group: {        
-        parents: {
-          $ref: '#/definitions/Category'
-        },
-        name: "group1.1"      
-      },
-      Nomenclature: {        
-        parents: {
-          $ref: '#/definitions/Group'
-        },
-        name: "nom1.1.1"      
       },
       Rate: {
         score: [{"easy": 0.8},{"medium": 1.0},{"hard": 1.2},{"hard+": 1.4}],
