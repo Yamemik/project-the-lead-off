@@ -311,7 +311,7 @@
         "tags": [
           "Admin"
         ],
-        "summary": "удалить пользователя",
+        "summary": "удалить заказ",
         "description": "",
         "parameters": [
           {

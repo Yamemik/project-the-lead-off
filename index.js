@@ -51,7 +51,7 @@ router.post('/auth/log', loginValidation, handlValidationErrors, UserController.
 router.get('/admin/user/:id', checkAuthIsAdmin, UserController.getUserByID);
 router.get('/admin/user', checkAuthIsAdmin, UserController.getUsers);
 router.patch('/admin/user/:id', checkAuthIsAdmin, updateValidation, handlValidationErrors, UserController.update);
-router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.remove);
+router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.removeUser);
 //orders
 router.get('/admin/order', checkAuth, OrderController.getAll);
 router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);

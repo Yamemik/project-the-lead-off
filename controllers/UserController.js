@@ -170,7 +170,7 @@ export const getUsers = async (req, res) => {
    }
 }
 
-export const remove = async (req, res) => {
+export const removeUser = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
       #swagger.summary = 'удалить пользователя'
