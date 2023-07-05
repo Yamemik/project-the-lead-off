@@ -135,6 +135,22 @@ export const remove = async (req, res) => {
       });
 }
 
+export const removeMany = async (req, res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'удалить заказы'
+   */
+   await OrderModel.deleteMany({_id: { $in: req.body.orders}})
+      .then(() => res.json({
+         access: true
+      })).catch((err) => {
+         console.log(err);
+         res.status(404).json({
+            message: "orders not found or delete"
+         });
+      });
+}
+
 export const updateOrder = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]

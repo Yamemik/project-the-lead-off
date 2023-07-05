@@ -128,3 +128,20 @@ export const removeSc = async(req,res) => {
       });
    });
 }
+
+export const removeManySc = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'удалить коэф-ты'
+      #swagger.deprecated = true
+   */   
+   await RateModel.deleteMany({_id: { $in: req.body.rates}})
+   .then(()=> res.json({
+      access: true
+   })).catch((err)=>{
+      console.log(err);
+      res.status(404).json({
+         message: "not found or delete"
+      });
+   });
+}

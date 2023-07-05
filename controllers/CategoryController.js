@@ -117,6 +117,27 @@ export const removeCt = async (req, res) => {
       });
 }
 
+export const removeManyCt = async (req, res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'удалить категории'
+   */
+   await CategoryModel.deleteMany({_id: { $in: req.body.categories}})
+      .then(() => res.json({
+         access: true
+      })).catch((err) => {
+         console.log(err);
+         res.status(404).json({
+            message: "category not found or delete"
+         });
+      });
+}
+
+
+
+
+
+
 export const createGroup = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]

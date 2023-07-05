@@ -116,3 +116,19 @@ export const removeRg = async(req,res) => {
       });
    });
 }
+
+export const removeManyRg = async(req,res) => {
+   /*
+      #swagger.tags = ["Settings"]
+      #swagger.summary = 'удалить несколько регионов'
+   */   
+   await RegionModel.deleteMany({_id: { $in: req.body.regions}})
+   .then(()=> res.json({
+      access: true,
+   })).catch((err)=>{
+      console.log(err);
+      res.status(404).json({
+         message: "regions not found or delete"
+      });
+   });
+}

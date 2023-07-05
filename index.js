@@ -56,6 +56,8 @@ router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.remove);
 router.get('/admin/order', checkAuth, OrderController.getAll);
 router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
 router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.updateOrder);
+router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
+router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
 router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads', checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
 
@@ -66,22 +68,19 @@ router.get('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.getO
 router.get('/admin/settings/region', checkAuthIsAdmin, RegionController.getAllRg);
 router.patch('/admin/settings/region/:id', checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
 router.delete('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.removeRg);
+router.delete('/admin/settings/region', checkAuthIsAdmin, RegionController.removeManyRg);
 //category
 router.post('/admin/settings/category', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
-//router.post('/admin/settings/group', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createGroup);
-//router.post('/admin/settings/nomenclature', checkAuthIsAdmin, createGroupValidation, handlValidationErrors, CategoryController.createNomenclature);
 router.get('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.getOneCt);
 router.get('/admin/settings/category', checkAuthIsAdmin, CategoryController.getAllCt);
-//router.get('/admin/settings/group/:id', checkAuthIsAdmin, CategoryController.getOneGroup);
-//router.get('/admin/settings/group', checkAuthIsAdmin, CategoryController.getAllGroups);
-//router.get('/admin/settings/nom/:id', checkAuthIsAdmin, CategoryController.getOneNom);
-//router.get('/admin/settings/nom', checkAuthIsAdmin, CategoryController.getAllNoms);
 router.patch('/admin/settings/category/:id', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
 router.delete('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.removeCt);
+router.delete('/admin/settings/category', checkAuthIsAdmin, CategoryController.removeManyCt);
 //score and more indexes
 router.post('/admin/settings/score', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.createSc);
 router.get('/admin/settings/score/:id', checkAuthIsAdmin, RateController.getOneSc);
-router.get('/admin/settings/score', checkAuthIsAdmin, RateController.getAllSc);
+router.delete('/admin/settings/score', checkAuthIsAdmin, RateController.removeManySc);
+router.delete('/admin/settings/score/:id', checkAuthIsAdmin, RateController.removeSc);
 router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 
 
