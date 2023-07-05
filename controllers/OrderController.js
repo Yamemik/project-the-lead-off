@@ -251,16 +251,16 @@ export const cpUpload = async (req, res) => {
       #swagger.tags = ["Order"]
       #swagger.summary = 'Загрузка файла'
    */
-   res.json({
-      url: `/uploads/${req.file.originalname}`
-   }).then(() => res.json({
-      access: true
-   })).catch((err) => {
+  try {
+      res.json({
+         url: `/uploads/${req.file.originalname}`
+      })
+   } catch (err) {
       console.log(err);
-      res.status(404).json({
-         message: "failed to upload"
+      res.status(500).json({
+         message: "Failed to uploads"
       });
-   });
+   }
 }
 
 export const sendCancel = async (req, res) => {
