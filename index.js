@@ -20,14 +20,6 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-of
 const app = express();  //create webapp
 const router = express.Router();
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
-/*const storage = multer.diskStorage({
-   destination: (req, file, cb) => {
-      cb(null, 'uploads');
-   },
-   filename: (req, file, cb) => {
-      cb(null, file.originalname);
-   }
-});*/
 const storage = multer.diskStorage({
    destination: function (req, file, cb) {
      cb(null, 'uploads')
@@ -40,7 +32,13 @@ const storage = multer.diskStorage({
 const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json
-app.use(cors());
+const corsOptions ={
+   origin:'http://localhost:3000',
+   credentials:true, //access-control-allow-credentials:true
+   optionSuccessStatus:200
+   }
+app.use(cors(corsOptions))
+//app.use(cors());
 app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
