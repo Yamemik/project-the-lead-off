@@ -14,11 +14,12 @@ export const createOrder = async (req, res) => {
    */
    try {
       try {
-         const fileArr = req.file;
+         const fileArr = req.files;
+         console.log(fileArr);
          let uploadArr = [];
          fileArr.forEach(function(item, i, arr){
-            uploadArr.push(`/uploads/${item.originalname}`);
-         });        
+            uploadArr.push(`/uploads/${item.originalname}`)
+         });
       } catch (err) {
          console.log(err);
       }
@@ -263,9 +264,13 @@ export const cpUpload = async (req, res) => {
       #swagger.summary = 'Загрузка файла'
    */
   try {
-      res.json({
-         url: `/uploads/${req.file.originalname}`
-      })
+      const fileArr = req.files;
+      console.log(fileArr);
+      let uploadArr = [];
+      fileArr.forEach(function(item, i, arr){
+         uploadArr.push(`/uploads/${item.originalname}`)
+      });
+      return res.json(uploadArr);
    } catch (err) {
       console.log(err);
       res.status(500).json({

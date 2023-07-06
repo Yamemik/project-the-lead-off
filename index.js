@@ -20,14 +20,23 @@ mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-of
 const app = express();  //create webapp
 const router = express.Router();
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
-const storage = multer.diskStorage({
+/*const storage = multer.diskStorage({
    destination: (req, file, cb) => {
       cb(null, 'uploads');
    },
    filename: (req, file, cb) => {
       cb(null, file.originalname);
    }
-});
+});*/
+const storage = multer.diskStorage({
+   destination: function (req, file, cb) {
+     cb(null, 'uploads')
+   },
+   filename: function (req, file, cb) {
+     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+     cb(null, file.fieldname + '-' + uniqueSuffix)
+   }
+ })
 const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json
@@ -54,12 +63,12 @@ router.patch('/admin/user/:id', checkAuthIsAdmin, updateValidation, handlValidat
 router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.removeUser);
 //orders
 router.get('/admin/order', checkAuth, OrderController.getAll);
-router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, OrderController.createOrder);
+router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, uploads.array('file',12), OrderController.createOrder);
 router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.updateOrder);
 router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
 router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
-router.post('/admin/uploads', checkAuthIsAdmin, uploads.single('file'), OrderController.cpUpload);
+router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file',12), OrderController.cpUpload);
 
 //SETTING
 //region
