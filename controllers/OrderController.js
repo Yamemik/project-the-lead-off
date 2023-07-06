@@ -13,6 +13,16 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
+      try {
+         const fileArr = req.file;
+         let uploadArr = [];
+         fileArr.forEach(function(item, i, arr){
+            uploadArr.push(`/uploads/${item.originalname}`);
+         });        
+      } catch (err) {
+         console.log(err);
+      }
+
       const doc = new OrderModel({
          nomeclature: req.body.nomeclature,
          region: req.body.region,
@@ -26,7 +36,8 @@ export const createOrder = async (req, res) => {
          type_order: req.body.type_order,
          is_urgent: req.body.is_urgent,
          isOpen: req.body.is_open,
-         price: req.body.price
+         price: req.body.price,
+         upload: uploadArr
       });
 
       const order = await doc.save();
