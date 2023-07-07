@@ -59,7 +59,7 @@ export const getOne = async (req, res) => {
    try {
       const orderId = req.params.id;
 
-      const order = await OrderModel.findById(orderId).populate(['category1', 'region', 'score', 'isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err) => {
+      const order = await OrderModel.findById(orderId).populate('user').exec().catch((err) => {
          res.status(404).json({
             message: 'order not found'
          })
@@ -80,7 +80,7 @@ export const getAll = async (req, res) => {
       #swagger.summary = 'Получить все заявки'
    */
    try {
-      const orders = await OrderModel.find().populate(['category1', 'region', 'score', 'isTender', 'isImmediate', 'typeBuyer', 'user']).exec().catch((err) => {
+      const orders = await OrderModel.find().populate('user').exec().catch((err) => {
          res.status(404).json({
             message: 'orders not found'
          })
