@@ -32,10 +32,10 @@ export const createOrder = async (req, res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.type_buyer,
+         type_buyer: req.body.type_buyer,
          type_order: req.body.type_order,
          is_urgent: req.body.is_urgent,
-         isOpen: req.body.is_open,
+         is_open: req.body.is_open,
          price: req.body.price,
          upload: uploadArr
       });

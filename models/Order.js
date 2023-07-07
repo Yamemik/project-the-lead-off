@@ -33,7 +33,7 @@ const OrderSchema = new mongoose.Schema({
       type: String,
       require: false
    },
-   typeBuyer: {
+   type_buyer: {
       type: String,
       require: true
    },
@@ -45,7 +45,7 @@ const OrderSchema = new mongoose.Schema({
       type: String,
       require: true,
    },
-   isOpen: {
+   is_open: {
       type: String,
       require: false
    },
@@ -58,12 +58,12 @@ const OrderSchema = new mongoose.Schema({
       type: Number,
       default: 0
    },
-   isArchive: {
+   is_archive: {
       type: Boolean,
       require: true,
       default: false
    },
-   isDiscount: {
+   is_sale: {
       type: Boolean,
       require: true,
       defalt: false
@@ -77,21 +77,21 @@ const OrderSchema = new mongoose.Schema({
       type: Date,
       require: false
    },
-   isBuy: {
+   is_buy: {
       type: Boolean,
       require: false,
       default: false
    },
-   isCanceled: {
+   is_canceled: {
       type: Boolean,
       require: false,
       default: false
    },
-   isCanceledText: {
+   is_canceled_text: {
       type: String,
       require: false
    },
-   isCancel: {
+   is_cancel: {
       type: Boolean,
       require: true,
       defalt: false

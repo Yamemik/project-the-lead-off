@@ -40,22 +40,22 @@ const doc = {
         $telephone: ["tel1","tel2"],
         $fio: "fio",
         $score: "мелкая",
-        $typeBuyer: "частная организация",
+        $type_buyer: "частная организация",
         $type_order: "прямая закупка",
         $is_urgent: "да",
-        $isOpen: "открытая",
+        $is_open: "открытая",
         price: 0,
-        isArchive: false,
+        is_archive: false,
         is_sale: false,
         is_express: true,
         user: {
           $ref: '#/definitions/User'
         },
         date_buy: new Date(),
-        isBuy: false,
-        isCanceled: false,
-        isCanceledText: "хочу деньги назад",
-        isCancel: false
+        is_buy: false,
+        is_canceled: false,
+        is_canceled_text: "хочу деньги назад",
+        is_cancel: false
      },
       Category: {        
         category: ["cat1","cat2","cat3"],
