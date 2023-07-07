@@ -9,10 +9,10 @@ export const createOrderValidation = [
     body('telephone','Укажите номера').optional().isArray(),
     body('fio','Укажите ФИО').optional().isString(),
     body('score','').optional().isString(),
-    body('typeBuyer','').optional().isString(),
-    body('isTender','').optional().isString(),
-    body('isImmediate','').optional().isString(),
-    body('isOpen','').optional().isBoolean(),
+    body('type_buyer','').optional().isString(),
+    body('type_order','').optional().isString(),
+    body('is_urgent','').optional().isString(),
+    body('is_open','').optional().isBoolean(),
     body('price','').optional().isNumeric()
  ]
 
@@ -25,10 +25,10 @@ export const createOrderValidation = [
    body('telephone').optional().isArray(),
    body('fio').optional().isString(),
    body('score').optional().isString(),
-   body('typeBuyer').optional().isString(),
-   body('isTender').optional().isString(),
-   body('isImmediate').optional().isBoolean(),
-   body('isOpen').optional().isBoolean(),
+   body('type_buyer').optional().isString(),
+   body('type_order').optional().isString(),
+   body('is_urgent').optional().isString(),
+   body('is_open').optional().isString(),
    body('price').optional().isNumeric()
 ]
 
