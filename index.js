@@ -28,7 +28,7 @@ const storage = multer.diskStorage({
      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
      cb(null, file.fieldname + '-' + uniqueSuffix)
    }
- })
+ });
 const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json

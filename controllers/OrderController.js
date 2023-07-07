@@ -13,9 +13,9 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
+      let uploadArr = [];
       try {
-         const fileArr = req.files;
-         let uploadArr = [];
+         const fileArr = req.files;         
          fileArr.forEach(function(item, i, arr){
             uploadArr.push(`/uploads/${item.originalname}`)
          });
