@@ -33,6 +33,6 @@ export const createOrderValidation = [
 ]
 
  export const findDublicateOrderValidation = [
-    body('email','Укажите почту').isEmail(),
-    body('telephone','Укажите номера').isArray()
+    body('email','Укажите почту').optional().isEmail(),
+    body('telephone','Укажите номера').optional().isArray()
  ]

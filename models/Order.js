@@ -42,11 +42,11 @@ const OrderSchema = new mongoose.Schema({
       require: true
    },
    is_urgent: {
-      type: Boolean,
+      type: String,
       require: true,
    },
    isOpen: {
-      type: Boolean,
+      type: String,
       require: false
    },
    is_express: {
