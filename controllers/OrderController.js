@@ -15,7 +15,6 @@ export const createOrder = async (req, res) => {
    try {
       try {
          const fileArr = req.files;
-         console.log(fileArr);
          let uploadArr = [];
          fileArr.forEach(function(item, i, arr){
             uploadArr.push(`/uploads/${item.originalname}`)
@@ -265,7 +264,6 @@ export const cpUpload = async (req, res) => {
    */
   try {
       const fileArr = req.files;
-      console.log(fileArr);
       let uploadArr = [];
       fileArr.forEach(function(item, i, arr){
          uploadArr.push(`/uploads/${item.originalname}`)
