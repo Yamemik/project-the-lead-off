@@ -24,7 +24,7 @@ export const resentPassValidation = [
 export const updateValidation = [
    body('fio','Введите фио').optional().isLength({ min: 3 }),
    body('email','Введите почту').optional().isEmail(),
-   body('telephone','Введите ').optional().isString(),
+   body('telephone','Введите телефон').optional().isString(),
    body('organization','Выберите форму организации').optional().isString(),
    body('region','Укажите страну').optional().isArray(),
    body('business_line','').optional().isArray(),
