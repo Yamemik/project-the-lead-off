@@ -1162,7 +1162,7 @@
           "type": "string",
           "example": "мелкая"
         },
-        "typeBuyer": {
+        "type_buyer": {
           "type": "string",
           "example": "частная организация"
         },
@@ -1174,7 +1174,7 @@
           "type": "string",
           "example": "да"
         },
-        "isOpen": {
+        "is_open": {
           "type": "string",
           "example": "открытая"
         },
@@ -1182,7 +1182,7 @@
           "type": "number",
           "example": 0
         },
-        "isArchive": {
+        "is_archive": {
           "type": "boolean",
           "example": false
         },
@@ -1201,19 +1201,19 @@
           "type": "object",
           "properties": {}
         },
-        "isBuy": {
+        "is_buy": {
           "type": "boolean",
           "example": false
         },
-        "isCanceled": {
+        "is_canceled": {
           "type": "boolean",
           "example": false
         },
-        "isCanceledText": {
+        "is_canceled_text": {
           "type": "string",
           "example": "хочу деньги назад"
         },
-        "isCancel": {
+        "is_cancel": {
           "type": "boolean",
           "example": false
         }
@@ -1225,10 +1225,10 @@
         "telephone",
         "fio",
         "score",
-        "typeBuyer",
+        "type_buyer",
         "type_order",
         "is_urgent",
-        "isOpen"
+        "is_open"
       ]
     },
     "Category": {
