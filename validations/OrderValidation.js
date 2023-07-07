@@ -12,7 +12,7 @@ export const createOrderValidation = [
     body('type_buyer','').optional().isString(),
     body('type_order','').optional().isString(),
     body('is_urgent','').optional().isString(),
-    body('is_open','').optional().isBoolean(),
+    body('is_open','').optional().isString(),
     body('price','').optional().isNumeric()
  ]
 
