@@ -58,7 +58,7 @@ import SettingModel from '../models/Setting.js';
    */
    try{
       const doc = new RateModel({
-         settings: req.body.is_sale
+         settings: req.body.settings
       });
 
       const entity = await doc.save();
@@ -85,7 +85,7 @@ import SettingModel from '../models/Setting.js';
    */   
    await SettingModel.updateOne({_id:req.params.id},{
       $set: { 
-         settings: req.body.is_sale
+         settings: req.body.settings
       }
    }).then(()=> res.json({
          access: true
