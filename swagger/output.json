@@ -1393,8 +1393,13 @@
       "properties": {
         "settings": {
           "type": "array",
-          "example": [],
-          "items": {}
+          "example": [
+            "",
+            ""
+          ],
+          "items": {
+            "type": "string"
+          }
         }
       }
     },
