@@ -373,7 +373,7 @@
         "tags": [
           "Order"
         ],
-        "summary": "Загрузка файла",
+        "summary": "Загрузка файлов",
         "description": "",
         "parameters": [],
         "responses": {
@@ -847,6 +847,114 @@
         }
       }
     },
+    "/api/admin/settings/setting": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Создание настроек",
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "SettingModel",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Setting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        },
+        "deprecated": true
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить настройки",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/setting/{id}": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получение 1 настроек",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Измениние настроек",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "indexes",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Setting"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
     "/api/user/me": {
       "get": {
         "tags": [
@@ -1132,17 +1240,47 @@
         },
         "upload": {
           "type": "array",
-          "example": [
-            "url1",
-            "url2"
-          ],
           "items": {
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "fieldname": {
+                "type": "string",
+                "example": "file"
+              },
+              "originalname": {
+                "type": "string",
+                "example": "package.json"
+              },
+              "encoding": {
+                "type": "string",
+                "example": "7bit"
+              },
+              "mimetype": {
+                "type": "string",
+                "example": "application/json"
+              },
+              "destination": {
+                "type": "string",
+                "example": "uploads"
+              },
+              "filename": {
+                "type": "string",
+                "example": "file-1688806832296-191559703"
+              },
+              "path": {
+                "type": "string",
+                "example": "uploads/file-1688806832296-191559703"
+              },
+              "size": {
+                "type": "number",
+                "example": 1981
+              }
+            }
           }
         },
         "email": {
           "type": "string",
-          "example": "email.yandex.ru"
+          "example": "email@yandex.ru"
         },
         "telephone": {
           "type": "array",
@@ -1248,6 +1386,16 @@
         "base_price": {
           "type": "number",
           "example": 556
+        }
+      }
+    },
+    "Settings": {
+      "type": "object",
+      "properties": {
+        "settings": {
+          "type": "array",
+          "example": [],
+          "items": {}
         }
       }
     },

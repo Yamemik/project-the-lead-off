@@ -5,7 +5,7 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, RateController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
@@ -89,6 +89,11 @@ router.get('/admin/settings/score/:id', checkAuthIsAdmin, RateController.getOneS
 router.delete('/admin/settings/score', checkAuthIsAdmin, RateController.removeManySc);
 router.delete('/admin/settings/score/:id', checkAuthIsAdmin, RateController.removeSc);
 router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
+//settings
+router.post('/admin/settings/setting', checkAuthIsAdmin, SettingController.createSt);
+router.get('/admin/settings/setting/:id', checkAuthIsAdmin, SettingController.getOneSt);
+router.get('/admin/settings/setting', checkAuthIsAdmin, SettingController.getAllSt);
+router.patch('/admin/settings/setting/:id', checkAuthIsAdmin, SettingController.updateSt);
 
 
 //USER
