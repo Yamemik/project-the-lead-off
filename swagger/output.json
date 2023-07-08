@@ -892,34 +892,6 @@
             "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/api/admin/settings/setting/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получение 1 настроек",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
       },
       "patch": {
         "tags": [
@@ -928,12 +900,6 @@
         "summary": "Измениние настроек",
         "description": "",
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
           {
             "name": "obj",
             "in": "body",
