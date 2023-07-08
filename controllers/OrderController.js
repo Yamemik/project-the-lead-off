@@ -356,14 +356,15 @@ export const getAllWithFilter = async (req, res) => {
                region: { $in: req.body.region },
                nomeclature: { $all: req.body.nomeclature },
                score: { $in: req.body.score },
-               typeBuyer: { $in: req.body.typeBuyer },
-               isTender: { $in: req.body.isTender },
-               isImmediate: { $in: req.body.isImmediate },
-               price: { $in: req.body.price },
-               isArchive: { $in: req.body.isArchive },
-               isDiscount: { $in: req.body.isDiscount },
+               type_buyer: { $in: req.body.type_buyer },
+               type_order: { $in: req.body.type_order },
+               is_urgent: { $in: req.body.is_urgent },
+               price: { $gte: req.body.price_min },
+               price: { $lte: req.body.price_max },
+               is_archive: { $in: req.body.is_archive },
+               is_sale: { $in: req.body.is_sale },
                is_express: { $in: req.body.is_express },
-               isCancel: { $in: req.body.isCancel }
+               is_cancel: { $in: req.body.is_cancel }
             }
          }
       )
