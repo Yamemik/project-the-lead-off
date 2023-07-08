@@ -49,7 +49,6 @@ import SettingModel from '../models/Setting.js';
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'Создание настроек'
-      #swagger.deprecated = true
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'SettingModel',

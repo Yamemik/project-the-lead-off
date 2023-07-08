@@ -83,7 +83,7 @@ const doc = {
       base_price: 556,
     },
     Settings: {
-      settings: [],
+      settings: ["",""],
     },
     Rate: {
       score: [{ "easy": 0.8 }, { "medium": 1.0 }, { "hard": 1.2 }, { "hard+": 1.4 }],
