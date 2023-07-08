@@ -1012,7 +1012,7 @@
         "tags": [
           "User"
         ],
-        "summary": "Получить все заявки по номенклатуре и региону пользователя",
+        "summary": "Получить все заявки по номенклатуре и региону пользователя без фильтров",
         "description": "",
         "parameters": [],
         "responses": {
@@ -1049,6 +1049,74 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/order/filter": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все заявки по номенклатуре и региону пользователя без фильтров",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все заявки по номенклатуре и региону пользователя c фильтрами",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "score": {
+                  "example": "any"
+                },
+                "type_buyer": {
+                  "example": "any"
+                },
+                "type_order": {
+                  "example": "any"
+                },
+                "is_urgent": {
+                  "example": "any"
+                },
+                "price_min": {
+                  "example": "any"
+                },
+                "price_max": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
