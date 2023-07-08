@@ -35,8 +35,29 @@ const doc = {
         $nomeclature: ["nomen1.3.1","nomen1.2.1","group1.1"],
         $region: ["reg1"],
         text: "text",
-        upload: ["url1","url2"],
-        $email: "email.yandex.ru",
+        upload: [
+          {
+            "fieldname": "file",
+            "originalname": "README.md",
+            "encoding": "7bit",
+            "mimetype": "text/markdown",
+            "destination": "uploads",
+            "filename": "file-1688806832294-14506629",
+            "path": "uploads/file-1688806832294-14506629",
+            "size": 3340
+          },
+          {
+            "fieldname": "file",
+            "originalname": "package.json",
+            "encoding": "7bit",
+            "mimetype": "application/json",
+            "destination": "uploads",
+            "filename": "file-1688806832296-191559703",
+            "path": "uploads/file-1688806832296-191559703",
+            "size": 1981
+          }
+        ],
+        $email: "email@yandex.ru",
         $telephone: ["tel1","tel2"],
         $fio: "fio",
         $score: "мелкая",

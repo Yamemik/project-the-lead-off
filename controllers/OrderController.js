@@ -13,7 +13,7 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
-      console.log(req)
+      console.log(req.files);
 
       const doc = new OrderModel({
          nomeclature: req.body.nomeclature,
@@ -28,8 +28,7 @@ export const createOrder = async (req, res) => {
          type_order: req.body.type_order,
          is_urgent: req.body.is_urgent,
          is_open: req.body.is_open,
-         price: req.body.price,
-         upload: req.files
+         price: req.body.price
       });
 
       const order = await doc.save();
@@ -252,7 +251,7 @@ export const addUser = async (req, res) => {
 export const cpUpload = async (req, res) => {
    /*
       #swagger.tags = ["Order"]
-      #swagger.summary = 'Загрузка файла'
+      #swagger.summary = 'Загрузка файлов'
    */
    try {
       console.log(req)
