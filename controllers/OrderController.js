@@ -89,7 +89,7 @@ export const getAll = async (req, res) => {
 export const getAllForUser = async (req, res) => {
    /*
       #swagger.tags = ["User"]
-      #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя'
+      #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя без фильтров'
    */
    try {
       const user = await UserModel.findById(req.userId)
@@ -104,6 +104,47 @@ export const getAllForUser = async (req, res) => {
             { nomeclature: { $all: user.business_line } },
             { region: { $in: user.region } }
          ]
+      }).catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
+export const getAllForUserWithFilter = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя c фильтрами'
+   */
+   try {
+      const user = await UserModel.findById(req.userId)
+         .catch((err) => {
+            res.status(404).json({
+               message: 'user not found'
+            })
+         });
+
+      const orders = await OrderModel.find({
+         $set: {
+            $or: [
+               { nomeclature: { $all: user.business_line } },
+               { region: { $in: user.region } }
+            ],
+            score: { $in: req.body.score },
+            type_buyer: { $in: req.body.type_buyer },
+            type_order: { $in: req.body.type_order },
+            is_urgent: { $in: req.body.is_urgent },
+            price: { $gte: req.body.price_min },
+            price: { $lte: req.body.price_max }
+         }
       })
          .catch((err) => {
             res.status(404).json({
@@ -119,7 +160,6 @@ export const getAllForUser = async (req, res) => {
       });
    }
 }
-
 
 export const remove = async (req, res) => {
    /*
