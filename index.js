@@ -103,7 +103,6 @@ router.post('/user/resentpass', resentPassValidation, handlValidationErrors, Use
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);
 router.get('/user/order/adduser/:id', checkAuth, OrderController.addUser);
-router.get('/user/orders/filter', checkAuth, OrderController.getAllForUser);
 router.post('/user/orders/filter', checkAuth, getAllForUserWithFilterValidation, handlValidationErrors, OrderController.getAllForUserWithFilter);
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
