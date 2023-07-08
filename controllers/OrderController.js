@@ -128,28 +128,27 @@ export const getAllForUserWithFilter = async (req, res) => {
       const user = await UserModel.findById(req.userId)
          .catch((err) => {
             res.status(404).json({
-               message: 'user not found'
+               message: 'user not found (getAllForUserWithFilter)'
             })
          });
 
       const orders = await OrderModel.find({
-         $set: {
-            $or: [
-               { nomeclature: { $all: user.business_line } },
-               { region: { $all: user.region } }
-            ],
-            score: { $in: req.body.score },
-            type_buyer: { $in: req.body.type_buyer },
-            type_order: { $in: req.body.type_order },
-            is_urgent: { $in: req.body.is_urgent },
-            price: { $gte: req.body.price_min },
-            price: { $lte: req.body.price_max }
-         }
+         $or: [
+            { nomeclature: { $all: user.business_line } },
+            { region: { $all: user.region } }
+         ],
+         score: { $in: req.body.score },
+         type_buyer: { $in: req.body.type_buyer },
+         type_order: { $in: req.body.type_order },
+         is_urgent: { $in: req.body.is_urgent },
+         price: { $gte: req.body.price_min },
+         price: { $lte: req.body.price_max }
       })
          .catch((err) => {
+            console.log(err);
             res.status(404).json({
-               message: 'orders not found'
-            })
+               message: 'orders not found(getAllForUserWithFilter)'
+            });
          });
 
       res.json(orders);
