@@ -36,3 +36,12 @@ export const createOrderValidation = [
     body('email','Укажите почту').optional().isEmail(),
     body('telephone','Укажите номера').optional().isArray()
  ]
+
+ export const getAllForUserWithFilterValidation = [
+   body('score').optional().isArray(),
+   body('type_buyer').optional().isArray(),
+   body('type_order').optional().isArray(),
+   body('is_urgent').optional().isArray(),
+   body('price_min').optional().isNumeric(),
+   body('price_max').optional().isNumeric()
+]

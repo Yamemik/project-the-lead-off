@@ -9,7 +9,7 @@ import { UserController, OrderController, RegionController, CategoryController, 
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
-import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation } from './validations/OrderValidation.js';
+import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation, getAllForUserWithFilterValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
@@ -102,6 +102,8 @@ router.post('/user/resentpass', resentPassValidation, handlValidationErrors, Use
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);
 router.get('/user/order/adduser/:id', checkAuth, OrderController.addUser);
+router.get('/user/order/filter', checkAuth, OrderController.getAllForUser);
+router.post('/user/order/filter', checkAuth, getAllForUserWithFilterValidation, handlValidationErrors, OrderController.getAllForUserWithFilter);
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
 
