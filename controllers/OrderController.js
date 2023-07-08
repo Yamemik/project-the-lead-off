@@ -13,6 +13,8 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
+      console.log(req)
+
       const doc = new OrderModel({
          nomeclature: req.body.nomeclature,
          region: req.body.region,
@@ -141,7 +143,7 @@ export const removeMany = async (req, res) => {
       #swagger.tags = ["Admin"]
       #swagger.summary = 'удалить заказы'
    */
-   await OrderModel.deleteMany({_id: { $in: req.body.orders}})
+   await OrderModel.deleteMany({ _id: { $in: req.body.orders } })
       .then(() => res.json({
          access: true
       })).catch((err) => {
@@ -252,7 +254,8 @@ export const cpUpload = async (req, res) => {
       #swagger.tags = ["Order"]
       #swagger.summary = 'Загрузка файла'
    */
-  try {
+   try {
+      console.log(req)
       return res.json(req.files);
    } catch (err) {
       console.log(err);
