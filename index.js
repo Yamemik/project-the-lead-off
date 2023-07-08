@@ -5,7 +5,7 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController, NumberOrderController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
@@ -108,7 +108,10 @@ router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArc
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
 
 
-
+//PROGER
+//number order
+router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllNo);
+router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
 
 //run server

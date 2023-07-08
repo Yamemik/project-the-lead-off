@@ -1,5 +1,6 @@
 import OrderModel from '../models/Order.js';
 import UserModel from '../models/User.js';
+import NumberOrder from '../models/NumberOrder.js';
 
 export const createOrder = async (req, res) => {
    /*
@@ -13,9 +14,17 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
-      console.log(req.files);
+      const number = await NumberOrder.findOneAndUpdate({},
+         {$inc : {'number' : 1}})
+      .catch((err)=>{
+            console.log(err);
+            res.status(404).json({
+               message: "not found or update (SettingModel)"
+            });
+      });        
 
       const doc = new OrderModel({
+         number_order: number.number,
          nomeclature: req.body.nomeclature,
          region: req.body.region,
          text: req.body.text,

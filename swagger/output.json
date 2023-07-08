@@ -1123,26 +1123,7 @@
         }
       }
     },
-    "/api/user/order/filter": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все заявки по номенклатуре и региону пользователя без фильтров",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
+    "/api/user/orders/filter": {
       "post": {
         "tags": [
           "User"
@@ -1156,6 +1137,12 @@
             "schema": {
               "type": "object",
               "properties": {
+                "nomeclature": {
+                  "example": "any"
+                },
+                "region": {
+                  "example": "any"
+                },
                 "score": {
                   "example": "any"
                 },

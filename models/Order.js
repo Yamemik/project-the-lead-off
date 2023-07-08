@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const OrderSchema = new mongoose.Schema({
+   number_order: {
+      type: Number,
+      required: true,
+   },
    nomeclature: {
       type: Array,
       required: true,
