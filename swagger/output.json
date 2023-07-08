@@ -274,6 +274,76 @@
         }
       }
     },
+    "/api/admin/order/filter": {
+      "post": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Получить все заявки по фильтру для отчетности",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                },
+                "region": {
+                  "example": "any"
+                },
+                "nomeclature": {
+                  "example": "any"
+                },
+                "score": {
+                  "example": "any"
+                },
+                "type_buyer": {
+                  "example": "any"
+                },
+                "type_order": {
+                  "example": "any"
+                },
+                "is_urgent": {
+                  "example": "any"
+                },
+                "price_min": {
+                  "example": "any"
+                },
+                "price_max": {
+                  "example": "any"
+                },
+                "is_archive": {
+                  "example": "any"
+                },
+                "is_sale": {
+                  "example": "any"
+                },
+                "is_express": {
+                  "example": "any"
+                },
+                "is_cancel": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/admin/order/{id}": {
       "patch": {
         "tags": [
