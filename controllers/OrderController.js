@@ -125,18 +125,9 @@ export const getAllForUserWithFilter = async (req, res) => {
       #swagger.summary = 'Получить все заявки по номенклатуре и региону пользователя c фильтрами'
    */
    try {
-      const user = await UserModel.findById(req.userId)
-         .catch((err) => {
-            res.status(404).json({
-               message: 'user not found (getAllForUserWithFilter)'
-            })
-         });
-
       const orders = await OrderModel.find({
-         $or: [
-            { nomeclature: { $all: user.business_line } },
-            { region: { $all: user.region } }
-         ],
+         nomeclature: { $in: req.body.nomeclature },
+         region: { $in: req.body.region },
          score: { $in: req.body.score },
          type_buyer: { $in: req.body.type_buyer },
          type_order: { $in: req.body.type_order },
