@@ -57,7 +57,7 @@ import SettingModel from '../models/Setting.js';
       }
    */
    try{
-      const doc = new RateModel({
+      const doc = new SettingModel({
          settings: req.body.settings
       });
 
