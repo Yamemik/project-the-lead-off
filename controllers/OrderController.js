@@ -52,7 +52,7 @@ export const getOne = async (req, res) => {
 
       const order = await OrderModel.findById(orderId).populate('user').exec().catch((err) => {
          res.status(404).json({
-            message: 'order not found'
+            message: 'order not found (getOne)'
          })
       });
 
@@ -95,18 +95,18 @@ export const getAllForUser = async (req, res) => {
       const user = await UserModel.findById(req.userId)
          .catch((err) => {
             res.status(404).json({
-               message: 'user not found'
+               message: 'user not found  (getAllForUser)'
             })
          });
 
       const orders = await OrderModel.find({
          $or: [
             { nomeclature: { $all: user.business_line } },
-            { region: { $in: user.region } }
+            { region: { $all: user.region } }
          ]
       }).catch((err) => {
          res.status(404).json({
-            message: 'orders not found'
+            message: 'orders not found (getAllForUser)'
          })
       });
 
@@ -136,7 +136,7 @@ export const getAllForUserWithFilter = async (req, res) => {
          $set: {
             $or: [
                { nomeclature: { $all: user.business_line } },
-               { region: { $in: user.region } }
+               { region: { $all: user.region } }
             ],
             score: { $in: req.body.score },
             type_buyer: { $in: req.body.type_buyer },
