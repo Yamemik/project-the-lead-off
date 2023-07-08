@@ -83,7 +83,7 @@ import SettingModel from '../models/Setting.js';
                 schema: { $ref: "#/definitions/Setting" }
       }
    */   
-   await SettingModel.updateOne({_id:req.params.id},{
+   await SettingModel.findOneAndUpdate({},{
       $set: { 
          settings: req.body.settings
       }
