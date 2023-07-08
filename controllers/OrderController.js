@@ -134,8 +134,7 @@ export const getAllForUserWithFilter = async (req, res) => {
          is_urgent: { $in: req.body.is_urgent },
          price: { $gte: req.body.price_min },
          price: { $lte: req.body.price_max }
-      })
-         .catch((err) => {
+      }).catch((err) => {
             console.log(err);
             res.status(404).json({
                message: 'orders not found(getAllForUserWithFilter)'
