@@ -13,17 +13,6 @@ export const createOrder = async (req, res) => {
       }
    */
    try {
-      let uploadArr = [];
-      console.log(req.files);
-      try {
-         const fileArr = req.files;         
-         fileArr.forEach(function(item, i, arr){
-            uploadArr.push(item.path);
-         });
-      } catch (err) {
-         console.log(err);
-      }
-
       const doc = new OrderModel({
          nomeclature: req.body.nomeclature,
          region: req.body.region,
@@ -38,7 +27,7 @@ export const createOrder = async (req, res) => {
          is_urgent: req.body.is_urgent,
          is_open: req.body.is_open,
          price: req.body.price,
-         upload: uploadArr
+         upload: req.files
       });
 
       const order = await doc.save();
@@ -264,15 +253,8 @@ export const cpUpload = async (req, res) => {
       #swagger.summary = 'Загрузка файла'
    */
   try {
-      const fileArr = req.files;
-      let uploadArr = [];
-      fileArr.forEach(function(item, i, arr){
-         uploadArr.push(item.path);
-      });
-      req.files = uploadArr;
-
-      next();
-} catch (err) {
+      return res.json(req.files);
+   } catch (err) {
       console.log(err);
       res.status(500).json({
          message: "Failed to uploads"

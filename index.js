@@ -8,7 +8,7 @@ import swaggerUi from 'swagger-ui-express';
 import { UserController, OrderController, RegionController, CategoryController, RateController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
-import { createRegionValidation, createValidationIndexes, createGroupValidation, createCategoryValidation } from './validations/SettingsValidation.js';
+import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
 import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
@@ -61,7 +61,7 @@ router.patch('/admin/user/:id', checkAuthIsAdmin, updateValidation, handlValidat
 router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.removeUser);
 //orders
 router.get('/admin/order', checkAuth, OrderController.getAll);
-router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, uploads.array('file',12), OrderController.cpUpload, OrderController.createOrder);
+router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, uploads.array('file',12), OrderController.createOrder);
 router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.updateOrder);
 router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
