@@ -61,7 +61,7 @@ router.patch('/admin/user/:id', checkAuthIsAdmin, updateValidation, handlValidat
 router.delete('/admin/user/:id', checkAuthIsAdmin, UserController.removeUser);
 //orders
 router.get('/admin/order', checkAuth, OrderController.getAll);
-router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, uploads.array('file',12), OrderController.createOrder);
+router.post('/admin/order', checkAuthIsAdmin, createOrderValidation, handlValidationErrors, uploads.array('file',12), OrderController.cpUpload, OrderController.createOrder);
 router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.updateOrder);
 router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);

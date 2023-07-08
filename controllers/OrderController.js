@@ -14,10 +14,11 @@ export const createOrder = async (req, res) => {
    */
    try {
       let uploadArr = [];
+      console.log(req.files);
       try {
          const fileArr = req.files;         
          fileArr.forEach(function(item, i, arr){
-            uploadArr.push(`/uploads/${item.originalname}`)
+            uploadArr.push(item.path);
          });
       } catch (err) {
          console.log(err);
@@ -266,10 +267,12 @@ export const cpUpload = async (req, res) => {
       const fileArr = req.files;
       let uploadArr = [];
       fileArr.forEach(function(item, i, arr){
-         uploadArr.push(`/uploads/${item.originalname}`)
+         uploadArr.push(item.path);
       });
-      return res.json(uploadArr);
-   } catch (err) {
+      req.files = uploadArr;
+
+      next();
+} catch (err) {
       console.log(err);
       res.status(500).json({
          message: "Failed to uploads"
