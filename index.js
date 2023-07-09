@@ -5,7 +5,8 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController, NumberOrderController } from './controllers/index.js';
+import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
+   NumberOrderController, UkassaController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
@@ -98,10 +99,13 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
+router.get('/user/me/ukassa', checkAuth, UkassaController.payment);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);
+router.get('/user/order/all', checkAuth, OrderController.getAll);
+router.get('/user/order/all/issale', checkAuth, OrderController.getAllisSale);
 router.get('/user/order/adduser/:id', checkAuth, OrderController.addUser);
 router.post('/user/orders/filter', checkAuth, getAllForUserWithFilterValidation, handlValidationErrors, OrderController.getAllForUserWithFilter);
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
