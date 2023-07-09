@@ -76,7 +76,7 @@ export const getOne = async (req, res) => {
 
 export const getAll = async (req, res) => {
    /*
-      #swagger.tags = ["User"]
+      #swagger.tags = ["Admin"]
       #swagger.summary = 'Получить все заявки'
    */
    try {
@@ -94,6 +94,28 @@ export const getAll = async (req, res) => {
       });
    }
 }
+
+export const getAllUser = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'Получить все заявки'
+   */
+   try {
+      const orders = await OrderModel.find().catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
 
 export const getAllisSale = async (req, res) => {
    /*

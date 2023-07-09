@@ -1,4 +1,4 @@
-const YooKassa = require('yookassa');
+import YooKassa from 'yookassa';
 import { v4 as uuidv4 } from 'uuid';
 
 

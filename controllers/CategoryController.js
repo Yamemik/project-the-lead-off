@@ -1,6 +1,4 @@
 import CategoryModel from '../models/Category.js';
-import GroupModel from '../models/Group.js';
-import NomenclatureModel from '../models/Nomenclature.js';
 
 
 export const createCt = async (req, res) => {

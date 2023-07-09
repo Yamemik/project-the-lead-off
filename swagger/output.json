@@ -1019,6 +1019,13 @@
         ]
       }
     },
+    "/api/user/me/ukassa": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
     "/api/user/resentpass": {
       "post": {
         "tags": [
@@ -1086,6 +1093,48 @@
           "User"
         ],
         "summary": "Получить все заявки по номенклатуре и региону пользователя без фильтров",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/order/all": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все заявки",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/order/all/issale": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все заявки is sale",
         "description": "",
         "parameters": [],
         "responses": {
