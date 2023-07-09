@@ -1067,15 +1067,12 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "payment",
+            "required": true,
             "schema": {
-              "type": "object",
-              "properties": {
-                "payment": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Payment"
             }
           }
         ],
@@ -1626,6 +1623,180 @@
         "base_price": {
           "type": "number",
           "example": 556
+        }
+      }
+    },
+    "Payment": {
+      "type": "object",
+      "properties": {
+        "payment": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "22d6d597-000f-5000-9000-145f6df21d6f"
+            },
+            "status": {
+              "type": "string",
+              "example": "succeeded"
+            },
+            "paid": {
+              "type": "boolean",
+              "example": true
+            },
+            "amount": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "example": "2.00"
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "RUB"
+                }
+              }
+            },
+            "authorization_details": {
+              "type": "object",
+              "properties": {
+                "rrn": {
+                  "type": "string",
+                  "example": "10000000000"
+                },
+                "auth_code": {
+                  "type": "string",
+                  "example": "000000"
+                },
+                "three_d_secure": {
+                  "type": "object",
+                  "properties": {
+                    "applied": {
+                      "type": "boolean",
+                      "example": true
+                    }
+                  }
+                }
+              }
+            },
+            "captured_at": {
+              "type": "string",
+              "example": "2018-07-10T14:32:08.545Z"
+            },
+            "created_at": {
+              "type": "string",
+              "example": "2018-07-10T14:25:27.535Z"
+            },
+            "description": {
+              "type": "string",
+              "example": "Заказ №72"
+            },
+            "income_amount": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "example": "1.92"
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "RUB"
+                }
+              }
+            },
+            "metadata": {
+              "type": "object",
+              "properties": {}
+            },
+            "payment_method": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "example": "bank_card"
+                },
+                "id": {
+                  "type": "string",
+                  "example": "22d6d597-000f-5000-9000-145f6df21d6f"
+                },
+                "saved": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "card": {
+                  "type": "object",
+                  "properties": {
+                    "first6": {
+                      "type": "string",
+                      "example": "555555"
+                    },
+                    "last4": {
+                      "type": "string",
+                      "example": "4477"
+                    },
+                    "expiry_month": {
+                      "type": "string",
+                      "example": "01"
+                    },
+                    "expiry_year": {
+                      "type": "string",
+                      "example": "2030"
+                    },
+                    "card_type": {
+                      "type": "string",
+                      "example": "MasterCard"
+                    },
+                    "issuer_country": {
+                      "type": "string",
+                      "example": "US"
+                    }
+                  }
+                },
+                "title": {
+                  "type": "string",
+                  "example": "Bank card *4477"
+                }
+              }
+            },
+            "recipient": {
+              "type": "object",
+              "properties": {
+                "account_id": {
+                  "type": "string",
+                  "example": "100500"
+                },
+                "gateway_id": {
+                  "type": "string",
+                  "example": "100700"
+                }
+              }
+            },
+            "refundable": {
+              "type": "boolean",
+              "example": true
+            },
+            "refunded_amount": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "example": "0.00"
+                },
+                "currency": {
+                  "type": "string",
+                  "example": "RUB"
+                }
+              }
+            },
+            "test": {
+              "type": "boolean",
+              "example": true
+            }
+          }
+        },
+        "user_id": {
+          "type": "string",
+          "example": "64a01e95f7c1601edf3e60a7"
         }
       }
     },

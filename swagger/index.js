@@ -82,6 +82,57 @@ const doc = {
       category: ["cat1", "cat2", "cat3"],
       base_price: 556,
     },
+    Payment: {
+      payment: {
+        "id": "22d6d597-000f-5000-9000-145f6df21d6f",
+        "status": "succeeded",
+        "paid": true,
+        "amount": {
+          "value": "2.00",
+          "currency": "RUB"
+        },
+        "authorization_details": {
+          "rrn": "10000000000",
+          "auth_code": "000000",
+          "three_d_secure": {
+            "applied": true
+          }
+        },
+        "captured_at": "2018-07-10T14:32:08.545Z",
+        "created_at": "2018-07-10T14:25:27.535Z",
+        "description": "Заказ №72",
+        "income_amount": {
+          "value": "1.92",
+          "currency": "RUB"
+        },
+        "metadata": {},
+        "payment_method": {
+          "type": "bank_card",
+          "id": "22d6d597-000f-5000-9000-145f6df21d6f",
+          "saved": false,
+          "card": {
+            "first6": "555555",
+            "last4": "4477",
+            "expiry_month": "01",
+            "expiry_year": "2030",
+            "card_type": "MasterCard",
+            "issuer_country": "US"
+          },
+          "title": "Bank card *4477"
+        },
+        "recipient": {
+          "account_id": "100500",
+          "gateway_id": "100700"
+        },
+        "refundable": true,
+        "refunded_amount": {
+          "value": "0.00",
+          "currency": "RUB"
+        },
+        "test": true
+      },
+      user_id: "64a01e95f7c1601edf3e60a7",
+    },
     Settings: {
       settings: ["",""]
     },
