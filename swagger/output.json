@@ -201,7 +201,7 @@
     "/api/admin/order": {
       "get": {
         "tags": [
-          "User"
+          "Admin"
         ],
         "summary": "Получить все заявки",
         "description": "",
@@ -1019,13 +1019,6 @@
         ]
       }
     },
-    "/api/user/me/ukassa": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {}
-      }
-    },
     "/api/user/resentpass": {
       "post": {
         "tags": [
@@ -1108,7 +1101,7 @@
         }
       }
     },
-    "/api/user/order/all": {
+    "/api/user/orders/all": {
       "get": {
         "tags": [
           "User"
@@ -1129,7 +1122,7 @@
         }
       }
     },
-    "/api/user/order/all/issale": {
+    "/api/user/orders/all/issale": {
       "get": {
         "tags": [
           "User"
