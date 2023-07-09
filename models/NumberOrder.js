@@ -4,7 +4,7 @@ const NumberOrderSchema = new mongoose.Schema({
    number:{
       type: Number,
       require: true,
-      default: 0
+      default: 1
    }
 },{
    timestamps: true,
