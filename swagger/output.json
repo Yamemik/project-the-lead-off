@@ -1037,6 +1037,58 @@
         }
       }
     },
+    "/api/user/me/ukassa/getall": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Получить все платежи пользователя",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/me/ukassa/create": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "создать запись с платежом ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/user/resentpass": {
       "post": {
         "tags": [

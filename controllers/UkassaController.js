@@ -18,7 +18,7 @@ export const payment = async (req, res) => {
   try {
     const paymentUkassa = await yooKassa.createPayment({
       amount: {
-        value: "2.00",
+        value: "0.00",
         currency: "RUB"
       },
       confirmation: {

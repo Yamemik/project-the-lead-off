@@ -6,7 +6,7 @@ import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
 import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
-   NumberOrderController, UkassaController } from './controllers/index.js';
+   NumberOrderController, UkassaController, PaymentController } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
@@ -100,6 +100,8 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
 router.get('/user/me/ukassa', checkAuth, UkassaController.payment);
+router.get('/user/me/ukassa/getall', checkAuth, PaymentController.getAllPay);
+router.post('/user/me/ukassa/create', checkAuth, PaymentController.createPay);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
