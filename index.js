@@ -99,7 +99,7 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
-//router.get('/user/me/ukassa', checkAuth, UkassaController.payment);
+router.get('/user/me/ukassa', checkAuth, UkassaController.payment);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
