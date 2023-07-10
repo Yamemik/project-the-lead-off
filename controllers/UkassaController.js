@@ -26,7 +26,8 @@ export const payment = async (req, res) => {
         return_url: req.body.return_url
       },
       capture: req.body.capture,
-      description: req.body.description
+      description: req.body.description,
+      metadata: req.body.metadata
     }, idempotence_key);
 
     res.json(paymentUkassa);

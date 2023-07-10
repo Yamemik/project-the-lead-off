@@ -1019,7 +1019,7 @@
         ]
       }
     },
-    "/api/user/me/ukassa1": {
+    "/api/user/me/ukassa": {
       "post": {
         "tags": [
           "User"
@@ -1046,6 +1046,9 @@
                   "example": "any"
                 },
                 "description": {
+                  "example": "any"
+                },
+                "metadata": {
                   "example": "any"
                 }
               }
