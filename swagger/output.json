@@ -1020,7 +1020,7 @@
       }
     },
     "/api/user/me/ukassa": {
-      "get": {
+      "post": {
         "tags": [
           "User"
         ],
