@@ -16,13 +16,23 @@ export const payment = async (req, res) => {
      #swagger.summary = 'payments'
   */
   try {
-    const paymentUkassa = await yooKassa.createPayment(...req.body.details, idempotence_key);
+    const paymentUkassa = await yooKassa.createPayment({
+      amount: {
+        value: req.body.amount,
+        currency: "RUB"
+      },
+      confirmation: {
+        type: "embedded",
+      },
+      capture: req.body.capture,
+      description: req.body.description
+    }, idempotence_key);
 
     res.json(paymentUkassa);
   } catch (err) {
      console.log(err);
      res.status(500).json({
         message: "payment error"
-     }, err);
+     });
   }
 }
