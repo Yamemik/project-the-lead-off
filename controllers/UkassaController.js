@@ -22,7 +22,8 @@ export const payment = async (req, res) => {
         currency: "RUB"
       },
       confirmation: {
-        type: "embedded",
+        type: req.body.type,
+        return_url: req.body.return_url
       },
       capture: req.body.capture,
       description: req.body.description

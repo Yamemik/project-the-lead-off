@@ -1019,14 +1019,39 @@
         ]
       }
     },
-    "/api/user/me/ukassa": {
+    "/api/user/me/ukassa1": {
       "post": {
         "tags": [
           "User"
         ],
         "summary": "payments",
         "description": "",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "amount": {
+                  "example": "any"
+                },
+                "type": {
+                  "example": "any"
+                },
+                "return_url": {
+                  "example": "any"
+                },
+                "capture": {
+                  "example": "any"
+                },
+                "description": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"
