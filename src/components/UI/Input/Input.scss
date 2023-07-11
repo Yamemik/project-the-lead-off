@@ -4,4 +4,43 @@
     padding: 18px 30px;
     max-height: 52px;
     max-width: 100px;
+    &__box {
+        position: relative;
+        cursor: pointer;
+        &-input {
+            pointer-events: none;
+            border: 1px solid #D6DCF1;
+            border-radius: 7px;
+            padding: 18px 30px;
+            max-height: 52px;
+            width: 300px;
+            &::placeholder {
+                color: #3173AF;
+            }
+        }
+        &-icon {
+            pointer-events: none;
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+    }
+    &__file {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 52px;
+        margin-left: 10px;
+        &-delete {
+            cursor: pointer;
+            &:hover {
+                opacity: .75;
+            }
+        }
+    }
+    &::placeholder {
+        color: #A6ACBE;
+    }
 }

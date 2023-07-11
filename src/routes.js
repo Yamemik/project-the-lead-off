@@ -3,6 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Platform from "./pages/Platform";
 import Landing from "./pages/Landing";
 
+import NotFound from "./pages/NotFound";
+
 import SuitableOrders from "./pages/Platform/SuitableOrders";
 import SaleOrders from "./pages/Platform/SaleOrders";
 import ArchiveOrders from "./pages/Platform/ArchiveOrders";
@@ -20,8 +22,40 @@ import AdminPanelSettings from "./pages/Platform/AdminPanel/AdminPanelSettings";
 
 import OutletMain from "./components/Outlets/OutletMain";
 import OutletAdmin from "./components/Outlets/OutletAdmin";
+import Auth from "./pages/Platform/Auth";
+import Demo from "./pages/Platform/Demo";
+import AdminPanelUser from "./pages/Platform/AdminPanel/AdminPanelUser";
+import AdminPanelEditUser from "./pages/Platform/AdminPanel/AdminPanelEditUser";
+import AdminPanelCreateUser from "./pages/Platform/AdminPanel/AdminPanelCreateUser";
+import AdminPanelOrder from "./pages/Platform/AdminPanel/AdminPanelOrder";
+import AdminPanelRejectionOrder from "./pages/Platform/AdminPanel/AdminPanelRejectionOrder";
+import AdminPanelRejections from "./pages/Platform/AdminPanel/AdminPanelRejection";
+import AdminPanelDuplicates from "./pages/Platform/AdminPanel/AdminPanelDuplicates";
+import AdminPanelCreateOrder from "./pages/Platform/AdminPanel/AdminPanelCreateOrder";
+import AdminPanelEditOrder from "./pages/Platform/AdminPanel/AdminPanelEditOrder";
+import RememberPassword from "./pages/Platform/RememberPassword";
 
 const routes = createBrowserRouter([
+    {
+        path: "/platform/admin-panel/auth",
+        element: <AdminPanelAuth />,
+    },
+    {
+        path: "/platform/auth",
+        element: <Auth />,
+    },
+    {
+        path: "/platform/remember-password",
+        element: <RememberPassword />,
+    },
+    {
+        path: "/platform/demo",
+        element: <Demo />,
+    },
+    {
+        path: "/",
+        errorElement: <NotFound />,
+    },
     {
         path: "/landing",
         element: <Landing />,
@@ -69,10 +103,6 @@ const routes = createBrowserRouter([
         element: <OutletAdmin />,
         children: [
             {
-                path: "auth",
-                element: <AdminPanelAuth />,
-            },
-            {
                 path: "home",
                 element: <AdminPanelHome />,
             },
@@ -91,6 +121,42 @@ const routes = createBrowserRouter([
             {
                 path: "settings",
                 element: <AdminPanelSettings />,
+            },
+            {
+                path: "user/:id",
+                element: <AdminPanelUser />,
+            },
+            {
+                path: "edit-user/:id",
+                element: <AdminPanelEditUser />,
+            },
+            {
+                path: "create-user",
+                element: <AdminPanelCreateUser />,
+            },
+            {
+                path: "order/:id",
+                element: <AdminPanelOrder />,
+            },
+            {
+                path: "rejection-order/:id",
+                element: <AdminPanelRejectionOrder />,
+            },
+            {
+                path: "rejections",
+                element: <AdminPanelRejections />,
+            },
+            {
+                path: "duplicates",
+                element: <AdminPanelDuplicates />,
+            },
+            {
+                path: "create-order",
+                element: <AdminPanelCreateOrder />,
+            },
+            {
+                path: "edit-order/:id",
+                element: <AdminPanelEditOrder />,
             },
         ],
     },

@@ -9,11 +9,14 @@
     // transition: background-color .25s, color .25s;
 }
 
-::-webkit-scrollbar {
-    display: none;
+html, body {
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
-input {
+input, textarea {
+    resize: none;
     &:focus {
         outline: none;
     }
@@ -45,4 +48,8 @@ button {
     border: none;
     background-color: transparent;
     cursor: pointer;
+}
+
+#root {
+    position: relative;
 }

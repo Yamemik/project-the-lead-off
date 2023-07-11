@@ -1,0 +1,45 @@
+.loader {
+    position: fixed;
+    z-index: 999999;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FBFCFD;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &--animated {
+        animation: fade 1s 2s forwards;
+    }
+    &__box {
+        padding-bottom: 50px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        row-gap: 22px;
+        &-download {
+            color: #1f2a37;
+            text-transform: uppercase;
+            font-size: 24px;
+            font-weight: 800;
+        }
+    }
+}
+
+@keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    99% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 0;
+      display: none;
+      pointer-events: none;
+    }
+}

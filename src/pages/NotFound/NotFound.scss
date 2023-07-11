@@ -1,0 +1,29 @@
+.notFound {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-bottom: 70px;
+    &__photo {
+        display: block;
+    }
+    &__text {
+        color: #1F2A37;
+        font-weight: 800;
+        font-size: 34px;
+        line-height: 41px;
+    }
+}
+
+@media(max-width: 575px) {
+    .notFound {
+        &__photo {
+            width: 320px;
+        }
+        &__text {
+            font-size: 25px;
+        }
+    }
+}

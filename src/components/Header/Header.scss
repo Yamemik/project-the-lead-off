@@ -73,6 +73,17 @@
         }
     }
     &__right {
+        &-buttons {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            .button {
+                margin-top: unset;
+                &__content {
+                    height: 52px;
+                }
+            }
+        }
         &-wallet {
             padding: 16px 20px;
             background: #f1f4f7;
@@ -241,6 +252,19 @@
                     height: 50px;
                 }
             }
+            &-buttons {
+                .button {
+                    &__content {
+                        padding: 0 24px;
+                        height: 40px;
+                        font-size: 13px;
+                        img {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+                }
+            }
         }
         &__popupUserMobile {
             z-index: 999;
@@ -383,6 +407,26 @@
                     &-text {
                         font-weight: 500;
                         font-size: 13px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        &__right {
+            &-buttons {
+                .button {
+                    &__content {
+                        padding: 0 16px;
+                        font-size: 12px;
+                        column-gap: 6px;
+                        img {
+                            width: 18px;
+                            height: 18px;
+                        }
                     }
                 }
             }

@@ -36,23 +36,28 @@ const LayoutBlock = ({
                             />
                         </div>
                     </div>
-                    {children}
                 </>
             ) : (
-                <>
-                    {title && typeof title === "string" ? (
-                        <h6 className="layoutBlock__subtitle">{title}</h6>
-                    ) : (
-                        <h6 className="layoutBlock__subtitle">
-                            <img src={`/img/adminPanel/${title[1]}.svg`} alt="" style={{
-                                filter: "invert(41%) sepia(65%) saturate(579%) hue-rotate(167deg) brightness(85%) contrast(87%)"
-                            }}/>
-                            {title[0]}
-                        </h6>
-                    )}
-                    {children}
-                </>
+                title && (
+                    <>
+                        {title && typeof title === "string" ? (
+                            <h6 className="layoutBlock__subtitle">{title}</h6>
+                        ) : (
+                            <h6 className="layoutBlock__subtitle">
+                                <img
+                                    src={`/img/adminPanel/${title[1]}.svg`}
+                                    alt=""
+                                    style={{
+                                        filter: "invert(41%) sepia(65%) saturate(579%) hue-rotate(167deg) brightness(85%) contrast(87%)",
+                                    }}
+                                />
+                                {title[0]}
+                            </h6>
+                        )}
+                    </>
+                )
             )}
+            {children}
         </div>
     );
 };

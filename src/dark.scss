@@ -331,4 +331,26 @@
             }
         }
     }
+    .form {
+        &__title {
+            color: #fff;
+        }
+        &__box {
+            background-color: #1F2A37;
+            &-remember {
+                color: #438BCE;
+            }
+        }
+    }
+    .loader {
+        background-color: #1A232E;
+        &__box {
+            svg {
+                fill: #fff;
+            }
+            &-download {
+                color: #fff;
+            }
+        }
+    }
 }

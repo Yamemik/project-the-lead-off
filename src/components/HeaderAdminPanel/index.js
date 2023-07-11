@@ -16,7 +16,7 @@ const HeaderAdminPanel = () => {
                         <div className="headerAdminPanel__right-user-avatar"></div>
                         <div className="headerAdminPanel__right-user-info">
                             <p className="headerAdminPanel__right-user-info-name">Администратор</p>
-                            <p className="headerAdminPanel__right-user-info-email">client@gmail.com</p>
+                            <p className="headerAdminPanel__right-user-info-email">{JSON.parse(localStorage.getItem("user")).email}</p>
                         </div>
                     </div>
                     <div className="headerAdminPanel__right-userMobile" onClick={() => setPopupUserMobile(!popupUserMobile)}>

@@ -3,16 +3,47 @@
     height: 100%;
     min-height: calc(100vh - 100px);
     padding: 40px;
-    &__title {
+    &__title, &__title-text {
         font-weight: 800;
         font-size: 34px;
         margin-bottom: 15px;
+    }
+    &__title {
+        &--extra {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-box {
+            display: flex;
+            align-items: center;
+            column-gap: 10px;
+            .button {
+                margin: unset;
+            }
+        }
     }
 }
 
 @media(max-width: 1280px) {
     .layoutPage {
         min-height: calc(100vh - 60px);
+        &__title {
+            &--extra {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            &-box {
+                flex-wrap: wrap;
+                gap: 10px;
+                flex-direction: column-reverse;
+                align-items: stretch;
+                width: 100%;
+                .search__input, .button__content {
+                    width: 100%;
+                }
+            }
+        }
     }
 }
 

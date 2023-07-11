@@ -1,0 +1,25 @@
+.search {
+    &__input {
+        width: 300px;
+        border: 1px solid #d6dcf1;
+        border-radius: 7px;
+        padding: 17px 30px;
+        line-height: 18px;
+        background-color: transparent;
+        &::placeholder {
+            color: #a6acbe;
+        }
+    }
+    position: relative;
+    display: inline-block;
+    &::after {
+        content: "";
+        position: absolute;
+        right: 30px;
+        width: 20px;
+        height: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        background-image: url("./../../../public/img/search/search.svg");
+    }
+}

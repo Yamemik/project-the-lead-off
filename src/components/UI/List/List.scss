@@ -1,0 +1,98 @@
+.list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+    &__extra {
+        background-color: #F1F4F7;
+        padding-bottom: 15px;
+        margin-top: -1px;
+        width: 290px;
+        &-item {
+            color: #53596D;
+            line-height: 18px;
+            margin-top: 8px;
+            & + & {
+                margin-top: 12px;
+            }
+            padding: 0 30px 0 45px;
+        }
+    }
+    &--scroll {
+        max-height: 341px;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding-right: 5px;
+        .list {
+            &__extra {
+                width: 275px;
+            }
+            &__item {
+                width: 275px;
+            }
+        }
+    }
+    &--category {
+        .list {
+            &__item {
+                padding: 18px 30px;
+            }
+        }
+    }
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
+    &::-webkit-scrollbar-track {
+        background-color: #F1F4F7;
+        border-radius: 10px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background: #B0C9E1;
+        border-radius: 10px;
+      }
+    &__item {
+        background-color: #F1F4F7;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 6px 30px;
+        width: 290px;
+        &-boxTitle, &-boxIcons {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        &-boxTitle, &-boxIcons-icon {
+            cursor: pointer;
+            &:hover {
+                opacity: .75;
+            }
+        }
+        &-boxTitle {
+            column-gap: 5px;
+        }
+        &-boxIcons {
+            column-gap: 10px;
+        }
+        &:first-child {
+            border-top-left-radius: 7px;
+            border-top-right-radius: 7px;
+        }
+        &:last-child {
+            border-bottom-left-radius: 7px;
+            border-bottom-right-radius: 7px;
+        }
+        &-title, &-rate {
+            line-height: 18px;
+        }
+        &-title {
+            color: #53596D;
+        }
+        &-rate {
+            background-color: transparent;
+            border: 2px solid #3173B0;
+            border-radius: 7px;
+            padding: 11px 13px;
+            width: 50px;
+        }
+    }
+}

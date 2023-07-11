@@ -32,4 +32,13 @@
             }
         }
     }
+    &__label {
+        position: absolute;
+        top: -6px;
+        line-height: 18px;
+        transform: translateY(-100%);
+        left: 0;
+        font-size: 13px;
+        color: #53596D;
+    }
 }

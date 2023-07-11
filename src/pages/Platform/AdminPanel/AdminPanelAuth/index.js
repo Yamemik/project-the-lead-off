@@ -1,7 +1,20 @@
-const AdminPanelAuth = () => {
-  return (
-    <div>AdminPanelAuth</div>
-  )
-}
+import AuthForm from "../../../../components/AuthForm";
 
-export default AdminPanelAuth
+const AdminPanelAuth = () => {
+    return (
+        <div
+            style={{
+                width: "100vw",
+                height: "100vh",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+            }}>
+            <AuthForm
+                type="admin-auth"
+            />
+        </div>
+    );
+};
+
+export default AdminPanelAuth;

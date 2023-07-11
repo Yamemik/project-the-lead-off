@@ -1,0 +1,87 @@
+.form {
+    max-width: 580px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 20px;
+    padding-bottom: 50px;
+    &__title {
+        color: #1F2A37;
+        font-size: 34px;
+        font-weight: 800;
+        line-height: 41px;
+    }
+    &__box {
+        padding: 30px 140px;
+        width: 100%;
+        background: #FFFFFF;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.07), 0px 0.5px 0px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        row-gap: 10px;
+        flex-direction: column;
+        &-text {
+            text-align: center;
+            line-height: 130%;
+            font-size: 16px;
+        }
+        &-error {
+            color: #EF5C5C;
+            margin-top: 10px;
+        }
+        &-input {
+            width: 100%;
+            border: 1px solid #D6DCF1;
+            border-radius: 7px;
+            color:#1F2A37;
+            line-height: 18px;
+            padding: 17px;
+            text-align: center;
+            &::placeholder {
+                color: #A6ACBE;
+            }
+        }
+        &-remember {
+            color: #3173B0;
+            margin-top: 10px;
+            line-height: 18px;
+            position: relative;
+            cursor: pointer;
+            &:hover {
+                opacity: .75;
+            }
+            &::after {
+                left: 0;
+                right: 0;
+                bottom: 0;
+                position: absolute;
+                content: "";
+                background-color: #3173B0;
+                width: 100%;
+                height: 1px;
+            }
+        }
+        &-sogl {
+            margin-top: 10px;
+            min-width: max-content;
+        }
+        label {
+            color: #53596D;
+            margin-top: 2px;
+        }
+    }
+}
+
+@media (max-width: 650px) {
+    .form {
+        &__box {
+            max-width: 330px;
+            padding: 24px 30px;
+            &-sogl {
+                
+            }
+        }
+    }
+}

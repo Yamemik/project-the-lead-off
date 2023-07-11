@@ -1,0 +1,143 @@
+.tableAdminPanel {
+    &--duplicates {
+        .tableAdminPanel {
+            &__row {
+                cursor: pointer;
+                &:hover {
+                    filter: brightness(95%);
+                }
+                position: relative;
+                &--bg {
+                    position: absolute;
+                    background-color: #F1F4F7;
+                    z-index: 0;
+                    height: 100%;
+                    top: 0;
+                    left: -30px;
+                    right: -30px;
+                }
+                &-item {
+                    z-index: 1;
+                }
+            }
+        }
+    }
+    &__head,
+    &__row {
+        display: flex;
+        &-item {
+            line-height: 18px;
+            &:nth-child(1) {
+                flex: 0 1 4%;
+            }
+            &:nth-child(2) {
+                flex: 0 1 13%;
+            }
+            &:nth-child(3) {
+                flex: 0 1 13%;
+            }
+            &:nth-child(4) {
+                flex: 0 1 16%;
+            }
+            &:nth-child(5) {
+                flex: 0 1 14%;
+            }
+            &:nth-child(6) {
+                flex: 0 1 10%;
+            }
+            &:nth-child(7) {
+                flex: 0 1 9%; //75
+            }
+            &:nth-child(8) {
+                flex: 0 1 15%;
+            }
+            &:nth-child(9) {
+                flex: 1 1 auto;
+            }
+        }
+    }
+    &__head {
+        padding-bottom: 20px;
+        &-item {
+            font-weight: 700;
+        }
+    }
+    &__row {
+        padding: 20px 0;
+        &-item {
+            &-addons {
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                column-gap: 10px;
+                img {
+                    cursor: pointer;
+                    &:hover {
+                        opacity: .75;
+                    }
+                }
+            }
+        }
+        position: relative;
+        &::after, &::before {
+            content: "";
+            position: absolute;
+            left: -30px;
+            right: -30px;
+            background-color: #F1F4F7;
+        }
+        &:last-child {
+            &::before {
+                bottom: 0;
+                height: 1%;
+            }
+        }
+        &::after {
+            top: 0;
+            height: 1%;
+        }
+    }
+    &__duplicatesBox {
+        margin-bottom: 20px;
+        .button {
+            margin-top: 10px;
+        }
+    }
+}
+
+@media(max-width: 1420px) {
+    .tableAdminPanel {
+        min-width: fit-content;
+        &__head,
+        &__row {
+            &-item {
+                flex: unset !important;
+                &:nth-child(1) {
+                    width: 60px;
+                }
+                &:nth-child(2) {
+                    width: 180px;
+                }
+                &:nth-child(3) {
+                    width: 160px;
+                }
+                &:nth-child(4) {
+                    width: 220px;
+                }
+                &:nth-child(5) {
+                    width: 200px;
+                }
+                &:nth-child(6) {
+                    width: 120px;
+                }
+                &:nth-child(7) {
+                    width: 120px;
+                }
+                &:nth-child(8) {
+                    width: 250px;
+                }
+            }
+        }
+    }
+    
+}

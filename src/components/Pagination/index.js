@@ -3,14 +3,26 @@ import ReactPaginate from "react-paginate";
 import "./Pagination.scss";
 import { useEffect, useState } from "react";
 import TableRow from "../TableRow";
+import TableAdminPanel from "../TableAdminPanel";
 
-const Pagination = ({ items, itemsPerPage = 1, isCanBuy, isCanSale, isCanClose, isHaveDateDelete, isHaveStatus }) => {
+const Pagination = ({
+    items,
+    itemsPerPage = 1,
+    isCanBuy,
+    isCanSale,
+    isCanClose,
+    isHaveDateDelete,
+    isHaveStatus,
+    isAdminPanelTable,
+    isRejections,
+    head
+}) => {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
     const [offset, setOffset] = useState(0);
 
     useEffect(() => {
-        if (window.innerWidth <= 1280) {
+        if (window.innerWidth <= 1280 && !isAdminPanelTable) {
             const endOffset = offset + 1;
             setCurrentItems(items.slice(offset, endOffset));
             setPageCount(Math.ceil(items.length / 1));
@@ -22,7 +34,7 @@ const Pagination = ({ items, itemsPerPage = 1, isCanBuy, isCanSale, isCanClose, 
     }, [items, offset, itemsPerPage]);
 
     const handlePageClick = e => {
-        if (window.innerWidth <= 1280) {
+        if (window.innerWidth <= 1280 && !isAdminPanelTable) {
             const newOffset = (e.selected * 1) % items.length;
             setOffset(newOffset);
         } else {
@@ -32,7 +44,11 @@ const Pagination = ({ items, itemsPerPage = 1, isCanBuy, isCanSale, isCanClose, 
     };
 
     const getAdditions = item => {
-        let arr = [...item.additions];
+        let arr = []
+        if (item?.type_buyer?.includes("частная")) arr.push("private")
+        if (item?.type_buyer?.includes("государственная")) arr.push("state")
+        if (item?.type_order?.includes("тендер")) arr.push("tender")
+        if (item?.is_urgent === "да") arr.push("urgent")
         if (isCanBuy) arr.push("cart");
         if (isCanSale) arr.push("sale");
         if (isCanClose) arr.push("close");
@@ -42,20 +58,31 @@ const Pagination = ({ items, itemsPerPage = 1, isCanBuy, isCanSale, isCanClose, 
     return (
         <>
             {currentItems &&
-                currentItems.map(item => (
-                    <TableRow
-                        key={item.id}
-                        id={item.id}
-                        productGroup={item.product_group}
-                        nomenclature={item.nomenclature}
-                        region={item.region}
-                        estimation={item.estimation}
-                        price={item.price}
-                        additions={getAdditions(item)}
-                        isHaveDateDelete={isHaveDateDelete}
-                        isHaveStatus={isHaveStatus}
-                        status={item.status}
+                (isAdminPanelTable ? (
+                    <TableAdminPanel
+                        canEdit={!isRejections}
+                        canDelete={!isRejections}
+                        canYes={isRejections}
+                        canNo={isRejections}
+                        head={head}
+                        data={currentItems}
                     />
+                ) : (
+                    currentItems.map(item => (
+                        <TableRow
+                            key={item._id}
+                            id={item._id}
+                            productGroup={item.nomeclature[0][0]}
+                            nomenclature={item.nomeclature[0][2]}
+                            region={item.region}
+                            estimation={item.score}
+                            price={item.price}
+                            additions={getAdditions(item)}
+                            isHaveDateDelete={isHaveDateDelete}
+                            isHaveStatus={isHaveStatus}
+                            status={item.status}
+                        />
+                    ))
                 ))}
             <ReactPaginate
                 onPageChange={handlePageClick}

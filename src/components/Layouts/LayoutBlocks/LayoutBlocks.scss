@@ -21,6 +21,9 @@
             flex: 0 1 33%;
         }
     }
+    &__form {
+        width: 100%;
+    }
 }
 
 @media(max-width: 1280px) {

@@ -1,14 +1,24 @@
 import { useEffect, useState } from "react";
 import "./DropdownList.scss";
 
-const DropdownList = ({ values = ["Пункт 1", "Пункт 2", "Пункт 3"] }) => {
+const DropdownList = ({
+    label,
+    placeholder = "Выбрать",
+    values = ["Пункт 1", "Пункт 2", "Пункт 3"],
+    itemClick,
+    curVal
+}) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentValue, setCurrentValue] = useState();
 
     useEffect(() => {
         const handleOutClick = e => {
-            if (!["dropdown", "dropdown__arrow", "dropdown__list-item", "dropdown__list", "dropdown__text"].includes(e.target.className)) {
-                setIsOpen(false)
+            if (
+                !["dropdown", "dropdown__arrow", "dropdown__list-item", "dropdown__list", "dropdown__text"].includes(
+                    e.target.className,
+                )
+            ) {
+                setIsOpen(false);
             }
         };
         if (isOpen) {
@@ -18,13 +28,21 @@ const DropdownList = ({ values = ["Пункт 1", "Пункт 2", "Пункт 3"
         }
     }, [isOpen]);
 
+    useEffect(() => {
+        if (curVal) {
+            setCurrentValue()
+        }
+    }, [curVal])
+
     return (
         <div className="dropdown" onClick={() => setIsOpen(!isOpen)}>
-            <p className="dropdown__text"
-            style={{
-                color: currentValue ? "#9DA8C8" : "rgba(157, 168, 200, 0.5)"
-            }}
-            >{currentValue ? currentValue : "Выбрать"}</p>
+            <p
+                className="dropdown__text"
+                style={{
+                    color: currentValue ? "#1f2a37" : "#A6ACBE",
+                }}>
+                {currentValue ? currentValue : placeholder}
+            </p>
             <img
                 className="dropdown__arrow"
                 src="/img/filters/dropdown-arrow.svg"
@@ -37,12 +55,21 @@ const DropdownList = ({ values = ["Пункт 1", "Пункт 2", "Пункт 3"
             {isOpen && (
                 <ul className="dropdown__list">
                     {values.map((value, index) => (
-                        <li key={index} className="dropdown__list-item" onClick={e => setCurrentValue(e.target.innerText)}>
+                        <li
+                            key={index}
+                            className="dropdown__list-item"
+                            onClick={e => {
+                                setCurrentValue(e.target.innerText)
+                                if (typeof itemClick === "function") {
+                                    itemClick(e.target.innerText)
+                                }
+                            }}>
                             {value}
                         </li>
                     ))}
                 </ul>
             )}
+            {label && <p className="dropdown__label">{label}</p>}
         </div>
     );
 };

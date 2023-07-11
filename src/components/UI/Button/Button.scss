@@ -22,6 +22,9 @@
     &--fill {
         .button {
             &__content {
+                display: flex;
+                align-items: center;
+                column-gap: 10px;
                 background-color: #3173b0;
                 color: #fff;
                 &:hover {
