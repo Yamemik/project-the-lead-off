@@ -141,7 +141,7 @@ const AuthForm = ({ type, rememberPassword, demo }) => {
                             <Checkbox text="Запомнить пароль" click={() => setRemember(!remember)}/>
                             {showError && <p className="form__box-error">Неверный логин или пароль</p>}
                             <Button text="Войти" click={handleAuth} />
-                            {rememberPassword && <div className="form__box-remember">Забыли пароль?</div>}
+                            {rememberPassword && <div className="form__box-remember" onClick={() => window.location.href = "/platform/remember-password"}>Забыли пароль?</div>}
                         </form>
                     </LayoutBlocks>
                 </>
