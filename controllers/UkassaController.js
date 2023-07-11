@@ -28,7 +28,7 @@ export const payment = async (req, res) => {
       capture: req.body.capture,
       description: req.body.description,
       metadata: req.body.metadata
-    }, idempotence_key);
+    }, uuidv4());
 
     res.json(paymentUkassa);
   } catch (err) {
