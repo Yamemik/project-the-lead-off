@@ -39,7 +39,7 @@ const corsOptions ={
    optionSuccessStatus:200
    }
 app.use(cors(corsOptions));
-//app.use(cors());
+app.options('*',cors());
 app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
