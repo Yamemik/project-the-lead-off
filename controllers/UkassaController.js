@@ -31,7 +31,6 @@ export const payment = async (req, res) => {
       metadata: req.body.metadata
     }, uuidv4());
 
-    try {
       const doc = new PaymentSchema({
          payment: paymentUkassa,
          user_id: req.userId
@@ -39,13 +38,6 @@ export const payment = async (req, res) => {
 
       const entity = await doc.save();
 
-   } catch (err) {
-      console.log(err);
-      res.status(500).json({
-         message: "Failed create to pay"
-      })
-   }
-    
     res.json(paymentUkassa, entity);
   } catch (err) {
      console.log(err);

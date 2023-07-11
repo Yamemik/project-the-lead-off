@@ -1086,14 +1086,20 @@
         }
       }
     },
-    "/api/user/me/ukassa/create": {
-      "post": {
+    "/api/user/me/ukassa/update/{id}": {
+      "get": {
         "tags": [
           "User"
         ],
         "summary": "создать запись с платежом ",
         "description": "",
         "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
           {
             "name": "obj",
             "in": "body",
@@ -1108,8 +1114,8 @@
           "200": {
             "description": "OK"
           },
-          "500": {
-            "description": "Internal Server Error"
+          "404": {
+            "description": "Not Found"
           }
         }
       }
