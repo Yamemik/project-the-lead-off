@@ -1,14 +1,18 @@
-import axios from "axios";
+import axios from "../../../utils/axios";
 import "./Addition.scss";
 
-const Addition = ({ item_id, name }) => {
+const Addition = ({ item_id, name, setNewData }) => {
     return (
         <div
             onClick={() => {
                 if (name === "close") {
                     axios
-                        .patch(`/api/admin/order/${item_id}`, {})
-                        .then(res => res)
+                        .patch(`/api/admin/order/${item_id}`, {
+                            user: {},
+                            is_buy: false,
+                        })
+                        .then(res => axios.get("/api/user/orders/all").then(({ data }) => setNewData(data)))
+                        .catch(err => console.log(err))
                         .catch(err => console.log(err));
                 }
             }}

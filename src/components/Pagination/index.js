@@ -15,7 +15,8 @@ const Pagination = ({
     isHaveStatus,
     isAdminPanelTable,
     isRejections,
-    head
+    head,
+    setNewData_parent_2
 }) => {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
@@ -70,6 +71,7 @@ const Pagination = ({
                 ) : (
                     currentItems.map(item => (
                         <TableRow
+                            setNewData_parent={arg => setNewData_parent_2(arg)}
                             key={item._id}
                             id={item._id}
                             productGroup={item.nomeclature[0][0]}

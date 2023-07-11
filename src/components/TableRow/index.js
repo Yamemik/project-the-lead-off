@@ -13,6 +13,7 @@ const TableRow = ({
     isHaveDateDelete,
     isHaveStatus,
     status,
+    setNewData_parent
 }) => {
     return (
         <div
@@ -77,7 +78,7 @@ const TableRow = ({
                 {additions &&
                     !isHaveDateDelete &&
                     !isHaveStatus &&
-                    additions.map(addition => <Addition item_id={id} name={addition} />)}
+                    additions.map(addition => <Addition setNewData={data => setNewData_parent(data)} item_id={id} name={addition} />)}
             </div>
         </div>
     );

@@ -26,7 +26,7 @@ const ActiveOrders = () => {
             <Loader trigger={isLoading} />
             <LayoutBlocks>
                 <LayoutBlock title="Фильтры">
-                    <Pagination items={orders} itemsPerPage={3} isCanClose />
+                    <Pagination setNewData_parent_2={arg => setOrders(arg)} items={orders} itemsPerPage={3} isCanClose />
                 </LayoutBlock>
             </LayoutBlocks>
         </LayoutPage>
