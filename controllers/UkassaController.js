@@ -38,7 +38,7 @@ export const payment = async (req, res) => {
 
       const entity = await doc.save();
 
-    res.json(paymentUkassa, entity);
+    res.json({paymentUkassa, entity});
   } catch (err) {
      console.log(err);
      res.status(500).json({
@@ -47,4 +47,39 @@ export const payment = async (req, res) => {
   }
 }
 
+export const getPayment = async (req, res) => {
+  /*
+     #swagger.tags = ["User"]
+     #swagger.summary = 'getPayment'
+  */
+  try {
+    id = req.body.payment_id;
+    const paymentUkassa = await yooKassa.getPayment(id);
 
+    res.json(paymentUkassa);
+  } catch (err) {
+     console.log(err);
+     res.status(500).json({
+        message: " get payment error"
+     });
+  }
+}
+
+
+export const cancelPayment = async (req, res) => {
+  /*
+     #swagger.tags = ["User"]
+     #swagger.summary = 'cancelPayment'
+  */
+  try {
+    id = req.body.payment_id;
+    const paymentUkassa = await yooKassa.cancelPayment(id,uuidv4());
+
+    res.json(paymentUkassa);
+  } catch (err) {
+     console.log(err);
+     res.status(500).json({
+        message: " get payment error"
+     });
+  }
+}

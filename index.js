@@ -100,6 +100,8 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
 router.post('/user/me/ukassa', checkAuth, UkassaController.payment);
+router.post('/user/me/ukassa/getpayment/', checkAuth, UkassaController.getPayment);
+router.post('/user/me/ukassa/cancelPayment/', checkAuth, UkassaController.cancelPayment);
 router.get('/user/me/ukassa/getall', checkAuth, PaymentController.getAllPay);
 router.get('/user/me/ukassa/update/:id', checkAuth, PaymentController.updatePay);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
