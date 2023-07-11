@@ -1,8 +1,9 @@
 import YooKassa from 'yookassa';
 import { v4 as uuidv4 } from 'uuid';
 
+import PaymentSchema from '../models/Payment.js';
 
-const idempotence_key = uuidv4();
+
 
 const yooKassa = new YooKassa({
     shopId: '227279',
@@ -30,7 +31,22 @@ export const payment = async (req, res) => {
       metadata: req.body.metadata
     }, uuidv4());
 
-    res.json(paymentUkassa);
+    try {
+      const doc = new PaymentSchema({
+         payment: paymentUkassa,
+         user_id: req.userId
+      });
+
+      const entity = await doc.save();
+
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed create to pay"
+      })
+   }
+    
+    res.json(paymentUkassa, entity);
   } catch (err) {
      console.log(err);
      res.status(500).json({
@@ -38,3 +54,5 @@ export const payment = async (req, res) => {
      });
   }
 }
+
+

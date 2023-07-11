@@ -50,3 +50,28 @@ export const createPay = async (req, res) => {
       })
    }
 };
+
+export const updatePay = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'создать запись с платежом '
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'payment',
+                required: true,
+                schema: { $ref: "#/definitions/Payment" }
+      }
+   */
+      await PaymentSchema.updateOne({_id:req.params.id},{
+         $set: { 
+            payment: req.body.payment,
+         }
+      }).then(()=> res.json({
+            access: true
+      })).catch((err)=>{
+            console.log(err);
+            res.status(404).json({
+               message: "not found or update"
+            });
+      });
+   };
