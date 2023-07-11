@@ -34,7 +34,8 @@ const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json
 const corsOptions ={
-   origin:["http://localhost:3000", "https://vercel-lead-off-frontend.vercel.app"],
+   origin:["http://localhost:3000", "https://vercel-lead-off-frontend.vercel.app",
+   "https://frontend-vercel-lead-off.vercel.app"],
    credentials:true, //access-control-allow-credentials:true
    optionSuccessStatus:200
    }
