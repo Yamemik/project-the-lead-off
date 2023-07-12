@@ -45,7 +45,7 @@ app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
+app.use("/", express.static("../www"));
 
 app.get('/', (req, res) => {
    res.send('test of lead-off');
