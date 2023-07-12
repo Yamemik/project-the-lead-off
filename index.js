@@ -124,7 +124,7 @@ router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.create
 
 
 //run server
-app.listen(7777, (err) => {
+app.listen(3000, (err) => {
    if (err) {
       return (err);
    }
