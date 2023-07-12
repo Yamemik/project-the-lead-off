@@ -21,4 +21,9 @@
     token - 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
     clone - git clone --branch back_beget https://github.com/Yamemik/project-the-lead-off
 
+pm2 delete index - удалить задачу
+pm2 start /var/www/backend/index.js - создать задачу
+pm2 save засэйвить созданную задачу
+
+
 ### by Yamemik
