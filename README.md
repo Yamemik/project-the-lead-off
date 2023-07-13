@@ -14,7 +14,7 @@
 
 ### mongodb (mongosh):
     show dbs
-    connect string = 'mongodb://adm:pass@45.9.41.126:27017/?authMechanism=DEFAULT'
+    connect string = 'mongodb://admin:passwors@45.9.41.126:27017/?authMechanism=DEFAULT'
 
 ### git
     remove -  rm -R project-the-lead-off

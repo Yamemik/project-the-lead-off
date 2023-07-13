@@ -5,8 +5,10 @@ import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
 
-import { UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
-   NumberOrderController, UkassaController, PaymentController } from './controllers/index.js';
+import {
+   UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
+   NumberOrderController, UkassaController, PaymentController
+} from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
@@ -14,7 +16,9 @@ import { createOrderValidation, updateOrderValidation, findDublicateOrderValidat
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
 
 //connect db
-mongoose.connect('mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority')
+const string_connect_beget = 'mongodb://admin:Yt%25EPk7W@45.9.41.126:27017/?authMechanism=DEFAULT';
+const string_connect_test = 'mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority';
+mongoose.connect(string_connect_test)
    .then(() => console.log('db.....ok!!'))
    .catch((err) => console.log('db ERROR:', err));
 
@@ -23,24 +27,24 @@ const router = express.Router();
 const swaggerFile = JSON.parse(fs.readFileSync('./swagger/output.json'));
 const storage = multer.diskStorage({
    destination: function (req, file, cb) {
-     cb(null, 'uploads')
+      cb(null, 'uploads')
    },
    filename: function (req, file, cb) {
-     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-     cb(null, file.fieldname + '-' + uniqueSuffix)
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+      cb(null, file.fieldname + '-' + uniqueSuffix)
    }
- });
+});
 const uploads = multer({ storage });
 
 app.use(express.json());   //add can read .json
-const corsOptions ={
-   origin:["http://localhost:3000", "https://vercel-lead-off-frontend.vercel.app",
-   "https://frontend-vercel-lead-off.vercel.app"],
-   credentials:true, //access-control-allow-credentials:true
-   optionSuccessStatus:200
+const corsOptions = {
+   origin: ["http://localhost:3000", "https://vercel-lead-off-frontend.vercel.app",
+      "https://frontend-vercel-lead-off.vercel.app"],
+   credentials: true, //access-control-allow-credentials:true
+   optionSuccessStatus: 200
 }
 app.use(cors(corsOptions));
-app.options('*',cors());
+app.options('*', cors());
 app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
@@ -65,7 +69,7 @@ router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlV
 router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
 router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
-router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file',12), OrderController.cpUpload);
+router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 12), OrderController.cpUpload);
 
 //SETTING
 //region
@@ -96,12 +100,14 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
+router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
+//ukassa
 router.post('/user/me/ukassa', checkAuth, UkassaController.payment);
-router.post('/user/me/ukassa/getpayment/', checkAuth, UkassaController.getPayment);
+router.post('/user/me/ukassa/getPayment/', checkAuth, UkassaController.getPayment);
 router.post('/user/me/ukassa/cancelPayment/', checkAuth, UkassaController.cancelPayment);
+//payment
 router.get('/user/me/ukassa/getall', checkAuth, PaymentController.getAllPay);
 router.get('/user/me/ukassa/update/:id', checkAuth, PaymentController.updatePay);
-router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);
@@ -119,9 +125,9 @@ router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllN
 router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
 
-app.use('*',  (req, res) => {
-   res.sendFile("/var/www/frontend/index.html");
-});
+// app.use('*', (req, res) => {
+//    res.sendFile("/var/www/frontend/index.html");
+// });
 
 //run server
 app.listen(3000, (err) => {
