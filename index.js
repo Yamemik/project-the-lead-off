@@ -38,15 +38,14 @@ const corsOptions ={
    "https://frontend-vercel-lead-off.vercel.app"],
    credentials:true, //access-control-allow-credentials:true
    optionSuccessStatus:200
-   }
+}
 app.use(cors(corsOptions));
 app.options('*',cors());
 app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerFile));
-app.use(express.static("../www"));
-
+app.use("/", express.static("../frontend"));
 
 //AUTH
 router.post('/auth/reg', checkAuthIsAdmin, registerValidation, handlValidationErrors, UserController.createUser);
@@ -119,6 +118,10 @@ router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel
 router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllNo);
 router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
+
+app.use('*',  (req, res) => {
+   res.sendFile("/var/www/frontend/index.html");
+});
 
 //run server
 app.listen(3000, (err) => {
