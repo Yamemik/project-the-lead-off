@@ -125,9 +125,9 @@ router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllN
 router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
 
-// app.use('*', (req, res) => {
-//    res.sendFile("/var/www/frontend/index.html");
-// });
+app.use('*', (req, res) => {
+   res.sendFile("/var/www/frontend/index.html");
+});
 
 //run server
 app.listen(3000, (err) => {
