@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
 });
 const uploads = multer({ storage });
 
-app.use(express.json());   //add can read .json
+app.use(express.json());  //add can read .json
 app.use(cors());
 app.use(handlers);
 app.use("/api", router);
