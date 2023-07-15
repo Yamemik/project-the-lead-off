@@ -1889,12 +1889,13 @@
       "type": "object",
       "properties": {
         "settings": {
-          "type": "object",
-          "properties": {
-            "pole1": {
-              "type": "string",
-              "example": "value"
-            }
+          "type": "array",
+          "example": [
+            "object",
+            "object"
+          ],
+          "items": {
+            "type": "string"
           }
         }
       }
