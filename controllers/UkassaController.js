@@ -4,10 +4,9 @@ import { v4 as uuidv4 } from 'uuid';
 import PaymentSchema from '../models/Payment.js';
 
 
-
 const yooKassa = new YooKassa({
-    shopId: '227279',
-    secretKey: 'test_l5sT9pGKy8Z18UwCZZY_mMohXIjCQ0fKq9e8m-AP6CE'
+  shopId: '227279',
+  secretKey: 'test_l5sT9pGKy8Z18UwCZZY_mMohXIjCQ0fKq9e8m-AP6CE'
 });
 
 
@@ -31,19 +30,21 @@ export const payment = async (req, res) => {
       metadata: req.body.metadata
     }, uuidv4());
 
-      const doc = new PaymentSchema({
-         payment: paymentUkassa,
-         user_id: req.userId
-      });
+    const doc = new PaymentSchema({
+      payment: paymentUkassa,
+      user_id: req.userId
+    });
 
-      const entity = await doc.save();
+    const { _instance, ...paymentData } = paymentUkassa;
 
-    res.json({paymentUkassa, entity});
+    const entity = await doc.save();
+
+    res.json({ paymentData, entity });
   } catch (err) {
-     console.log(err);
-     res.status(500).json({
-        message: "payment error"
-     });
+    console.log(err);
+    res.status(500).json({
+      message: "payment error"
+    });
   }
 }
 
@@ -53,17 +54,20 @@ export const getPayment = async (req, res) => {
      #swagger.summary = 'getPayment'
   */
   try {
-    id = req.body.payment_id;
-    const paymentUkassa = await yooKassa.getPayment(id);
+    payment_id = req.body.payment_id;
+    const paymentUkassa = await yooKassa.getPayment(payment_id);
 
-    res.json(paymentUkassa);
+    const { _instance, ...paymentData } = paymentUkassa;
+    
+    res.json(paymentData);
   } catch (err) {
-     console.log(err);
-     res.status(500).json({
-        message: " get payment error"
-     });
+    console.log(err);
+    res.status(500).json({
+      message: "get payment error"
+    });
   }
 }
+
 
 
 export const cancelPayment = async (req, res) => {
@@ -73,13 +77,13 @@ export const cancelPayment = async (req, res) => {
   */
   try {
     id = req.body.payment_id;
-    const paymentUkassa = await yooKassa.cancelPayment(id,uuidv4());
+    const paymentUkassa = await yooKassa.cancelPayment(id, uuidv4());
 
     res.json(paymentUkassa);
   } catch (err) {
-     console.log(err);
-     res.status(500).json({
-        message: " get payment error"
-     });
+    console.log(err);
+    res.status(500).json({
+      message: "get payment error"
+    });
   }
 }

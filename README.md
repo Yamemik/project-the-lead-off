@@ -14,16 +14,17 @@
 
 ### mongodb (mongosh):
     show dbs
-    connect string = 'mongodb://adm:pass@45.9.41.126:27017/?authMechanism=DEFAULT'
+    connect string = 'mongodb://admin:passwors@45.9.41.126:27017/?authMechanism=DEFAULT'
 
 ### git
     remove -  rm -R project-the-lead-off
-    token - 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
-    clone - git clone --branch back_beget https://github.com/Yamemik/project-the-lead-off
+    token - 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
+    clone - git clone --branch back https://github.com/Yamemik/project-the-lead-off
 
-pm2 delete index - удалить задачу
-pm2 start /var/www/backend/index.js - создать задачу
-pm2 save засэйвить созданную задачу
-
+### beget
+    pm2 delete index - удалить задачу
+    pm2 start /var/www/backend/index.js - создать задачу
+    pm2 save засэйвить созданную задачу
+    ta9ukrMW%1bA
 
 ### by Yamemik
