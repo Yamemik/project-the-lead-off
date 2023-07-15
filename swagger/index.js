@@ -134,7 +134,7 @@ const doc = {
       user_id: "64a01e95f7c1601edf3e60a7",
     },
     Settings: {
-      settings: ["",""]
+      settings: {"pole1": "value"}
     },
     Rate: {
       score: [{ "easy": 0.8 }, { "medium": 1.0 }, { "hard": 1.2 }, { "hard+": 1.4 }],

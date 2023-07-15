@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const SettingSchema = new mongoose.Schema({  
    settings:{
-      type: Array,
+      type: Object,
       require: true
    }
 },{

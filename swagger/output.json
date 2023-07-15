@@ -18,17 +18,6 @@
     }
   },
   "paths": {
-    "/": {
-      "get": {
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          }
-        }
-      }
-    },
     "/api/auth/reg": {
       "post": {
         "tags": [
@@ -976,7 +965,7 @@
           {
             "name": "obj",
             "in": "body",
-            "description": "indexes",
+            "description": "settings",
             "required": true,
             "schema": {
               "$ref": "#/definitions/Setting"
@@ -1049,6 +1038,68 @@
                   "example": "any"
                 },
                 "metadata": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/me/ukassa/getpayment/": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "getPayment",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/me/ukassa/cancelPayment/": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "cancelPayment",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment_id": {
                   "example": "any"
                 }
               }
@@ -1838,13 +1889,12 @@
       "type": "object",
       "properties": {
         "settings": {
-          "type": "array",
-          "example": [
-            "",
-            ""
-          ],
-          "items": {
-            "type": "string"
+          "type": "object",
+          "properties": {
+            "pole1": {
+              "type": "string",
+              "example": "value"
+            }
           }
         }
       }

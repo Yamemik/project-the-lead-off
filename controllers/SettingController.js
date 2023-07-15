@@ -78,7 +78,7 @@ import SettingModel from '../models/Setting.js';
       #swagger.summary = 'Измениние настроек'
       #swagger.parameters['obj'] = {
                 in: 'body',
-                description: 'indexes',
+                description: 'settings',
                 required: true,
                 schema: { $ref: "#/definitions/Setting" }
       }
