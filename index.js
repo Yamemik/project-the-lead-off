@@ -34,7 +34,11 @@ const storage = multer.diskStorage({
       cb(null, file.fieldname + '-' + uniqueSuffix)
    }
 });
-const uploads = multer({ storage });
+const maxFieldSize = 5 * 1024 * 1024;
+const uploads = multer(
+   { storage },
+   { limits: { fieldSize: maxFieldSize}}
+);
 
 app.use(express.json());   //add can read .json
 const corsOptions = {
