@@ -10,7 +10,7 @@ import {
    NumberOrderController, UkassaController, PaymentController
 } from './controllers/index.js';
 
-import { registerValidation, loginValidation, updateValidation, resentPassValidation } from './validations/AdminValidation.js';
+import { registerValidation, loginValidation, updateValidation, resentPassValidation, transValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
 import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation, getAllForUserWithFilterValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './utils/index.js';
@@ -98,12 +98,15 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
+router.patch('/user/transaction/:id', transValidation, handlValidationErrors, UserController.transaction);
+router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
+//ukassa
 router.post('/user/me/ukassa', checkAuth, UkassaController.payment);
 router.post('/user/me/ukassa/getpayment/', checkAuth, UkassaController.getPayment);
 router.post('/user/me/ukassa/cancelPayment/', checkAuth, UkassaController.cancelPayment);
+//payment
 router.get('/user/me/ukassa/getall', checkAuth, PaymentController.getAllPay);
 router.get('/user/me/ukassa/update/:id', checkAuth, PaymentController.updatePay);
-router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //order
 router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);

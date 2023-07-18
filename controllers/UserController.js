@@ -248,7 +248,7 @@ export const resentPassword = async (req, res) => {
    }
 }
 
-export const transition = async (req, res) => {
+export const transaction = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'перевод'
@@ -266,6 +266,9 @@ export const transition = async (req, res) => {
       UserModel.updateOne({ _id: req.body.recipient_id }, {
          $inc: { 'balance': req.body.sum }
       })
+      .then(() => res.json({
+         access: true
+      }))
       .catch((err) => {
          res.status(404).json({ message: 'sum not transition for recipient' })
       }))

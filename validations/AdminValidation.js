@@ -21,6 +21,12 @@ export const resentPassValidation = [
    body('email','Введите email').isEmail()
 ]
 
+export const transValidation = [
+   body('recipient_id','input id user').isString(),
+   body('sum','input sum').isNumeric()
+]
+
+
 export const updateValidation = [
    body('fio','Введите фио').optional().isLength({ min: 3 }),
    body('email','Введите почту').optional().isEmail(),
