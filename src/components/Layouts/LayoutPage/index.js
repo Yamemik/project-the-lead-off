@@ -10,6 +10,8 @@ const LayoutPage = ({
     isOrdersTable,
     isRejectionsTable,
     isDuplicatesTable,
+    searchQuery,
+    setSearchQuery
 }) => {
     return (
         <div className="layoutPage">
@@ -17,8 +19,8 @@ const LayoutPage = ({
                 <div className="layoutPage__title layoutPage__title--extra">
                     <p className="layoutPage__title-text">{title}</p>
                     <div className="layoutPage__title-box">
-                        <Button text="Добавить пользователя" />
-                        <Search placeholder="Поиск по пользователям" />
+                        <Button text="Добавить пользователя" click={() => window.location.href = "/platform/admin-panel/create-user"}/>
+                        <Search placeholder="Поиск по пользователям" searchQuery={searchQuery} setSearchQuery={(value) => setSearchQuery(value)}/>
                     </div>
                 </div>
             ) : isOrdersTable ? (
@@ -28,14 +30,14 @@ const LayoutPage = ({
                         <Button text="Добавить заявку" toUrl="/platform/admin-panel/create-order"/>
                         <Button text="Работа с дублями" />
                         <Button text="Отказы" />
-                        <Search placeholder="Поиск по заявкам" />
+                        <Search placeholder="Поиск по заявкам" searchQuery={searchQuery} setSearchQuery={(value) => setSearchQuery(value)}/>
                     </div>
                 </div>
             ) : isRejectionsTable ? (
                 <div className="layoutPage__title layoutPage__title--extra">
                     <p className="layoutPage__title-text">{title}</p>
                     <div className="layoutPage__title-box">
-                        <Search placeholder="Поиск по заявкам" />
+                        <Search placeholder="Поиск по заявкам" searchQuery={searchQuery} setSearchQuery={(value) => setSearchQuery(value)}/>
                     </div>
                 </div>
             ) : isDuplicatesTable ? (
@@ -44,7 +46,7 @@ const LayoutPage = ({
                     <div className="layoutPage__title-box">
                     <Button text="Обновить" />
                     <Button text="Объединить все дубли" />
-                        <Search placeholder="Поиск" />
+                        <Search placeholder="Поиск" searchQuery={searchQuery} setSearchQuery={(value) => setSearchQuery(value)}/>
                     </div>
                 </div>
             ) : (

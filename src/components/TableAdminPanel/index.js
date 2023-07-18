@@ -1,7 +1,7 @@
 import Draggable from "react-draggable";
 import "./TableAdminPanel.scss";
 
-const TableAdminPanel = ({ head, data, canEdit, canDelete, canYes, canNo }) => {
+const TableAdminPanel = ({ head, data, canEdit, canDelete, canSee, clickSee, canYes, canNo, clickDelete, clickEdit }) => {
     return (
         <>
             {window.innerWidth <= 1420 ? (
@@ -47,7 +47,7 @@ const TableAdminPanel = ({ head, data, canEdit, canDelete, canYes, canNo }) => {
                             <div className="tableAdminPanel__head-item">{item}</div>
                         ))}
                     </div>
-                    {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
+                    {data.map(({ _id, id, create_date, login, FIO, phone, region, balance, category }) => (
                         <div className="tableAdminPanel__row">
                             <div className="tableAdminPanel__row-item">{id}</div>
                             <div className="tableAdminPanel__row-item">{create_date}</div>
@@ -57,10 +57,11 @@ const TableAdminPanel = ({ head, data, canEdit, canDelete, canYes, canNo }) => {
                             <div className="tableAdminPanel__row-item">{region}</div>
                             <div className="tableAdminPanel__row-item">{balance}</div>
                             <div className="tableAdminPanel__row-item">{category}</div>
-                            {canEdit && canDelete && (
+                            {canEdit && canDelete && canSee && (
                                 <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                    <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                    <img src="/img/UI/delete.svg" alt="Удалить" />
+                                    <img src="/img/adminPanel/eye.svg" alt="Смотреть" onClick={() => clickSee(_id)}/>
+                                    <img src="/img/UI/edit.svg" alt="Редактировать" onClick={() => clickEdit(_id)}/>
+                                    <img src="/img/UI/delete.svg" alt="Удалить" onClick={() => clickDelete(_id)}/>
                                 </div>
                             )}
                             {canYes && canNo && (

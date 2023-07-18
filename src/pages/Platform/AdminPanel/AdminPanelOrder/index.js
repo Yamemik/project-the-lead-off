@@ -5,13 +5,26 @@ import LayoutBlocks from "../../../../components/Layouts/LayoutBlocks";
 import LayoutPage from "../../../../components/Layouts/LayoutPage";
 import Button from "../../../../components/UI/Button";
 
+import { useEffect, useState } from "react";
+
+import axios from "../../../../utils/axios";
+
 const AdminPanelOrder = () => {
     const params = useParams();
+    const [order, setOrder] = useState();
+
+    useEffect(() => {
+        axios
+            .get(`/api/user/order/${params.id}`)
+            .then(({ data }) => setOrder(data))
+            .catch(err => console.log(err));
+    }, []);
+
     return (
-        <LayoutPage title={`Заявка №${params?.id}`}>
+        <LayoutPage title={`Заявка №${order?.number_order}`}>
             <LayoutBlocks>
                 <LayoutBlock>
-                    <div className="order">
+                    {order && <div className="order">
                         <div className="order__row">
                             <div className="order__row-title">Дата создания:</div>
                             <div className="order__row-text">24.04.2023</div>
@@ -44,17 +57,17 @@ const AdminPanelOrder = () => {
                         <div className="order__row">
                             <div className="order__row-title">Контактные данные:</div>
                             <div className="order__row-text">
-                                {
-                                    window.innerWidth <= 768 ? (
-                                        <>
-                                        email@mail.ru<br/>
-                                        + 7 999 999-99-99<br/>
+                                {window.innerWidth <= 768 ? (
+                                    <>
+                                        email@mail.ru
+                                        <br />
+                                        + 7 999 999-99-99
+                                        <br />
                                         Иванов Иван Иванович
-                                        </>
-                                    ) : (
-                                        <pre>email@mail.ru      + 7 999 999-99-99       Иванов Иван Иванович</pre>
-                                    )
-                                }
+                                    </>
+                                ) : (
+                                    <pre>email@mail.ru + 7 999 999-99-99 Иванов Иван Иванович</pre>
+                                )}
                             </div>
                         </div>
                         <div className="order__row">
@@ -81,7 +94,7 @@ const AdminPanelOrder = () => {
                             <div className="order__row-title">Стоимость:</div>
                             <div className="order__row-text">900 руб.</div>
                         </div>
-                    </div>
+                    </div>}
                 </LayoutBlock>
             </LayoutBlocks>
             <div className="order__buttons">
@@ -90,6 +103,6 @@ const AdminPanelOrder = () => {
             </div>
         </LayoutPage>
     );
-}
+};
 
-export default AdminPanelOrder
+export default AdminPanelOrder;

@@ -29,7 +29,7 @@ const AuthForm = ({ type, rememberPassword, demo }) => {
             if (type === "admin-auth") {
                 axios
                     .post(
-                        "https://project-the-leads.onrender.com/api/auth/log",
+                        "https://lothugrale.beget.app/api/auth/log",
                         {
                             login: phoneOrEmail,
                             password,
@@ -60,7 +60,7 @@ const AuthForm = ({ type, rememberPassword, demo }) => {
             if (type === "user-auth") {
                 axios
                     .post(
-                        "https://project-the-leads.onrender.com/api/auth/log",
+                        "https://lothugrale.beget.app/api/auth/log",
                         {
                             login: phoneOrEmail,
                             password,

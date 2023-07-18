@@ -13,7 +13,7 @@ const RememberPassword = () => {
         if (email && email.includes("@")) {
             axios
                 .post(
-                    "https://project-the-leads.onrender.com/api/user/resentpass",
+                    "https://lothugrale.beget.app/api/user/resentpass",
                     {
                         email,
                     },

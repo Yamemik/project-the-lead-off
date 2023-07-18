@@ -7,7 +7,7 @@
 Выбранные технологии для разработки фронтенда:
 
 - React
-- Redux/Redux Toolkit (глобальный стейт-менеджер)
-- React Query (запросы на сервер)
+- Redux Toolkit
+- React Router
 - Axios
 - SCSS

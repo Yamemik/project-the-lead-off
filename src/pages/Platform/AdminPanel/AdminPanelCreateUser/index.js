@@ -52,7 +52,7 @@ const AdminPanelCreateUser = () => {
         }
         axios
             .post(
-                "https://project-the-leads.onrender.com/api/auth/reg",
+                "https://lothugrale.beget.app/api/auth/reg",
                 {
                     ...getNewUserData()
                 },
@@ -62,6 +62,7 @@ const AdminPanelCreateUser = () => {
             )
             .then(res => {
                 toast.success("Пользователь добавлен")
+                resetAddUser()
                 console.log(res)
             })
             .catch(err => {
@@ -140,10 +141,10 @@ const AdminPanelCreateUser = () => {
     }
 
     useEffect(() => {
-        axios.get("https://project-the-leads.onrender.com/api/admin/settings/region", {
+        axios.get("https://lothugrale.beget.app/api/admin/settings/region", {
             headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}` }
         }).then(res => setRegions(res.data)).catch(err => console.log(err))
-        axios.get("https://project-the-leads.onrender.com/api/admin/settings/category", {
+        axios.get("https://lothugrale.beget.app/api/admin/settings/category", {
             headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem("user")).token}` }
         }).then(res => setCategories(res.data)).catch(err => console.log(err))
     }, [])
@@ -198,13 +199,15 @@ const AdminPanelCreateUser = () => {
                             <div className="order__row-title">Регион:</div>
                             <div className="order__row-text">
                                 <DropdownList
-                                        curVal={resetCurrentValueDropdown}
+                                    curVal={resetCurrentValueDropdown}
+                                    setCurVal={() => setResentCurrentValueDropdown(false)}
                                     values={getRegion("country")}
                                     itemClick={arg => setRegionCountry(arg)}
                                 />
                                 {regionCountry && (
                                     <DropdownList
                                         curVal={resetCurrentValueDropdown}
+                                        setCurVal={() => setResentCurrentValueDropdown(false)}
                                         values={
                                             getRegion("city")
                                         }

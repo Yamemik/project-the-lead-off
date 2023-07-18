@@ -6,11 +6,17 @@ const DropdownList = ({
     placeholder = "Выбрать",
     values = ["Пункт 1", "Пункт 2", "Пункт 3"],
     itemClick,
-    curVal
+    curVal, setCurVal, startValue
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentValue, setCurrentValue] = useState();
 
+    useEffect(() => {
+        if (startValue) {
+            setCurrentValue(startValue)
+        }
+    }, [startValue])
+    
     useEffect(() => {
         const handleOutClick = e => {
             if (
@@ -30,7 +36,10 @@ const DropdownList = ({
 
     useEffect(() => {
         if (curVal) {
-            setCurrentValue()
+            setCurrentValue("")
+            try {
+                setCurVal()
+            } catch {}
         }
     }, [curVal])
 

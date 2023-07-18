@@ -5,59 +5,95 @@ import LayoutBlocks from "../../../../components/Layouts/LayoutBlocks";
 import LayoutBlock from "../../../../components/Layouts/LayoutBlock";
 import Button from "../../../../components/UI/Button";
 
+import { useEffect, useState } from "react";
+
+import axios from "../../../../utils/axios";
+import getFormatUserTelephone from "../../../../utils/getFormatUserTelephone";
+import { toast } from "react-hot-toast";
+
 const AdminPanelUser = () => {
     const params = useParams();
+    const [user, setUser] = useState();
+
+    useEffect(() => {
+        axios.get(`/api/admin/user/${params.id}`).then(({data}) => setUser(data)).catch(err => console.log(err))
+    }, [])
+
+    const getAllBusinessLines = (lines) => {
+        let str = ""
+        lines.map((line, index) => {
+            if (index === lines.length - 1) {
+                str += `${line[0]} / ${line[1]} / ${line[2]}`
+            } else {
+                str += `${line[0]} / ${line[1]} / ${line[2]}, `
+            }
+        })
+        return str
+    }
+
+    const handleDeleteUser = () => {
+        axios
+            .delete(`/api/admin/user/${params.id}`)
+            .then(_ => {
+                toast.success("Пользователь удален");
+                setTimeout(() => {
+                    window.location.href = "/platform/admin-panel/users"
+                }, 1200)
+            })
+            .catch(_ => toast.error("Ошибка при удалении пользователя"));
+    };
+
     return (
         <LayoutPage title={`Пользователь №${params?.id}`}>
             <LayoutBlocks>
                 <LayoutBlock>
-                    <div className="order">
+                    {user && <div className="order">
                         <div className="order__row">
                             <div className="order__row-title">Дата регистрации:</div>
-                            <div className="order__row-text">24.04.2023</div>
+                            <div className="order__row-text">{new Date(user.createdAt).toLocaleDateString()}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">ФИО:</div>
-                            <div className="order__row-text">Иванов Иван Иванович</div>
+                            <div className="order__row-text">{user.fio}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Email:</div>
-                            <div className="order__row-text">mail@mail.ru</div>
+                            <div className="order__row-text">{user.email}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Телефон:</div>
                             <div className="order__row-text">
-                               + 7 999 999-88-88
+                               {getFormatUserTelephone(user.telephone)}
                             </div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Организация:</div>
-                            <div className="order__row-text">частная</div>
+                            <div className="order__row-text">{user.organization}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Регион:</div>
                             <div className="order__row-text">
-                            Россия / Москва
+                            {user.region.join(" / ")}
                             </div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Направление бизнеса:</div>
-                            <div className="order__row-text">Строительные материалы / Отделочные материалы / Лакокрасочные материалы</div>
+                            <div className="order__row-text">{getAllBusinessLines(user.business_line)}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Доступ к закрытым заявкам:</div>
-                            <div className="order__row-text">да</div>
+                            <div className="order__row-text">{user.access_to_open ? "да" : "нет"}</div>
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Баланс:</div>
-                            <div className="order__row-text">2000 руб.</div>
+                            <div className="order__row-text">{user.balance} руб.</div>
                         </div>
-                    </div>
+                    </div>}
                 </LayoutBlock>
             </LayoutBlocks>
             <div className="order__buttons">
-                <Button text="Удалить" />
-                <Button type="fill" text="Редактировать" />
+                <Button text="Удалить" click={handleDeleteUser} />
+                <Button type="fill" text="Редактировать" click={() => window.location.href = `/platform/admin-panel/edit-user/${params.id}`}/>
             </div>
         </LayoutPage>
     );

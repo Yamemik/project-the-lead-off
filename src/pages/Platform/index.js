@@ -9,23 +9,17 @@ import Pagination from "../../components/Pagination";
 
 import "./Platform.scss";
 
-import axios from "axios";
-
 const Homepage = () => {
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
-        axios
-            .get("/orders.json")
-            .then(res => setOrders(res.data.items))
-            .catch(err => console.log(err));
     }, []);
 
     return (
         <LayoutPage title="Главная">
             <LayoutBlocks>
                 <LayoutBlock title="Подходящие заявки">
-                    {window.innerWidth > 1280 ? (
+                    {orders && (window.innerWidth > 1280 ? (
                         orders.map(item => (
                             <TableRow
                                 key={item.id}
@@ -40,7 +34,7 @@ const Homepage = () => {
                         ))
                     ) : (
                         <Pagination items={orders} isCanBuy/>
-                    )}
+                    ))}
                     <Button toUrl="../suitable-orders" text="Посмотреть всё" />
                 </LayoutBlock>
                 <LayoutBlock title="Распродажа">

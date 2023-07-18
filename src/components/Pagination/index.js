@@ -16,7 +16,10 @@ const Pagination = ({
     isAdminPanelTable,
     isRejections,
     head,
-    setNewData_parent_2
+    setNewData_parent_2,
+    clickSee,
+    clickDelete,
+    clickEdit
 }) => {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
@@ -63,10 +66,14 @@ const Pagination = ({
                     <TableAdminPanel
                         canEdit={!isRejections}
                         canDelete={!isRejections}
+                        canSee={!isRejections}
                         canYes={isRejections}
                         canNo={isRejections}
                         head={head}
                         data={currentItems}
+                        clickSee={userID => clickSee(userID)}
+                        clickDelete={userID => clickDelete(userID)}
+                        clickEdit={userID => clickEdit(userID)}
                     />
                 ) : (
                     currentItems.map(item => (

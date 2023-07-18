@@ -71,6 +71,25 @@
             }
         }
     }
+    &__dates {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        &-plus {
+            cursor: pointer;
+            &:hover {
+                opacity: .75;
+            }
+        }
+        .react-datepicker-wrapper {
+            height: 52px;
+            input {
+                padding: 0 18px;
+                width: 150px;
+                text-align: center;
+            }
+        }
+    }
 }
 
 @media(max-width: 1750px) {
