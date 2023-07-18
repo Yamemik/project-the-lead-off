@@ -248,10 +248,10 @@ export const resentPassword = async (req, res) => {
    }
 }
 
-export const transaction = async (req, res) => {
+export const transaction1 = async (req, res) => {
    /*
       #swagger.tags = ["User"]
-      #swagger.summary = 'перевод'
+      #swagger.summary = 'перевод другому пользователю'
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'user',
@@ -263,7 +263,39 @@ export const transaction = async (req, res) => {
       $inc: { 'balance': -req.body.sum }
    })
    .then(
-      UserModel.updateOne({ _id: req.body.recipient_id }, {
+      await UserModel.updateOne({ _id: req.body.recipient_id }, {
+         $inc: { 'balance': req.body.sum }
+      })
+      .then(() => res.json({
+         access: true
+      }))
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not transition for recipient' })
+      }))
+   .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "sum not transition for sender"
+      });
+   });
+}
+
+export const transaction = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'перевод другому пользователю'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/User" }
+      }
+   */
+   await UserModel.updateOne({ _id: req.params.id }, {
+      $inc: { 'balance': -req.body.sum }
+   })
+   .then(
+      await UserModel.updateOne({ _id: req.body.recipient_id }, {
          $inc: { 'balance': req.body.sum }
       })
       .then(() => res.json({
