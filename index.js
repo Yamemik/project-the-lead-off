@@ -18,7 +18,7 @@ import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers } from './
 //connect db
 const string_connect_beget = 'mongodb://admin:Yt%25EPk7W@45.9.41.126:27017/?authMechanism=DEFAULT';
 const string_connect_test = 'mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority';
-mongoose.connect(string_connect_beget)
+mongoose.connect(string_connect_test)
    .then(() => console.log('db.....ok!!'))
    .catch((err) => console.log('db ERROR:', err));
 
@@ -31,24 +31,17 @@ const storage = multer.diskStorage({
    },
    filename: function (req, file, cb) {
       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.fieldname + '-' + uniqueSuffix)
+      cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname)
    }
 });
-const maxFieldSize = 5 * 1024 * 1024;
+const maxFieldSize = 11 * 1024 * 1024;
 const uploads = multer(
    { storage },
    { limits: { fieldSize: maxFieldSize}}
 );
 
 app.use(express.json());   //add can read .json
-const corsOptions = {
-   origin: ["http://localhost:3000", "https://vercel-lead-off-frontend.vercel.app",
-      "https://frontend-vercel-lead-off.vercel.app"],
-   credentials: true, //access-control-allow-credentials:true
-   optionSuccessStatus: 200
-}
-app.use(cors(corsOptions));
-app.options('*', cors());
+app.use(cors());
 app.use(handlers);
 app.use("/api", router);
 app.use('/uploads', express.static('uploads'));
@@ -74,7 +67,7 @@ router.patch('/admin/order/:id', checkAuthIsAdmin, updateOrderValidation, handlV
 router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
 router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
-router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 12), OrderController.cpUpload);
+router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 11), OrderController.cpUpload);
 
 //SETTING
 //region
@@ -127,9 +120,9 @@ router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel
 router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllNo);
 router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
-app.use('*', (req, res) => {
-   res.sendFile("/var/www/frontend/index.html");
-});
+// app.use('*', (req, res) => {
+//    res.sendFile("/var/www/frontend/index.html");
+// });
 
 //run server
 app.listen(3000, (err) => {

@@ -336,7 +336,6 @@ export const cpUpload = async (req, res) => {
       #swagger.summary = 'Загрузка файлов'
    */
    try {
-      console.log(req)
       return res.json(req.files);
    } catch (err) {
       console.log(err);
