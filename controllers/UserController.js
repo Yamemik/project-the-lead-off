@@ -247,3 +247,32 @@ export const resentPassword = async (req, res) => {
       })
    }
 }
+
+export const transition = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'перевод'
+      #swagger.parameters['obj'] = {
+                in: 'body',
+                description: 'user',
+                required: true,
+                schema: { $ref: "#/definitions/User" }
+      }
+   */
+   await UserModel.updateOne({ _id: req.params.id }, {
+      $inc: { 'balance': -req.body.sum }
+   })
+   .then(
+      UserModel.updateOne({ _id: req.body.recipient_id }, {
+         $inc: { 'balance': req.body.sum }
+      })
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not transition for recipient' })
+      }))
+   .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "sum not transition for sender"
+      });
+   });
+}
