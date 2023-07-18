@@ -256,20 +256,20 @@ export const updateOrder = async (req, res) => {
          telephone: req.body.telephone,
          fio: req.body.fio,
          score: req.body.score,
-         typeBuyer: req.body.type_buyer,
+         type_buyer: req.body.type_buyer,
          type_order: req.body.type_order,
          is_urgent: req.body.is_urgent,
-         isOpen: req.body.is_open,
+         is_open: req.body.is_open,
          price: req.body.price,
-         isArchive: req.body.is_archive,
+         is_archive: req.body.is_archive,
          is_sale: req.body.is_sale,
          is_express: req.body.is_express,
          user: req.body.user,
          date_buy: req.body.date_buy,
-         isBuy: req.body.is_buy,
-         isCanceled: req.body.is_canceled,
-         isCanceledText: req.body.is_canceled_text,
-         isCancel: req.body.is_cancel
+         is_buy: req.body.is_buy,
+         is_canceled: req.body.is_canceled,
+         is_canceled_text: req.body.is_canceled_text,
+         is_cancel: req.body.is_cancel
       }
    }).then(() => res.json({
       access: true
@@ -293,8 +293,8 @@ export const findDublicate = async (req, res) => {
 
       const ordersDuplicate = await OrderModel.find({
          $or: [{ email: req.body.email }, { telephone: { $all: req.body.telephone } }],
-         isArchive: false,
-         isBuy: false
+         is_archive: false,
+         is_buy: false
       })
          .exec().catch((err) => {
             res.status(404).json({
@@ -353,8 +353,8 @@ export const sendCancel = async (req, res) => {
    const now = new Date();
    now.setDate(now.getDate() - 1);
    await OrderModel.updateOne({ _id: req.params.id }, {
-      isCanceled: true,
-      isCanceledText: req.body.isCanceledText
+      is_canceled: true,
+      is_canceled_text: req.body.is_canceled_text
    }).then(() => res.json({
       access: true
    })).catch((err) => {
@@ -371,7 +371,7 @@ export const setIsArchive = async (req, res) => {
       #swagger.summary = 'установить заявке архив'
    */
    await OrderModel.updateOne({ _id: req.params.id }, {
-      isArchive: true,
+      is_archive: true,
    }).then(() => res.json({
       access: true
    })).catch((err) => {
