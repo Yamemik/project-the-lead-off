@@ -1008,6 +1008,74 @@
         ]
       }
     },
+    "/api/user/transaction/{id}": {
+      "patch": {
+        "tags": [
+          "User"
+        ],
+        "summary": "перевод другому пользователю",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/user/resentpass": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Восстановление пароля/повторная отправка",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/user/me/ukassa": {
       "post": {
         "tags": [
@@ -1167,40 +1235,6 @@
           },
           "404": {
             "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/user/resentpass": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Восстановление пароля/повторная отправка",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       }
@@ -1420,7 +1454,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "isCanceledText": {
+                "is_canceled_text": {
                   "example": "any"
                 }
               }
