@@ -1008,7 +1008,7 @@
         ]
       }
     },
-    "/api/user/transaction/{id}": {
+    "/api/user/transaction": {
       "patch": {
         "tags": [
           "User"
@@ -1017,18 +1017,18 @@
         "description": "",
         "parameters": [
           {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
+            "name": "body",
             "in": "body",
-            "description": "user",
-            "required": true,
             "schema": {
-              "$ref": "#/definitions/User"
+              "type": "object",
+              "properties": {
+                "recipient_id": {
+                  "example": "any"
+                },
+                "sum": {
+                  "example": "any"
+                }
+              }
             }
           }
         ],
@@ -1038,6 +1038,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

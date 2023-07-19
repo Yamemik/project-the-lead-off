@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
+import PaymentSchema from '../models/Payment.js';
 import * as Mailer from '../nodemailer/index.js';
 
 export const createUser = async (req, res) => {
@@ -284,30 +285,43 @@ export const transaction = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'перевод другому пользователю'
-      #swagger.parameters['obj'] = {
-                in: 'body',
-                description: 'user',
-                required: true,
-                schema: { $ref: "#/definitions/User" }
-      }
    */
-   await UserModel.updateOne({ _id: req.params.id }, {
+   const user_old = await UserModel.findOneAndUpdate({ _id: req.userId }, {
       $inc: { 'balance': -req.body.sum }
    })
-   .then(
-      await UserModel.updateOne({ _id: req.body.recipient_id }, {
-         $inc: { 'balance': req.body.sum }
-      })
-      .then(() => res.json({
-         access: true
-      }))
-      .catch((err) => {
-         res.status(404).json({ message: 'sum not transition for recipient' })
-      }))
    .catch((err) => {
-      console.log(err);
-      res.status(404).json({
-         message: "sum not transition for sender"
-      });
+      res.status(404).json({ message: 'sum not transition for sender' })
    });
+
+   const user_old_rec = await UserModel.findOneAndUpdate({ _id: req.body.recipient_id }, {
+      $inc: { 'balance': req.body.sum }
+   })
+   .catch((err) => {
+      res.status(404).json({ message: 'sum not transition for recipient' })
+   });
+
+   user_old_rec.passwordHash = '';   
+
+   const payment = {
+      status: "transaction",
+      sum: req.body.sum,
+      balance: user_old.balance,
+      recipient: user_old_rec
+   }
+
+   try {
+      const doc = new PaymentSchema({
+         payment: payment,
+         user_id: req.userId
+      });
+
+      const entity = await doc.save();
+
+      res.json(entity);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed create to pay"
+      })
+   }
 }

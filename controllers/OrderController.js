@@ -138,7 +138,6 @@ export const getAllisSale = async (req, res) => {
    }
 }
 
-
 export const getAllForUser = async (req, res) => {
    /*
       #swagger.tags = ["User"]

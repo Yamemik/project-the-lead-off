@@ -98,7 +98,7 @@ router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.upda
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
-router.patch('/user/transaction/:id', transValidation, handlValidationErrors, UserController.transaction);
+router.patch('/user/transaction', checkAuth, transValidation, handlValidationErrors, UserController.transaction);
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //ukassa
 router.post('/user/me/ukassa', checkAuth, UkassaController.payment);
