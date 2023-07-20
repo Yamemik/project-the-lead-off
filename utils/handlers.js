@@ -12,14 +12,16 @@ export default async (req, res, next) => {
    await OrderModel.updateMany(
       {
          date_buy: { $lte: nowArchive },
-         isArchive: false
+         is_archive: false
       },
       {
-         isArchive: true
+         is_archive: true
       }
    ).catch((err) => {
       console.log(err);
    });
+
+   console.log(nowArchive);
 
    const nowDiscount = new Date();
    nowDiscount.setDate(nowDiscount.getDate() - 3);
@@ -27,12 +29,12 @@ export default async (req, res, next) => {
    await OrderModel.updateMany(
       {
          createdAt: { $lte: nowDiscount },
-         isDiscount: false,
-         isArchive: false,
-         isBuy: false
+         is_sale: false,
+         is_archive: false,
+         is_buy: false
       },
       {
-         isDiscount: true
+         is_sale: true
       }
    ).catch((err) => {
       console.log(err);

@@ -318,7 +318,8 @@ export const addUser = async (req, res) => {
    const now = new Date();
    await OrderModel.updateOne({ _id: req.params.id }, {
       user: req.userId,
-      date_buy: now
+      date_buy: now,
+      is_buy: true
    }).then(() => res.json({
       access: true
    })).catch((err) => {
