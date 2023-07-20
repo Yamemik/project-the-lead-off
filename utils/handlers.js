@@ -17,11 +17,11 @@ export default async (req, res, next) => {
       {
          is_archive: true
       }
-   ).catch((err) => {
+   )
+   .catch((err) => {
       console.log(err);
    });
 
-   console.log(nowArchive);
 
    const nowDiscount = new Date();
    nowDiscount.setDate(nowDiscount.getDate() - 3);
@@ -36,7 +36,8 @@ export default async (req, res, next) => {
       {
          is_sale: true
       }
-   ).catch((err) => {
+   )
+   .catch((err) => {
       console.log(err);
    });
 

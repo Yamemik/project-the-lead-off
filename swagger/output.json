@@ -1332,8 +1332,8 @@
         }
       }
     },
-    "/api/user/order/adduser/{id}": {
-      "get": {
+    "/api/user/order/buyorder/{id}": {
+      "post": {
         "tags": [
           "User"
         ],
@@ -1345,6 +1345,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sum": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {
@@ -1353,6 +1365,9 @@
           },
           "404": {
             "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }

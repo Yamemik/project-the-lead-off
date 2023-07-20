@@ -1,6 +1,8 @@
 import OrderModel from '../models/Order.js';
 import UserModel from '../models/User.js';
 import NumberOrder from '../models/NumberOrder.js';
+import PaymentSchema from '../models/Payment.js';
+
 
 export const createOrder = async (req, res) => {
    /*
@@ -310,24 +312,56 @@ export const findDublicate = async (req, res) => {
    }
 }
 
-export const addUser = async (req, res) => {
+export const buyOrder = async (req, res) => {
    /*
       #swagger.tags = ["User"]
       #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
    */
    const now = new Date();
-   await OrderModel.updateOne({ _id: req.params.id }, {
+   const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
       user: req.userId,
       date_buy: now,
       is_buy: true
-   }).then(() => res.json({
-      access: true
-   })).catch((err) => {
+   })
+   .catch((err) => {
       console.log(err);
       res.status(404).json({
-         message: "error buy"
+         message: "error buy (not found order)"
       });
    });
+
+   const user = await UserModel.findOneAndUpdate({ _id: req.userId }, {
+      $inc: { 'balance': -req.body.sum }
+   })
+   .catch((err) => {
+      res.status(404).json({ message: 'sum not buy' })
+   });
+   user.passwordHash = '';
+
+   const payment = {
+      date: now,
+      status: "buy",      
+      sum: req.body.sum,
+      user: user,
+      order: order
+   }
+
+   try {
+      const doc = new PaymentSchema({
+         payment: payment,
+         user_id: req.userId
+      });
+
+      const entity = await doc.save();
+
+      res.json(entity);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed create to pay"
+      })
+   }
+
 }
 
 export const cpUpload = async (req, res) => {

@@ -5,6 +5,7 @@ import generatePassword from 'password-generator';
 import UserModel from '../models/User.js';
 import PaymentSchema from '../models/Payment.js';
 import * as Mailer from '../nodemailer/index.js';
+import { now } from 'mongoose';
 
 export const createUser = async (req, res) => {
    /*
@@ -249,38 +250,6 @@ export const resentPassword = async (req, res) => {
    }
 }
 
-export const transaction1 = async (req, res) => {
-   /*
-      #swagger.tags = ["User"]
-      #swagger.summary = 'перевод другому пользователю'
-      #swagger.parameters['obj'] = {
-                in: 'body',
-                description: 'user',
-                required: true,
-                schema: { $ref: "#/definitions/User" }
-      }
-   */
-   await UserModel.updateOne({ _id: req.params.id }, {
-      $inc: { 'balance': -req.body.sum }
-   })
-   .then(
-      await UserModel.updateOne({ _id: req.body.recipient_id }, {
-         $inc: { 'balance': req.body.sum }
-      })
-      .then(() => res.json({
-         access: true
-      }))
-      .catch((err) => {
-         res.status(404).json({ message: 'sum not transition for recipient' })
-      }))
-   .catch((err) => {
-      console.log(err);
-      res.status(404).json({
-         message: "sum not transition for sender"
-      });
-   });
-}
-
 export const transaction = async (req, res) => {
    /*
       #swagger.tags = ["User"]
@@ -300,12 +269,15 @@ export const transaction = async (req, res) => {
       res.status(404).json({ message: 'sum not transition for recipient' })
    });
 
-   user_old_rec.passwordHash = '';   
+   user_old_rec.passwordHash = '';
+   user_old.passwordHash = '';
+   const now = new Date();   
 
    const payment = {
+      date: now,
       status: "transaction",
       sum: req.body.sum,
-      balance: user_old.balance,
+      user: user_old,
       recipient: user_old_rec
    }
 

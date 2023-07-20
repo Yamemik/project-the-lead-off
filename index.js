@@ -112,7 +112,7 @@ router.get('/user/order/:id', checkAuth, OrderController.getOne);
 router.get('/user/order', checkAuth, OrderController.getAllForUser);
 router.get('/user/orders/all', checkAuth, OrderController.getAllUser);
 router.get('/user/orders/all/issale', checkAuth, OrderController.getAllisSale);
-router.get('/user/order/adduser/:id', checkAuth, OrderController.addUser);
+router.post('/user/order/buyorder/:id', checkAuth, OrderController.buyOrder);
 router.post('/user/orders/filter', checkAuth, getAllForUserWithFilterValidation, handlValidationErrors, OrderController.getAllForUserWithFilter);
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
