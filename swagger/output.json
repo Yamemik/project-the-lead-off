@@ -448,6 +448,34 @@
         }
       }
     },
+    "/api/admin/order/refund/{id}": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "добавить пользователя во владельцы заказом(покупка)",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/admin/settings/region": {
       "post": {
         "tags": [
@@ -469,25 +497,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все регионы",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -522,23 +531,14 @@
             "description": "Not Found"
           }
         }
-      }
-    },
-    "/api/admin/settings/region/{id}": {
+      },
       "get": {
         "tags": [
           "Settings"
         ],
-        "summary": "Получить один регион",
+        "summary": "Получить все регионы",
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -550,7 +550,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/admin/settings/region/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -605,6 +607,32 @@
             "description": "Not Found"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить один регион",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
       }
     },
     "/api/admin/settings/category": {
@@ -628,25 +656,6 @@
         "responses": {
           "200": {
             "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все категории",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -681,23 +690,14 @@
             "description": "Not Found"
           }
         }
-      }
-    },
-    "/api/admin/settings/category/{id}": {
+      },
       "get": {
         "tags": [
           "Settings"
         ],
-        "summary": "Получить одну категорию",
+        "summary": "Получить все категории",
         "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
@@ -709,7 +709,9 @@
             "description": "Internal Server Error"
           }
         }
-      },
+      }
+    },
+    "/api/admin/settings/category/{id}": {
       "patch": {
         "tags": [
           "Settings"
@@ -762,6 +764,32 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получить одну категорию",
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -826,32 +854,6 @@
       }
     },
     "/api/admin/settings/score/{id}": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получение 1 коэффициента",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "Settings"
@@ -1485,6 +1487,27 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/settings/score/": {
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Получение 1 коэффициента",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
