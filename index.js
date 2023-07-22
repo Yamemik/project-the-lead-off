@@ -74,21 +74,16 @@ router.get('/admin/order/refund/:id', checkAuth, OrderController.refund);
 //SETTING
 //region
 router.post('/admin/settings/region', checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.createRg);
-router.get('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.getOneRg);
-router.get('/admin/settings/region', checkAuthIsAdmin, RegionController.getAllRg);
 router.patch('/admin/settings/region/:id', checkAuthIsAdmin, createRegionValidation, handlValidationErrors, RegionController.updateRg);
 router.delete('/admin/settings/region/:id', checkAuthIsAdmin, RegionController.removeRg);
 router.delete('/admin/settings/region', checkAuthIsAdmin, RegionController.removeManyRg);
 //category
 router.post('/admin/settings/category', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.createCt);
-router.get('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.getOneCt);
-router.get('/admin/settings/category', checkAuthIsAdmin, CategoryController.getAllCt);
 router.patch('/admin/settings/category/:id', checkAuthIsAdmin, createCategoryValidation, handlValidationErrors, CategoryController.updateCt);
 router.delete('/admin/settings/category/:id', checkAuthIsAdmin, CategoryController.removeCt);
 router.delete('/admin/settings/category', checkAuthIsAdmin, CategoryController.removeManyCt);
 //score and more indexes
 router.post('/admin/settings/score', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.createSc);
-router.get('/admin/settings/score/:id', checkAuthIsAdmin, RateController.getOneSc);
 router.delete('/admin/settings/score', checkAuthIsAdmin, RateController.removeManySc);
 router.delete('/admin/settings/score/:id', checkAuthIsAdmin, RateController.removeSc);
 router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
@@ -118,6 +113,12 @@ router.post('/user/order/buyorder/:id', checkAuth, OrderController.buyOrder);
 router.post('/user/orders/filter', checkAuth, getAllForUserWithFilterValidation, handlValidationErrors, OrderController.getAllForUserWithFilter);
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
+//settings
+router.get('/admin/settings/region/:id', checkAuth, RegionController.getOneRg);
+router.get('/admin/settings/region', checkAuth, RegionController.getAllRg);
+router.get('/admin/settings/category/:id', checkAuth, CategoryController.getOneCt);
+router.get('/admin/settings/category', checkAuth, CategoryController.getAllCt);
+router.get('/admin/settings/score/', checkAuth, RateController.getOneSc);
 
 
 //PROGER

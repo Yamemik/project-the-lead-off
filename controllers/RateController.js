@@ -28,9 +28,8 @@ import RateModel from '../models/Rate.js';
        #swagger.summary = 'Получение 1 коэффициента'
     */   
     try{
-       const entityId = req.params.id;
  
-       const entity = await RateModel.findById(entityId).catch((err)=>{
+       const entity = await RateModel.find().catch((err)=>{
           res.status(404).json({
              message: 'not found'
           })
