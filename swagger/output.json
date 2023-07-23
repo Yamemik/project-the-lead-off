@@ -1132,7 +1132,7 @@
             "schema": {
               "type": "object",
               "properties": {
-                "amount": {
+                "amount_value": {
                   "example": "any"
                 },
                 "type": {
@@ -1148,6 +1148,40 @@
                   "example": "any"
                 },
                 "metadata": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/user/me/ukassa/capturePayment": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "summary": "capturePayment",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "payment_id": {
+                  "example": "any"
+                },
+                "amount_value": {
                   "example": "any"
                 }
               }
