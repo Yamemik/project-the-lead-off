@@ -15,7 +15,8 @@ export default async (req, res, next) => {
          is_archive: false
       },
       {
-         is_archive: true
+         is_archive: true,
+         is_archive_date: new Date()
       }
    )
    .catch((err) => {

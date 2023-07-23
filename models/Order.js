@@ -67,6 +67,10 @@ const OrderSchema = new mongoose.Schema({
       require: true,
       default: false
    },
+   is_archive_date:{
+      type: Date,
+      require: false
+   },
    is_sale: {
       type: Boolean,
       require: true,

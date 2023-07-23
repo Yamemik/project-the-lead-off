@@ -405,7 +405,8 @@ export const setIsArchive = async (req, res) => {
       #swagger.summary = 'установить заявке архив'
    */
    await OrderModel.updateOne({ _id: req.params.id }, {
-      is_archive: req.body.is_archive
+      is_archive: req.body.is_archive,
+      is_archive_date: new Date()
    }).then(() => res.json({
       access: true
    })).catch((err) => {
@@ -418,14 +419,13 @@ export const setIsArchive = async (req, res) => {
 
 export const refund = async (req, res) => {
    /*
-      #swagger.tags = ["User"]
-      #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'отменить заказ юзеру и вернуть деньги'
    */
    const now = new Date();
-   const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
-      user: '',
-      date_buy: '',
-      is_buy: false
+   const order = await OrderModel.findOneAndUpdate({ _id: req.params.order_id }, {
+      is_buy: false,
+      user: req.userId
    })
    .catch((err) => {
       console.log(err);
@@ -434,7 +434,7 @@ export const refund = async (req, res) => {
       });
    });
 
-   const user = await UserModel.findOneAndUpdate({ _id: req.userId }, {
+   const user = await UserModel.findOneAndUpdate({ _id: order.user._id }, {
       $inc: { 'balance': order.price }
    })
    .catch((err) => {
@@ -445,7 +445,6 @@ export const refund = async (req, res) => {
    const payment = {
       date: now,
       status: "refund",      
-      sum: order.price,
       user: user,
       order: order
    }

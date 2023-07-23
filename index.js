@@ -68,7 +68,7 @@ router.delete('/admin/order', checkAuthIsAdmin, OrderController.removeMany);
 router.delete('/admin/order/:id', checkAuthIsAdmin, OrderController.remove);
 router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderValidation, handlValidationErrors, OrderController.findDublicate);
 router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 11), OrderController.cpUpload);
-router.get('/admin/order/refund/:id', checkAuth, OrderController.refund);
+router.patch('/admin/order/refund/:order_id', checkAuth, OrderController.refund);
 
 
 //SETTING
