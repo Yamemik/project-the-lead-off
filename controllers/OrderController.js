@@ -416,6 +416,56 @@ export const setIsArchive = async (req, res) => {
    });
 }
 
+export const refund = async (req, res) => {
+   /*
+      #swagger.tags = ["User"]
+      #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
+   */
+   const now = new Date();
+   const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
+      user: '',
+      date_buy: '',
+      is_buy: false
+   })
+   .catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "error refund (not found order)"
+      });
+   });
+
+   const user = await UserModel.findOneAndUpdate({ _id: req.userId }, {
+      $inc: { 'balance': order.price }
+   })
+   .catch((err) => {
+      res.status(404).json({ message: 'sum not refund' })
+   });
+   user.passwordHash = '';
+
+   const payment = {
+      date: now,
+      status: "refund",      
+      sum: order.price,
+      user: user,
+      order: order
+   }
+
+   try {
+      const doc = new PaymentSchema({
+         payment: payment,
+         user_id: req.userId
+      });
+
+      const entity = await doc.save();
+
+      res.json(entity);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "Failed create to pay"
+      })
+   }
+}
 
 //отчетность
 export const getAllWithFilter = async (req, res) => {
