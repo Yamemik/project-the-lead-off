@@ -100,6 +100,7 @@ router.patch('/user/transaction', checkAuth, transValidation, handlValidationErr
 router.post('/user/resentpass', resentPassValidation, handlValidationErrors, UserController.resentPassword);
 //ukassa
 router.post('/user/me/ukassa', checkAuth, UkassaController.payment);
+router.post('/user/me/ukassa/capturePayment', checkAuth, UkassaController.capturePayment);
 router.post('/user/me/ukassa/getpayment/', checkAuth, UkassaController.getPayment);
 router.post('/user/me/ukassa/cancelPayment/', checkAuth, UkassaController.cancelPayment);
 //payment
