@@ -448,16 +448,16 @@
         }
       }
     },
-    "/api/admin/order/refund/{id}": {
-      "get": {
+    "/api/admin/order/refund/{order_id}": {
+      "patch": {
         "tags": [
-          "User"
+          "Admin"
         ],
-        "summary": "добавить пользователя во владельцы заказом(покупка)",
+        "summary": "отменить заказ юзеру и вернуть деньги",
         "description": "",
         "parameters": [
           {
-            "name": "id",
+            "name": "order_id",
             "in": "path",
             "required": true,
             "type": "string"
@@ -472,6 +472,43 @@
           },
           "500": {
             "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/order/canceled/{order_id}": {
+      "patch": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "отменить отмену ",
+        "description": "",
+        "parameters": [
+          {
+            "name": "order_id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "is_canceled_text": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
           }
         }
       }
@@ -1442,6 +1479,18 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "is_archive": {
+                  "example": "any"
+                }
+              }
+            }
           }
         ],
         "responses": {

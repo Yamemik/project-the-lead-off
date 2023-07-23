@@ -384,11 +384,28 @@ export const sendCancel = async (req, res) => {
       #swagger.tags = ["User"]
       #swagger.summary = 'отправить заявку на отмену'
    */
-   const now = new Date();
-   now.setDate(now.getDate() - 1);
    await OrderModel.updateOne({ _id: req.params.id }, {
       is_canceled: true,
       is_canceled_text: req.body.is_canceled_text
+   }).then(() => res.json({
+      access: true
+   })).catch((err) => {
+      console.log(err);
+      res.status(404).json({
+         message: "order not found or update"
+      });
+   });
+}
+
+export const cancelIsCanceled = async (req, res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'отменить отмену '
+   */
+   await OrderModel.updateOne({ _id: req.params.id }, {
+      is_canceled: false,
+      is_canceled_text: req.body.is_canceled_text,
+      is_cancel: true
    }).then(() => res.json({
       access: true
    })).catch((err) => {
@@ -425,6 +442,8 @@ export const refund = async (req, res) => {
    const now = new Date();
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.order_id }, {
       is_buy: false,
+      is_canceled: false,
+      is_canceled_text: '',
       user: req.userId
    })
    .catch((err) => {
