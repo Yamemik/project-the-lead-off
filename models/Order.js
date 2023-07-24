@@ -103,6 +103,10 @@ const OrderSchema = new mongoose.Schema({
       type: Boolean,
       require: true,
       defalt: false
+   },
+   answer: {
+      type: String,
+      require: false
    }
 }, {
    timestamps: true,
