@@ -404,7 +404,7 @@ export const cancelIsCanceled = async (req, res) => {
    */
    await OrderModel.updateOne({ _id: req.params.id }, {
       is_canceled: false,
-      is_canceled_text: req.body.is_canceled_text,
+      answer: req.body.is_canceled_text,
       is_cancel: true
    }).then(() => res.json({
       access: true
@@ -444,6 +444,7 @@ export const refund = async (req, res) => {
       is_buy: false,
       is_canceled: false,
       is_canceled_text: '',
+      answer: "access",
       user: req.userId
    })
    .catch((err) => {
