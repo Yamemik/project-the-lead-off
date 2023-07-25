@@ -38,7 +38,7 @@ export const payment = async (req, res) => {
 
     const entity = await doc.save();
 
-    res.json({ paymentUkassa, entity });
+    res.json(paymentUkassa);
   } catch (err) {
     console.log(err);
     res.status(500).json({
