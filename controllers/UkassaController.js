@@ -53,9 +53,9 @@ export const getPayment = async (req, res) => {
      #swagger.summary = 'getPayment'
   */
   try {
-    const paymentUkassa = await yooKassa.getPayment({
-      payment_id: req.body.payment_id
-    });
+    const paymentUkassa = await yooKassa.getPayment(
+      req.body.payment_id
+    );
 
     res.json(paymentUkassa);
   } catch (err) {
