@@ -1164,77 +1164,12 @@
         }
       }
     },
-    "/api/user/me/ukassa/capturePayment": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "capturePayment",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "payment_id": {
-                  "example": "any"
-                },
-                "amount_value": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/api/user/me/ukassa/getpayment/": {
       "post": {
         "tags": [
           "User"
         ],
         "summary": "getPayment",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "payment_id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me/ukassa/cancelPayment/": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "cancelPayment",
         "description": "",
         "parameters": [
           {
@@ -1277,40 +1212,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me/ukassa/update/{id}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "создать запись с платежом ",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "payment",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Payment"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
