@@ -32,6 +32,7 @@ export const payment = async (req, res) => {
     paymentUkassa._instance = {}
 
     const doc = new PaymentSchema({
+      status: paymentUkassa.status,
       payment: paymentUkassa,
       user_id: req.userId
     });
@@ -56,55 +57,6 @@ export const getPayment = async (req, res) => {
     const paymentUkassa = await yooKassa.getPayment(
       req.body.payment_id
     );
-
-    res.json(paymentUkassa);
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      message: " get payment error"
-    });
-  }
-}
-
-export const capturePayment = async (req, res) => {
-  /*
-     #swagger.tags = ["User"]
-     #swagger.summary = 'capturePayment'
-  */
-  try {
-    const paymentUkassa = await yooKassa.capturePayment(
-      {
-        payment_id: req.body.payment_id,
-        amount: {
-          value: req.body.amount_value,
-          currency: "RUB"
-        }
-      }, uuidv4());
-    paymentUkassa._instance = {}
-
-    const doc = new PaymentSchema({
-      payment: paymentUkassa,
-      user_id: req.userId
-    });
-
-    const entity = await doc.save();
-
-    res.json({ paymentUkassa, entity });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      message: "payment error"
-    });
-  }
-}
-
-export const cancelPayment = async (req, res) => {
-  /*
-     #swagger.tags = ["User"]
-     #swagger.summary = 'cancelPayment'
-  */
-  try {
-    const paymentUkassa = await yooKassa.cancelPayment({payment_id: req.body.payment_id}, uuidv4());
 
     res.json(paymentUkassa);
   } catch (err) {

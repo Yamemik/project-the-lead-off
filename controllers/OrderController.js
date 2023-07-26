@@ -348,6 +348,7 @@ export const buyOrder = async (req, res) => {
 
    try {
       const doc = new PaymentSchema({
+         status: "buy",
          payment: payment,
          user_id: req.userId
       });
@@ -471,6 +472,7 @@ export const refund = async (req, res) => {
 
    try {
       const doc = new PaymentSchema({
+         status: "refund",
          payment: payment,
          user_id: req.userId
       });

@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
-const PaymentSchema = new mongoose.Schema({  
+const PaymentSchema = new mongoose.Schema({
+   status:{
+      type: String,
+      require: true
+   },  
    payment:{
       type: Object,
       require: true

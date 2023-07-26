@@ -283,6 +283,7 @@ export const transaction = async (req, res) => {
 
    try {
       const doc = new PaymentSchema({
+         status: "transaction",
          payment: payment,
          user_id: req.userId
       });
