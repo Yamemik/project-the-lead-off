@@ -1,12 +1,14 @@
 import YooKassa from 'yookassa';
 import { v4 as uuidv4 } from 'uuid';
+import dotenv from 'dotenv';
 
 import PaymentSchema from '../models/Payment.js';
 
 
+dotenv.config();
 const yooKassa = new YooKassa({
-  shopId: '227279',
-  secretKey: 'test_l5sT9pGKy8Z18UwCZZY_mMohXIjCQ0fKq9e8m-AP6CE'
+   shopId: process.env.SHOPID,
+   secretKey: process.env.SECRETKEY
 });
 
 
