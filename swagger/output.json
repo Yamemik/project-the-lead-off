@@ -1021,6 +1021,79 @@
         }
       }
     },
+    "/api/admin/settings/about": {
+      "post": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Создание настроек",
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "AboutModel",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/About"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "Измениние",
+        "description": "",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "AboutModel",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/About"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "получить преимущества",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
     "/api/user/me": {
       "get": {
         "tags": [
@@ -1952,6 +2025,24 @@
           "example": [
             "object",
             "object"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "About": {
+      "type": "object",
+      "properties": {
+        "privilege": {
+          "type": "array",
+          "example": [
+            "text1",
+            "text2",
+            "text3",
+            "text4",
+            "text5"
           ],
           "items": {
             "type": "string"
