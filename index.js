@@ -92,7 +92,9 @@ router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationInde
 router.post('/admin/settings/setting', checkAuthIsAdmin, SettingController.createSt);
 router.get('/admin/settings/setting', checkAuthIsAdmin, SettingController.getAllSt);
 router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.updateSt);
-
+//about
+router.post('/admin/settings/about', checkAuthIsAdmin, SettingController.createAb);
+router.patch('/admin/settings/about', checkAuthIsAdmin, SettingController.updateAb);
 
 //USER
 router.get('/user/me', checkAuth, UserController.getMe);
@@ -118,6 +120,7 @@ router.get('/admin/settings/region', checkAuth, RegionController.getAllRg);
 router.get('/admin/settings/category/:id', checkAuth, CategoryController.getOneCt);
 router.get('/admin/settings/category', checkAuth, CategoryController.getAllCt);
 router.get('/admin/settings/score/', checkAuth, RateController.getOneSc);
+router.get('/admin/settings/about', checkAuth, SettingController.getAllAb);
 
 
 //PROGER

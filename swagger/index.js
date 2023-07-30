@@ -135,6 +135,9 @@ const doc = {
     },
     Settings: {
       settings: ["object","object"]
+    },    
+    About: {
+      privilege: ["text1","text2",'text3','text4','text5']
     },
     Rate: {
       score: [{ "easy": 0.8 }, { "medium": 1.0 }, { "hard": 1.2 }, { "hard+": 1.4 }],
