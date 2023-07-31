@@ -255,6 +255,15 @@ export const transaction = async (req, res) => {
       #swagger.tags = ["User"]
       #swagger.summary = 'перевод другому пользователю'
    */
+   const user_check = await UserModel.findById(req.userId)
+   .catch((err) => {
+      res.status(404).json({ message: 'user not find'})
+   });
+
+   if(user_check.balance < req.body.sum){
+      return res.status(404).json({ message: 'insufficient funds'});
+   }
+   
    const user_old = await UserModel.findOneAndUpdate({ _id: req.userId }, {
       $inc: { 'balance': -req.body.sum }
    })

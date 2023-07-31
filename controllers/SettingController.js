@@ -156,7 +156,7 @@ export const getAllAb = async(req,res) => {
 export const createAb = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Создание настроек'
+      #swagger.summary = 'Создание преимуществ'
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'AboutModel',
@@ -183,7 +183,7 @@ export const createAb = async (req, res) => {
 export const updateAb = async(req,res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Измениние'
+      #swagger.summary = 'Изменение преимуществ'
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'AboutModel',

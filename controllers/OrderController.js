@@ -317,6 +317,16 @@ export const buyOrder = async (req, res) => {
       #swagger.tags = ["User"]
       #swagger.summary = 'добавить пользователя во владельцы заказом(покупка)'
    */
+
+   const user_check = await UserModel.findById(req.userId)
+   .catch((err) => {
+      res.status(404).json({ message: 'user not find'})
+   });
+
+   if(user_check.balance < req.body.sum){
+      return res.status(404).json({ message: 'insufficient funds'});
+   }
+   
    const now = new Date();
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
       user: req.userId,
