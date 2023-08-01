@@ -269,7 +269,7 @@
     "/api/admin/order/filter": {
       "post": {
         "tags": [
-          "Admin"
+          "Report"
         ],
         "summary": "Получить все заявки по фильтру для отчетности",
         "description": "",
@@ -509,6 +509,122 @@
           },
           "404": {
             "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/api/admin/report/orderAuser": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "отчет по заявкам и пользователя",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "user": {
+                  "example": "any"
+                },
+                "is_urgent": {
+                  "example": "any"
+                },
+                "price_min": {
+                  "example": "any"
+                },
+                "price_max": {
+                  "example": "any"
+                },
+                "is_archive": {
+                  "example": "any"
+                },
+                "is_sale": {
+                  "example": "any"
+                },
+                "is_buy": {
+                  "example": "any"
+                },
+                "is_express": {
+                  "example": "any"
+                },
+                "is_cancel": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/report/orderAcategory": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "отчет по заявкам и категориям",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nomeclature": {
+                  "example": "any"
+                },
+                "is_urgent": {
+                  "example": "any"
+                },
+                "price_min": {
+                  "example": "any"
+                },
+                "price_max": {
+                  "example": "any"
+                },
+                "is_archive": {
+                  "example": "any"
+                },
+                "is_sale": {
+                  "example": "any"
+                },
+                "is_buy": {
+                  "example": "any"
+                },
+                "is_express": {
+                  "example": "any"
+                },
+                "is_cancel": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -1026,7 +1142,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Создание настроек",
+        "summary": "Создание преимуществ",
         "description": "",
         "parameters": [
           {
@@ -1052,7 +1168,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Измениние",
+        "summary": "Изменение преимуществ",
         "description": "",
         "parameters": [
           {
@@ -1134,10 +1250,10 @@
             "schema": {
               "type": "object",
               "properties": {
-                "recipient_id": {
+                "sum": {
                   "example": "any"
                 },
-                "sum": {
+                "recipient_id": {
                   "example": "any"
                 }
               }
