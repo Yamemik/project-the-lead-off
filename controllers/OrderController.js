@@ -297,11 +297,11 @@ export const findDublicate = async (req, res) => {
          is_archive: false,
          is_buy: false
       })
-         .exec().catch((err) => {
-            res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+      .exec().catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
 
       res.json(ordersDuplicate);
    } catch (err) {
@@ -501,7 +501,7 @@ export const refund = async (req, res) => {
 //отчетность
 export const getAllWithFilter = async (req, res) => {
    /*
-      #swagger.tags = ["Admin"]
+      #swagger.tags = ["Report"]
       #swagger.summary = 'Получить все заявки по фильтру для отчетности'
    */
    try {
@@ -524,11 +524,11 @@ export const getAllWithFilter = async (req, res) => {
             }
          }
       )
-         .catch((err) => {
-            res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+      .catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
 
       res.json(orders);
    } catch (err) {
