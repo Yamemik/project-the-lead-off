@@ -70,6 +70,9 @@ router.post('/admin/order/finddublicate', checkAuthIsAdmin, findDublicateOrderVa
 router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 11), OrderController.cpUpload);
 router.patch('/admin/order/refund/:order_id', checkAuth, OrderController.refund);
 router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cancelIsCanceled);
+//report
+router.post('/admin/report/orderAuser', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
+router.post('/admin/report/orderAcategory', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
 
 
 //SETTING

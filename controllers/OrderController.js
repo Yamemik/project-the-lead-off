@@ -539,3 +539,75 @@ export const getAllWithFilter = async (req, res) => {
    }
 }
 
+export const report_order_and_user = async (req, res) => {
+   /*
+      #swagger.tags = ["Report"]
+      #swagger.summary = 'отчет по заявкам и пользователя'
+   */
+   try {
+      const orders = await OrderModel.find(
+         {
+            $set: {
+               user: { $in: req.body.user },
+               is_urgent: { $in: req.body.is_urgent },
+               price: { $gte: req.body.price_min },
+               price: { $lte: req.body.price_max },
+               is_archive: { $in: req.body.is_archive },
+               is_sale: { $in: req.body.is_sale },
+               is_buy: { $in: req.body.is_buy },
+               is_express: { $in: req.body.is_express },
+               is_cancel: { $in: req.body.is_cancel }
+            }
+         }
+      )
+      .catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
+export const report_order_and_cat = async (req, res) => {
+   /*
+      #swagger.tags = ["Report"]
+      #swagger.summary = 'отчет по заявкам и категориям'
+   */
+   try {
+      const orders = await OrderModel.find(
+         {
+            $set: {
+               nomeclature: { $in: req.body.nomeclature },
+               is_urgent: { $in: req.body.is_urgent },
+               price: { $gte: req.body.price_min },
+               price: { $lte: req.body.price_max },
+               is_archive: { $in: req.body.is_archive },
+               is_sale: { $in: req.body.is_sale },
+               is_buy: { $in: req.body.is_buy },
+               is_express: { $in: req.body.is_express },
+               is_cancel: { $in: req.body.is_cancel }
+            }
+         }
+      )
+      .catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
