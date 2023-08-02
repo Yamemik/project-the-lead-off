@@ -612,17 +612,18 @@ export const report_order_and_cat = async (req, res) => {
 }
 
 //аналитика
-export const report_order_and_user_count_orders = async (req, res) => {
+export const report_count_orders = async (req, res) => {
    /*
       #swagger.tags = ["Report"]
-      #swagger.summary = ''
+      #swagger.summary = 'count()'
    */
+  if(!req.body.user_id){
    try {
       const orders = await OrderModel.find(
          {
-            is_archive: false,
-            is_buy: false,
-            is_cancel: false
+            is_archive: req.body.is_archive,
+            is_buy: req.body.is_buy,
+            is_cancel: req.body.is_cancel
          }
       ).count()
       .catch((err) => {
@@ -638,4 +639,28 @@ export const report_order_and_user_count_orders = async (req, res) => {
          message: "server error"
       });
    }
+  } else {
+   try {
+      const orders = await OrderModel.find(
+         {
+            user: req.body.user_id,
+            is_archive: req.body.is_archive,
+            is_buy: req.body.is_buy,
+            is_cancel: req.body.is_cancel
+         }
+      ).count()
+      .catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+  }
 }
