@@ -74,4 +74,27 @@ export const updatePay = async (req, res) => {
                message: "not found or update"
             });
       });
-   };
+};
+
+export const getAllPayAllUsers = async (req, res) => {
+   /*
+      #swagger.tags = ["Admin"]
+      #swagger.summary = 'Получить все платежи'
+   */
+   try {
+      const entity = await PaymentSchema.find()
+      .catch((err) => {
+         res.status(404).json({
+            message: 'not found payment'
+         })
+      });
+
+      res.json(entity);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
+
