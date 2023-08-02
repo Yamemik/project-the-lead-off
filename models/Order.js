@@ -101,8 +101,8 @@ const OrderSchema = new mongoose.Schema({
    },
    is_cancel: {
       type: Boolean,
-      require: true,
-      defalt: false
+      require: false,
+      default: false
    },
    answer: {
       type: String,

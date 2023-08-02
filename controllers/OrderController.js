@@ -611,3 +611,31 @@ export const report_order_and_cat = async (req, res) => {
    }
 }
 
+//аналитика
+export const report_order_and_user_count_orders = async (req, res) => {
+   /*
+      #swagger.tags = ["Report"]
+      #swagger.summary = ''
+   */
+   try {
+      const orders = await OrderModel.find(
+         {
+            is_archive: false,
+            is_buy: false,
+            is_cancel: false
+         }
+      ).count()
+      .catch((err) => {
+         res.status(404).json({
+            message: 'orders not found'
+         })
+      });
+
+      res.json(orders);
+   } catch (err) {
+      console.log(err);
+      res.status(500).json({
+         message: "server error"
+      });
+   }
+}
