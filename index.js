@@ -74,7 +74,7 @@ router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cance
 router.post('/admin/report/orderAuser', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
 router.post('/admin/report/orderAcategory', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
 //payment
-router.get('/admin/ukassa/getall', checkAuth, PaymentController.getAllPayAllUsers);
+router.get('/admin/ukassa/getall', checkAuthIsAdmin, PaymentController.getAllPayAllUsers);
 
 //SETTING
 //region
