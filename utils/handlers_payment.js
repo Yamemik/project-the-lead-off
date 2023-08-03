@@ -36,7 +36,7 @@ export default async (req, res, next) => {
 
             if (payment_ukassa.status == 'succeeded') {
                await UserModel.findByIdAndUpdate(payment.user_id, {
-                  $inc: { 'balance': payment_ukassa.amount.value }
+                  $inc: { 'balance': payment_ukassa.income_amount.value }
                })
                .catch((err) => { console.log(err) });
 
