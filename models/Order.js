@@ -74,7 +74,7 @@ const OrderSchema = new mongoose.Schema({
    is_sale: {
       type: Boolean,
       require: true,
-      defalt: false
+      default: false
    },
    user: {
       type: mongoose.Schema.Types.ObjectId,

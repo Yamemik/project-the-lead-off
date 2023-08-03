@@ -12,7 +12,7 @@ import {
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation, transValidation } from './validations/AdminValidation.js';
 import { createRegionValidation, createValidationIndexes, createCategoryValidation } from './validations/SettingsValidation.js';
-import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation, getAllForUserWithFilterValidation } from './validations/OrderValidation.js';
+import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation, getAllForUserWithFilterValidation, reportOrderValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers, handlers_payment } from './utils/index.js';
 
 //connect db
@@ -71,9 +71,8 @@ router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 11), Order
 router.patch('/admin/order/refund/:order_id', checkAuth, OrderController.refund);
 router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cancelIsCanceled);
 //report
-router.post('/admin/report/orderAuser', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
-router.post('/admin/report/orderAuser/count/accepted', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_count_orders);
-router.post('/admin/report/orderAcategory', checkAuthIsAdmin, updateOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
+router.post('/admin/report/orderAuser', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
+router.post('/admin/report/orderAcategory', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
 //payment
 router.get('/admin/ukassa/getall', checkAuthIsAdmin, PaymentController.getAllPayAllUsers);
 

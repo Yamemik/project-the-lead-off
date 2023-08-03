@@ -45,3 +45,19 @@ export const createOrderValidation = [
    body('price_min').optional().isNumeric(),
    body('price_max').optional().isNumeric()
 ]
+
+export const reportOrderValidation = [
+   body('nomeclature').optional().isArray(),
+   body('region').optional().isArray(),
+   body('text').optional().isArray(),
+   body('upload').optional().isArray(),
+   body('email').optional().isEmail(),
+   body('telephone').optional().isArray(),
+   body('fio').optional().isArray(),
+   body('score').optional().isArray(),
+   body('type_buyer').optional().isArray(),
+   body('type_order').optional().isArray(),
+   body('is_urgent').optional().isArray(),
+   body('is_open').optional().isArray(),
+   body('price').optional().isNumeric()
+]

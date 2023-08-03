@@ -331,6 +331,7 @@ export const buyOrder = async (req, res) => {
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
       user: req.userId,
       date_buy: now,
+      price: req.body.sum,
       is_buy: true
    })
    .catch((err) => {
@@ -507,7 +508,6 @@ export const getAllWithFilter = async (req, res) => {
    try {
       const orders = await OrderModel.find(
          {
-            $set: {
                user: { $in: req.body.user },
                region: { $in: req.body.region },
                nomeclature: { $all: req.body.nomeclature },
@@ -521,7 +521,6 @@ export const getAllWithFilter = async (req, res) => {
                is_sale: { $in: req.body.is_sale },
                is_express: { $in: req.body.is_express },
                is_cancel: { $in: req.body.is_cancel }
-            }
          }
       )
       .catch((err) => {
@@ -544,35 +543,118 @@ export const report_order_and_user = async (req, res) => {
       #swagger.tags = ["Report"]
       #swagger.summary = 'отчет по заявкам и пользователя'
    */
-   try {
-      const orders = await OrderModel.find(
-         {
-            $set: {
-               user: { $in: req.body.user },
-               is_urgent: { $in: req.body.is_urgent },
-               price: { $gte: req.body.price_min },
-               price: { $lte: req.body.price_max },
+   if(!req.body.user_id){
+      try {
+         const orders = await OrderModel.find(
+            {               
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },               
                is_archive: { $in: req.body.is_archive },
-               is_sale: { $in: req.body.is_sale },
                is_buy: { $in: req.body.is_buy },
+               is_sale: { $in: req.body.is_sale },
                is_express: { $in: req.body.is_express },
-               is_cancel: { $in: req.body.is_cancel }
+               is_urgent: { $in: req.body.is_urgent },
+               is_cancel: { $in: req.body.is_cancel }               
+            }
+         )
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const count_orders = Object.keys(orders).length;
+         if(count_orders === 0) {
+            return res.json(count_orders);   
+         }
+         let sum_price = 0;
+         let min_price = orders[0].price;
+         let max_price = orders[0].price;        
+
+         for (let order of orders){
+            sum_price += order.price;
+            if(min_price > order.price) {
+               min_price = order.price;
+            } else {
+               if(max_price < order.price){
+                  max_price = order.price;
+               }
             }
          }
-      )
-      .catch((err) => {
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      });
+         const average_sum = sum_price/count_orders;
 
-      res.json(orders);
-   } catch (err) {
-      console.log(err);
-      res.status(500).json({
-         message: "server error"
-      });
-   }
+         const aggregations = {
+            count_orders: count_orders,
+            sum_price: sum_price,
+            average_sum: average_sum,
+            min_price: min_price,
+            max_price: max_price
+         }
+   
+         res.json({orders,aggregations});
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }
+      } else {
+      try {
+         const orders = await OrderModel.find(
+            {
+               user: req.body.user_id,
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },               
+               is_archive: { $in: req.body.is_archive },
+               is_buy: { $in: req.body.is_buy },
+               is_sale: { $in: req.body.is_sale },
+               is_express: { $in: req.body.is_express },
+               is_urgent: { $in: req.body.is_urgent },
+               is_cancel: { $in: req.body.is_cancel }               
+            }
+         )
+         .catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+   
+         const count_orders = Object.keys(orders).length;
+         if(count_orders === 0) {
+            return res.json(count_orders);   
+         }
+         let sum_price = 0;
+         let min_price = orders[0].price;
+         let max_price = orders[0].price;        
+
+         for (let order of orders){
+            sum_price += order.price;
+            if(min_price > order.price) {
+               min_price = order.price;
+            } else {
+               if(max_price < order.price){
+                  max_price = order.price;
+               }
+            }
+         }
+         const average_sum = sum_price/count_orders;
+
+         const aggregations = {
+            count_orders: count_orders,
+            sum_price: sum_price,
+            average_sum: average_sum,
+            min_price: min_price,
+            max_price: max_price
+         }
+   
+         res.json({orders,aggregations});
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }
+      }
 }
 
 export const report_order_and_cat = async (req, res) => {
@@ -621,9 +703,9 @@ export const report_count_orders = async (req, res) => {
    try {
       const orders = await OrderModel.find(
          {
-            is_archive: req.body.is_archive,
-            is_buy: req.body.is_buy,
-            is_cancel: req.body.is_cancel
+            is_archive: { $in: req.body.is_archive },
+            is_buy: { $in: req.body.is_buy },
+            is_cancel: { $in: req.body.is_cancel }         
          }
       ).count()
       .catch((err) => {
@@ -644,9 +726,9 @@ export const report_count_orders = async (req, res) => {
       const orders = await OrderModel.find(
          {
             user: req.body.user_id,
-            is_archive: req.body.is_archive,
-            is_buy: req.body.is_buy,
-            is_cancel: req.body.is_cancel
+            is_archive: { $in: req.body.is_archive },
+            is_buy: { $in: req.body.is_buy },
+            is_cancel: { $in: req.body.is_cancel }
          }
       ).count()
       .catch((err) => {
