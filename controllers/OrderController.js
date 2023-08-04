@@ -414,12 +414,13 @@ export const cancelIsCanceled = async (req, res) => {
       #swagger.tags = ["Admin"]
       #swagger.summary = 'отменить отмену '
    */
-   await OrderModel.updateOne({ _id: req.params.id }, {
+      console.log(req.params)
+   await OrderModel.updateOne({ _id: req.params.order_id }, {
       is_canceled: false,
       answer: req.body.is_canceled_text,
       is_cancel: true
    }).then(() => res.json({
-      access: true
+      access: true      
    })).catch((err) => {
       console.log(err);
       res.status(404).json({
