@@ -73,6 +73,8 @@ router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cance
 //report
 router.post('/admin/report/orderAuser', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
 router.post('/admin/report/orderAcategory', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
+router.post('/admin/report/user', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_user);
+router.post('/admin/report/category', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_category);
 //payment
 router.get('/admin/ukassa/getall', checkAuthIsAdmin, PaymentController.getAllPayAllUsers);
 

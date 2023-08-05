@@ -456,6 +456,7 @@ export const refund = async (req, res) => {
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.order_id }, {
       is_buy: false,
       is_canceled: false,
+      is_cancel: true,
       is_canceled_text: '',
       answer: 'access',
       user: req.userId
@@ -787,4 +788,230 @@ export const report_order_and_cat = async (req, res) => {
          });
       }
       }
+}
+
+export const report_user = async (req, res) => {
+   /*
+      #swagger.tags = ["Report"]
+      #swagger.summary = 'отчет по пользователю'
+   */
+   if(!req.body.date_begin || !req.body.date_end){
+      try {
+         const now_activity = new Date();
+         now_activity.setDate(now_activity.getDate() - 1);
+      
+         const active_orders = await OrderModel.find(
+            {  
+               date_buy: { $gte: now_activity },
+               user: req.body.user_id             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const accepted_orders = await OrderModel.find(
+            {  
+               date_buy: { $lte: now_activity },
+               user: req.body.user_id             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const report = {
+            active_orders: active_orders,
+            accepted_orders: accepted_orders,
+         }
+   
+         res.json(report);
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }
+   } else {
+      try {
+         const now_activity = new Date();
+         now_activity.setDate(now_activity.getDate() - 1);
+      
+         const active_orders = await OrderModel.find(
+            {  
+               date_buy: { $gte: now_activity },
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               user: req.body.user_id             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const accepted_orders = await OrderModel.find(
+            {  
+               date_buy: { $lte: now_activity },
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               user: req.body.user_id             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const report = {
+            active_orders: active_orders,
+            accepted_orders: accepted_orders,
+         }
+   
+         res.json(report);
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }
+   }
+}
+
+export const report_category = async (req, res) => {
+   /*
+      #swagger.tags = ["Report"]
+      #swagger.summary = 'отчет по категории'
+   */
+   if(!req.body.date_begin || !req.body.date_end){
+      try {
+         const now_activity = new Date();
+         now_activity.setDate(now_activity.getDate() - 1);
+
+         const public_orders = await OrderModel.find(
+            {  
+               nomeclature: { $all: req.body.nomeclature },
+               is_archive: false,
+               is_buy: false,
+               is_canceled: false             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const accepted_orders = await OrderModel.find(
+            {  
+               nomeclature: { $all: req.body.nomeclature },
+               date_buy: { $lte: now_activity },
+               is_buy: true,
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const canceled_orders = await OrderModel.find(
+            {  
+               nomeclature: { $all: req.body.nomeclature },
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,            
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const report = {
+            public_orders: public_orders,
+            accepted_orders: accepted_orders,
+            canceled_orders: canceled_orders
+         }
+   
+         res.json(report);
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }
+   } else {
+      try {
+         const now_activity = new Date();
+         now_activity.setDate(now_activity.getDate() - 1);
+
+         const public_orders = await OrderModel.find(
+            {  
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $all: req.body.nomeclature },
+               is_archive: false,
+               is_buy: false,
+               is_canceled: false             
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const accepted_orders = await OrderModel.find(
+            {  
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $all: req.body.nomeclature },
+               date_buy: { $lte: now_activity },
+               is_buy: true,
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const canceled_orders = await OrderModel.find(
+            {  
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $all: req.body.nomeclature },
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,            
+            }
+         ).count()
+         .catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const report = {
+            public_orders: public_orders,
+            accepted_orders: accepted_orders,
+            canceled_orders: canceled_orders
+         }
+   
+         res.json(report);
+      } catch (err) {
+         console.log(err);
+         res.status(500).json({
+            message: "server error"
+         });
+      }   
+   }
 }
