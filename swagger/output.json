@@ -527,31 +527,40 @@
             "schema": {
               "type": "object",
               "properties": {
-                "user": {
+                "user_id": {
                   "example": "any"
                 },
-                "is_urgent": {
+                "date_begin": {
                   "example": "any"
                 },
-                "price_min": {
-                  "example": "any"
-                },
-                "price_max": {
+                "date_end": {
                   "example": "any"
                 },
                 "is_archive": {
                   "example": "any"
                 },
-                "is_sale": {
+                "is_buy": {
                   "example": "any"
                 },
-                "is_buy": {
+                "is_sale": {
                   "example": "any"
                 },
                 "is_express": {
                   "example": "any"
                 },
+                "is_urgent": {
+                  "example": "any"
+                },
                 "is_cancel": {
+                  "example": "any"
+                },
+                "score": {
+                  "example": "any"
+                },
+                "type_buyer": {
+                  "example": "any"
+                },
+                "type_order": {
                   "example": "any"
                 }
               }
@@ -576,7 +585,7 @@
         "tags": [
           "Report"
         ],
-        "summary": "отчет по заявкам и категориям",
+        "summary": "отчет по заявкам и пользователя",
         "description": "",
         "parameters": [
           {
@@ -585,37 +594,147 @@
             "schema": {
               "type": "object",
               "properties": {
-                "nomeclature": {
+                "category_id": {
                   "example": "any"
                 },
-                "is_urgent": {
+                "date_begin": {
                   "example": "any"
                 },
-                "price_min": {
-                  "example": "any"
-                },
-                "price_max": {
+                "date_end": {
                   "example": "any"
                 },
                 "is_archive": {
                   "example": "any"
                 },
-                "is_sale": {
+                "is_buy": {
                   "example": "any"
                 },
-                "is_buy": {
+                "is_sale": {
                   "example": "any"
                 },
                 "is_express": {
                   "example": "any"
                 },
+                "is_urgent": {
+                  "example": "any"
+                },
                 "is_cancel": {
+                  "example": "any"
+                },
+                "score": {
+                  "example": "any"
+                },
+                "type_buyer": {
+                  "example": "any"
+                },
+                "type_order": {
                   "example": "any"
                 }
               }
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/report/user": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "отчет по пользователю",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "date_begin": {
+                  "example": "any"
+                },
+                "date_end": {
+                  "example": "any"
+                },
+                "user_id": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/report/category": {
+      "post": {
+        "tags": [
+          "Report"
+        ],
+        "summary": "отчет по категории",
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "date_begin": {
+                  "example": "any"
+                },
+                "date_end": {
+                  "example": "any"
+                },
+                "nomeclature": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/admin/ukassa/getall": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Получить все платежи",
+        "description": "",
+        "parameters": [],
         "responses": {
           "200": {
             "description": "OK"
