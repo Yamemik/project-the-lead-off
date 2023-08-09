@@ -18,7 +18,7 @@
 
 ### git
     remove -  rm -R project-the-lead-off
-    token - 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
+    token - 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
     clone - git clone --branch back https://github.com/Yamemik/project-the-lead-off
 
 ### beget
