@@ -97,7 +97,7 @@ router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationInde
 //settings
 router.post('/admin/settings/setting', checkAuthIsAdmin, SettingController.createSt);
 router.get('/admin/settings/setting', checkAuthIsAdmin, SettingController.getAllSt);
-router.patch('/admin/settings/setting', checkAuthIsAdmin, SettingController.updateSt);
+router.patch('/admin/settings/setting', checkAuth, SettingController.updateSt);
 //about
 router.post('/admin/settings/about', checkAuthIsAdmin, SettingController.createAb);
 router.patch('/admin/settings/about', checkAuthIsAdmin, SettingController.updateAb);
