@@ -1,17 +1,4 @@
 .adminPanelSettings {
-    &__billing {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-wrap: wrap;
-        input {
-            max-width: unset;
-            width: 300px;
-            &::placeholder {
-                color: #A6ACBE;
-            }
-        }
-    }
     &__inputs {
         input {
             max-width: unset;
@@ -20,7 +7,8 @@
     }
     &__rate {
         display: flex;
-        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
         &-block {
             &-title {
                 margin-bottom: 10px;
@@ -31,7 +19,8 @@
     &__categories {
         display: flex;
         align-items: flex-start;
-        column-gap: 50px;
+        flex-wrap: wrap;
+        column-gap: 70px;
         &-block {
             &-title {
                 font-weight: 700;
@@ -90,6 +79,40 @@
             }
         }
     }
+    &__advantages {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+        padding-top: 20px;
+        &-advantage {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: center;
+            &-number {
+                font-size: 24px;
+                font-weight: 800;
+            }
+            input {
+                width: 100%;
+                max-width: unset;
+            }
+            textarea {
+                width: 100%;
+                border: 1px solid #D6DCF1;
+                border-radius: 7px;
+                height: 100px;
+                padding: 18px 24px;
+                line-height: 130%;
+                &::placeholder {
+                    color: #D6DCF1;
+                }
+                &:focus {
+                    border-color: #bcc4e1;
+                }
+            }
+        }
+    }
 }
 
 @media(max-width: 1750px) {
@@ -108,7 +131,6 @@
 @media(max-width: 1650px) {
     .adminPanelSettings {
         &__rate {
-            flex-wrap: wrap;
             gap: 20px;
             justify-content: flex-start;
         }
@@ -159,7 +181,7 @@
                 }
             }
         }
-        &__billing, &__inputs {
+        &__inputs {
             input {
                 width: 100%;
             }

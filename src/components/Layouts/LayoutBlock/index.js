@@ -6,9 +6,12 @@ const LayoutBlock = ({
     isHaveFiltersInPage,
     isOpenMobileFilters,
     setIsOpenMobileFilters,
+    isOverflowHidden
 }) => {
     return (
-        <div className="layoutBlock">
+        <div className="layoutBlock" style={{
+            overflow: isOverflowHidden ? "hidden" : "auto"
+        }}>
             {isHaveFiltersInPage && window.innerWidth <= 768 ? (
                 <>
                     <div className="layoutBlock__subtitle--wrapper">

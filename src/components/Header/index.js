@@ -4,9 +4,17 @@ import ThemeToggler from "./ThemeToggler";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Button from "../UI/Button";
+import axios from "../../utils/axios";
 
 const Header = ({ needAuth }) => {
     const { theme } = useSelector(state => state);
+
+    useEffect(() => {
+        axios.get("/api/user/me").then(({ data }) => localStorage.setItem(
+            "user",
+            JSON.stringify(Object.assign({}, data, { token: JSON.parse(localStorage.getItem("user")).token })),
+        )).catch(err => console.log(err))
+    }, [])
 
     useEffect(() => {
         if (theme === "dark") {
@@ -105,15 +113,17 @@ const Header = ({ needAuth }) => {
                             }}
                         />
                     </div>
-                    <div className="header__right-exit" onClick={() =>{ localStorage.removeItem("user") 
-                        window.location.href = "/platform/auth"}}>
+                    <div className="header__right-exit" onClick={() => {
+                        localStorage.removeItem("user")
+                        window.location.href = "/platform/auth"
+                    }}>
                         <img className="header__right-exit-icon" src="/img/header/exit.svg" alt="Выйти из аккаунта" />
                     </div>
                 </div>}
                 {needAuth && <div className="header__right">
                     <div class="header__right-buttons">
-                        <Button text={window.innerWidth <= 768 ? "Демо" : "Демо доступ"} click={() => window.location.href="/platform/demo"}/>
-                        <Button type="fill" text={["Войти", "user"]} click={() => window.location.href="/platform/auth"}/>
+                        <Button text={window.innerWidth <= 768 ? "Демо" : "Демо доступ"} click={() => window.location.href = "/platform/demo"} />
+                        <Button type="fill" text={["Войти", "user"]} click={() => window.location.href = "/platform/auth"} />
                     </div>
                 </div>}
                 {popupUserMobile && (
@@ -123,8 +133,10 @@ const Header = ({ needAuth }) => {
                                 <p className="header__popupUserMobile-info-about-name">{localStorage.getItem("user") ? (JSON.parse(localStorage.getItem("user"))).fio.split(" ")[1] : "Клиент Лидофф"}</p>
                                 <p className="header__popupUserMobile-info-about-email">{localStorage.getItem("user") ? (JSON.parse(localStorage.getItem("user"))).email : "client@mail.ru"}</p>
                             </div>
-                            <div className="header__popupUserMobile-info-exit" onClick={() =>{ localStorage.removeItem("user") 
-                        window.location.href = "/platform/auth"}}>
+                            <div className="header__popupUserMobile-info-exit" onClick={() => {
+                                localStorage.removeItem("user")
+                                window.location.href = "/platform/auth"
+                            }}>
                                 <img
                                     className="header__popupUserMobile-info-exit-icon"
                                     src="/img/header/exit.svg"
@@ -144,9 +156,8 @@ const Header = ({ needAuth }) => {
                 )}
             </header>
             <div
-                className={`popupMenuMobile ${
-                    popupMenuMobile ? "popupMenuMobile--active" : "popupMenuMobile--disactive"
-                }`}>
+                className={`popupMenuMobile ${popupMenuMobile ? "popupMenuMobile--active" : "popupMenuMobile--disactive"
+                    }`}>
                 <div className="popupMenuMobile__body">
                     <div className="popupMenuMobile__body-header">
                         <ThemeToggler />

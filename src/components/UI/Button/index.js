@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Button.scss";
 
-const Button = ({ text = "Кнопка", type = "default", toUrl, addClass, click }) => {
+const Button = ({ text = "Кнопка", type = "default", toUrl, addClass, click, openLinkInNewTab }) => {
     return (
         <div className={`button button--${type} ${addClass}`}>
             {toUrl ? (
-                <Link to={toUrl} className="button__content" reloadDocument>
+                <Link to={toUrl} target={openLinkInNewTab ? "_blank" : ""} className="button__content" reloadDocument>
                     {text}
                 </Link>
             ) : (

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./List.scss";
 
-const List = ({ items, type = "default", clickEdit, clickDelete, setValue }) => {
+const List = ({ items, type = "default", clickEdit, clickDelete, setValue, addBasePrice }) => {
     const [itemsCategory, setItemsCategory] = useState([]);
 
     useEffect(() => {
@@ -16,8 +16,8 @@ const List = ({ items, type = "default", clickEdit, clickDelete, setValue }) => 
         }
     }, [items]);
 
-    const [oldEditItem, setOldEditItem] = useState(null)
-    const [editItem, setEditItem] = useState(null)
+    const [oldEditItem, setOldEditItem] = useState(null);
+    const [editItem, setEditItem] = useState(null);
 
     const changePopup = id => {
         const arr = [];
@@ -36,109 +36,128 @@ const List = ({ items, type = "default", clickEdit, clickDelete, setValue }) => 
         <>
             {type === "category" ? (
                 <div className={`list list--category ${itemsCategory.length > 6 ? "list--scroll" : ""}`}>
-                    {itemsCategory.map(({ id, main, children, open }) => (
+                    {itemsCategory.map(({ id, main, children, open, base_price }) => (
                         <>
                             <div className="list__item">
-                                <div className="list__item-boxTitle" onClick={() => {
-                                    if (!editItem || editItem?.id !== id) changePopup(id)
-                                }}>
-                                    { (!editItem || editItem?.id !== id) && <img src={`/img/UI/${open ? "minus" : "plus"}.svg`} alt="" />}
-                                    {/* {
-                                        editItem && editItem?.id === id ? (
-                                            <input
-                                            value={editItem?.main}
-                                            onChange={e => setEditItem(prev => ({...prev, main: e.target.value}))}
-                                             style={{
-                                                maxWidth: "150px"
-                                            }}/>
-                                        ) : (
-                                            
-                                        )
-                                    } */}
+                                <div
+                                    className="list__item-boxTitle"
+                                    onClick={() => {
+                                        if (!editItem || editItem?.id !== id) changePopup(id);
+                                    }}>
+                                    {(!editItem || editItem?.id !== id) && (
+                                        <img src={`/img/UI/${open ? "minus" : "plus"}.svg`} alt="" />
+                                    )}
                                     <p className="list__item-title">{main}</p>
+                                    {addBasePrice && (editItem && editItem?.id === id ? (
+                                        <span>
+                                            /{" "}
+                                            <input
+                                                value={editItem?.base_price}
+                                                onChange={e => {
+                                                    setEditItem(prev => ({ ...prev, base_price: e.target.value }));
+                                                }}
+                                                style={{
+                                                    display: "inline-block",
+                                                    width: "36px",
+                                                }}
+                                            />{" "}
+                                            руб.
+                                        </span>
+                                    ) : (
+                                        <span>/ {base_price} руб.</span>
+                                    ))}
                                 </div>
                                 <div className="list__item-boxIcons">
-                                    {
-                                        editItem && editItem?.id === id ? (
-                                            <>
-                                                
-                                                <img
-                                                    onClick={() => {
-                                                        clickEdit(oldEditItem.children, editItem.children, oldEditItem.main)
-                                                        setOldEditItem(null)
-                                                        setEditItem(null)
-                                                    }}
-                                                    className="list__item-boxIcons-icon"
-                                                    src="/img/adminPanel/yes.svg"
-                                                    alt=""
-                                                />
-                                                <img
-                                                    onClick={() => {
-                                                        setOldEditItem(null)
-                                                        setEditItem(null)
-                                                    }}
-                                                    className="list__item-boxIcons-icon"
-                                                    src="/img/adminPanel/no.svg"
-                                                    alt=""
-                                                />
-                                                
-                                            </>
-                                        ) : (
-                                            <>
-                                                
-                                                <img
-                                                    onClick={() => {
-                                                        if (editItem) {
-                                                            let arr = [...itemsCategory]
-                                                            arr.map((item, index) => {
-                                                                if (item.id === editItem.id) {
-                                                                    arr[index].open = false
-                                                                }
-                                                            })
-                                                            setItemsCategory([...itemsCategory])
-                                                        }
-                                                        setOldEditItem({id: id, main: main, children: children})
-                                                        setEditItem({id: id, main: main, children: children})
-                                                        let arr = [...itemsCategory]
+                                    {editItem && editItem?.id === id ? (
+                                        <>
+                                            <img
+                                                onClick={() => {
+                                                    clickEdit(
+                                                        oldEditItem.children,
+                                                        editItem.children,
+                                                        oldEditItem.main,
+                                                        Number(editItem.base_price),
+                                                    );
+                                                    setOldEditItem(null);
+                                                    setEditItem(null);
+                                                }}
+                                                className="list__item-boxIcons-icon"
+                                                src="/img/adminPanel/yes.svg"
+                                                alt=""
+                                            />
+                                            <img
+                                                onClick={() => {
+                                                    setOldEditItem(null);
+                                                    setEditItem(null);
+                                                }}
+                                                className="list__item-boxIcons-icon"
+                                                src="/img/adminPanel/no.svg"
+                                                alt=""
+                                            />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <img
+                                                onClick={() => {
+                                                    if (editItem) {
+                                                        let arr = [...itemsCategory];
                                                         arr.map((item, index) => {
-                                                            if (item.id === id) {
-                                                                arr[index].open = true
+                                                            if (item.id === editItem.id) {
+                                                                arr[index].open = false;
                                                             }
-                                                        })
-                                                        setItemsCategory([...itemsCategory])
-                                                    }}
-                                                    className="list__item-boxIcons-icon"
-                                                    src="/img/UI/edit.svg"
-                                                    alt=""
-                                                />
-                                                <img
-                                                    onClick={() => clickDelete(main)}
-                                                    className="list__item-boxIcons-icon"
-                                                    src="/img/UI/delete.svg"
-                                                    alt=""
-                                                />
-                                                
-                                            </>
-                                        )
-                                    }
+                                                        });
+                                                        setItemsCategory([...itemsCategory]);
+                                                    }
+                                                    if (addBasePrice) {
+                                                        setOldEditItem({ id: id, main: main, children: children, base_price: base_price });
+                                                        setEditItem({ id: id, main: main, children: children, base_price: base_price });
+                                                    } else {
+                                                        setOldEditItem({ id: id, main: main, children: children });
+                                                        setEditItem({ id: id, main: main, children: children });
+                                                    }
+                                                    let arr = [...itemsCategory];
+                                                    arr.map((item, index) => {
+                                                        if (item.id === id) {
+                                                            arr[index].open = true;
+                                                        }
+                                                    });
+                                                    setItemsCategory([...itemsCategory]);
+                                                }}
+                                                className="list__item-boxIcons-icon"
+                                                src="/img/UI/edit.svg"
+                                                alt=""
+                                            />
+                                            <img
+                                                onClick={() => clickDelete(main)}
+                                                className="list__item-boxIcons-icon"
+                                                src="/img/UI/delete.svg"
+                                                alt=""
+                                            />
+                                        </>
+                                    )}
                                 </div>
                             </div>
                             {open && children.length > 0 && (
                                 <ul className="list__extra">
-                                    {children.map((item, index) => (
-                                        editItem && editItem?.id === id ? <input
-                                            value={editItem?.children[index]}
-                                            onChange={e => {
-                                                let arr = [...editItem?.children]
-                                                arr[index] = e.target.value
-                                                setEditItem(prev => ({...prev, children: [...arr]}))
-                                            }}
-                                             style={{
-                                                marginTop: "12px",
-                                                marginLeft: "45px",
-                                                maxWidth: "150px"
-                                            }}/> : <li className="list__extra-item">{item}</li>
-                                    ))}
+                                    {children.map((item, index) =>
+                                        editItem && editItem?.id === id ? (
+                                            <input
+                                                value={editItem?.children[index]}
+                                                onChange={e => {
+                                                    let arr = [...editItem?.children];
+                                                    arr[index] = e.target.value;
+                                                    setEditItem(prev => ({ ...prev, children: [...arr] }));
+                                                }}
+                                                style={{
+                                                    marginTop: "12px",
+                                                    marginLeft: "45px",
+                                                    maxWidth: "150px",
+                                                }}
+                                            />
+                                        ) : (
+                                            <li className="list__extra-item">{item}</li>
+                                        ),
+                                    )}
                                 </ul>
                             )}
                         </>

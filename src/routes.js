@@ -34,6 +34,7 @@ import AdminPanelDuplicates from "./pages/Platform/AdminPanel/AdminPanelDuplicat
 import AdminPanelCreateOrder from "./pages/Platform/AdminPanel/AdminPanelCreateOrder";
 import AdminPanelEditOrder from "./pages/Platform/AdminPanel/AdminPanelEditOrder";
 import RememberPassword from "./pages/Platform/RememberPassword";
+import LandingDocs from "./pages/Landing/LandingDocs";
 
 const routes = createBrowserRouter([
     {
@@ -59,6 +60,10 @@ const routes = createBrowserRouter([
     {
         path: "/landing",
         element: <Landing />,
+    },
+    {
+        path: "/landing/docs/:document_type",
+        element: <LandingDocs />,
     },
     {
         path: "/platform",
@@ -146,8 +151,12 @@ const routes = createBrowserRouter([
                 path: "rejections",
                 element: <AdminPanelRejections />,
             },
+            // {
+            //     path: "duplicates",
+            //     element: <AdminPanelDuplicates />,
+            // },
             {
-                path: "duplicates",
+                path: "duplicates/:ordersIDs",
                 element: <AdminPanelDuplicates />,
             },
             {

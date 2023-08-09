@@ -17,8 +17,7 @@ const AdminPanelEditUser = () => {
     const params = useParams();
 
     const [currentCategories, setCurrentCategories] = useState([["", "", ""]]);
-    const [regionCountry, setRegionCountry] = useState();
-    const [regionCity, setRegionCity] = useState();
+    const [currentRegions, setCurrentRegions] = useState([["", ""]]);
     const [organization, setOrganization] = useState();
     const [accessOpenOrders, setAccessOpenOrders] = useState(false);
 
@@ -62,8 +61,7 @@ const AdminPanelEditUser = () => {
                     access_to_open: data.access_to_open,
                     balance: data.balance,
                 }));
-                setRegionCountry(data.region[0])
-                setRegionCity(data.region[1])
+                setCurrentRegions(data.region)
                 setCurrentCategories(data.business_line)
                 for (const item of document.getElementsByClassName("checkbox__input")) {
                     if (data.access_to_open) {
@@ -90,10 +88,25 @@ const AdminPanelEditUser = () => {
     }, []);
 
     useEffect(() => {
-        setNewUser(prev => ({ ...prev, access_to_open: accessOpenOrders, region: [regionCountry, regionCity], organization, business_line: currentCategories }));
-    }, [regionCountry, accessOpenOrders, regionCity, organization, currentCategories]);
+        setNewUser(prev => ({ ...prev, access_to_open: accessOpenOrders, region: [...currentRegions], organization, business_line: currentCategories }));
+    }, [accessOpenOrders, organization, currentCategories, currentRegions]);
 
-    const getRegion = type => {
+    // const getRegion = type => {
+    //     let arr = [];
+    //     if (type === "country") {
+    //         regions.map(({ country }) => {
+    //             if (!arr.includes(country)) arr.push(country);
+    //         });
+    //     }
+    //     if (type === "city") {
+    //         regions.map(({ country, city }) => {
+    //             if (country === regionCountry) arr.push(city);
+    //         });
+    //     }
+    //     return arr;
+    // };
+
+    const getRegion = (type, index) => {
         let arr = [];
         if (type === "country") {
             regions.map(({ country }) => {
@@ -102,7 +115,7 @@ const AdminPanelEditUser = () => {
         }
         if (type === "city") {
             regions.map(({ country, city }) => {
-                if (country === regionCountry) arr.push(city);
+                if (country === currentRegions[index][0]) arr.push(city);
             });
         }
         return arr;
@@ -153,8 +166,7 @@ const AdminPanelEditUser = () => {
         })
         setOrganization()
         setAccessOpenOrders(false)
-        setRegionCountry()
-        setRegionCity()
+        setCurrentRegions([["", ""]])
         setCurrentCategories([["", "", ""]])
         for (const elem of document.querySelectorAll(".checkbox__input")) {
             elem.checked = false
@@ -194,8 +206,7 @@ const AdminPanelEditUser = () => {
                         access_to_open: data.access_to_open,
                         balance: data.balance,
                     }));
-                    setRegionCountry(data.region[0])
-                    setRegionCity(data.region[1])
+                    setCurrentRegions(data.region)
                     setCurrentCategories(data.business_line)
                     for (const item of document.getElementsByClassName("checkbox__input")) {
                         if (data.access_to_open) {
@@ -281,23 +292,47 @@ const AdminPanelEditUser = () => {
                         </div>
                         <div className="order__row">
                             <div className="order__row-title">Регион:</div>
-                            <div className="order__row-text">
-                                <DropdownList
-                                    startValue={regionCountry}
-                                    curVal={resetCurrentValueDropdown}
-                                    setCurVal={() => setResentCurrentValueDropdown(false)}
-                                    values={getRegion("country")}
-                                    itemClick={arg => setRegionCountry(arg)}
-                                />
-                                {regionCountry && (
-                                    <DropdownList
-                                        startValue={regionCity}
-                                        curVal={resetCurrentValueDropdown}
-                                        setCurVal={() => setResentCurrentValueDropdown(false)}
-                                        values={getRegion("city")}
-                                        itemClick={arg => setRegionCity(arg)}
-                                    />
-                                )}
+                            <div className="order__row-text-businessLine">
+                                {currentRegions.map((item, index) => (
+                                    <div class="order__row-text-businessLine-line">
+                                        <DropdownList
+                                        startValue={item[0]}
+                                            curVal={resetCurrentValueDropdown}
+                                            setCurVal={() => setResentCurrentValueDropdown(false)}
+                                            values={getRegion("country")}
+                                            itemClick={arg => {
+                                                let arr = [...currentRegions]
+                                                arr[index][0] = arg
+                                                setCurrentRegions(arr)
+                                            }}
+                                        />
+                                        {currentRegions[index][0] && (
+                                            <DropdownList
+                                            startValue={item[1]}
+                                                curVal={resetCurrentValueDropdown}
+                                                setCurVal={() => setResentCurrentValueDropdown(false)}
+                                                values={getRegion("city", index)}
+                                                itemClick={arg => {
+                                                let arr = [...currentRegions]
+                                                arr[index][1] = arg
+                                                setCurrentRegions(arr)
+                                            }}
+                                            />
+                                        )}
+                                        {currentRegions.at(-1)[0] &&
+                                                currentRegions.at(-1)[1] &&
+                                                index === currentRegions.length - 1 && (
+                                                    <img
+                                                        className="order__row-text-add"
+                                                        src="/img/filters/plus.svg"
+                                                        alt=""
+                                                        onClick={() =>
+                                                            setCurrentRegions([...currentRegions, ["", ""]])
+                                                        }
+                                                    />
+                                                )}
+                                    </div>
+                                ))}
                             </div>
                         </div>
                         <div className="order__row">

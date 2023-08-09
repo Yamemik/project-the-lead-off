@@ -89,6 +89,17 @@
     row-gap: 30px;
     &__row {
         display: flex;
+        textarea {
+            width: 100%;
+            border: 1px solid #D6DCF1;
+            border-radius: 7px;
+            height: 120px;
+            padding: 18px 24px;
+            line-height: 130%;
+            &:focus {
+                border-color: #bcc4e1;
+            }
+        }
         & + & {
             position: relative;
             &::before {
@@ -112,6 +123,15 @@
         &-text, pre {
             flex: 1 1 85%;
             color: #3173B0;
+            &--uploads {
+                display: flex;
+                align-items: center;
+                gap: 10px 30px;
+                p {
+                    line-height: 18px;
+                    color: #3173B0;
+                }
+            }
         }
     }
     &__buttons {

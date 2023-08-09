@@ -1,0 +1,52 @@
+.modalWindow {
+    background-color: rgba(#1F2A37, 25%);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    &__body {
+        background-color: #fff;
+        border-radius: 20px;
+        padding: 50px 100px;
+        max-width: 580px;
+        h1 {
+            font-size: 24px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 120%;
+        }
+        &-buttons {
+            display: flex;
+            align-items: start;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+            button {
+                height: 52px;
+            }
+            &--column {
+                flex-direction: column;
+                align-items: stretch;
+                button, a {
+                    text-align: center;
+                    width: 100%;
+                    justify-content: center;
+                }
+                .button + .button {
+                    margin-top: 10px;
+                }
+            }
+        }
+        input {
+            width: 100%;
+            max-width: unset;
+        }
+    }
+}

@@ -5,6 +5,8 @@ import { useEffect, useState } from "react";
 import TableRow from "../TableRow";
 import TableAdminPanel from "../TableAdminPanel";
 
+import getDifferenceBetweenTwoDates from "../../utils/getDifferenceBetweenTwoDates";
+
 const Pagination = ({
     items,
     itemsPerPage = 1,
@@ -19,12 +21,17 @@ const Pagination = ({
     setNewData_parent_2,
     clickSee,
     clickDelete,
-    clickEdit
+    clickEdit,
+    clickYes,
+    clickNo,
+    isDuplicatesTable,
+    setRejectPopup,
+    setRejectID
 }) => {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
     const [offset, setOffset] = useState(0);
-
+    
     useEffect(() => {
         if (window.innerWidth <= 1280 && !isAdminPanelTable) {
             const endOffset = offset + 1;
@@ -36,7 +43,7 @@ const Pagination = ({
             setPageCount(Math.ceil(items.length / itemsPerPage));
         }
     }, [items, offset, itemsPerPage]);
-
+    
     const handlePageClick = e => {
         if (window.innerWidth <= 1280 && !isAdminPanelTable) {
             const newOffset = (e.selected * 1) % items.length;
@@ -46,16 +53,17 @@ const Pagination = ({
             setOffset(newOffset);
         }
     };
-
+    
     const getAdditions = item => {
-        let arr = []
-        if (item?.type_buyer?.includes("частная")) arr.push("private")
-        if (item?.type_buyer?.includes("государственная")) arr.push("state")
-        if (item?.type_order?.includes("тендер")) arr.push("tender")
-        if (item?.is_urgent === "да") arr.push("urgent")
+        let arr = [];
+        if (item?.type_buyer?.includes("частная")) arr.push("private");
+        if (item?.type_buyer?.includes("государственная")) arr.push("state");
+        if (item?.type_order?.includes("тендер")) arr.push("tender");
+        if (item?.is_urgent === "да") arr.push("urgent");
+        if (getDifferenceBetweenTwoDates(item?.createdAt, new Date()) < 24) arr.push("express");
         if (isCanBuy) arr.push("cart");
         if (isCanSale) arr.push("sale");
-        if (isCanClose) arr.push("close");
+        if (isCanClose && (getDifferenceBetweenTwoDates(item?.date_buy, new Date()) < 24)) arr.push("close");
         return arr;
     };
 
@@ -74,6 +82,9 @@ const Pagination = ({
                         clickSee={userID => clickSee(userID)}
                         clickDelete={userID => clickDelete(userID)}
                         clickEdit={userID => clickEdit(userID)}
+                        clickYes={itemID => clickYes(itemID)}
+                        clickNo={itemID => clickNo(itemID)}
+                        isDuplicatesTable={isDuplicatesTable}
                     />
                 ) : (
                     currentItems.map(item => (
@@ -86,10 +97,14 @@ const Pagination = ({
                             region={item.region}
                             estimation={item.score}
                             price={item.price}
+                            numberOrder={item.number_order}
                             additions={getAdditions(item)}
                             isHaveDateDelete={isHaveDateDelete}
+                            dateDeleteArchive={new Date(item.is_archive_date).toLocaleDateString()}
                             isHaveStatus={isHaveStatus}
-                            status={item.status}
+                            status={item.status ? "approved" : "rejected"} // сюда нужно передать статус для одобрено / отказано
+                            setRejectPopup={setRejectPopup}
+                            setRejectID={id => setRejectID(id)}
                         />
                     ))
                 ))}

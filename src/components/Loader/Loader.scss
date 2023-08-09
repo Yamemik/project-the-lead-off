@@ -12,7 +12,7 @@
     align-items: center;
     justify-content: center;
     &--animated {
-        animation: fade 1s 2s forwards;
+        animation: fade .75s .25s forwards;
     }
     &__box {
         padding-bottom: 50px;

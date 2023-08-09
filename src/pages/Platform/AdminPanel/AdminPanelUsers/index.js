@@ -6,6 +6,7 @@ import Pagination from "../../../../components/Pagination";
 import axios from "../../../../utils/axios";
 import sliceBigString from "../../../../utils/sliceBigString";
 import getFormatUserTelephone from "../../../../utils/getFormatUserTelephone";
+import getUserRegionsLine from "../../../../utils/getUserRegionsLine";
 
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
@@ -30,7 +31,7 @@ const AdminPanelUsers = () => {
         axios
             .get("/api/admin/user")
             .then(({ data }) => {
-                data.map(user =>
+                data.reverse().map(user =>
                     setUsers(prev => [
                         ...prev,
                         {
@@ -40,7 +41,7 @@ const AdminPanelUsers = () => {
                             login: user.email,
                             FIO: user.fio,
                             phone: getFormatUserTelephone(user.telephone),
-                            region: user.region.join(" / "),
+                            region: getUserRegionsLine(user.region),
                             balance: user.balance,
                             category: getAllBusinessLines(user.business_line),
                         },
@@ -59,7 +60,7 @@ const AdminPanelUsers = () => {
                     .get("/api/admin/user")
                     .then(({ data }) => {
                         setUsers([]);
-                        data.map(user =>
+                        data.reverse().map(user =>
                             setUsers(prev => [
                                 ...prev,
                                 {
@@ -92,7 +93,7 @@ const AdminPanelUsers = () => {
             searchQuery={searchQuery}
             setSearchQuery={value => setSearchQuery(value)}>
             <LayoutBlocks>
-                <LayoutBlock>
+                <LayoutBlock isOverflowHidden>
                     {users.length > 0 && (
                         <Pagination
                             head={[

@@ -1,203 +1,69 @@
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import LayoutPage from "../../../../components/Layouts/LayoutPage";
 import LayoutBlocks from "../../../../components/Layouts/LayoutBlocks";
 import LayoutBlock from "../../../../components/Layouts/LayoutBlock";
-import Button from "../../../../components/UI/Button";
-import Draggable from "react-draggable";
+
+import axios from "../../../../utils/axios";
+import getDifferenceBetweenTwoDates from "../../../../utils/getDifferenceBetweenTwoDates";
+import Pagination from "../../../../components/Pagination";
 
 const AdminPanelDuplicates = () => {
-    const data = [
-        {
-            id: 1,
-            create_date: "23.04.2023",
-            login: "Строй. материалы",
-            FIO: "Лаки и краски",
-            phone: "Москва",
-            region: "Крупная",
-            balance: "900 руб.",
-            category: "Новая",
-        },
-        {
-            id: 1,
-            create_date: "23.04.2023",
-            login: "Строй. материалы",
-            FIO: "Лаки и краски",
-            phone: "Москва",
-            region: "Крупная",
-            balance: "900 руб.",
-            category: "Новая",
-        },
-        {
-            id: 1,
-            create_date: "23.04.2023",
-            login: "Строй. материалы",
-            FIO: "Лаки и краски",
-            phone: "Москва",
-            region: "Крупная",
-            balance: "900 руб.",
-            category: "Новая",
-        },
-    ];
+    const params = useParams()
+
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        axios
+            .get("/api/admin/order")
+            .then(({ data }) => {
+                data.map(order => {
+                    if (params.ordersIDs.split("$").includes(order._id)) {
+                        setOrders(prev => [
+                            ...prev,
+                            {
+                                _id: order._id,
+                                id: order.number_order,
+                                create_date: new Date(order.createdAt).toLocaleDateString(),
+                                login: `${order.nomeclature[0][0]} / ${order.nomeclature[0][1]}`,
+                                FIO: order.nomeclature[0][2],
+                                region: order.score,
+                                phone: order.region.join(" / "),
+                                balance: `${order.price} руб.`,
+                                category:
+                                    getDifferenceBetweenTwoDates(order.createdAt, new Date()) < 24 ? "Новая" : "Старая",
+                            },
+                        ]);
+                    }
+                })
+            })
+            .catch(err => console.log(err));
+    }, []);
 
     return (
-        <LayoutPage title="Работа с дублями" isDuplicatesTable>
+        <LayoutPage
+            title="Дубликаты">
             <LayoutBlocks>
                 <LayoutBlock>
-                    {window.innerWidth <= 1420 ? (
-                        <Draggable axis="x">
-                            <div className="tableAdminPanel tableAdminPanel--duplicates">
-                                <div className="tableAdminPanel__head">
-                                    {[
-                                        "ID",
-                                        "Дата создания",
-                                        "Товарная группа",
-                                        "Номенклатура",
-                                        "Регион",
-                                        "Оценка",
-                                        "Стоимость",
-                                        "Статус",
-                                    ].map(item => (
-                                        <div className="tableAdminPanel__head-item">{item}</div>
-                                    ))}
-                                </div>
-                                <div className="tableAdminPanel__duplicatesBox">
-                                    {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                        <div className="tableAdminPanel__row">
-                                            <div className="tableAdminPanel__row-item">{id}</div>
-                                            <div className="tableAdminPanel__row-item">{create_date}</div>
-                                            <div className="tableAdminPanel__row-item">{login}</div>
-                                            <div className="tableAdminPanel__row-item">{FIO}</div>
-                                            <div className="tableAdminPanel__row-item">{phone}</div>
-                                            <div className="tableAdminPanel__row-item">{region}</div>
-                                            <div className="tableAdminPanel__row-item">{balance}</div>
-                                            <div className="tableAdminPanel__row-item">{category}</div>
-                                            <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                                <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                                <img src="/img/UI/delete.svg" alt="Удалить" />
-                                            </div>
-                                            <div class="tableAdminPanel__row--bg"></div>
-                                        </div>
-                                    ))}
-                                    <Button text="Объединить" type="fill" />
-                                </div>
-                                <div className="tableAdminPanel__duplicatesBox">
-                                    {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                        <div className="tableAdminPanel__row">
-                                            <div className="tableAdminPanel__row-item">{id}</div>
-                                            <div className="tableAdminPanel__row-item">{create_date}</div>
-                                            <div className="tableAdminPanel__row-item">{login}</div>
-                                            <div className="tableAdminPanel__row-item">{FIO}</div>
-                                            <div className="tableAdminPanel__row-item">{phone}</div>
-                                            <div className="tableAdminPanel__row-item">{region}</div>
-                                            <div className="tableAdminPanel__row-item">{balance}</div>
-                                            <div className="tableAdminPanel__row-item">{category}</div>
-                                            <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                                <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                                <img src="/img/UI/delete.svg" alt="Удалить" />
-                                            </div>
-                                            <div class="tableAdminPanel__row--bg"></div>
-                                        </div>
-                                    ))}
-                                    <Button text="Объединить" type="fill" />
-                                </div>
-                                <div className="tableAdminPanel__duplicatesBox">
-                                    {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                        <div className="tableAdminPanel__row">
-                                            <div className="tableAdminPanel__row-item">{id}</div>
-                                            <div className="tableAdminPanel__row-item">{create_date}</div>
-                                            <div className="tableAdminPanel__row-item">{login}</div>
-                                            <div className="tableAdminPanel__row-item">{FIO}</div>
-                                            <div className="tableAdminPanel__row-item">{phone}</div>
-                                            <div className="tableAdminPanel__row-item">{region}</div>
-                                            <div className="tableAdminPanel__row-item">{balance}</div>
-                                            <div className="tableAdminPanel__row-item">{category}</div>
-                                            <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                                <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                                <img src="/img/UI/delete.svg" alt="Удалить" />
-                                            </div>
-                                            <div class="tableAdminPanel__row--bg"></div>
-                                        </div>
-                                    ))}
-                                    <Button text="Объединить" type="fill" />
-                                </div>
-                            </div>
-                        </Draggable>
-                    ) : (
-                        <div className="tableAdminPanel tableAdminPanel--duplicates">
-                            <div className="tableAdminPanel__head">
-                                {[
-                                    "ID",
-                                    "Дата создания",
-                                    "Товарная группа",
-                                    "Номенклатура",
-                                    "Регион",
-                                    "Оценка",
-                                    "Стоимость",
-                                    "Статус",
-                                ].map(item => (
-                                    <div className="tableAdminPanel__head-item">{item}</div>
-                                ))}
-                            </div>
-                            <div className="tableAdminPanel__duplicatesBox">
-                                {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                    <div className="tableAdminPanel__row">
-                                        <div className="tableAdminPanel__row-item">{id}</div>
-                                        <div className="tableAdminPanel__row-item">{create_date}</div>
-                                        <div className="tableAdminPanel__row-item">{login}</div>
-                                        <div className="tableAdminPanel__row-item">{FIO}</div>
-                                        <div className="tableAdminPanel__row-item">{phone}</div>
-                                        <div className="tableAdminPanel__row-item">{region}</div>
-                                        <div className="tableAdminPanel__row-item">{balance}</div>
-                                        <div className="tableAdminPanel__row-item">{category}</div>
-                                        <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                            <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                            <img src="/img/UI/delete.svg" alt="Удалить" />
-                                        </div>
-                                        <div class="tableAdminPanel__row--bg"></div>
-                                    </div>
-                                ))}
-                                <Button text="Объединить" type="fill" />
-                            </div>
-                            <div className="tableAdminPanel__duplicatesBox">
-                                {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                    <div className="tableAdminPanel__row">
-                                        <div className="tableAdminPanel__row-item">{id}</div>
-                                        <div className="tableAdminPanel__row-item">{create_date}</div>
-                                        <div className="tableAdminPanel__row-item">{login}</div>
-                                        <div className="tableAdminPanel__row-item">{FIO}</div>
-                                        <div className="tableAdminPanel__row-item">{phone}</div>
-                                        <div className="tableAdminPanel__row-item">{region}</div>
-                                        <div className="tableAdminPanel__row-item">{balance}</div>
-                                        <div className="tableAdminPanel__row-item">{category}</div>
-                                        <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                            <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                            <img src="/img/UI/delete.svg" alt="Удалить" />
-                                        </div>
-                                        <div class="tableAdminPanel__row--bg"></div>
-                                    </div>
-                                ))}
-                                <Button text="Объединить" type="fill" />
-                            </div>
-                            <div className="tableAdminPanel__duplicatesBox">
-                                {data.map(({ id, create_date, login, FIO, phone, region, balance, category }) => (
-                                    <div className="tableAdminPanel__row">
-                                        <div className="tableAdminPanel__row-item">{id}</div>
-                                        <div className="tableAdminPanel__row-item">{create_date}</div>
-                                        <div className="tableAdminPanel__row-item">{login}</div>
-                                        <div className="tableAdminPanel__row-item">{FIO}</div>
-                                        <div className="tableAdminPanel__row-item">{phone}</div>
-                                        <div className="tableAdminPanel__row-item">{region}</div>
-                                        <div className="tableAdminPanel__row-item">{balance}</div>
-                                        <div className="tableAdminPanel__row-item">{category}</div>
-                                        <div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
-                                            <img src="/img/UI/edit.svg" alt="Редактировать" />
-                                            <img src="/img/UI/delete.svg" alt="Удалить" />
-                                        </div>
-                                        <div class="tableAdminPanel__row--bg"></div>
-                                    </div>
-                                ))}
-                                <Button text="Объединить" type="fill" />
-                            </div>
-                        </div>
+                    {orders.length > 0 && (
+                        <Pagination
+                            items={orders}
+                            itemsPerPage={5}
+                            isAdminPanelTable
+                            isDuplicatesTable={true}
+                            head={[
+                                "ID",
+                                "Дата создания",
+                                "Товарная группа",
+                                "Номенклатура",
+                                "Регион",
+                                "Оценка",
+                                "Стоимость",
+                                "Статус",
+                            ]}
+                            clickSee={userID =>  window.location.href = `/platform/admin-panel/order/${userID}`}
+                        />
                     )}
                 </LayoutBlock>
             </LayoutBlocks>

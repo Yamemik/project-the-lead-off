@@ -26,7 +26,7 @@ const Checkbox = ({ text = "Чекбокс", children, addClass, data_group, cli
                 data-group={data_group}
                 data-text={text}
             />
-            <label className="checkbox__label" for={randomString} onClick={click}>
+            <label data-text={text} className="checkbox__label" for={randomString} onClick={click}>
                 {children ? children : text}
             </label>
         </div>

@@ -31,25 +31,25 @@
                 flex: 0 1 4%;
             }
             &:nth-child(2) {
-                flex: 0 1 13%;
+                flex: 0 1 11%;
             }
             &:nth-child(3) {
                 flex: 0 1 13%;
             }
             &:nth-child(4) {
-                flex: 0 1 16%;
+                flex: 0 1 14%;
             }
             &:nth-child(5) {
-                flex: 0 1 14%;
+                flex: 0 1 10%;
             }
             &:nth-child(6) {
                 flex: 0 1 10%;
             }
             &:nth-child(7) {
-                flex: 0 1 9%; //75
+                flex: 0 1 7%; //75
             }
             &:nth-child(8) {
-                flex: 0 1 15%;
+                flex: 0 1 18%;
             }
             &:nth-child(9) {
                 flex: 1 1 auto;
@@ -105,7 +105,7 @@
     }
 }
 
-@media(max-width: 1420px) {
+@media(max-width: 1669px) {
     .tableAdminPanel {
         min-width: fit-content;
         &__head,

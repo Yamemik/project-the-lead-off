@@ -14,6 +14,9 @@ const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <Provider store={store}>
         <Toaster
+            containerStyle={{
+                zIndex: 100000
+            }}
             position="bottom-right"
             toastOptions={{
                 success: {

@@ -1,0 +1,200 @@
+.footerLanding {
+    position: relative;
+    &__banner {
+        position: absolute;
+        transform: translateY(-50%);
+        left: 0;
+        right: 0;
+        border-radius: 30px;
+        background: #4799e4;
+        display: flex;
+        align-items: center;
+        padding: 31px 100px 15px 26px !important;
+        &-info {
+            margin-left: 20px;
+            margin-right: auto;
+            &-title, &-text {
+                color: #fff;
+                line-height: normal;
+            }
+            &-title {
+                font-size: 40px;
+                font-weight: 800;
+                margin-bottom: 16px;
+            }
+            &-text {
+                font-size: 20px;
+                padding-bottom: 16px;
+            }
+        }
+        &-infoMobile {
+            display: none;
+        }
+    }
+    &__main {
+        background-color: #1F2A37;
+        padding: 140px 0 50px;
+        .containerLanding {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        &-about {
+            &-logo {
+                svg {
+                    cursor: pointer;
+                }
+                &-bottom {
+                    color: #CDD5DC;
+                    margin-top: 6px;
+                }
+            }
+            &-rightsReserved {
+                color: #5F6884;
+                margin-top: 35px;
+                &--mobile {
+                    display: none;
+                }
+            }
+        }
+        &-menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 80px;
+            &-link {
+                color: #fff;
+                font-weight: 500;
+                &:hover {
+                    opacity: .75;
+                }
+            }
+        }
+        &-contacts {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            &-row {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                &-text {
+                    font-weight: 500;
+                    color: #fff;
+                }
+            }
+        }
+    }
+    &__bottom {
+        background-color: #1C2633;
+        .containerLanding {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 50px;
+        }
+        &-link {
+            color: #5F6884;
+            font-weight: 500;
+            line-height: normal;
+            &:hover {
+                color: #fff;
+            }
+        }
+    }
+}
+
+@media(max-width: 1440px) {
+    .footerLanding {
+        &__banner {
+            width: 92%;
+        }
+        &__main {
+            .containerLanding {
+                justify-content: space-evenly;
+            }
+        }
+    }
+}
+
+@media(max-width: 1280px) {
+    .footerLanding {
+        &__banner {
+            padding: 30px !important;
+                &-info {
+                    margin: unset;
+                    text-align: center;
+                    &-text {
+                        padding-bottom: 20px;
+                    }
+                }
+            > .footerLanding__banner-info, > .bannerLanding__info-link {
+                display: none;
+            }
+            &-infoMobile {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex-grow: 1;
+            }
+        }
+    }
+}
+
+@media(max-width: 1000px) {
+    .footerLanding {
+        &__banner {
+            &-info {
+                &-title {
+                    font-size: 26px;
+                }
+                &-text {
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width: 740px) {
+    .footerLanding {
+        &__banner {
+            overflow: hidden;
+            &-diamond {
+                position: absolute;
+                left: 0;
+                transform: translateX(-25%);
+            }
+        }
+        &__main {
+            padding: 165px 15px 30px 15px;
+            .containerLanding {
+                flex-direction: column;
+                text-align: center;
+                padding: 0;
+            }
+            &-about {
+                &-rightsReserved {
+                    display: none;
+                    &--mobile {
+                        display: block;
+                    }
+                }
+            }
+            &-contacts {
+                align-items: center;
+                margin-top: 30px;
+            }
+        }
+        &__bottom {
+            padding: 20px;
+            .containerLanding {
+                flex-direction: column;
+                height: unset;
+            }
+            &-link + &-link {
+                margin-top: 20px;
+            }
+        }
+    }
+}

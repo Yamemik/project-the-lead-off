@@ -53,3 +53,16 @@ button {
 #root {
     position: relative;
 }
+
+.react-tooltip {
+    font-size: 12px !important;
+    letter-spacing: 0.05em !important;
+    padding: 8px 12px !important;
+    background: rgb(118, 116, 116) !important;
+    &-arrow {
+        // display: none;
+        &::after {
+            border-color: rgb(118, 116, 116) !important;
+        }
+    }
+}

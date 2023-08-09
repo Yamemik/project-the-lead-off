@@ -5,19 +5,24 @@ const FinanceTable = ({ data, type }) => {
         <div className="financeTable">
             <div className="financeTable-row financeTable-row--title">
                 <div className="financeTable-row-text">Дата</div>
-                <div className="financeTable-row-text">Стоимость заявки</div>
-                <div className="financeTable-row-text">
-                    {
-                        type === "offs" ? "ID заявки" : "Изменение баланса"
-                    }
-                </div>
+                <div className="financeTable-row-text">Сумма</div>
+                <div className="financeTable-row-text">{type === "offs" ? "ID заявки" : "Статус платежа"}</div>
             </div>
-            {data.map(({ time, price, id }) => (
+            {data.map(({ time, price, id, _id }) => (
                 <div className="financeTable-row financeTable-row--content">
                     <div className="financeTable-row-text">{time}</div>
                     <div className="financeTable-row-text">{price} руб.</div>
                     <div className="financeTable-row-text">
-                        {type === "offs" ? <span className="financeTable-row-text-id">{id}</span> : price + ' руб.'}
+                        {type === "offs" ? (
+                            <span className="financeTable-row-text-id" onClick={() => window.location.href = `/platform/order/${_id}`}>{id}</span>
+                        ) : (
+                            <span
+                                className={`financeTable-row-text-status financeTable-row-text-status${
+                                    id === "Успешно" ? "--succeded" : id === "Неуспешно" ? "--canceled" : "--process"
+                                }`}>
+                                {id}
+                            </span>
+                        )}
                     </div>
                 </div>
             ))}

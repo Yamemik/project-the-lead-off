@@ -5,6 +5,7 @@ import Button from "../../../../components/UI/Button";
 import Input from "../../../../components/UI/Input";
 import Checkbox from "../../../../components/UI/Checkbox";
 import DropdownList from "../../../../components/UI/DropdownList";
+import ModalWindow from "../../../../components/ModalWindow";
 
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -35,6 +36,7 @@ const AdminPanelEditOrder = () => {
 
     const [openUploads, setOpenUploads] = useState([]);
     const [closeUploads, setCloseUploads] = useState([]);
+    const [deleteOrderPopup, setDeleteOrderPopup] = useState(false)
 
     const [resetCurrentValueDropdown, setResentCurrentValueDropdown] = useState(false);
 
@@ -103,50 +105,112 @@ const AdminPanelEditOrder = () => {
     }, []);
 
     const handleSaveOrder = () => {
-        const formDataOpen = new FormData();
-        const formDataClose = new FormData();
-        const allUploads = [];
-        openUploads.map(({ file }) => {
-            formDataOpen.append("file", file);
-        });
-        closeUploads.map(({ file }) => {
-            formDataClose.append("file", file);
-        });
-        try {
-            axios
-                .post("/api/admin/uploads", formDataOpen, {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                    },
-                })
-                .then(({ data }) => {
-                    data.map(file => allUploads.push({ ...file, open: true }));
-                    axios
-                        .post("/api/admin/uploads", formDataClose, {
-                            headers: {
-                                "Content-Type": "multipart/form-data",
-                            },
+        // const formDataOpen = new FormData();
+        // const formDataClose = new FormData();
+        // const allUploads = [];
+        // openUploads.map(({ file }) => {
+        //     formDataOpen.append("file", file);
+        // });
+        // closeUploads.map(({ file }) => {
+        //     formDataClose.append("file", file);
+        // });
+        // try {
+        //     axios
+        //         .post("/api/admin/uploads", formDataOpen, {
+        //             headers: {
+        //                 "Content-Type": "multipart/form-data",
+        //             },
+        //         })
+        //         .then(({ data }) => {
+        //             data.map(file => allUploads.push({ ...file, open: true }));
+        //             axios
+        //                 .post("/api/admin/uploads", formDataClose, {
+        //                     headers: {
+        //                         "Content-Type": "multipart/form-data",
+        //                     },
+        //                 })
+        //                 .then(({ data }) => {
+        //                     data.map(file => allUploads.push({ ...file, open: false }));
+        //                     axios
+        //                         .post("/api/admin/order", { ...newOrder, upload: [...allUploads] })
+        //                         .then(_ => {
+        //                             toast.success("Заявка создана");
+        //                             handleResetOrder();
+        //                         })
+        //                         .catch(_ => toast.error("Ошибка при создании заявки"));
+        //                 })
+        //                 .catch(_ => {
+        //                     toast.error("Невозможно загрузить закрытые вложения");
+        //                 });
+        //         })
+        //         .catch(_ => {
+        //             toast.error("Невозможно загрузить открытые вложения");
+        //         });
+        // } catch {
+        //     toast.error("Невозможно загрузить вложения");
+        // }
+        axios
+            .patch(`/api/admin/order/${params.id}`, newOrder)
+            .then(_ => {
+                toast.success("Заявка обновлена")
+                for (const item of document.getElementsByClassName("checkbox__input")) {
+                    item.checked = false
+                }
+                axios
+                    .get(`/api/user/order/${params.id}`)
+                    .then(({ data }) => {
+                        setNewOrder({
+                            nomeclature: data.nomeclature,
+                            region: data.region,
+                            text: data.text,
+                            upload: data.upload,
+                            fio: data.fio,
+                            email: data.email,
+                            telephone: data.telephone,
+                            score: data.score,
+                            type_buyer: data.type_buyer,
+                            type_order: data.type_order,
+                            is_urgent: data.is_urgent,
+                            is_open: data.is_open,
                         })
-                        .then(({ data }) => {
-                            data.map(file => allUploads.push({ ...file, open: false }));
-                            axios
-                                .post("/api/admin/order", { ...newOrder, upload: [...allUploads] })
-                                .then(_ => {
-                                    toast.success("Заявка создана");
-                                    handleResetOrder();
-                                })
-                                .catch(_ => toast.error("Ошибка при создании заявки"));
-                        })
-                        .catch(_ => {
-                            toast.error("Невозможно загрузить закрытые вложения");
-                        });
-                })
-                .catch(_ => {
-                    toast.error("Невозможно загрузить открытые вложения");
-                });
-        } catch {
-            toast.error("Невозможно загрузить вложения");
-        }
+                        for (const item of document.getElementsByClassName("checkbox__input")) {
+                            if (data.is_urgent === "да") {
+                                if (item.getAttribute("data-text") === "да") {
+                                    item.checked = true;
+                                }
+                            } else {
+                                if (item.getAttribute("data-text") === "нет") {
+                                    item.checked = true;
+                                }
+                            }
+                            if (data.type_order === "прямая") {
+                                if (item.getAttribute("data-text") === "прямая") {
+                                    item.checked = true;
+                                }
+                            } else {
+                                if (item.getAttribute("data-text") === "тендер") {
+                                    item.checked = true;
+                                }
+                            }
+                            if (data.type_buyer === "частная организация") {
+                                if (item.getAttribute("data-text") === "частная организация") {
+                                    item.checked = true;
+                                }
+                            } else if (data.type_buyer === "неизвестно") {
+                                if (item.getAttribute("data-text") === "неизвестно") {
+                                    item.checked = true;
+                                }
+                            } else {
+                                if (item.getAttribute("data-text") === "государственная организация") {
+                                    item.checked = true;
+                                }
+                            }
+                        }
+                        setCurrentNumberOrder(data.number_order)
+                    })
+                    .catch(err => console.log(err));
+                    })
+            .catch(_ => toast.error("Не удалось обновить заявку"))
     };
 
     const handleResetOrder = () => {
@@ -172,8 +236,21 @@ const AdminPanelEditOrder = () => {
         }
     };
 
+    const deleteOrder = () => {
+        axios
+            .delete(`/api/admin/order/${params.id}`)
+            .then(_ => {
+                setDeleteOrderPopup(false)
+                toast.success("Заявка удалена");
+                setTimeout(() => {
+                    window.location.href = "/platform/admin-panel/orders"
+                }, 1200)
+            })
+            .catch(_ => toast.error("Ошибка при удалении заявки"));
+    }
+
     const handleDeleteOrder = () => {
-        
+        setDeleteOrderPopup(true)
     }
 
     const getCategories = level => {
@@ -476,6 +553,13 @@ const AdminPanelEditOrder = () => {
                 <Button text="Удалить заявку" click={handleDeleteOrder}/>
                 <Button type="fill" text="Сохранить" click={handleSaveOrder}/>
             </div>
+            <ModalWindow trigger={deleteOrderPopup}>
+                <h1>Вы уверены, что хотите удалить заявку?</h1>
+                <div className="modalWindow__body-buttons">
+                    <Button text="Подтвердить" type="fill" click={deleteOrder} />
+                    <Button text="Отменить" click={() => setDeleteOrderPopup(false)} />
+                </div>
+            </ModalWindow>
         </LayoutPage>
     );
 };

@@ -7,30 +7,74 @@ import Button from "./../../../components/UI/Button";
 import FinanceTable from "../../../components/FinanceTable";
 import { useEffect } from "react";
 import axios from "../../../utils/axios";
-import uuid from "react-uuid";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
+import Loader from "../../../components/Loader";
 
 const Profile = () => {
+    const [depositSum, setDepositSum] = useState("");
+
+    const [offsItems, setOffsItems] = useState([]);
+    const [offsItemsOffset, setOffsItemsOffset] = useState(5);
+
+    const [refillItems, setRefillItems] = useState([]);
+    const [refillItemsOffset, setRefillItemsOffset] = useState(5);
+
+    const [isLoading, setIsLoading] = useState(true);
+
     useEffect(() => {
         axios
-            .get("/api/user/me")
-            .then(res => {
-                localStorage.setItem(
-                    "user",
-                    JSON.stringify(Object.assign({}, res.data, JSON.parse(localStorage.getItem("user")))),
-                );
+            .get("/api/user/me/ukassa/getall")
+            .then(({ data }) => {
+                axios
+                    .get("/api/user/me")
+                    .then(res => {
+                        let arr = [];
+                        let arr_2 = [];
+
+                        data.map(item => {
+                            if (item.payment.status !== "buy" && item.payment.status !== "refund") {
+                                console.log(item);
+                                arr = [
+                                    ...arr,
+                                    {
+                                        time: new Date(item.createdAt).toLocaleDateString(),
+                                        price: item.payment.amount.value,
+                                        id:
+                                            item.status === "succeeded"
+                                                ? "Успешно"
+                                                : item.status === "canceled"
+                                                ? "Неуспешно"
+                                                : "В процессе",
+                                    },
+                                ];
+                            } else {
+                                arr_2 = [
+                                    ...arr_2,
+                                    {
+                                        time: new Date(item.createdAt).toLocaleDateString(),
+                                        price: item.payment.sum,
+                                        id: item.payment.order.number_order,
+                                        _id: item.payment.order._id,
+                                    },
+                                ];
+                            }
+                        });
+
+                        setOffsItems(arr_2.reverse());
+                        setRefillItems(arr.reverse());
+
+                        localStorage.setItem(
+                            "user",
+                            JSON.stringify(
+                                Object.assign({}, res.data, { token: JSON.parse(localStorage.getItem("user")).token }),
+                            ),
+                        );
+
+                        setIsLoading(false);
+                    })
+                    .catch(err => console.log(err));
             })
-            .catch(err => console.log(err));
-        axios
-            .post(
-                "/api/user/me/ukassa",
-                {
-                    amount: "150.00",
-                    capture: true,
-                    type: "redirect",
-                    return_url: "http://localhost:3000/platform/profile"
-                },
-            )
-            .then(res => console.log(res))
             .catch(err => console.log(err));
     }, []);
 
@@ -41,14 +85,45 @@ const Profile = () => {
 
     const getUserTelephone = () => {
         const telephone = JSON.parse(localStorage.getItem("user")).telephone;
-        return `+7 ${telephone.slice(1, 4)} ${telephone.slice(4, 7)} ${telephone.slice(7, 9)} ${telephone.slice(
-            9,
-            11,
+        return `+7 ${telephone.slice(2, 5)} ${telephone.slice(5, 8)} ${telephone.slice(8, 10)} ${telephone.slice(
+            10,
+            12,
         )}`;
+    };
+
+    const handleDeposit = () => {
+        for (const item of document.getElementsByClassName("checkbox__input")) {
+            if (!item.checked) {
+                toast.error("Согласитесь с офертой");
+            } else {
+                axios
+                    .post("/api/user/me/ukassa", {
+                        amount_value: depositSum,
+                        type: "redirect",
+                        return_url: "http://localhost:3000/platform/profile",
+                        description: "Пополнение счета LEAD-OFF",
+                        capture: true,
+                        metadata: {},
+                    })
+                    .then(({ data }) => {
+                        window.location.href = data.confirmation.confirmation_url;
+                    })
+                    .catch(err => console.log(err));
+            }
+        }
+    };
+
+    const getOffsHistory = () => {
+        return offsItems.slice(0, offsItemsOffset);
+    };
+
+    const getRefillHistory = () => {
+        return refillItems.slice(0, refillItemsOffset);
     };
 
     return (
         <LayoutPage title="Личный счёт и информация">
+            <Loader trigger={isLoading} />
             <LayoutBlocks addClass="layoutBlocks__profile">
                 <LayoutBlock>
                     <ul className="profile__info">
@@ -94,78 +169,45 @@ const Profile = () => {
                 </LayoutBlock>
                 <LayoutBlock title="Пополнение счета">
                     <div className="profile__deposit-box">
-                        <Input addClass={"profile__deposit-box-input"} type="number" placeholder={0} />
-                        <Button text="Пополнить" type="fill" addClass="profile__deposit-box-button" />
+                        <Input
+                            addClass={"profile__deposit-box-input"}
+                            type="number"
+                            placeholder={0}
+                            value={depositSum}
+                            setValue={text => setDepositSum(text)}
+                        />
+                        <Button
+                            text="Пополнить"
+                            type="fill"
+                            addClass="profile__deposit-box-button"
+                            click={handleDeposit}
+                        />
                     </div>
                     <Checkbox addClass="profile__checkbox">
-                        Согласен с условиями <span className="profile__deposit-offert">договора оферты</span>
+                        Согласен с условиями{" "}
+                        <span
+                            className="profile__deposit-offert"
+                            onClick={() => {
+                                for (let item of document.getElementsByClassName("checkbox__input")) {
+                                    item.checked = true;
+                                }
+                                window.open("/landing/docs/offert", "_blank");
+                            }}>
+                            договора оферты
+                        </span>
                     </Checkbox>
                 </LayoutBlock>
                 <LayoutBlock title="История списаний">
-                    <FinanceTable
-                        type="offs"
-                        data={[
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1500,
-                                id: "542",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1500,
-                                id: "531",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 950,
-                                id: "42",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1800,
-                                id: "752",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1200,
-                                id: "1030",
-                            },
-                        ]}
-                    />
-                    <Button text="Посмотреть ещё" />
+                    <FinanceTable type="offs" data={getOffsHistory()} />
+                    {offsItemsOffset < offsItems.length && (
+                        <Button text="Посмотреть ещё" click={() => setOffsItemsOffset(prev => prev + 5)} />
+                    )}
                 </LayoutBlock>
-                <LayoutBlock title="История операций">
-                    <FinanceTable
-                        type="transactions"
-                        data={[
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1500,
-                                id: "542",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1500,
-                                id: "531",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 950,
-                                id: "42",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1800,
-                                id: "752",
-                            },
-                            {
-                                time: "20.04.2023 16:40",
-                                price: 1200,
-                                id: "1030",
-                            },
-                        ]}
-                    />
-                    <Button text="Посмотреть ещё" />
+                <LayoutBlock title="История пополнений">
+                    <FinanceTable type="transactions" data={getRefillHistory()} />
+                    {refillItemsOffset < refillItems.length && (
+                        <Button text="Посмотреть ещё" click={() => setRefillItemsOffset(prev => prev + 5)} />
+                    )}
                 </LayoutBlock>
             </LayoutBlocks>
         </LayoutPage>

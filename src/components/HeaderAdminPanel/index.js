@@ -31,7 +31,10 @@ const HeaderAdminPanel = () => {
                             }}
                         />
                     </div>
-                    <div className="headerAdminPanel__right-exit">
+                    <div className="headerAdminPanel__right-exit" onClick={() => {
+                        localStorage.removeItem("user")
+                        window.location.href = "/platform/admin-panel/auth"
+                    }}>
                         <img className="headerAdminPanel__right-exit-icon" src="/img/header/exit.svg" alt="Выйти из аккаунта" />
                     </div>
                 </div>
@@ -42,7 +45,10 @@ const HeaderAdminPanel = () => {
                                 <p className="headerAdminPanel__popupUserMobile-info-about-name">Администратор</p>
                                 <p className="headerAdminPanel__popupUserMobile-info-about-email">client@gmail.com</p>
                             </div>
-                            <div className="headerAdminPanel__popupUserMobile-info-exit">
+                            <div className="headerAdminPanel__popupUserMobile-info-exit" onClick={() => {
+                        localStorage.removeItem("user")
+                        window.location.href = "/platform/admin-panel/auth"
+                    }}>
                                 <img
                                     className="headerAdminPanel__popupUserMobile-info-exit-icon"
                                     src="/img/header/exit.svg"

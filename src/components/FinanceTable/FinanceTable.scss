@@ -17,6 +17,22 @@
             &:nth-child(3) {
                 text-align: right;
             }
+            &-status {
+                &--succeded, &--canceled, &--process {
+                    padding: 6px 12px;
+                    border-radius: 6px;
+                    color: #fff;
+                }
+                &--succeded {
+                    background-color: rgb(0, 162, 8);
+                }
+                &--canceled {
+                    background-color: #ff0000;
+                }
+                &--process {
+                    background: #ff8400;
+                }
+            }
         }
         &--title {
             background-color: #3173B0;

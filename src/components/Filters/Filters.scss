@@ -1,10 +1,24 @@
 .filters {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px 20px;
+    justify-content: flex-start;
     &__filter {
         display: flex;
         flex-direction: column;
         row-gap: 10px;
+        &-box {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            &-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        }
         &-add {
             &-wrapper {
                 display: inline-flex;
@@ -27,6 +41,18 @@
             }
         }
     }
+    &__buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        .button {
+            height: 52px;
+        }
+        button {
+            height: 100%;
+        }
+    }
 }
 
 @media(max-width: 1800px) {
@@ -37,17 +63,8 @@
     }
 }
 
-@media(max-width: 1600px) {
-    .filters {
-        flex-wrap: wrap;
-        gap: 30px 30px;
-        justify-content: center;
-    }
-}
-
 @media(max-width: 768px) {
     .filters {
         flex-direction: column;
-        row-gap: 20px;
     }
 }
