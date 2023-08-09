@@ -28,7 +28,7 @@ const AdminPanelSettings = () => {
             regions: [],
             countRegions: [0, 0, 0],
             score: [0, 0, 0, 0],
-            buyer: [0, 0, 0],
+            buyer: [0, 0],
             type_buyer: [0, 0],
             extra: [0, 0, 0, 0],
         },
@@ -91,7 +91,7 @@ const AdminPanelSettings = () => {
                                     regions: arr,
                                     countRegions: [0, 0, 0],
                                     score: [0, 0, 0, 0],
-                                    buyer: [0, 0, 0],
+                                    buyer: [0, 0],
                                     type_buyer: [0, 0],
                                     extra: [0, 0, 0, 0],
                                 },
@@ -423,11 +423,7 @@ const AdminPanelSettings = () => {
                                     {
                                         title: "Гос. организация",
                                         rate: globalConfig?.rates?.buyer[1],
-                                    },
-                                    {
-                                        title: "Неизвестно",
-                                        rate: globalConfig?.rates?.buyer[2],
-                                    },
+                                    }
                                 ]}
                             />
                         </div>
@@ -523,7 +519,7 @@ const AdminPanelSettings = () => {
                         />
                     </div>
                 </LayoutBlock>
-                <LayoutBlock title="Электронная почта администратора">
+                <LayoutBlock title="Управление лендингом">
                     <div className="adminPanelSettings__advantages">
                         {advantages.map(({ title, text }, index) => (
                             <div className="adminPanelSettings__advantages-advantage">

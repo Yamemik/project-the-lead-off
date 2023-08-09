@@ -45,8 +45,6 @@ const getOrderWithCalculatePrice = async (order, user, is_sale_order = false) =>
             ? +rates.buyer[0]
             : order.type_buyer === "государственная организация"
             ? +rates.buyer[1]
-            : order.type_buyer === "неизвестно"
-            ? +rates.buyer[2]
             : 1;
 
     rate_type_purchase =

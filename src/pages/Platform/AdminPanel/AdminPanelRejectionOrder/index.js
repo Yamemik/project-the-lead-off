@@ -8,7 +8,7 @@ import Button from "../../../../components/UI/Button";
 const AdminPanelRejectionOrder = () => {
     const params = useParams();
     return (
-        <LayoutPage title={`Отказ от заяявки №${params?.id}`}>
+        <LayoutPage title={`Отказ от заявки №${params?.id}`}>
             <LayoutBlocks>
                 <LayoutBlock>
                     <div className="order">

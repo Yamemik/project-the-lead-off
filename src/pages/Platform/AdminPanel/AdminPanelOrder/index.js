@@ -13,6 +13,7 @@ import { toast } from "react-hot-toast";
 
 import getFormatUserTelephone from "../../../../utils/getFormatUserTelephone";
 import sliceBigString from "../../../../utils/sliceBigString";
+import getOrderWithCalculatePrice from "../../../../utils/getOrderWithCalculatePrice";
 
 const AdminPanelOrder = () => {
     const params = useParams();
@@ -22,7 +23,11 @@ const AdminPanelOrder = () => {
     useEffect(() => {
         axios
             .get(`/api/user/order/${params.id}`)
-            .then(({ data }) => setOrder(data))
+            .then(({ data }) => {
+                getOrderWithCalculatePrice(data, JSON.parse(localStorage.getItem("user"))).then(order =>
+                    setOrder(order),
+                );
+            })
             .catch(err => console.log(err));
     }, []);
 
@@ -105,10 +110,6 @@ const AdminPanelOrder = () => {
                                 <div className="order__row-title">Срочная:</div>
                                 <div className="order__row-text">{order.is_urgent}</div>
                             </div>
-                            {/* <div className="order__row">
-                                <div className="order__row-title">Тип заявки:</div>
-                                <div className="order__row-text">{order.is_open}</div>
-                            </div> */}
                             <div className="order__row">
                                 <div className="order__row-title">Стоимость:</div>
                                 <div className="order__row-text">{order.price} руб.</div>

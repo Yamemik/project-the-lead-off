@@ -11,6 +11,9 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import Loader from "../../../components/Loader";
 
+import getUserRegionsLine from "../../../utils/getUserRegionsLine"
+import getUserBusinessLine from "../../../utils/getUserBusinessLine"
+
 const Profile = () => {
     const [depositSum, setDepositSum] = useState("");
 
@@ -156,13 +159,13 @@ const Profile = () => {
                         <li className="profile__info-row">
                             <span className="profile__info-row-title">Регион:</span>
                             <span className="profile__info-row-text">
-                                {JSON.parse(localStorage.getItem("user")).region.join(" / ")}
+                                {getUserRegionsLine(JSON.parse(localStorage.getItem("user")).region)}
                             </span>
                         </li>
                         <li className="profile__info-row">
                             <span className="profile__info-row-title">Направление бизнеса:</span>
                             <span className="profile__info-row-text">
-                                {JSON.parse(localStorage.getItem("user")).business_line.join(" / ")}
+                                {getUserBusinessLine(JSON.parse(localStorage.getItem("user")).business_line)}
                             </span>
                         </li>
                     </ul>
