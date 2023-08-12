@@ -35,10 +35,30 @@ export default async (req, res, next) => {
             }
 
             if (payment_ukassa.status == 'succeeded') {
-               await UserModel.findByIdAndUpdate(payment.user_id, {
-                  $inc: { 'balance': payment_ukassa.income_amount.value }
-               })
-               .catch((err) => { console.log(err) });
+               const user = await UserModel.findById(payment.user_id);
+               let count_amount = payment_ukassa.income_amount.value;
+
+               if(user.credit > 0 || user.credit < count_amount) {
+                  count_amount -= user.credit;
+                  await UserModel.findByIdAndUpdate(payment.user_id, {
+                     $inc: { 'balance': count_amount },
+                     credit: 0
+                  })
+                  .catch((err) => { console.log(err) });
+               }
+               if(user.credit > 0 || user.credit > count_amount) {
+                  const credit_balance = user.credit - count_amount;
+                  await UserModel.findByIdAndUpdate(payment.user_id, {
+                     credit: credit_balance
+                  })
+                  .catch((err) => { console.log(err) });
+               }
+               if(user.credit == 0) {
+                  await UserModel.findByIdAndUpdate(payment.user_id, {
+                     $inc: { 'balance': payment_ukassa.income_amount.value }
+                  })
+                  .catch((err) => { console.log(err) });
+               }
 
                await PaymentModel.findByIdAndUpdate(payment._id, {
                   status: payment_ukassa.status,
