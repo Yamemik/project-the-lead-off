@@ -123,6 +123,12 @@
         &-text, pre {
             flex: 1 1 85%;
             color: #3173B0;
+            &-upload {
+                cursor: pointer;
+                &:hover {
+                    opacity: .75;
+                }
+            }
             &--uploads {
                 display: flex;
                 align-items: center;

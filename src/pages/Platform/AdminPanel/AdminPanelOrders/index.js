@@ -22,17 +22,28 @@ const AdminPanelOrders = () => {
                     getOrderWithCalculatePrice(order, JSON.parse(localStorage.getItem("user"))).then(order =>
                         setOrders(prev => [
                             ...prev,
+                            // {
+                            //     _id: order._id,
+                            //     id: order.number_order,
+                            //     create_date: new Date(order.createdAt).toLocaleDateString(),
+                            //     login: order.nomeclature[0][0],
+                            //     FIO: order.nomeclature[0][1],
+                            //     region: order.nomeclature[0][2],
+                            //     phone: order.score,
+                            //     balance: order.region.join(" / "),
+                            //     category:
+                            //     `${order.price} руб.`,
+                            // },
                             {
                                 _id: order._id,
                                 id: order.number_order,
                                 create_date: new Date(order.createdAt).toLocaleDateString(),
-                                login: `${order.nomeclature[0][0]} / ${order.nomeclature[0][1]}`,
-                                FIO: order.nomeclature[0][2],
-                                region: order.score,
-                                phone: order.region.join(" / "),
-                                balance: `${order.price} руб.`,
-                                category:
-                                    getDifferenceBetweenTwoDates(order.createdAt, new Date()) < 24 ? "Новая" : "Старая",
+                                login: order.region.join(" / "),
+                                FIO: order.nomeclature[0][0],
+                                phone: order.nomeclature[0][1],
+                                region: order.nomeclature[0][2],
+                                balance: order.score,
+                                category: `${order.price} руб.`,
                             },
                         ]),
                     );
@@ -117,13 +128,13 @@ const AdminPanelOrders = () => {
                             isAdminPanelTable
                             head={[
                                 "ID",
-                                "Дата создания",
+                                "Дата создания","Регион",
+                                "Категория",
                                 "Товарная группа",
                                 "Номенклатура",
-                                "Регион",
+                                
                                 "Оценка",
                                 "Стоимость",
-                                "Статус",
                             ]}
                             clickSee={userID => (window.location.href = `/platform/admin-panel/order/${userID}`)}
                             clickDelete={userID => handleDeleteOrder(userID)}

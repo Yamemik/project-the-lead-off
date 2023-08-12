@@ -14,6 +14,7 @@ import { toast } from "react-hot-toast";
 import getFormatUserTelephone from "../../../../utils/getFormatUserTelephone";
 import sliceBigString from "../../../../utils/sliceBigString";
 import getOrderWithCalculatePrice from "../../../../utils/getOrderWithCalculatePrice";
+import getUploadShortName from "../../../../utils/getUploadShortName";
 
 const AdminPanelOrder = () => {
     const params = useParams();
@@ -61,7 +62,7 @@ const AdminPanelOrder = () => {
                                 <div className="order__row-text">{new Date(order.createdAt).toLocaleDateString()}</div>
                             </div>
                             <div className="order__row">
-                                <div className="order__row-title">Товарная группа / номенклатура:</div>
+                                <div className="order__row-title">Направление бизнеса:</div>
                                 <div className="order__row-text">{order.nomeclature[0].join(" / ")}</div>
                             </div>
                             <div className="order__row">
@@ -76,7 +77,16 @@ const AdminPanelOrder = () => {
                             </div>
                             <div className="order__row">
                                 <div className="order__row-title">Вложения к заявке:</div>
-                                <div className="order__row-text order__row-text--uploads">{getUploads().map(filename => <p className="order__row-text-item">{filename}</p>)}</div>
+                                {/* <div className="order__row-text order__row-text--uploads">
+                                {getUploads().map(filename => <p className="order__row-text-item">{filename}</p>)}
+                                </div> */}
+                                <div className="order__row-text order__row-text--uploads">
+                                    {order.upload.map(upload => (
+                                        <>
+                                        {JSON.parse(localStorage.getItem("user")).access_to_open ? <a href={`/uploads/${upload.filename}`} download={upload.originalname} className="order__row-text-upload">{getUploadShortName(upload.originalname)}</a> : (upload.open && <a href={`/uploads/${upload.filename}`} download={upload.originalname} className="order__row-text-upload">{getUploadShortName(upload.originalname)}</a>)}
+                                        </>
+                                    ))}
+                                </div>
                             </div>
                             <div className="order__row">
                                 <div className="order__row-title">Контактные данные:</div>

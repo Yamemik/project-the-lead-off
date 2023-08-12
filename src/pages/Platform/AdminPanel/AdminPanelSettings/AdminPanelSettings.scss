@@ -34,6 +34,15 @@
                 column-gap: 10px;
                 &-subblock {
                     width: 300px;
+                    .list {
+                        &__item {
+                            &-boxTitle {
+                                p {
+                                    max-width: min-content;
+                                }
+                            }
+                        }
+                    }
                     &-add {
                         display: flex;
                         flex-direction: column;

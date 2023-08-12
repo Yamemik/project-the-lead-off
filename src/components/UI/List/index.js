@@ -61,10 +61,10 @@ const List = ({ items, type = "default", clickEdit, clickDelete, setValue, addBa
                                                     width: "36px",
                                                 }}
                                             />{" "}
-                                            руб.
+                                            р.
                                         </span>
                                     ) : (
-                                        <span>/ {base_price} руб.</span>
+                                        <span>/ {base_price} р.</span>
                                     ))}
                                 </div>
                                 <div className="list__item-boxIcons">

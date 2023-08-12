@@ -30,7 +30,7 @@ const getOrderWithCalculatePrice = async (order, user, is_sale_order = false) =>
 
     if (user.region.length === 1) {
         rate_user_number_regions = +rates.countRegions[0];
-    } else if (user.region.length === 1) {
+    } else if (user.region.length === 2) {
         rate_user_number_regions = +rates.countRegions[1];
     } else {
         rate_user_number_regions = +rates.countRegions[2];
@@ -94,7 +94,9 @@ const getOrderWithCalculatePrice = async (order, user, is_sale_order = false) =>
         });
     }
 
-    return { ...order, price: +price.toFixed(2) };
+    // const roundUpToNearestFive = (num) => Math.ceil(num / 5) * 5;
+
+    return { ...order, price: Math.ceil(+price / 5) * 5 };
 };
 
 export default getOrderWithCalculatePrice;

@@ -17,7 +17,7 @@ const AdminPanelRejectionOrder = () => {
                             <div className="order__row-text">24.04.2023</div>
                         </div>
                         <div className="order__row">
-                            <div className="order__row-title">Товарная группа / номенклатура:</div>
+                            <div className="order__row-title">Направление бизнеса:</div>
                             <div className="order__row-text">Строительные материалы / Отделочные материалы</div>
                         </div>
                         <div className="order__row">

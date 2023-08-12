@@ -5,6 +5,7 @@ import sliceBigString from "../../utils/sliceBigString";
 import { Tooltip } from "react-tooltip";
 
 const TableRow = ({
+    category,
     id,
     productGroup,
     nomenclature,
@@ -27,18 +28,26 @@ const TableRow = ({
                 className="tableRow"
                 onClick={e => {
                     if (
-                        !["additionaddition--sale", "addition__img", "addition", "additionaddition--close", "additionaddition--cart"].includes(
-                            e.target.className.replace(/\s/g, ""),
-                        )
+                        ![
+                            "additionaddition--sale",
+                            "addition__img",
+                            "addition",
+                            "additionaddition--close",
+                            "additionaddition--cart",
+                        ].includes(e.target.className.replace(/\s/g, ""))
                     ) {
                         window.location.href = `/platform/order/${id}`;
                     }
                 }}
                 onMouseOver={e => {
                     if (
-                        !["additionaddition--sale", "addition__img", "addition", "additionaddition--close", "additionaddition--cart"].includes(
-                            e.target.className.replace(/\s/g, ""),
-                        )
+                        ![
+                            "additionaddition--sale",
+                            "addition__img",
+                            "addition",
+                            "additionaddition--close",
+                            "additionaddition--cart",
+                        ].includes(e.target.className.replace(/\s/g, ""))
                     ) {
                         e.currentTarget.style.opacity = 0.75;
                         e.currentTarget.style.cursor = "pointer";
@@ -52,6 +61,10 @@ const TableRow = ({
                 <div className="tableRow__id">
                     <h6 className="tableRow__id-title">ID</h6>
                     <p className="tableRow__id-text">{numberOrder ? numberOrder : sliceBigString(id, 8, [0, 5])}</p>
+                </div>
+                <div className="tableRow__productGroup">
+                    <h6 className="tableRow__productGroup-title">Категория</h6>
+                    <p className="tableRow__productGroup-text">{category}</p>
                 </div>
                 <div className="tableRow__productGroup">
                     <h6 className="tableRow__productGroup-title">Товарная группа</h6>

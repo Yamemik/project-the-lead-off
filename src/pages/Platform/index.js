@@ -64,9 +64,10 @@ const Homepage = () => {
                                 .slice(0, 5)
                                 .map(item => (
                                     <TableRow
+                                        category={item.nomeclature[0][0]}
                                         key={item._id}
                                         id={item._id}
-                                        productGroup={item.nomeclature[0][0]}
+                                        productGroup={item.nomeclature[0][1]}
                                         nomenclature={item.nomeclature[0][2]}
                                         region={item.region}
                                         estimation={item.score}
@@ -86,9 +87,10 @@ const Homepage = () => {
                             .slice(0, 5)
                             .map(item => (
                                 <TableRow
+                                    category={item.nomeclature[0][0]}
                                     key={item._id}
                                     id={item._id}
-                                    productGroup={item.nomeclature[0][0]}
+                                    productGroup={item.nomeclature[0][1]}
                                     nomenclature={item.nomeclature[0][2]}
                                     region={item.region}
                                     estimation={item.score}

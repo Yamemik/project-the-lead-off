@@ -163,7 +163,7 @@ const Filters = ({ filters, setFilters, is_suitable_page }) => {
             {notAcceptedFilters && (
                 <section className="filters">
                     <div className="fiters__filter">
-                        <h6 className="filters__filter-title">Товарная группа</h6>
+                        <h6 className="filters__filter-title">Направление бизнеса</h6>
                         <div className="">
                             <div class="filters__filter-box">
                                 {notAcceptedFilters.product_groups.map((product_group, index) => (

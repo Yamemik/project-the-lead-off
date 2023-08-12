@@ -346,7 +346,7 @@ const AdminPanelCreateOrder = () => {
                     <div className="order order--createUser order--createOrder">
                         <div className="order__row">
                             <div className="order__row-title">
-                                <span style={{ color: "red" }}>*</span> Категория:
+                                <span style={{ color: "red" }}>*</span> Направление бизнеса:
                             </div>
                             <div className="order__row-text">
                                 <DropdownList

@@ -92,7 +92,8 @@ const Pagination = ({
                             setNewData_parent={arg => setNewData_parent_2(arg)}
                             key={item._id}
                             id={item._id}
-                            productGroup={item.nomeclature[0][0]}
+                            category={item.nomeclature[0][0]}
+                            productGroup={item.nomeclature[0][1]}
                             nomenclature={item.nomeclature[0][2]}
                             region={item.region}
                             estimation={item.score}
