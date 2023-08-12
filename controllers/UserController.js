@@ -209,7 +209,8 @@ export const update = async (req, res) => {
          business_line: req.body.business_line,
          access_to_open: req.body.access_to_open,
          is_admin: req.body.is_admin,
-         balance: req.body.balance
+         balance: req.body.balance,
+         credit: req.body.credit
       }
    }).then(() => res.json({
       access: true

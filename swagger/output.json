@@ -1892,6 +1892,10 @@
         "balance": {
           "type": "number",
           "example": 0
+        },
+        "credit": {
+          "type": "number",
+          "example": 11
         }
       },
       "required": [

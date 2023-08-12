@@ -29,7 +29,8 @@ const doc = {
       business_line: ["имя/id", "имя/id", "имя/id"],
       access_to_open: false,
       is_admin: false,
-      balance: 0
+      balance: 0,
+      credit: 11
     },
     Order: {
       $nomeclature: ["nomen1.3.1", "nomen1.2.1", "group1.1"],
