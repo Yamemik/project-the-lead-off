@@ -42,6 +42,10 @@ const UserSchema = new mongoose.Schema({
       type: Number,
       default: 0
    },
+   credit: {
+      type: Number,
+      default: 0
+   },
    passwordHash:{
       type: String,
       require: true
