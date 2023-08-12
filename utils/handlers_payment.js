@@ -47,13 +47,12 @@ export default async (req, res, next) => {
                   .catch((err) => { console.log(err) });
                }
                if(user.credit > 0 || user.credit > count_amount) {
-                  const credit_balance = user.credit - count_amount;
                   await UserModel.findByIdAndUpdate(payment.user_id, {
-                     credit: credit_balance
+                     $inc: { 'credit': -count_amount }
                   })
                   .catch((err) => { console.log(err) });
                }
-               if(user.credit == 0) {
+               if(user.credit === 0) {
                   await UserModel.findByIdAndUpdate(payment.user_id, {
                      $inc: { 'balance': payment_ukassa.income_amount.value }
                   })
