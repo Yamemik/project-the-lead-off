@@ -67,7 +67,7 @@ const OrderSchema = new mongoose.Schema({
       require: true,
       default: false
    },
-   is_archive_date:{
+   is_archive_date: {
       type: Date,
       require: false
    },
@@ -75,6 +75,11 @@ const OrderSchema = new mongoose.Schema({
       type: Boolean,
       require: true,
       default: false
+   },
+   is_active: {
+      type: Boolean,
+      require: true,
+      default: true
    },
    user: {
       type: mongoose.Schema.Types.ObjectId,

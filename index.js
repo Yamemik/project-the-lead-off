@@ -37,7 +37,7 @@ const storage = multer.diskStorage({
 const maxFieldSize = 11 * 1024 * 1024;
 const uploads = multer(
    { storage },
-   { limits: { fieldSize: maxFieldSize}}
+   { limits: { fieldSize: maxFieldSize } }
 );
 
 app.use(express.json());   //add can read .json
@@ -71,8 +71,6 @@ router.post('/admin/uploads', checkAuthIsAdmin, uploads.array('file', 11), Order
 router.patch('/admin/order/refund/:order_id', checkAuth, OrderController.refund);
 router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cancelIsCanceled);
 //report
-router.post('/admin/report/orderAuser', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_user);
-router.post('/admin/report/orderAcategory', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_order_and_cat);
 router.post('/admin/report/user', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_user);
 router.post('/admin/report/category', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_category);
 //payment

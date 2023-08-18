@@ -69,6 +69,7 @@ const doc = {
       price: 0,
       is_archive: false,
       is_sale: false,
+      is_active: true,
       is_express: true,
       user: {
         $ref: '#/definitions/User'
@@ -135,10 +136,10 @@ const doc = {
       user_id: "64a01e95f7c1601edf3e60a7",
     },
     Settings: {
-      settings: ["object","object"]
-    },    
+      settings: ["object", "object"]
+    },
     About: {
-      privilege: ["text1","text2",'text3','text4','text5']
+      privilege: ["text1", "text2", 'text3', 'text4', 'text5']
     },
     Rate: {
       score: [{ "easy": 0.8 }, { "medium": 1.0 }, { "hard": 1.2 }, { "hard+": 1.4 }],

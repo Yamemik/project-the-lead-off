@@ -18,8 +18,7 @@ export default async (req, res, next) => {
          is_archive: true,
          is_archive_date: new Date()
       }
-   )
-   .catch((err) => {
+   ).catch((err) => {
       console.log(err);
    });
 
@@ -37,8 +36,26 @@ export default async (req, res, next) => {
       {
          is_sale: true
       }
-   )
-   .catch((err) => {
+   ).catch((err) => {
+      console.log(err);
+   });
+
+   const now_active = new Date();
+   now_active.setDate(now_active.getDate() - 5);
+
+   await OrderModel.updateMany(
+      {
+         createdAt: { $lte: now_active },
+         is_buy: false
+      },
+      {
+         is_active: false
+      }
+   ).catch((err) => {
+      console.log(err);
+   });
+
+   await OrderModel.deleteMany({ is_active: false }).catch((err) => {
       console.log(err);
    });
 
