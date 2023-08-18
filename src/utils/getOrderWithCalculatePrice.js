@@ -67,16 +67,28 @@ const getOrderWithCalculatePrice = async (order, user, is_sale_order = false) =>
         rate_sale = +rates.extra[2];
     }
 
+    // const price = await (base_category_price *
+    //     rate_order_region *
+    //     rate_user_number_regions *
+    //     rate_user_tariff *
+    //     rate_type_buyer *
+    //     rate_type_purchase *
+    //     rate_urgent *
+    //     rate_express *
+    //     rate_score *
+    //     rate_sale);
+
     const price = await (base_category_price *
-        rate_order_region *
-        rate_user_number_regions *
-        rate_user_tariff *
-        rate_type_buyer *
-        rate_type_purchase *
-        rate_urgent *
-        rate_express *
-        rate_score *
-        rate_sale);
+        ((rate_order_region +
+            rate_user_number_regions +
+            rate_user_tariff +
+            rate_type_buyer +
+            rate_type_purchase +
+            rate_urgent +
+            rate_express +
+            rate_score +
+            rate_sale) /
+            8));
 
     if (user?.is_admin && localStorage.getItem("debug_mode") === "on") {
         console.log({

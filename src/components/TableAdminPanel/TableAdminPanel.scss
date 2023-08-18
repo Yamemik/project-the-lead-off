@@ -26,6 +26,7 @@
     &__row {
         display: flex;
         &-item {
+            padding-right: 5px;
             line-height: 18px;
             &:nth-child(1) {
                 flex: 0 1 4%;

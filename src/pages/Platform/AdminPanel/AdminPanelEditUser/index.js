@@ -91,21 +91,6 @@ const AdminPanelEditUser = () => {
         setNewUser(prev => ({ ...prev, access_to_open: accessOpenOrders, region: [...currentRegions], organization, business_line: currentCategories }));
     }, [accessOpenOrders, organization, currentCategories, currentRegions]);
 
-    // const getRegion = type => {
-    //     let arr = [];
-    //     if (type === "country") {
-    //         regions.map(({ country }) => {
-    //             if (!arr.includes(country)) arr.push(country);
-    //         });
-    //     }
-    //     if (type === "city") {
-    //         regions.map(({ country, city }) => {
-    //             if (country === regionCountry) arr.push(city);
-    //         });
-    //     }
-    //     return arr;
-    // };
-
     const getRegion = (type, index) => {
         let arr = [];
         if (type === "country") {
@@ -331,6 +316,25 @@ const AdminPanelEditUser = () => {
                                                         }
                                                     />
                                                 )}
+                                        {index !== 0 && (
+                                            <img
+                                                className="order__row-text-add"
+                                                src="/img/UI/delete.svg"
+                                                alt="Удалить"
+                                                onClick={() => {
+                                                    let arr = [
+                                                        ...currentRegions,
+                                                    ];
+                                                    arr.splice(
+                                                        index,
+                                                        1,
+                                                    );
+                                                    setCurrentRegions(
+                                                        arr,
+                                                    );
+                                                }}
+                                            />
+                                        )}
                                     </div>
                                 ))}
                             </div>
@@ -388,6 +392,25 @@ const AdminPanelEditUser = () => {
                                                         }
                                                     />
                                                 )}
+                                            {index !== 0 && (
+                                                <img
+                                                    className="order__row-text-add"
+                                                    src="/img/UI/delete.svg"
+                                                    alt="Удалить"
+                                                    onClick={() => {
+                                                        let arr = [
+                                                            ...currentCategories,
+                                                        ];
+                                                        arr.splice(
+                                                            index,
+                                                            1,
+                                                        );
+                                                        setCurrentCategories(
+                                                            arr,
+                                                        );
+                                                    }}
+                                                />
+                                            )}
                                         </div>
                                     ))}
                                 </div>

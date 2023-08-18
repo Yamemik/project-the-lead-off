@@ -47,7 +47,7 @@ const AdminPanelSettings = () => {
                 if (arr[index].main === country) arr[index].children.push(city);
             });
         });
-        setRegions(arr);
+        setRegions(arr.sort((a, b) => a.main.localeCompare(b.main)));
     };
 
     const getCategories = async () => {
@@ -68,7 +68,7 @@ const AdminPanelSettings = () => {
                     };
             });
         });
-        setCategories(arr);
+        setCategories(arr.sort((a, b) => a.main.localeCompare(b.main)));
     };
 
     useEffect(() => {
@@ -77,7 +77,6 @@ const AdminPanelSettings = () => {
         axios
             .get("/api/admin/settings/setting")
             .then(res => {
-                console.log(res.data[0].settings[0]);
                 setGlobalConfig(res.data[0].settings[0]);
                 if (!res.data[0].settings[0]?.rates?.regions || res.data[0].settings[0]?.rates?.regions?.length === 0) {
                     axios
