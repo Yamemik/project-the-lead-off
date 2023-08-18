@@ -55,9 +55,9 @@ export default async (req, res, next) => {
       console.log(err);
    });
 
-   await OrderModel.deleteMany({ is_active: false }).catch((err) => {
-      console.log(err);
-   });
+   // await OrderModel.deleteMany({ is_active: false }).catch((err) => {
+   //    console.log(err);
+   // });
 
    next();
 }

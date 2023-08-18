@@ -17,13 +17,13 @@ export const createOrder = async (req, res) => {
    */
    try {
       const number = await NumberOrder.findOneAndUpdate({},
-         {$inc : {'number' : 1}})
-      .catch((err)=>{
+         { $inc: { 'number': 1 } })
+         .catch((err) => {
             console.log(err);
             res.status(404).json({
                message: "not found or update (SettingModel)"
             });
-      });        
+         });
 
       const doc = new OrderModel({
          number_order: number.number,
@@ -125,7 +125,7 @@ export const getAllisSale = async (req, res) => {
       #swagger.summary = 'Получить все заявки is sale'
    */
    try {
-      const orders = await OrderModel.find({is_sale: true}).catch((err) => {
+      const orders = await OrderModel.find({ is_sale: true }).catch((err) => {
          res.status(404).json({
             message: 'orders not found'
          })
@@ -189,11 +189,11 @@ export const getAllForUserWithFilter = async (req, res) => {
          price: { $gte: req.body.price_min },
          price: { $lte: req.body.price_max }
       }).catch((err) => {
-            console.log(err);
-            res.status(404).json({
-               message: 'orders not found(getAllForUserWithFilter)'
-            });
+         console.log(err);
+         res.status(404).json({
+            message: 'orders not found(getAllForUserWithFilter)'
          });
+      });
 
       res.json(orders);
    } catch (err) {
@@ -297,11 +297,11 @@ export const findDublicate = async (req, res) => {
          is_archive: false,
          is_buy: false
       })
-      .exec().catch((err) => {
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      });
+         .exec().catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
       res.json(ordersDuplicate);
    } catch (err) {
@@ -319,14 +319,14 @@ export const buyOrder = async (req, res) => {
    */
 
    const user_check = await UserModel.findById(req.userId)
-   .catch((err) => {
-      res.status(404).json({ message: 'user not find'})
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'user not find' })
+      });
 
-   if(user_check.balance < req.body.sum){
-      return res.status(404).json({ message: 'insufficient funds'});
+   if (user_check.balance < req.body.sum) {
+      return res.status(404).json({ message: 'insufficient funds' });
    }
-   
+
    const now = new Date();
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.id }, {
       user: req.userId,
@@ -334,24 +334,24 @@ export const buyOrder = async (req, res) => {
       price: req.body.sum,
       is_buy: true
    })
-   .catch((err) => {
-      console.log(err);
-      res.status(404).json({
-         message: "error buy (not found order)"
+      .catch((err) => {
+         console.log(err);
+         res.status(404).json({
+            message: "error buy (not found order)"
+         });
       });
-   });
 
    const user = await UserModel.findOneAndUpdate({ _id: req.userId }, {
       $inc: { 'balance': -req.body.sum }
    })
-   .catch((err) => {
-      res.status(404).json({ message: 'sum not buy' })
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not buy' })
+      });
    user.passwordHash = '';
 
    const payment = {
       date: now,
-      status: "buy",      
+      status: "buy",
       sum: req.body.sum,
       user: user,
       order: order
@@ -412,15 +412,15 @@ export const sendCancel = async (req, res) => {
 export const cancelIsCanceled = async (req, res) => {
    /*
       #swagger.tags = ["Admin"]
-      #swagger.summary = 'отменить отмену '
+      #swagger.summary = 'отменить отмену'
    */
-      console.log(req.params)
+   console.log(req.params)
    await OrderModel.updateOne({ _id: req.params.order_id }, {
       is_canceled: false,
       answer: req.body.is_canceled_text,
       is_cancel: true
    }).then(() => res.json({
-      access: true      
+      access: true
    })).catch((err) => {
       console.log(err);
       res.status(404).json({
@@ -460,8 +460,7 @@ export const refund = async (req, res) => {
       is_canceled_text: '',
       answer: 'access',
       user: req.userId
-   })
-   .catch((err) => {
+   }).catch((err) => {
       console.log(err);
       res.status(404).json({
          message: "error refund (not found order)"
@@ -471,14 +470,14 @@ export const refund = async (req, res) => {
    const user = await UserModel.findOneAndUpdate({ _id: order.user._id }, {
       $inc: { 'balance': order.price }
    })
-   .catch((err) => {
-      res.status(404).json({ message: 'sum not refund' })
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not refund' })
+      });
    user.passwordHash = '';
 
    const payment = {
       date: now,
-      status: "refund",      
+      status: "refund",
       user: user,
       order: order
    }
@@ -510,26 +509,26 @@ export const getAllWithFilter = async (req, res) => {
    try {
       const orders = await OrderModel.find(
          {
-               user: { $in: req.body.user },
-               region: { $in: req.body.region },
-               nomeclature: { $all: req.body.nomeclature },
-               score: { $in: req.body.score },
-               type_buyer: { $in: req.body.type_buyer },
-               type_order: { $in: req.body.type_order },
-               is_urgent: { $in: req.body.is_urgent },
-               price: { $gte: req.body.price_min },
-               price: { $lte: req.body.price_max },
-               is_archive: { $in: req.body.is_archive },
-               is_sale: { $in: req.body.is_sale },
-               is_express: { $in: req.body.is_express },
-               is_cancel: { $in: req.body.is_cancel }
+            user: { $in: req.body.user },
+            region: { $in: req.body.region },
+            nomeclature: { $all: req.body.nomeclature },
+            score: { $in: req.body.score },
+            type_buyer: { $in: req.body.type_buyer },
+            type_order: { $in: req.body.type_order },
+            is_urgent: { $in: req.body.is_urgent },
+            price: { $gte: req.body.price_min },
+            price: { $lte: req.body.price_max },
+            is_archive: { $in: req.body.is_archive },
+            is_sale: { $in: req.body.is_sale },
+            is_express: { $in: req.body.is_express },
+            is_cancel: { $in: req.body.is_cancel }
          }
       )
-      .catch((err) => {
-         res.status(404).json({
-            message: 'orders not found'
-         })
-      });
+         .catch((err) => {
+            res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
       res.json(orders);
    } catch (err) {
@@ -545,10 +544,10 @@ export const report_order_and_user = async (req, res) => {
       #swagger.tags = ["Report"]
       #swagger.summary = 'отчет по заявкам и пользователя'
    */
-   if(!req.body.user_id){
+   if (!req.body.user_id) {
       try {
          const orders = await OrderModel.find(
-            {               
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
                is_archive: { $in: req.body.is_archive },
@@ -562,31 +561,31 @@ export const report_order_and_user = async (req, res) => {
                type_order: { $in: req.body.type_order },
             }
          )
-         .catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            .catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
          const count_orders = Object.keys(orders).length;
-         if(count_orders === 0) {
-            return res.json(count_orders);   
+         if (count_orders === 0) {
+            return res.json(count_orders);
          }
          let sum_price = 0;
          let min_price = orders[0].price;
-         let max_price = orders[0].price;        
+         let max_price = orders[0].price;
 
-         for (let order of orders){
+         for (let order of orders) {
             sum_price += order.price;
-            if(min_price > order.price) {
+            if (min_price > order.price) {
                min_price = order.price;
             } else {
-               if(max_price < order.price){
+               if (max_price < order.price) {
                   max_price = order.price;
                }
             }
          }
-         const average_sum = sum_price/count_orders;
+         const average_sum = sum_price / count_orders;
 
          const aggregations = {
             count_orders: count_orders,
@@ -595,15 +594,15 @@ export const report_order_and_user = async (req, res) => {
             min_price: min_price,
             max_price: max_price
          }
-   
-         res.json({orders,aggregations});
+
+         res.json({ orders, aggregations });
       } catch (err) {
          console.log(err);
          res.status(500).json({
             message: "server error"
          });
       }
-      } else {
+   } else {
       try {
          const orders = await OrderModel.find(
             {
@@ -621,31 +620,31 @@ export const report_order_and_user = async (req, res) => {
                type_order: { $in: req.body.type_order },
             }
          )
-         .catch((err) => {
-            res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-   
+            .catch((err) => {
+               res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
          const count_orders = Object.keys(orders).length;
-         if(count_orders === 0) {
-            return res.json(count_orders);   
+         if (count_orders === 0) {
+            return res.json(count_orders);
          }
          let sum_price = 0;
          let min_price = orders[0].price;
-         let max_price = orders[0].price;        
+         let max_price = orders[0].price;
 
-         for (let order of orders){
+         for (let order of orders) {
             sum_price += order.price;
-            if(min_price > order.price) {
+            if (min_price > order.price) {
                min_price = order.price;
             } else {
-               if(max_price < order.price){
+               if (max_price < order.price) {
                   max_price = order.price;
                }
             }
          }
-         const average_sum = sum_price/count_orders;
+         const average_sum = sum_price / count_orders;
 
          const aggregations = {
             count_orders: count_orders,
@@ -654,15 +653,15 @@ export const report_order_and_user = async (req, res) => {
             min_price: min_price,
             max_price: max_price
          }
-   
-         res.json({orders,aggregations});
+
+         res.json({ orders, aggregations });
       } catch (err) {
          console.log(err);
          res.status(500).json({
             message: "server error"
          });
       }
-      }
+   }
 }
 
 export const report_order_and_cat = async (req, res) => {
@@ -670,10 +669,10 @@ export const report_order_and_cat = async (req, res) => {
       #swagger.tags = ["Report"]
       #swagger.summary = 'отчет по заявкам и пользователя'
    */
-   if(!req.body.category_id){
+   if (!req.body.category_id) {
       try {
          const orders = await OrderModel.find(
-            {               
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
                is_archive: { $in: req.body.is_archive },
@@ -687,31 +686,31 @@ export const report_order_and_cat = async (req, res) => {
                type_order: { $in: req.body.type_order },
             }
          )
-         .catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            .catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
          const count_orders = Object.keys(orders).length;
-         if(count_orders === 0) {
-            return res.json(count_orders);   
+         if (count_orders === 0) {
+            return res.json(count_orders);
          }
          let sum_price = 0;
          let min_price = orders[0].price;
-         let max_price = orders[0].price;        
+         let max_price = orders[0].price;
 
-         for (let order of orders){
+         for (let order of orders) {
             sum_price += order.price;
-            if(min_price > order.price) {
+            if (min_price > order.price) {
                min_price = order.price;
             } else {
-               if(max_price < order.price){
+               if (max_price < order.price) {
                   max_price = order.price;
                }
             }
          }
-         const average_sum = sum_price/count_orders;
+         const average_sum = sum_price / count_orders;
 
          const aggregations = {
             count_orders: count_orders,
@@ -720,15 +719,15 @@ export const report_order_and_cat = async (req, res) => {
             min_price: min_price,
             max_price: max_price
          }
-   
-         res.json({orders,aggregations});
+
+         res.json({ orders, aggregations });
       } catch (err) {
          console.log(err);
          res.status(500).json({
             message: "server error"
          });
       }
-      } else {
+   } else {
       try {
          const orders = await OrderModel.find(
             {
@@ -746,31 +745,31 @@ export const report_order_and_cat = async (req, res) => {
                type_order: { $in: req.body.type_order },
             }
          )
-         .catch((err) => {
-            res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-   
+            .catch((err) => {
+               res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
          const count_orders = Object.keys(orders).length;
-         if(count_orders === 0) {
-            return res.json(count_orders);   
+         if (count_orders === 0) {
+            return res.json(count_orders);
          }
          let sum_price = 0;
          let min_price = orders[0].price;
-         let max_price = orders[0].price;        
+         let max_price = orders[0].price;
 
-         for (let order of orders){
+         for (let order of orders) {
             sum_price += order.price;
-            if(min_price > order.price) {
+            if (min_price > order.price) {
                min_price = order.price;
             } else {
-               if(max_price < order.price){
+               if (max_price < order.price) {
                   max_price = order.price;
                }
             }
          }
-         const average_sum = sum_price/count_orders;
+         const average_sum = sum_price / count_orders;
 
          const aggregations = {
             count_orders: count_orders,
@@ -779,15 +778,15 @@ export const report_order_and_cat = async (req, res) => {
             min_price: min_price,
             max_price: max_price
          }
-   
-         res.json({orders,aggregations});
+
+         res.json({ orders, aggregations });
       } catch (err) {
          console.log(err);
          res.status(500).json({
             message: "server error"
          });
       }
-      }
+   }
 }
 
 export const report_user = async (req, res) => {
@@ -795,40 +794,83 @@ export const report_user = async (req, res) => {
       #swagger.tags = ["Report"]
       #swagger.summary = 'отчет по пользователю'
    */
-   if(!req.body.date_begin || !req.body.date_end){
+   if (!req.body.date_begin || !req.body.date_end) {
       try {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
-      
+
          const active_orders = await OrderModel.find(
-            {  
+            {
                date_buy: { $gte: now_activity },
-               user: req.body.user_id             
+               user: req.body.user_id
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            });
+         });
+
+         const accepted_orders = await OrderModel.find(
+            {
+               date_buy: { $lte: now_activity },
+               user: req.body.user_id
+            }
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
 
-         const accepted_orders = await OrderModel.find(
-            {  
-               date_buy: { $lte: now_activity },
-               user: req.body.user_id             
+         const canceled_orders = await OrderModel.find(
+            {
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
+
+         const orders = await OrderModel.find(
+            {
+               user: req.body.user_id,
+               is_buy: true,
+            }
+         ).catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            });
+         });
+         const count_orders = Object.keys(orders).length;
+         if (count_orders === 0) {
+            return res.json(count_orders);
+         }
+         let sum_price = 0;
+         let min_price = orders[0].price;
+         let max_price = orders[0].price;
+
+         for (let order of orders) {
+            sum_price += order.price;
+            if (min_price > order.price) {
+               min_price = order.price;
+            } else {
+               if (max_price < order.price) {
+                  max_price = order.price;
+               }
+            }
+         }
+         const average_price = sum_price / count_orders;
 
          const report = {
             active_orders: active_orders,
             accepted_orders: accepted_orders,
+            canceled_orders: canceled_orders,
+            sum_price: sum_price,
+            average_price: average_price,
          }
-   
+
          res.json(report);
       } catch (err) {
          console.log(err);
@@ -840,40 +882,103 @@ export const report_user = async (req, res) => {
       try {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
-      
+
          const active_orders = await OrderModel.find(
-            {  
+            {
                date_buy: { $gte: now_activity },
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id             
+               user: req.body.user_id
             }
          ).count()
-         .catch((err) => {
+            .catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
+         const accepted_orders = await OrderModel.find(
+            {
+               date_buy: { $lte: now_activity },
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               user: req.body.user_id
+            }
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
 
-         const accepted_orders = await OrderModel.find(
-            {  
-               date_buy: { $lte: now_activity },
+         const canceled_orders = await OrderModel.find(
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id             
+               user: req.body.user_id,
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
+
+         const deactivated_orders = await OrderModel.find(
+            {
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               user: req.body.user_id,
+               is_active: false,
+            }
+         ).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
+         const orders = await OrderModel.find(
+            {
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               user: req.body.user_id,
+               is_buy: true,
+            }
+         ).catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            });
+         });
+         const count_orders = Object.keys(orders).length;
+         if (count_orders === 0) {
+            return res.json(count_orders);
+         }
+         let sum_price = 0;
+         let min_price = orders[0].price;
+         let max_price = orders[0].price;
+
+         for (let order of orders) {
+            sum_price += order.price;
+            if (min_price > order.price) {
+               min_price = order.price;
+            } else {
+               if (max_price < order.price) {
+                  max_price = order.price;
+               }
+            }
+         }
+         const average_price = sum_price / count_orders;
 
          const report = {
             active_orders: active_orders,
             accepted_orders: accepted_orders,
+            canceled_orders: canceled_orders,
+            deactivated_orders: deactivated_orders,
+            sum_price: sum_price,
+            average_price: average_price,
          }
-   
+
          res.json(report);
       } catch (err) {
          console.log(err);
@@ -889,58 +994,55 @@ export const report_category = async (req, res) => {
       #swagger.tags = ["Report"]
       #swagger.summary = 'отчет по категории'
    */
-   if(!req.body.date_begin || !req.body.date_end){
+   if (!req.body.date_begin || !req.body.date_end) {
       try {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
 
          const public_orders = await OrderModel.find(
-            {  
+            {
                nomeclature: { $all: req.body.nomeclature },
-               is_archive: false,
-               is_buy: false,
-               is_canceled: false             
+               is_active: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
 
          const accepted_orders = await OrderModel.find(
-            {  
+            {
                nomeclature: { $all: req.body.nomeclature },
                date_buy: { $lte: now_activity },
                is_buy: true,
             }
          ).count()
-         .catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            .catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
          const canceled_orders = await OrderModel.find(
-            {  
+            {
                nomeclature: { $all: req.body.nomeclature },
                is_buy: false,
                is_canceled: false,
-               is_cancel: true,            
+               is_cancel: true,
             }
          ).count()
-         .catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            .catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
          const report = {
             public_orders: public_orders,
             accepted_orders: accepted_orders,
             canceled_orders: canceled_orders
          }
-   
+
          res.json(report);
       } catch (err) {
          console.log(err);
@@ -954,47 +1056,42 @@ export const report_category = async (req, res) => {
          now_activity.setDate(now_activity.getDate() - 1);
 
          const public_orders = await OrderModel.find(
-            {  
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
                nomeclature: { $all: req.body.nomeclature },
-               is_archive: false,
-               is_buy: false,
-               is_canceled: false             
+               is_active: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
-            })
+            });
          });
 
          const accepted_orders = await OrderModel.find(
-            {  
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
                nomeclature: { $all: req.body.nomeclature },
                date_buy: { $lte: now_activity },
                is_buy: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
          });
 
          const canceled_orders = await OrderModel.find(
-            {  
+            {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
                nomeclature: { $all: req.body.nomeclature },
                is_buy: false,
                is_canceled: false,
-               is_cancel: true,            
+               is_cancel: true,
             }
-         ).count()
-         .catch((err) => {
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
@@ -1005,13 +1102,13 @@ export const report_category = async (req, res) => {
             accepted_orders: accepted_orders,
             canceled_orders: canceled_orders
          }
-   
+
          res.json(report);
       } catch (err) {
          console.log(err);
          res.status(500).json({
             message: "server error"
          });
-      }   
+      }
    }
 }

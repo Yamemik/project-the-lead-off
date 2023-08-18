@@ -34,7 +34,7 @@ const storage = multer.diskStorage({
       cb(null, file.fieldname + '-' + uniqueSuffix + '-' + file.originalname)
    }
 });
-const maxFieldSize = 11 * 1024 * 1024;
+const maxFieldSize = 15 * 1024 * 1024;
 const uploads = multer(
    { storage },
    { limits: { fieldSize: maxFieldSize } }
