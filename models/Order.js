@@ -102,7 +102,8 @@ const OrderSchema = new mongoose.Schema({
    },
    is_canceled_text: {
       type: String,
-      require: false
+      require: false,
+      default: ''
    },
    is_cancel: {
       type: Boolean,
@@ -111,7 +112,8 @@ const OrderSchema = new mongoose.Schema({
    },
    answer: {
       type: String,
-      require: false
+      require: false,
+      default: ''
    }
 }, {
    timestamps: true,

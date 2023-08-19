@@ -56,15 +56,40 @@ export default async (req, res, next) => {
       console.log(err);
    });
 
-   const del_orders = await OrderModel.find({ is_active: false }).catch((err) => {
+   const del_orders = await OrderModel.find({
+      is_active: false,
+   }).catch((err) => {
       console.log(err);
    });
 
    if (Object.keys(del_orders).length != 0) {
-      await OrderDelModel.create(del_orders).catch((err) => {
-         console.log(err);
-      });
-      await OrderModel.deleteMany({ is_active: false }).catch((err) => {
+      for (const order_one of del_orders) {
+         const doc = new OrderDelModel({
+            number_order: order_one.number_order,
+            nomeclature: order_one.nomeclature,
+            region: order_one.region,
+            text: order_one.text,
+            upload: order_one.upload,
+            email: order_one.email,
+            telephone: order_one.telephone,
+            fio: order_one.fio,
+            score: order_one.score,
+            type_buyer: order_one.type_buyer,
+            type_order: order_one.type_order,
+            is_urgent: order_one.is_urgent,
+            is_open: order_one.is_open,
+            price: order_one.price,
+            is_cancel: order_one.is_cancel,
+            is_active: false,
+         });
+
+         await doc.save();
+      }
+
+      await OrderModel.deleteMany({
+         is_active: false,
+         is_cancel: false
+      }).catch((err) => {
          console.log(err);
       });
    }

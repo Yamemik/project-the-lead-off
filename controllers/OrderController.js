@@ -580,8 +580,8 @@ export const report_user = async (req, res) => {
             })
          });
 
-         const deactivated_orders = await OrderDelModel.find({
-         }).count().catch((err) => {
+         const deactivated_orders = await OrderDelModel.find(
+         ).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
