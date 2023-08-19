@@ -101,27 +101,10 @@ export const updateSt = async (req, res) => {
 export const removeSt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить настроек'
+      #swagger.summary = 'удалить настройки'
       #swagger.deprecated = true
    */
-   await SettingModel.findByIdAndDelete(req.params.id)
-      .then(() => res.json({
-         access: true
-      })).catch((err) => {
-         console.log(err);
-         res.status(404).json({
-            message: "not found or delete"
-         });
-      });
-}
-
-export const removeManySt = async (req, res) => {
-   /*
-      #swagger.tags = ["Settings"]
-      #swagger.summary = 'удалить настроек-ты'
-      #swagger.deprecated = true
-   */
-   await SettingModel.deleteMany({ _id: { $in: req.body.rates } }).then(() => res.json({
+   await SettingModel.findOneAndDelete({ id: 1 }).then(() => res.json({
       access: true
    })).catch((err) => {
       console.log(err);
