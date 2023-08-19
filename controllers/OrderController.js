@@ -502,10 +502,6 @@ export const refund = async (req, res) => {
 
 //отчетность
 export const getAllWithFilter = async (req, res) => {
-   /*
-      #swagger.tags = ["Report"]
-      #swagger.summary = 'Получить все заявки по фильтру для отчетности'
-   */
    try {
       const orders = await OrderModel.find(
          {
@@ -536,256 +532,6 @@ export const getAllWithFilter = async (req, res) => {
       res.status(500).json({
          message: "server error"
       });
-   }
-}
-
-export const report_order_and_user = async (req, res) => {
-   /*
-      #swagger.tags = ["Report"]
-      #swagger.summary = 'отчет по заявкам и пользователя'
-   */
-   if (!req.body.user_id) {
-      try {
-         const orders = await OrderModel.find(
-            {
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               is_archive: { $in: req.body.is_archive },
-               is_buy: { $in: req.body.is_buy },
-               is_sale: { $in: req.body.is_sale },
-               is_express: { $in: req.body.is_express },
-               is_urgent: { $in: req.body.is_urgent },
-               is_cancel: { $in: req.body.is_cancel },
-               score: { $in: req.body.score },
-               type_buyer: { $in: req.body.type_buyer },
-               type_order: { $in: req.body.type_order },
-            }
-         )
-            .catch((err) => {
-               return res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
-
-         const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
-         let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
-
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
-               }
-            }
-         }
-         const average_sum = sum_price / count_orders;
-
-         const aggregations = {
-            count_orders: count_orders,
-            sum_price: sum_price,
-            average_sum: average_sum,
-            min_price: min_price,
-            max_price: max_price
-         }
-
-         res.json({ orders, aggregations });
-      } catch (err) {
-         console.log(err);
-         res.status(500).json({
-            message: "server error"
-         });
-      }
-   } else {
-      try {
-         const orders = await OrderModel.find(
-            {
-               user: req.body.user_id,
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               is_archive: { $in: req.body.is_archive },
-               is_buy: { $in: req.body.is_buy },
-               is_sale: { $in: req.body.is_sale },
-               is_express: { $in: req.body.is_express },
-               is_urgent: { $in: req.body.is_urgent },
-               is_cancel: { $in: req.body.is_cancel },
-               score: { $in: req.body.score },
-               type_buyer: { $in: req.body.type_buyer },
-               type_order: { $in: req.body.type_order },
-            }
-         )
-            .catch((err) => {
-               res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
-
-         const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
-         let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
-
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
-               }
-            }
-         }
-         const average_sum = sum_price / count_orders;
-
-         const aggregations = {
-            count_orders: count_orders,
-            sum_price: sum_price,
-            average_sum: average_sum,
-            min_price: min_price,
-            max_price: max_price
-         }
-
-         res.json({ orders, aggregations });
-      } catch (err) {
-         console.log(err);
-         res.status(500).json({
-            message: "server error"
-         });
-      }
-   }
-}
-
-export const report_order_and_cat = async (req, res) => {
-   /*
-      #swagger.tags = ["Report"]
-      #swagger.summary = 'отчет по заявкам и пользователя'
-   */
-   if (!req.body.category_id) {
-      try {
-         const orders = await OrderModel.find(
-            {
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               is_archive: { $in: req.body.is_archive },
-               is_buy: { $in: req.body.is_buy },
-               is_sale: { $in: req.body.is_sale },
-               is_express: { $in: req.body.is_express },
-               is_urgent: { $in: req.body.is_urgent },
-               is_cancel: { $in: req.body.is_cancel },
-               score: { $in: req.body.score },
-               type_buyer: { $in: req.body.type_buyer },
-               type_order: { $in: req.body.type_order },
-            }
-         )
-            .catch((err) => {
-               return res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
-
-         const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
-         let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
-
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
-               }
-            }
-         }
-         const average_sum = sum_price / count_orders;
-
-         const aggregations = {
-            count_orders: count_orders,
-            sum_price: sum_price,
-            average_sum: average_sum,
-            min_price: min_price,
-            max_price: max_price
-         }
-
-         res.json({ orders, aggregations });
-      } catch (err) {
-         console.log(err);
-         res.status(500).json({
-            message: "server error"
-         });
-      }
-   } else {
-      try {
-         const orders = await OrderModel.find(
-            {
-               nomeclature: req.body.category_id,
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               is_archive: { $in: req.body.is_archive },
-               is_buy: { $in: req.body.is_buy },
-               is_sale: { $in: req.body.is_sale },
-               is_express: { $in: req.body.is_express },
-               is_urgent: { $in: req.body.is_urgent },
-               is_cancel: { $in: req.body.is_cancel },
-               score: { $in: req.body.score },
-               type_buyer: { $in: req.body.type_buyer },
-               type_order: { $in: req.body.type_order },
-            }
-         )
-            .catch((err) => {
-               res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
-
-         const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
-         let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
-
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
-               }
-            }
-         }
-         const average_sum = sum_price / count_orders;
-
-         const aggregations = {
-            count_orders: count_orders,
-            sum_price: sum_price,
-            average_sum: average_sum,
-            min_price: min_price,
-            max_price: max_price
-         }
-
-         res.json({ orders, aggregations });
-      } catch (err) {
-         console.log(err);
-         res.status(500).json({
-            message: "server error"
-         });
-      }
    }
 }
 
@@ -844,24 +590,24 @@ export const report_user = async (req, res) => {
             });
          });
          const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
          let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
+         let average_price = 0;
+         if (count_orders != 0) {
+            let min_price = orders[0].price;
+            let max_price = orders[0].price;
 
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
+            for (let order of orders) {
+               sum_price += order.price;
+               if (min_price > order.price) {
+                  min_price = order.price;
+               } else {
+                  if (max_price < order.price) {
+                     max_price = order.price;
+                  }
                }
             }
+            average_price = sum_price / count_orders;
          }
-         const average_price = sum_price / count_orders;
 
          const report = {
             active_orders: active_orders,
@@ -951,24 +697,24 @@ export const report_user = async (req, res) => {
             });
          });
          const count_orders = Object.keys(orders).length;
-         if (count_orders === 0) {
-            return res.json(count_orders);
-         }
          let sum_price = 0;
-         let min_price = orders[0].price;
-         let max_price = orders[0].price;
+         let average_price = 0;
+         if (count_orders != 0) {
+            let min_price = orders[0].price;
+            let max_price = orders[0].price;
 
-         for (let order of orders) {
-            sum_price += order.price;
-            if (min_price > order.price) {
-               min_price = order.price;
-            } else {
-               if (max_price < order.price) {
-                  max_price = order.price;
+            for (let order of orders) {
+               sum_price += order.price;
+               if (min_price > order.price) {
+                  min_price = order.price;
+               } else {
+                  if (max_price < order.price) {
+                     max_price = order.price;
+                  }
                }
             }
+            average_price = sum_price / count_orders;
          }
-         const average_price = sum_price / count_orders;
 
          const report = {
             active_orders: active_orders,

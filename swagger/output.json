@@ -268,10 +268,6 @@
     },
     "/api/admin/order/filter": {
       "post": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "Получить все заявки по фильтру для отчетности",
         "description": "",
         "parameters": [
           {
