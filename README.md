@@ -1,12 +1,12 @@
 # project-the-lead-off
 
-## Используемые технологии
-### Выбранные технологии для разработки бэкенда:
+## Use technology
+### Backend
     - Node.js
     - Express
     - MongoDB
 
-
+## Help
 ### list of commads:
     npm run start
     npm run start:dev - start server for development
@@ -26,5 +26,6 @@
     pm2 save засэйвить созданную задачу
     ta9ukrMW%1bA
 
+## About us
 ### by Yamemik
     https://github.com/Yamemik
