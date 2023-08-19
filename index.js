@@ -4,6 +4,7 @@ import cors from 'cors';
 import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
+import dotenv from 'dotenv';
 
 import {
    UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
@@ -15,10 +16,11 @@ import { createRegionValidation, createValidationIndexes, createCategoryValidati
 import { createOrderValidation, updateOrderValidation, findDublicateOrderValidation, getAllForUserWithFilterValidation, reportOrderValidation } from './validations/OrderValidation.js';
 import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers, handlers_payment } from './utils/index.js';
 
+
 //connect db
-const string_connect_beget = 'mongodb://admin:Yt%25EPk7W@45.9.41.126:27017/?authMechanism=DEFAULT';
+const string_connect_beget = process.env.STRINGCONNECT;
 const string_connect_test = 'mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority';
-mongoose.connect(string_connect_test)
+mongoose.connect(string_connect_beget)
    .then(() => console.log('db.....ok!!'))
    .catch((err) => console.log('db ERROR:', err));
 
@@ -133,9 +135,9 @@ router.get('/admin/settings/about', checkAuth, SettingController.getAllAb);
 router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllNo);
 router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
 
-// app.use('*', (req, res) => {
-//    res.sendFile("/var/www/frontend/index.html");
-// });
+app.use('*', (req, res) => {
+   res.sendFile("/var/www/frontend/index.html");
+});
 
 //run server
 app.listen(3000, (err) => {

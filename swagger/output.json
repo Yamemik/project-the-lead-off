@@ -1116,6 +1116,23 @@
             "description": "Not Found"
           }
         }
+      },
+      "delete": {
+        "tags": [
+          "Settings"
+        ],
+        "summary": "удалить настройки",
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "deprecated": true
       }
     },
     "/api/admin/settings/about": {
