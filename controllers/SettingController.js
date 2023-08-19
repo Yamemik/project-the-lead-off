@@ -102,7 +102,7 @@ export const removeSt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить настройки'
-      #swagger.deprecated = true
+      #swagger.deprecated = false
    */
    await SettingModel.findOneAndDelete({ id: 1 }).then(() => res.json({
       access: true

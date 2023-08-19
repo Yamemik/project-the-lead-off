@@ -1132,7 +1132,7 @@
             "description": "Not Found"
           }
         },
-        "deprecated": true
+        "deprecated": false
       }
     },
     "/api/admin/settings/about": {
