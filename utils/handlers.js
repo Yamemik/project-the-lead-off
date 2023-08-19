@@ -1,4 +1,5 @@
 import OrderModel from '../models/Order.js';
+import OrderDelModel from '../models/OrderDelete.js';
 
 
 export default async (req, res, next) => {
@@ -55,9 +56,18 @@ export default async (req, res, next) => {
       console.log(err);
    });
 
-   // await OrderModel.deleteMany({ is_active: false }).catch((err) => {
-   //    console.log(err);
-   // });
+   const del_orders = await OrderModel.find({ is_active: false }).catch((err) => {
+      console.log(err);
+   });
+
+   if (Object.keys(del_orders).length != 0) {
+      await OrderDelModel.create(del_orders).catch((err) => {
+         console.log(err);
+      });
+      await OrderModel.deleteMany({ is_active: false }).catch((err) => {
+         console.log(err);
+      });
+   }
 
    next();
 }

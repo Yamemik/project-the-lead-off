@@ -1,44 +1,44 @@
 import mongoose, { Schema } from 'mongoose';
 
-const UserSchema = new mongoose.Schema({  
-   fio:{
+const UserSchema = new mongoose.Schema({
+   fio: {
       type: String,
       required: true
    },
-   email:{
+   email: {
       type: String,
       required: true,
-      unique: true      
+      unique: true
    },
-   telephone:{
-      type: String,      
+   telephone: {
+      type: String,
       require: true,
       unique: true
    },
-   organization:{
+   organization: {
       type: String,
       require: false,
       default: "неизвестно"
    },
-   region:{
+   region: {
       type: Array,
       require: false
    },
-   business_line:{
+   business_line: {
       type: Array,
       require: false
    },
-   access_to_open:{
+   access_to_open: {
       type: Boolean,
       require: false,
       default: false
    },
-   is_admin:{
+   is_admin: {
       type: Boolean,
       require: true,
       default: false
    },
-   balance:{
+   balance: {
       type: Number,
       default: 0
    },
@@ -46,12 +46,16 @@ const UserSchema = new mongoose.Schema({
       type: Number,
       default: 0
    },
-   passwordHash:{
+   date_credit: {
+      type: Date,
+      require: false
+   },
+   passwordHash: {
       type: String,
       require: true
    }
-},{
+}, {
    timestamps: true
 });
 
-export default mongoose.model("User",UserSchema);
+export default mongoose.model("User", UserSchema);

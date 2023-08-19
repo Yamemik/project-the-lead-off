@@ -33,6 +33,8 @@ export const createUser = async (req, res) => {
          access_to_open: req.body.access_to_open,
          is_admin: req.body.is_admin,
          balance: req.body.balance,
+         credit: req.body.credit,
+         date_credit: req.body.date_credit,
          passwordHash: hash
       });
 
@@ -210,7 +212,8 @@ export const update = async (req, res) => {
          access_to_open: req.body.access_to_open,
          is_admin: req.body.is_admin,
          balance: req.body.balance,
-         credit: req.body.credit
+         credit: req.body.credit,
+         date_credit: req.body.date_credit,
       }
    }).then(() => res.json({
       access: true
@@ -257,31 +260,31 @@ export const transaction = async (req, res) => {
       #swagger.summary = 'перевод другому пользователю'
    */
    const user_check = await UserModel.findById(req.userId)
-   .catch((err) => {
-      res.status(404).json({ message: 'user not find'})
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'user not find' })
+      });
 
-   if(user_check.balance < req.body.sum){
-      return res.status(404).json({ message: 'insufficient funds'});
+   if (user_check.balance < req.body.sum) {
+      return res.status(404).json({ message: 'insufficient funds' });
    }
-   
+
    const user_old = await UserModel.findOneAndUpdate({ _id: req.userId }, {
       $inc: { 'balance': -req.body.sum }
    })
-   .catch((err) => {
-      res.status(404).json({ message: 'sum not transition for sender' })
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not transition for sender' })
+      });
 
    const user_old_rec = await UserModel.findOneAndUpdate({ _id: req.body.recipient_id }, {
       $inc: { 'balance': req.body.sum }
    })
-   .catch((err) => {
-      res.status(404).json({ message: 'sum not transition for recipient' })
-   });
+      .catch((err) => {
+         res.status(404).json({ message: 'sum not transition for recipient' })
+      });
 
    user_old_rec.passwordHash = '';
    user_old.passwordHash = '';
-   const now = new Date();   
+   const now = new Date();
 
    const payment = {
       date: now,

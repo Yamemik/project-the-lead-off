@@ -1,4 +1,5 @@
 import OrderModel from '../models/Order.js';
+import OrderDelModel from '../models/OrderDelete.js';
 import UserModel from '../models/User.js';
 import NumberOrder from '../models/NumberOrder.js';
 import PaymentSchema from '../models/Payment.js';
@@ -579,6 +580,13 @@ export const report_user = async (req, res) => {
             })
          });
 
+         const deactivated_orders = await OrderDelModel.find({
+         }).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+
          const orders = await OrderModel.find(
             {
                user: req.body.user_id,
@@ -613,6 +621,7 @@ export const report_user = async (req, res) => {
             active_orders: active_orders,
             accepted_orders: accepted_orders,
             canceled_orders: canceled_orders,
+            deactivated_orders: deactivated_orders,
             sum_price: sum_price,
             average_price: average_price,
          }
@@ -671,14 +680,10 @@ export const report_user = async (req, res) => {
             })
          });
 
-         const deactivated_orders = await OrderModel.find(
-            {
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id,
-               is_active: false,
-            }
-         ).count().catch((err) => {
+         const deactivated_orders = await OrderDelModel.find({
+            createdAt: { $gte: req.body.date_begin },
+            createdAt: { $lte: req.body.date_end },
+         }).count().catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
             })
