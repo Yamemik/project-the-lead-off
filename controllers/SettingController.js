@@ -5,7 +5,7 @@ import AboutModel from '../models/About.js';
 export const getAllSt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Получить настройки'
+      #swagger.summary = 'Получить все настройки'
    */
    try {
       const entity = await SettingModel.find().catch((err) => {
@@ -26,12 +26,11 @@ export const getAllSt = async (req, res) => {
 export const getOneSt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Получение 1 настроек'
+      #swagger.summary = 'Получение 1 настройки'
    */
    try {
-      const entityId = req.params.id;
 
-      const entity = await SettingModel.findById(entityId).catch((err) => {
+      const entity = await SettingModel.findOne({ id: 1 }).catch((err) => {
          res.status(404).json({
             message: 'not found'
          })
@@ -59,6 +58,7 @@ export const createSt = async (req, res) => {
    */
    try {
       const doc = new SettingModel({
+         id: 1,
          settings: req.body.settings
       });
 
@@ -76,7 +76,7 @@ export const createSt = async (req, res) => {
 export const updateSt = async (req, res) => {
    /*
       #swagger.tags = ["Settings"]
-      #swagger.summary = 'Измениние настроек'
+      #swagger.summary = 'Изменение настроек'
       #swagger.parameters['obj'] = {
                 in: 'body',
                 description: 'settings',
@@ -84,7 +84,7 @@ export const updateSt = async (req, res) => {
                 schema: { $ref: "#/definitions/Setting" }
       }
    */
-   await SettingModel.findOneAndUpdate({}, {
+   await SettingModel.findOneAndUpdate({ id: 1 }, {
       $set: {
          settings: req.body.settings
       }

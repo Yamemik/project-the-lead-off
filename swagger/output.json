@@ -1076,7 +1076,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Получить настройки",
+        "summary": "Получить все настройки",
         "description": "",
         "parameters": [],
         "responses": {
@@ -1095,7 +1095,7 @@
         "tags": [
           "Settings"
         ],
-        "summary": "Измениние настроек",
+        "summary": "Изменение настроек",
         "description": "",
         "parameters": [
           {

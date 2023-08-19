@@ -94,7 +94,7 @@ router.delete('/admin/settings/score/:id', checkAuthIsAdmin, RateController.remo
 router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 //settings
 router.post('/admin/settings/setting', checkAuth, SettingController.createSt);
-router.get('/admin/settings/setting', checkAuth, SettingController.getAllSt);
+router.get('/admin/settings/setting', checkAuth, SettingController.getOneSt);
 router.patch('/admin/settings/setting', checkAuth, SettingController.updateSt);
 //about
 router.post('/admin/settings/about', checkAuthIsAdmin, SettingController.createAb);
