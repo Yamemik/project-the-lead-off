@@ -30,7 +30,8 @@ const doc = {
       access_to_open: false,
       is_admin: false,
       balance: 0,
-      credit: 11
+      credit: 11,
+      date_credit: '2023-08-16T16:43:35.008+00:00'
     },
     Order: {
       $nomeclature: ["nomen1.3.1", "nomen1.2.1", "group1.1"],
