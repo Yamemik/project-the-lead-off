@@ -7,7 +7,6 @@
     - MongoDB
 
 
-
 ### list of commads:
     npm run start
     npm run start:dev - start server for development

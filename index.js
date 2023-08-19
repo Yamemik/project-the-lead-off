@@ -4,7 +4,6 @@ import cors from 'cors';
 import fs from 'fs';
 import multer from 'multer';
 import swaggerUi from 'swagger-ui-express';
-import dotenv from 'dotenv';
 
 import {
    UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
