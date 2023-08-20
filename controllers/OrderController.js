@@ -546,66 +546,112 @@ export const report_user = async (req, res) => {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
 
-         const active_orders = await OrderModel.find(
-            {
-               date_buy: { $gte: now_activity },
-               user: req.body.user_id
-            }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
+         let accepted_orders_list;
+         let active_orders_list;
+         if (req.body.user_id === "__all__") {
+            active_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $gte: now_activity },
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
             });
-         });
 
-         const accepted_orders = await OrderModel.find(
-            {
-               date_buy: { $lte: now_activity },
-               user: req.body.user_id
-            }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            accepted_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $lte: now_activity },
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         } else {
+            active_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $gte: now_activity },
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
-         const canceled_orders = await OrderModel.find(
+            accepted_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $lte: now_activity },
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         }
+         const active_orders = Object.keys(active_orders_list).length;
+         const accepted_orders = Object.keys(accepted_orders_list).length;
+
+         const canceled_orders_list = await OrderModel.find(
             {
                is_buy: false,
                is_canceled: false,
                is_cancel: true,
             }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-
-         const deactivated_orders = await OrderDelModel.find(
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-
-         const orders = await OrderModel.find(
-            {
-               user: req.body.user_id,
-               is_buy: true,
-            }
          ).catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
-            });
+            })
          });
-         const count_orders = Object.keys(orders).length;
-         let sum_price = 0;
-         let average_price = 0;
-         if (count_orders != 0) {
-            let min_price = orders[0].price;
-            let max_price = orders[0].price;
+         const canceled_orders = Object.keys(canceled_orders_list).length;
 
-            for (let order of orders) {
-               sum_price += order.price;
+         const deactivated_orders_list = await OrderDelModel.find(
+         ).catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+         const deactivated_orders = Object.keys(deactivated_orders_list).length;
+
+         let buy_orders;
+         if (req.body.user_id === "__all__") {
+            buy_orders = await OrderModel.find(
+               {
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               });
+            });
+         }
+         else {
+            buy_orders = await OrderModel.find(
+               {
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               });
+            });
+         }
+         const count_buy_orders = Object.keys(buy_orders).length;
+         let sum_price_buy_orders = 0;
+         let average_price_buy_orders = 0;
+         if (count_buy_orders != 0) {
+            let min_price = buy_orders[0].price;
+            let max_price = buy_orders[0].price;
+
+            for (let order of buy_orders) {
+               sum_price_buy_orders += order.price;
                if (min_price > order.price) {
                   min_price = order.price;
                } else {
@@ -614,7 +660,7 @@ export const report_user = async (req, res) => {
                   }
                }
             }
-            average_price = sum_price / count_orders;
+            average_price_buy_orders = sum_price_buy_orders / count_buy_orders;
          }
 
          const report = {
@@ -622,8 +668,14 @@ export const report_user = async (req, res) => {
             accepted_orders: accepted_orders,
             canceled_orders: canceled_orders,
             deactivated_orders: deactivated_orders,
-            sum_price: sum_price,
-            average_price: average_price,
+            count_buy_orders: count_buy_orders,
+            sum_price_buy_orders: sum_price_buy_orders,
+            average_price_buy_orders: average_price_buy_orders,
+            active_orders_list: active_orders_list,
+            accepted_orders_list: accepted_orders_list,
+            canceled_orders_list: canceled_orders_list,
+            deactivated_orders_list: deactivated_orders_list,
+            buy_orders: buy_orders,
          }
 
          res.json(report);
@@ -638,77 +690,128 @@ export const report_user = async (req, res) => {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
 
-         const active_orders = await OrderModel.find(
-            {
-               date_buy: { $gte: now_activity },
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id
-            }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+         let active_orders_list;
+         let accepted_orders_list;
+         if (req.body.user_id === "__all__") {
+            active_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $gte: now_activity },
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
-         const accepted_orders = await OrderModel.find(
-            {
-               date_buy: { $lte: now_activity },
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id
-            }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            accepted_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $lte: now_activity },
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         } else {
+            active_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $gte: now_activity },
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
-         const canceled_orders = await OrderModel.find(
+            accepted_orders_list = await OrderModel.find(
+               {
+                  date_buy: { $lte: now_activity },
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         }
+         const active_orders = Object.keys(active_orders_list).length;
+         const accepted_orders = Object.keys(accepted_orders_list).length;
+
+         const canceled_orders_list = await OrderModel.find(
             {
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id,
                is_buy: false,
                is_canceled: false,
                is_cancel: true,
             }
-         ).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-
-         const deactivated_orders = await OrderDelModel.find({
-            createdAt: { $gte: req.body.date_begin },
-            createdAt: { $lte: req.body.date_end },
-         }).count().catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-
-         const orders = await OrderModel.find(
-            {
-               createdAt: { $gte: req.body.date_begin },
-               createdAt: { $lte: req.body.date_end },
-               user: req.body.user_id,
-               is_buy: true,
-            }
          ).catch((err) => {
             return res.status(404).json({
                message: 'orders not found'
-            });
+            })
          });
-         const count_orders = Object.keys(orders).length;
-         let sum_price = 0;
-         let average_price = 0;
-         if (count_orders != 0) {
-            let min_price = orders[0].price;
-            let max_price = orders[0].price;
+         const canceled_orders = Object.keys(canceled_orders_list).length;
 
-            for (let order of orders) {
-               sum_price += order.price;
+         const deactivated_orders_list = await OrderDelModel.find({
+            createdAt: { $gte: req.body.date_begin },
+            createdAt: { $lte: req.body.date_end },
+         }).catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
+         const deactivated_orders = Object.keys(deactivated_orders_list).length;
+
+         let buy_orders;
+         if (req.body.user_id === "__all__") {
+            buy_orders = await OrderModel.find(
+               {
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               });
+            });
+         }
+         else {
+            buy_orders = await OrderModel.find(
+               {
+                  createdAt: { $gte: req.body.date_begin },
+                  createdAt: { $lte: req.body.date_end },
+                  is_buy: true,
+                  user: { $in: req.body.user_id },
+               }
+            ).populate('user').exec().catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               });
+            });
+         }
+         const count_buy_orders = Object.keys(buy_orders).length;
+         let sum_price_buy_orders = 0;
+         let average_price_buy_orders = 0;
+         if (count_buy_orders != 0) {
+            let min_price = buy_orders[0].price;
+            let max_price = buy_orders[0].price;
+
+            for (let order of buy_orders) {
+               sum_price_buy_orders += order.price;
                if (min_price > order.price) {
                   min_price = order.price;
                } else {
@@ -717,7 +820,7 @@ export const report_user = async (req, res) => {
                   }
                }
             }
-            average_price = sum_price / count_orders;
+            average_price_buy_orders = sum_price_buy_orders / count_buy_orders;
          }
 
          const report = {
@@ -725,8 +828,14 @@ export const report_user = async (req, res) => {
             accepted_orders: accepted_orders,
             canceled_orders: canceled_orders,
             deactivated_orders: deactivated_orders,
-            sum_price: sum_price,
-            average_price: average_price,
+            count_buy_orders: count_buy_orders,
+            sum_price_buy_orders: sum_price_buy_orders,
+            average_price_buy_orders: average_price_buy_orders,
+            active_orders_list: active_orders_list,
+            accepted_orders_list: accepted_orders_list,
+            canceled_orders_list: canceled_orders_list,
+            deactivated_orders_list: deactivated_orders_list,
+            buy_orders: buy_orders,
          }
 
          res.json(report);
