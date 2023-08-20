@@ -18,7 +18,6 @@ import { checkAuth, checkAuthIsAdmin, handlValidationErrors, handlers, handlers_
 
 //connect db
 const string_connect_beget = process.env.STRINGCONNECT;
-const string_connect_test = 'mongodb+srv://admin:admin@cluster0.532y6ot.mongodb.net/lead-off?retryWrites=true&w=majority';
 mongoose.connect(string_connect_beget)
    .then(() => console.log('db.....ok!!'))
    .catch((err) => console.log('db ERROR:', err));

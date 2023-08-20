@@ -645,12 +645,11 @@ export const report_user = async (req, res) => {
                createdAt: { $lte: req.body.date_end },
                user: req.body.user_id
             }
-         ).count()
-            .catch((err) => {
-               return res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
+         ).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
          const accepted_orders = await OrderModel.find(
             {
@@ -767,12 +766,11 @@ export const report_category = async (req, res) => {
                date_buy: { $lte: now_activity },
                is_buy: true,
             }
-         ).count()
-            .catch((err) => {
-               return res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
+         ).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
          const canceled_orders = await OrderModel.find(
             {
@@ -781,12 +779,11 @@ export const report_category = async (req, res) => {
                is_canceled: false,
                is_cancel: true,
             }
-         ).count()
-            .catch((err) => {
-               return res.status(404).json({
-                  message: 'orders not found'
-               })
-            });
+         ).count().catch((err) => {
+            return res.status(404).json({
+               message: 'orders not found'
+            })
+         });
 
          const report = {
             public_orders: public_orders,
