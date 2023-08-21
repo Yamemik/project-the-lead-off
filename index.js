@@ -72,7 +72,7 @@ router.patch('/admin/order/refund/:order_id', checkAuth, OrderController.refund)
 router.patch('/admin/order/canceled/:order_id', checkAuth, OrderController.cancelIsCanceled);
 //report
 router.post('/admin/report/user', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_user);
-router.post('/admin/report/category', checkAuthIsAdmin, reportOrderValidation, handlValidationErrors, OrderController.report_category);
+router.post('/admin/report/category', checkAuthIsAdmin, OrderController.report_category);
 //payment
 router.get('/admin/ukassa/getall', checkAuthIsAdmin, PaymentController.getAllPayAllUsers);
 

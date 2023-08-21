@@ -858,43 +858,68 @@ export const report_category = async (req, res) => {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
 
-         const public_orders_list = await OrderModel.find(
-            {
-               nomeclature: { $all: req.body.nomeclature },
+         let public_orders_list;
+         let accepted_orders_list;
+         let canceled_orders_list;
+         if (req.body.nomeclature === '__all__') {
+            public_orders_list = await OrderModel.find({
                is_active: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-         const public_orders = Object.keys(public_orders_list).length;
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
 
-         const accepted_orders_list = await OrderModel.find(
-            {
-               nomeclature: { $all: req.body.nomeclature },
+            accepted_orders_list = await OrderModel.find({
                date_buy: { $lte: now_activity },
                is_buy: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-         const accepted_orders = Object.keys(accepted_orders_list).length;
-
-         const canceled_orders_list = await OrderModel.find(
-            {
-               nomeclature: { $all: req.body.nomeclature },
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+            canceled_orders_list = await OrderModel.find({
                is_buy: false,
                is_canceled: false,
                is_cancel: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         } else {
+            public_orders_list = await OrderModel.find({
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               is_active: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
+            accepted_orders_list = await OrderModel.find({
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               date_buy: { $lte: now_activity },
+               is_buy: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+            canceled_orders_list = await OrderModel.find({
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         }
+
+         const public_orders = Object.keys(public_orders_list).length;
+         const accepted_orders = Object.keys(accepted_orders_list).length;
          const canceled_orders = Object.keys(canceled_orders_list).length;
 
          const report = {
@@ -918,49 +943,81 @@ export const report_category = async (req, res) => {
          const now_activity = new Date();
          now_activity.setDate(now_activity.getDate() - 1);
 
-         const public_orders_list = await OrderModel.find(
-            {
+         let public_orders_list;
+         let accepted_orders_list;
+         let canceled_orders_list;
+         if (req.body.nomeclature === '__all__') {
+            public_orders_list = await OrderModel.find({
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               nomeclature: { $all: req.body.nomeclature },
                is_active: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
             });
-         });
-         const public_orders = Object.keys(public_orders_list).length;
 
-         const accepted_orders_list = await OrderModel.find(
-            {
+            accepted_orders_list = await OrderModel.find({
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               nomeclature: { $all: req.body.nomeclature },
                date_buy: { $lte: now_activity },
                is_buy: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
-         const accepted_orders = Object.keys(accepted_orders_list).length;
-
-         const canceled_orders_list = await OrderModel.find(
-            {
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+            canceled_orders_list = await OrderModel.find({
                createdAt: { $gte: req.body.date_begin },
                createdAt: { $lte: req.body.date_end },
-               nomeclature: { $all: req.body.nomeclature },
                is_buy: false,
                is_canceled: false,
                is_cancel: true,
-            }
-         ).catch((err) => {
-            return res.status(404).json({
-               message: 'orders not found'
-            })
-         });
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         } else {
+            public_orders_list = await OrderModel.find({
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               is_active: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
+            accepted_orders_list = await OrderModel.find({
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               date_buy: { $lte: now_activity },
+               is_buy: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+
+            canceled_orders_list = await OrderModel.find({
+               createdAt: { $gte: req.body.date_begin },
+               createdAt: { $lte: req.body.date_end },
+               nomeclature: { $elemMatch: { $elemMatch: { $in: req.body.nomeclature } } },
+               is_buy: false,
+               is_canceled: false,
+               is_cancel: true,
+            }).catch((err) => {
+               return res.status(404).json({
+                  message: 'orders not found'
+               })
+            });
+         }
+
+         const public_orders = Object.keys(public_orders_list).length;
+         const accepted_orders = Object.keys(accepted_orders_list).length;
          const canceled_orders = Object.keys(canceled_orders_list).length;
 
          const report = {
