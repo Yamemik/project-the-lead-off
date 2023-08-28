@@ -36,6 +36,7 @@
             }
             &:nth-child(3) {
                 flex: 0 1 13%;
+                word-break: break-all;
             }
             &:nth-child(4) {
                 flex: 0 1 14%;

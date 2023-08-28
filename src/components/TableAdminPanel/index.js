@@ -18,6 +18,7 @@ const TableAdminPanel = ({
 	clickYes,
 	clickNo,
 	isDuplicatesTable,
+	isRejections
 }) => {
 	const [deleteItemPopup, setDeleteItemPopup] = useState(false);
 	const [deleteItemID, setDeleteItemID] = useState(null);
@@ -120,6 +121,11 @@ const TableAdminPanel = ({
 									{canYes && canNo && (
 										<div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
 											<img
+												src="/img/adminPanel/eye.svg"
+												alt="Смотреть"
+												onClick={() => clickSee(_id)}
+											/>
+											<img
 												src="/img/adminPanel/yes.svg"
 												alt="Принять"
 												onClick={() => clickYes(_id)}
@@ -218,6 +224,11 @@ const TableAdminPanel = ({
 								)}
 								{canYes && canNo && (
 									<div className="tableAdminPanel__row-item tableAdminPanel__row-item-addons">
+										<img
+											src="/img/adminPanel/eye.svg"
+											alt="Смотреть"
+											onClick={() => clickSee(_id)}
+										/>
 										<img
 											src="/img/adminPanel/yes.svg"
 											alt="Принять"

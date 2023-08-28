@@ -8,6 +8,7 @@ import LayoutBlock from "../../../../components/Layouts/LayoutBlock";
 import axios from "../../../../utils/axios";
 import getDifferenceBetweenTwoDates from "../../../../utils/getDifferenceBetweenTwoDates";
 import Pagination from "../../../../components/Pagination";
+import getOrderWithCalculatePrice from "../../../../utils/getOrderWithCalculatePrice";
 
 const AdminPanelDuplicates = () => {
     const params = useParams()
@@ -20,21 +21,22 @@ const AdminPanelDuplicates = () => {
             .then(({ data }) => {
                 data.map(order => {
                     if (params.ordersIDs.split("$").includes(order._id)) {
-                        setOrders(prev => [
-                            ...prev,
-                            {
-                                _id: order._id,
-                                id: order.number_order,
-                                create_date: new Date(order.createdAt).toLocaleDateString(),
-                                login: `${order.nomeclature[0][0]} / ${order.nomeclature[0][1]}`,
-                                FIO: order.nomeclature[0][2],
-                                region: order.score,
-                                phone: order.region.join(" / "),
-                                balance: `${order.price} руб.`,
-                                category:
-                                    getDifferenceBetweenTwoDates(order.createdAt, new Date()) < 24 ? "Новая" : "Старая",
-                            },
-                        ]);
+                        getOrderWithCalculatePrice(order, JSON.parse(localStorage.getItem("user"))).then(order =>
+                            setOrders(prev => [
+                                ...prev,
+                                {
+                                    _id: order._id,
+                                    id: order.number_order,
+                                    create_date: new Date(order.createdAt).toLocaleDateString(),
+                                    login: order.region.join(" / "),
+                                    FIO: order.nomeclature[0][0],
+                                    phone: order.nomeclature[0][1] || "—",
+                                    region: order.nomeclature[0][2] || "—",
+                                    balance: order.score,
+                                    category: `${order.price} руб.`,
+                                },
+                            ]),
+                        );
                     }
                 })
             })

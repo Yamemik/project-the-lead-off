@@ -88,7 +88,7 @@ const AdminPanelUser = () => {
 							</div>
 							<div className="order__row">
 								<div className="order__row-title">
-									Направление бизнеса:
+									Направления бизнеса:
 								</div>
 								<div className="order__row-text">
 									{getUserBusinessLine(user.business_line)}
@@ -108,6 +108,16 @@ const AdminPanelUser = () => {
 									{user.balance} руб.
 								</div>
 							</div>
+							{
+								Number(user.credit) > 0 && (
+									<div className="order__row">
+										<div className="order__row-title">Кредит:</div>
+										<div className="order__row-text">
+											{user.credit} руб. до {new Date(user.date_credit).toLocaleDateString()}
+										</div>
+									</div>
+								)
+							}
 						</div>
 					)}
 				</LayoutBlock>

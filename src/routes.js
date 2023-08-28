@@ -35,140 +35,170 @@ import AdminPanelCreateOrder from "./pages/Platform/AdminPanel/AdminPanelCreateO
 import AdminPanelEditOrder from "./pages/Platform/AdminPanel/AdminPanelEditOrder";
 import RememberPassword from "./pages/Platform/RememberPassword";
 import LandingDocs from "./pages/Landing/LandingDocs";
+import ProfileDemo from "./pages/Platform/ProfileDemo";
+import SuitableOrdersDemo from "./pages/Platform/SuitableOrdersDemo";
+import SaleOrdersDemo from "./pages/Platform/SaleOrdersDemo";
+import ActiveOrdersDemo from "./pages/Platform/ActiveOrdersDemo";
+import OrderDemo from "./pages/Platform/OrderDemo";
+import ArchiveOrdersDemo from "./pages/Platform/ArchiveOrdersDemo";
 
 const routes = createBrowserRouter([
-    {
-        path: "/platform/admin-panel/auth",
-        element: <AdminPanelAuth />,
-    },
-    {
-        path: "/platform/auth",
-        element: <Auth />,
-    },
-    {
-        path: "/platform/remember-password",
-        element: <RememberPassword />,
-    },
-    {
-        path: "/platform/demo",
-        element: <Demo />,
-    },
-    {
-        path: "/",
-        errorElement: <NotFound />,
-    },
-    {
-        path: "/landing",
-        element: <Landing />,
-    },
-    {
-        path: "/landing/docs/:document_type",
-        element: <LandingDocs />,
-    },
-    {
-        path: "/platform",
-        element: <OutletMain />,
-        children: [
-            {
-                path: "home",
-                element: <Platform />,
-            },
-            {
-                path: "suitable-orders",
-                element: <SuitableOrders />,
-            },
-            {
-                path: "sale-orders",
-                element: <SaleOrders />,
-            },
-            {
-                path: "active-orders",
-                element: <ActiveOrders />,
-            },
-            {
-                path: "order/:id",
-                element: <Order />,
-            },
-            {
-                path: "profile",
-                element: <Profile />,
-            },
-            {
-                path: "archive-orders",
-                element: <ArchiveOrders />,
-            },
-            {
-                path: "rejection-orders",
-                element: <RejectionOrders />,
-            },
-        ],
-    },
-    {
-        path: "/platform/admin-panel",
-        element: <OutletAdmin />,
-        children: [
-            {
-                path: "home",
-                element: <AdminPanelHome />,
-            },
-            {
-                path: "users",
-                element: <AdminPanelUsers />,
-            },
-            {
-                path: "orders",
-                element: <AdminPanelOrders />,
-            },
-            {
-                path: "analytics",
-                element: <AdminPanelFinance />,
-            },
-            {
-                path: "settings",
-                element: <AdminPanelSettings />,
-            },
-            {
-                path: "user/:id",
-                element: <AdminPanelUser />,
-            },
-            {
-                path: "edit-user/:id",
-                element: <AdminPanelEditUser />,
-            },
-            {
-                path: "create-user",
-                element: <AdminPanelCreateUser />,
-            },
-            {
-                path: "order/:id",
-                element: <AdminPanelOrder />,
-            },
-            {
-                path: "rejection-order/:id",
-                element: <AdminPanelRejectionOrder />,
-            },
-            {
-                path: "rejections",
-                element: <AdminPanelRejections />,
-            },
-            // {
-            //     path: "duplicates",
-            //     element: <AdminPanelDuplicates />,
-            // },
-            {
-                path: "duplicates/:ordersIDs",
-                element: <AdminPanelDuplicates />,
-            },
-            {
-                path: "create-order",
-                element: <AdminPanelCreateOrder />,
-            },
-            {
-                path: "edit-order/:id",
-                element: <AdminPanelEditOrder />,
-            },
-        ],
-    },
+	{
+		path: "/platform/admin-panel/auth",
+		element: <AdminPanelAuth />,
+	},
+	{
+		path: "/platform/auth",
+		element: <Auth />,
+	},
+	{
+		path: "/platform/remember-password",
+		element: <RememberPassword />,
+	},
+	{
+		path: "/platform/demo",
+		element: <Demo />,
+	},
+	{
+		path: "/platform/demo/profile",
+		element: <ProfileDemo />,
+	},
+	{
+		path: "/platform/demo/suitable-orders",
+		element: <SuitableOrdersDemo />,
+	},
+	{
+		path: "/platform/demo/sale-orders",
+		element: <SaleOrdersDemo />,
+	},
+	{
+		path: "/platform/demo/active-orders",
+		element: <ActiveOrdersDemo />,
+	},
+	{
+		path: "/platform/demo/order/:id",
+		element: <OrderDemo />,
+	},
+	{
+		path: "/platform/demo/archive-orders",
+		element: <ArchiveOrdersDemo />,
+	},
+	{
+		path: "/",
+		errorElement: <NotFound />,
+	},
+	{
+		path: "/landing",
+		element: <Landing />,
+	},
+	{
+		path: "/landing/docs/:document_type",
+		element: <LandingDocs />,
+	},
+	{
+		path: "/platform",
+		element: <OutletMain />,
+		children: [
+			{
+				path: "home",
+				element: <Platform />,
+			},
+			{
+				path: "suitable-orders",
+				element: <SuitableOrders />,
+			},
+			{
+				path: "sale-orders",
+				element: <SaleOrders />,
+			},
+			{
+				path: "active-orders",
+				element: <ActiveOrders />,
+			},
+			{
+				path: "order/:id",
+				element: <Order />,
+			},
+			{
+				path: "profile",
+				element: <Profile />,
+			},
+			{
+				path: "archive-orders",
+				element: <ArchiveOrders />,
+			},
+			{
+				path: "rejection-orders",
+				element: <RejectionOrders />,
+			},
+		],
+	},
+	{
+		path: "/platform/admin-panel",
+		element: <OutletAdmin />,
+		children: [
+			{
+				path: "home",
+				element: <AdminPanelHome />,
+			},
+			{
+				path: "users",
+				element: <AdminPanelUsers />,
+			},
+			{
+				path: "orders",
+				element: <AdminPanelOrders />,
+			},
+			{
+				path: "analytics",
+				element: <AdminPanelFinance />,
+			},
+			{
+				path: "settings",
+				element: <AdminPanelSettings />,
+			},
+			{
+				path: "user/:id",
+				element: <AdminPanelUser />,
+			},
+			{
+				path: "edit-user/:id",
+				element: <AdminPanelEditUser />,
+			},
+			{
+				path: "create-user",
+				element: <AdminPanelCreateUser />,
+			},
+			{
+				path: "order/:id",
+				element: <AdminPanelOrder />,
+			},
+			{
+				path: "rejection-order/:id",
+				element: <AdminPanelRejectionOrder />,
+			},
+			{
+				path: "rejections",
+				element: <AdminPanelRejections />,
+			},
+			// {
+			//     path: "duplicates",
+			//     element: <AdminPanelDuplicates />,
+			// },
+			{
+				path: "duplicates/:ordersIDs",
+				element: <AdminPanelDuplicates />,
+			},
+			{
+				path: "create-order",
+				element: <AdminPanelCreateOrder />,
+			},
+			{
+				path: "edit-order/:id",
+				element: <AdminPanelEditOrder />,
+			},
+		],
+	},
 ]);
 
 export default routes;

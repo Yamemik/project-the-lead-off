@@ -103,6 +103,7 @@ const AdminPanelRejections = () => {
                             itemsPerPage={5}
                             isAdminPanelTable
                             isRejections
+                            clickSee={(id) => window.location = `/platform/admin-panel/rejection-order/${id}`}
                             head={[
                                 "ID",
                                 "Дата создания",

@@ -1,6 +1,6 @@
 import "./FinanceTable.scss";
 
-const FinanceTable = ({ data, type }) => {
+const FinanceTable = ({ data, type, demo }) => {
     return (
         <div className="financeTable">
             <div className="financeTable-row financeTable-row--title">
@@ -14,7 +14,7 @@ const FinanceTable = ({ data, type }) => {
                     <div className="financeTable-row-text">{price} руб.</div>
                     <div className="financeTable-row-text">
                         {type === "offs" ? (
-                            <span className="financeTable-row-text-id" onClick={() => window.location.href = `/platform/order/${_id}`}>{id}</span>
+                            <span className="financeTable-row-text-id" onClick={() => window.location.href = demo ? `/platform/demo/order/${_id}` : `/platform/order/${_id}`}>{id}</span>
                         ) : (
                             <span
                                 className={`financeTable-row-text-status financeTable-row-text-status${

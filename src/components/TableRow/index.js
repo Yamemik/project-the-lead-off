@@ -21,6 +21,8 @@ const TableRow = ({
     dateDeleteArchive,
     setRejectPopup,
     setRejectID,
+    demo,
+    order
 }) => {
     return (
         <>
@@ -36,7 +38,11 @@ const TableRow = ({
                             "additionaddition--cart",
                         ].includes(e.target.className.replace(/\s/g, ""))
                     ) {
-                        window.location.href = `/platform/order/${id}`;
+                        if (demo) {
+                            window.location.href = `/platform/demo/order/${id}`;
+                        } else {
+                            window.location.href = `/platform/order/${id}`;
+                        }
                     }
                 }}
                 onMouseOver={e => {
@@ -109,6 +115,8 @@ const TableRow = ({
                         !isHaveStatus &&
                         additions.map(addition => (
                             <Addition
+                                order={order}
+                                demo={demo}
                                 setRejectID={id => setRejectID(id)}
                                 setNewData={data => setNewData_parent(data)}
                                 item_id={id}

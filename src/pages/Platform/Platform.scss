@@ -63,6 +63,11 @@
                 color: #53596D;
             }
         }
+        &-attention {
+            color: red;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
         &-offert {
             color: #3173B0;
             position: relative;
@@ -123,6 +128,12 @@
         &-text, pre {
             flex: 1 1 85%;
             color: #3173B0;
+            .react-datepicker-wrapper {
+                height: 52px;
+            }
+            &-datepicker {
+                height: 52px;
+            }
             &-upload {
                 cursor: pointer;
                 &:hover {

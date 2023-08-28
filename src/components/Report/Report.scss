@@ -1,0 +1,42 @@
+.report {
+	margin-top: 30px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
+	h6,
+	p,
+	div,
+	span {
+		line-height: 180%;
+	}
+	a {
+		color: #3173B0;
+		cursor: pointer;
+		position: relative;
+		&:hover {
+			opacity: .75;
+		}
+		&::before {
+			content: "";
+			position: absolute;
+			height: 1px;
+			width: 100%;
+			background-color: #3173B0;
+			bottom: 0;
+			right: 0;
+			left: 0;
+		}
+	}
+	&__block {
+		&-subtitle {
+			font-size: 18px;
+			font-weight: 600;
+			margin-bottom: 8px;
+		}
+		&-row {
+			&-value {
+				font-weight: 600;
+			}
+		}
+	}
+}

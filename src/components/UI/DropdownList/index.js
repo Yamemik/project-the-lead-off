@@ -6,7 +6,7 @@ const DropdownList = ({
     placeholder = "Выбрать",
     values = ["Пункт 1", "Пункт 2", "Пункт 3"],
     itemClick,
-    curVal, setCurVal, startValue
+    curVal, setCurVal, startValue, needValue
 }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [currentValue, setCurrentValue] = useState();
@@ -33,6 +33,12 @@ const DropdownList = ({
             document.removeEventListener("click", handleOutClick);
         }
     }, [isOpen]);
+
+    useEffect(() => {
+        if (needValue || needValue === "") {
+            setCurrentValue(needValue)
+        }
+    }, [needValue])
 
     useEffect(() => {
         if (curVal) {

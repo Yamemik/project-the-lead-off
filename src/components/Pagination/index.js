@@ -26,7 +26,7 @@ const Pagination = ({
     clickNo,
     isDuplicatesTable,
     setRejectPopup,
-    setRejectID
+    setRejectID, demo, order
 }) => {
     const [currentItems, setCurrentItems] = useState(null);
     const [pageCount, setPageCount] = useState(0);
@@ -60,7 +60,12 @@ const Pagination = ({
         if (item?.type_buyer?.includes("государственная")) arr.push("state");
         if (item?.type_order?.includes("тендер")) arr.push("tender");
         if (item?.is_urgent === "да") arr.push("urgent");
-        if (getDifferenceBetweenTwoDates(item?.createdAt, new Date()) < 24) arr.push("express");
+        if (demo) {
+            if (item?.express) arr.push("express");
+        } else {
+            if (getDifferenceBetweenTwoDates(item?.createdAt, new Date()) < 24) arr.push("express");
+        }
+
         if (isCanBuy) arr.push("cart");
         if (isCanSale) arr.push("sale");
         if (isCanClose && (getDifferenceBetweenTwoDates(item?.date_buy, new Date()) < 24)) arr.push("close");
@@ -74,7 +79,7 @@ const Pagination = ({
                     <TableAdminPanel
                         canEdit={!isRejections}
                         canDelete={!isRejections}
-                        canSee={!isRejections}
+                        canSee={isRejections}
                         canYes={isRejections}
                         canNo={isRejections}
                         head={head}
@@ -89,12 +94,14 @@ const Pagination = ({
                 ) : (
                     currentItems.map(item => (
                         <TableRow
+                            order={item}
+                            demo={demo}
                             setNewData_parent={arg => setNewData_parent_2(arg)}
                             key={item._id}
                             id={item._id}
                             category={item.nomeclature[0][0]}
-                            productGroup={item.nomeclature[0][1]}
-                            nomenclature={item.nomeclature[0][2]}
+                            productGroup={item.nomeclature[0][1] || "—"}
+                            nomenclature={item.nomeclature[0][2] || "—"}
                             region={item.region}
                             estimation={item.score}
                             price={item.price}

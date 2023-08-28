@@ -60,9 +60,18 @@ button {
     padding: 8px 12px !important;
     background: rgb(118, 116, 116) !important;
     &-arrow {
-        // display: none;
         &::after {
             border-color: rgb(118, 116, 116) !important;
         }
     }
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
 }

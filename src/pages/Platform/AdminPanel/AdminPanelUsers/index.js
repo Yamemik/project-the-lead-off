@@ -16,15 +16,11 @@ const AdminPanelUsers = () => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const getAllBusinessLines = (lines) => {
-        let str = ""
+        let arr = []
         lines.map((line, index) => {
-            if (index === lines.length - 1) {
-                str += `${line[0]} / ${line[1]} / ${line[2]}`
-            } else {
-                str += `${line[0]} / ${line[1]} / ${line[2]}, `
-            }
+            arr.push(line.filter(item => item!== "").join(" / "))
         })
-        return str
+        return arr.join(", ")
     }
 
     useEffect(() => {
@@ -42,7 +38,7 @@ const AdminPanelUsers = () => {
                             FIO: user.fio,
                             phone: getFormatUserTelephone(user.telephone),
                             region: getUserRegionsLine(user.region),
-                            balance: user.balance,
+                            balance: Number(user.credit) > 0 ? `${user.balance} (${user.credit})` : user.balance,
                             category: getAllBusinessLines(user.business_line),
                         },
                     ]),
@@ -104,7 +100,7 @@ const AdminPanelUsers = () => {
                                 "Телефон",
                                 "Регион",
                                 "Баланс",
-                                "Направление бизнеса",
+                                "Направления бизнеса",
                             ]}
                             items={users.filter(
                                 user =>

@@ -11,6 +11,7 @@ import "./AdminPanelCreateUser.scss";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import DatePicker from "react-datepicker";
 
 const AdminPanelCreateUser = () => {
 	const [currentCategories, setCurrentCategories] = useState([["", "", ""]]);
@@ -35,40 +36,84 @@ const AdminPanelCreateUser = () => {
 		access_to_open: false,
 		is_admin: false,
 		balance: 0,
+		credit: 0,
+		date_credit: null
 	});
 
+	const validation = () => {
+		if (
+			newUser.fio === "" ||
+			newUser.email === "" ||
+			newUser.telephone === "" ||
+			(newUser.region[0][0] === "" && newUser.region[0][1]) ||
+			(newUser.business_line[0][0] === "" && newUser.business_line[0][1] === "" && newUser.business_line[0][2] === "")
+		) {
+			toast.error("Заполните обязательные поля")
+			return false;
+		} else if (
+			newUser.email.length <= 3 || !newUser.email.includes("@")
+		) {
+			toast.error("Некорректная электронная почта")
+			return false
+		} else if (
+			newUser.telephone.length <= 6
+		) {
+			toast.error("Некорректный номер телефона")
+			return false
+		} else if (
+			newUser.fio.split(" ").length !== 3
+		) {
+			toast.error("Некорректное ФИО")
+			return false
+		} else if (
+			newUser.region.some(innerArr => innerArr.some(str => str === ""))
+		) {
+			toast.error("Неккоректный регион")
+			return false
+		} else if (
+			newUser.business_line.some(innerArr => innerArr[0] === "")
+		) {
+			toast.error("Неккоректное направление бизнеса")
+			return false
+		}
+
+		return true;
+	}
+
 	const handleAddUser = () => {
-		axios
-			.post(
-				"https://lothugrale.beget.app/api/auth/reg",
-				{
-					...newUser,
-					balance: Number(newUser.balance),
-				},
-				{
-					headers: {
-						Authorization: `Bearer ${
-							JSON.parse(localStorage.getItem("user")).token
-						}`,
+		if (validation()) {
+			axios
+				.post(
+					"https://lothugrale.beget.app/api/auth/reg",
+					{
+						...newUser,
+						balance: Number(newUser.credit) > 0 ? newUser.credit : Number(newUser.balance),
 					},
-				},
-			)
-			.then(res => {
-				toast.success("Пользователь добавлен");
-				resetAddUser();
-				console.log(res);
-			})
-			.catch(err => {
-				if (
-					err?.response?.data?.message?.includes(
-						"Failed to register: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key",
-					)
-				) {
-					toast.error("Неуникальный email");
-				} else {
-					toast.error("Ошибка добавления пользователя");
-				}
-			});
+					{
+						headers: {
+							Authorization: `Bearer ${
+								JSON.parse(localStorage.getItem("user")).token
+							}`,
+						},
+					},
+				)
+				.then(res => {
+					toast.success("Пользователь добавлен");
+					resetAddUser();
+					console.log(res);
+				})
+				.catch(err => {
+					if (
+						err?.response?.data?.message?.includes(
+							"Failed to register: MongoServerError: E11000 duplicate key error collection: test.users index: email_1 dup key",
+						)
+					) {
+						toast.error("Неуникальный email");
+					} else {
+						toast.error("Ошибка добавления пользователя");
+					}
+				});
+		}
 	};
 
 	const resetAddUser = () => {
@@ -82,6 +127,8 @@ const AdminPanelCreateUser = () => {
 			access_to_open: false,
 			is_admin: false,
 			balance: 0,
+			credit: 0,
+			date_credit: ""
 		});
 		setOrganization();
 		setAccessOpenOrders(false);
@@ -240,11 +287,12 @@ const AdminPanelCreateUser = () => {
 							</div>
 						</div>
 						<div className="order__row">
-							<div className="order__row-title">Регион:</div>
+							<div className="order__row-title"><span style={{ color: "red" }}>*</span> Регион:</div>
 							<div className="order__row-text-businessLine">
 								{currentRegions.map((item, index) => (
 									<div className="order__row-text-businessLine-line">
 										<DropdownList
+											needValue={currentRegions[index][0]}
 											curVal={resetCurrentValueDropdown}
 											setCurVal={() =>
 												setResentCurrentValueDropdown(
@@ -255,11 +303,13 @@ const AdminPanelCreateUser = () => {
 											itemClick={arg => {
 												let arr = [...currentRegions];
 												arr[index][0] = arg;
+												arr[index][1] = "";
 												setCurrentRegions(arr);
 											}}
 										/>
 										{currentRegions[index][0] && (
 											<DropdownList
+												needValue={currentRegions[index][1]}
 												curVal={
 													resetCurrentValueDropdown
 												}
@@ -268,10 +318,10 @@ const AdminPanelCreateUser = () => {
 														false,
 													)
 												}
-												values={getRegion(
-													"city",
-													index,
-												)}
+												values={[
+													"Вся",
+													...getRegion("city", index),
+												]}
 												itemClick={arg => {
 													let arr = [
 														...currentRegions,
@@ -317,7 +367,7 @@ const AdminPanelCreateUser = () => {
 						</div>
 						<div className="order__row">
 							<div className="order__row-title">
-								Направление бизнеса:
+								<span style={{ color: "red" }}>*</span> Направления бизнеса:
 							</div>
 							<div className="order__row-text">
 								<div className="order__row-text-businessLine">
@@ -325,6 +375,7 @@ const AdminPanelCreateUser = () => {
 										(category, index) => (
 											<div className="order__row-text-businessLine-line">
 												<DropdownList
+													needValue={currentCategories[index][0]}
 													curVal={
 														resetCurrentValueDropdown
 													}
@@ -333,6 +384,8 @@ const AdminPanelCreateUser = () => {
 															...currentCategories,
 														];
 														arr[index][0] = text;
+														arr[index][1] = "";
+														arr[index][2] = "";
 														setCurrentCategories(
 															arr,
 														);
@@ -343,6 +396,7 @@ const AdminPanelCreateUser = () => {
 													index
 												][0] && (
 													<DropdownList
+														needValue={currentCategories[index][1]}
 														curVal={
 															resetCurrentValueDropdown
 														}
@@ -352,6 +406,7 @@ const AdminPanelCreateUser = () => {
 															];
 															arr[index][1] =
 																text;
+															arr[index][2] = "";
 															setCurrentCategories(
 																arr,
 															);
@@ -366,6 +421,7 @@ const AdminPanelCreateUser = () => {
 													index
 												][1] && (
 													<DropdownList
+														needValue={currentCategories[index][2]}
 														curVal={
 															resetCurrentValueDropdown
 														}
@@ -385,13 +441,7 @@ const AdminPanelCreateUser = () => {
 														)}
 													/>
 												)}
-												{currentCategories.at(-1)[0] &&
-													currentCategories.at(
-														-1,
-													)[1] &&
-													currentCategories.at(
-														-1,
-													)[2] &&
+												{currentCategories.at(-1)[0]  &&
 													index ===
 														currentCategories.length -
 															1 && (
@@ -459,11 +509,33 @@ const AdminPanelCreateUser = () => {
 							<div className="order__row-title">Баланс:</div>
 							<div className="order__row-text">
 								<Input
+									type={"number"}
 									placeholder={"2000"}
 									value={newUser.balance}
 									setValue={arg =>
 										setNewUser({ ...newUser, balance: arg })
 									}
+								/>
+							</div>
+						</div>
+						<div className="order__row">
+							<div className="order__row-title">Кредит:</div>
+							<div className="order__row-text">
+								<Input
+									type={"number"}
+									placeholder={"Сумма"}
+									value={newUser.credit}
+									setValue={arg =>
+										setNewUser({ ...newUser, credit: arg })
+									}
+								/>
+								<DatePicker
+									className="order__row-text-datepicker"
+									minDate={new Date().setDate(new Date().getDate() + 1)}
+									placeholderText="Выберите срок окончания"
+									dateFormat="dd.MM.yyyy"
+									selected={newUser.date_credit}
+									onChange={date => setNewUser({ ...newUser, date_credit: date })}
 								/>
 							</div>
 						</div>

@@ -101,37 +101,18 @@ const AdminPanelOrder = () => {
 								<div className="order__row-text order__row-text--uploads">
 									{order.upload.map(upload => (
 										<>
-											{JSON.parse(
-												localStorage.getItem("user"),
-											).access_to_open ? (
-												<a
-													href={`/uploads/${upload.filename}`}
-													download={
-														upload.originalname
-													}
-													className="order__row-text-upload"
-													target="_blank"
-												>
-													{getUploadShortName(
-														upload.originalname,
-													)}
-												</a>
-											) : (
-												upload.open && (
-													<a
-														href={`/uploads/${upload.filename}`}
-														download={
-															upload.originalname
-														}
-														className="order__row-text-upload"
-														target="_blank"
-													>
-														{getUploadShortName(
-															upload.originalname,
-														)}
-													</a>
-												)
-											)}
+											<a
+												href={`/uploads/${upload.filename}`}
+												download={
+													upload.originalname
+												}
+												className="order__row-text-upload"
+												target="_blank"
+											>
+												{getUploadShortName(
+													upload.originalname,
+												)}
+											</a>
 										</>
 									))}
 								</div>

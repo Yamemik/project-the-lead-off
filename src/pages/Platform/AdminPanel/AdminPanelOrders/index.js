@@ -28,8 +28,8 @@ const AdminPanelOrders = () => {
                                 create_date: new Date(order.createdAt).toLocaleDateString(),
                                 login: order.region.join(" / "),
                                 FIO: order.nomeclature[0][0],
-                                phone: order.nomeclature[0][1],
-                                region: order.nomeclature[0][2],
+                                phone: order.nomeclature[0][1] || "—",
+                                region: order.nomeclature[0][2] || "—",
                                 balance: order.score,
                                 category: `${order.price} руб.`,
                             },
@@ -54,23 +54,22 @@ const AdminPanelOrders = () => {
                     .then(({ data }) => {
                         setOrders([]);
                         data.reverse().map(order => {
-                            setOrders(prev => [
-                                ...prev,
-                                {
-                                    _id: order._id,
-                                    id: order.number_order,
-                                    create_date: new Date(order.createdAt).toLocaleDateString(),
-                                    login: `${order.nomeclature[0][0]} / ${order.nomeclature[0][1]}`,
-                                    FIO: order.nomeclature[0][2],
-                                    region: order.score,
-                                    phone: order.region.join(" / "),
-                                    balance: `${order.price} руб.`,
-                                    category:
-                                        getDifferenceBetweenTwoDates(order.createdAt, new Date()) < 24
-                                            ? "Новая"
-                                            : "Старая",
-                                },
-                            ]);
+                            getOrderWithCalculatePrice(order, JSON.parse(localStorage.getItem("user"))).then(order =>
+                                setOrders(prev => [
+                                    ...prev,
+                                    {
+                                        _id: order._id,
+                                        id: order.number_order,
+                                        create_date: new Date(order.createdAt).toLocaleDateString(),
+                                        login: order.region.join(" / "),
+                                        FIO: order.nomeclature[0][0],
+                                        phone: order.nomeclature[0][1] || "—",
+                                        region: order.nomeclature[0][2] || "—",
+                                        balance: order.score,
+                                        category: `${order.price} руб.`,
+                                    },
+                                ]),
+                            );
                         });
                     })
                     .catch(err => console.log(err));

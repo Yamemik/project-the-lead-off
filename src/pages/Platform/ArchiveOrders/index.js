@@ -1,6 +1,5 @@
 import axios from "../../../utils/axios";
 import { useState, useEffect } from "react";
-
 import LayoutBlock from "./../../../components/Layouts/LayoutBlock";
 import LayoutBlocks from "./../../../components/Layouts/LayoutBlocks";
 import LayoutPage from "./../../../components/Layouts/LayoutPage";
@@ -28,6 +27,7 @@ const ArchiveOrders = () => {
                 }, 1200);
             })
             .catch(err => console.log(err));
+
     }, []);
 
     return (

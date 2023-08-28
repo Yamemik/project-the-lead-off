@@ -91,24 +91,9 @@ const SuitableOrders = () => {
                                 }
                                 return flag;
                             })
-                            // .filter(
-                            //     order =>
-                            //         filters.product_groups.includes(order.nomeclature[0][0]) ||
-                            //         filters.product_groups[0] === "",
-                            // )
-                            // .filter(
-                            //     order =>
-                            //         filters.categories.includes(order.nomeclature[0][1]) ||
-                            //         filters.categories[0] === "",
-                            // )
-                            // .filter(
-                            //     order =>
-                            //         filters.nomenclatures.includes(order.nomeclature[0][2]) ||
-                            //         filters.nomenclatures[0] === "",
-                            // )
                             .filter(order => filters.countries.includes(order.region[0]) || filters.countries[0] === "")
                             .filter(order => filters.regions.includes(order.region[1]) || filters.regions[0] === "")
-                            .filter(order => filters.scores.includes(order.score) || filters.scores[0] === "")
+                            .filter(order => filters.scores.map(str => str.toLowerCase()).includes(order.score.toLowerCase()) || filters.scores[0] === "")
                             .filter(order => filters.buyer.includes(order.type_buyer) || filters.buyer.length <= 0)
                             .filter(
                                 order => filters.purchase.includes(order.type_order) || filters.purchase.length <= 0,

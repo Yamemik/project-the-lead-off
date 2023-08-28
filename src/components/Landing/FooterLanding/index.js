@@ -1,6 +1,6 @@
 import "./FooterLanding.scss"
 
-const FooterLanding = () => {
+const FooterLanding = ({data}) => {
     return (
         <footer className="footerLanding">
             <div className="footerLanding__banner containerLanding">
@@ -10,23 +10,23 @@ const FooterLanding = () => {
                     </g>
                 </svg>
                 <div className="footerLanding__banner-info">
-                    <h6 className="footerLanding__banner-info-title">Получить демо доступ бесплатно</h6>
-                    <p className="footerLanding__banner-info-text">Задачи и проекты для работы распределенных команд</p>
+                    <h6 className="footerLanding__banner-info-title">{data.preview.title}</h6>
+                    <p className="footerLanding__banner-info-text">{data.preview.text}</p>
                 </div>
                 <a className="bannerLanding__info-link" href="/platform/demo">
-                    Получить
+                    {data.preview.button}
                 </a>
                 <div className="footerLanding__banner-infoMobile">
                 <div className="footerLanding__banner-info">
-                    <h6 className="footerLanding__banner-info-title">Получить демо доступ бесплатно</h6>
-                    <p className="footerLanding__banner-info-text">Задачи и проекты для работы распределенных команд</p>
+                    <h6 className="footerLanding__banner-info-title">{data.preview.title}</h6>
+                    <p className="footerLanding__banner-info-text">{data.preview.text}</p>
                 </div>
                 <a className="bannerLanding__info-link" href="/platform/demo">
-                    Получить
+                    {data.preview.button}
                 </a>
                 </div>
             </div>
-            <div class="footerLanding__main">
+            <div className="footerLanding__main">
                 <div class="containerLanding">
                     <div class="footerLanding__main-about">
                         <div class="footerLanding__main-about-logo">
@@ -47,7 +47,7 @@ const FooterLanding = () => {
                             <p class="footerLanding__main-about-logo-bottom">система управления лидами</p>
                         </div>
                         <div class="footerLanding__main-about-rightsReserved">
-                            © 2023 lead-off.net / Все права защищены
+                            {data.main.copyright}
                         </div>
                     </div>
                     {/* <div class="footerLanding__main-menu">
@@ -62,33 +62,33 @@ const FooterLanding = () => {
                             <svg className="footerLanding__main-contacts-row-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path d="M6.72229 1.97344L3.25431 2.35877C2.32462 2.46207 1.60764 3.19943 1.70526 4.12973C1.94931 6.4554 3.0987 11.0411 8.02806 15.9705C12.9574 20.8998 17.5437 22.0499 19.8698 22.2943C20.8003 22.3921 21.5379 21.6751 21.6412 20.7452L22.0265 17.2776C22.1146 16.485 21.7233 15.7158 21.0308 15.3202L18.5467 13.9011C17.7636 13.4538 16.7781 13.5858 16.1404 14.2235L15.5031 14.8608C15.0303 15.3336 14.3489 15.5337 13.7445 15.2474C13.0285 14.9082 11.9935 14.2791 10.8572 13.1427C9.7208 12.0064 9.09172 10.9715 8.75252 10.2554C8.46625 9.65107 8.66632 8.96964 9.13917 8.4968L9.77645 7.85951C10.4141 7.22184 10.5462 6.23628 10.0988 5.45323L8.67975 2.96914C8.28415 2.27664 7.51494 1.88537 6.72229 1.97344Z" stroke="#3173B0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
-                            <p className="footerLanding__main-contacts-row-text">+7 000 000 00 00</p>
+                            <p className="footerLanding__main-contacts-row-text">{data.main.telephone}</p>
                         </div>
                         <div class="footerLanding__main-contacts-row">
                             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="24" viewBox="0 0 26 24" fill="none">
                                 <path d="M1 6C1 4.89543 1.89543 4 3 4H23C24.1046 4 25 4.89543 25 6V19C25 20.1046 24.1046 21 23 21H3C1.89543 21 1 20.1046 1 19V6Z" stroke="#3173B0" stroke-width="2" stroke-linejoin="round" />
                                 <path d="M2.42131 5.30287C1.91709 4.84067 2.24409 4 2.9281 4H23.0719C23.7559 4 24.0829 4.84067 23.5787 5.30287L15.0272 13.1418C13.8802 14.1931 12.1198 14.1931 10.9728 13.1418L2.42131 5.30287Z" stroke="#3173B0" stroke-width="2" stroke-linejoin="round" />
                             </svg>
-                            <p className="footerLanding__main-contacts-row-text">info@lead-off.net</p>
+                            <p className="footerLanding__main-contacts-row-text">{data.main.email}</p>
                         </div>
                         <div class="footerLanding__main-contacts-row">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="25" viewBox="0 0 24 25" fill="none">
                                 <path d="M22 11C22 15.346 15.8077 20.9022 13.1687 23.0727C12.4838 23.636 11.5162 23.636 10.8313 23.0727C8.19234 20.9022 2 15.346 2 11C2 5.47715 6.47715 1 12 1C17.5228 1 22 5.47715 22 11Z" stroke="#3173B0" stroke-width="2" />
                                 <circle cx="12" cy="11" r="3" stroke="#3173B0" stroke-width="2" />
                             </svg>
-                            <p className="footerLanding__main-contacts-row-text">Москва ул. Садовая, 450, офис 10</p>
+                            <p className="footerLanding__main-contacts-row-text">{data.main.map}</p>
                         </div>
                     </div>
                     <div class="footerLanding__main-about-rightsReserved footerLanding__main-about-rightsReserved--mobile">
-                            © 2023 lead-off.net / Все права защищены
+                        {data.main.copyright}
                         </div>
                 </div>
             </div>
-            <div class="footerLanding__bottom">
-                <div class="containerLanding">
-                    <a href={`/landing/docs/license`} target="_blank" class="footerLanding__bottom-link" rel="noreferrer">Лицензионный договор</a>
-                    <a href={`/landing/docs/offert`} target="_blank" class="footerLanding__bottom-link" rel="noreferrer">Договор оферты</a>
-                    <a href={`/landing/docs/privacy`} target="_blank" class="footerLanding__bottom-link" rel="noreferrer">Политика конфиденциальности</a>
+            <div className="footerLanding__bottom">
+                <div className="containerLanding">
+                    <a href={`/landing/docs/license`} target="_blank" className="footerLanding__bottom-link" rel="noreferrer">Лицензионный договор</a>
+                    <a href={`/landing/docs/offert`} target="_blank" className="footerLanding__bottom-link" rel="noreferrer">Договор оферты</a>
+                    <a href={`/landing/docs/privacy`} target="_blank" className="footerLanding__bottom-link" rel="noreferrer">Политика конфиденциальности</a>
                 </div>
             </div>
         </footer>

@@ -88,36 +88,148 @@
             }
         }
     }
-    &__advantages {
+    &__landing {
         display: flex;
-        gap: 20px;
-        flex-wrap: wrap;
-        padding-top: 20px;
-        &-advantage {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            align-items: center;
-            &-number {
-                font-size: 24px;
-                font-weight: 800;
+        flex-direction: column;
+        gap: 30px;
+        textarea {
+            width: 100%;
+            border: 1px solid #D6DCF1;
+            border-radius: 7px;
+            height: 100px;
+            padding: 18px 24px;
+            line-height: 130%;
+
+            &::placeholder {
+                color: #D6DCF1;
             }
-            input {
-                width: 100%;
-                max-width: unset;
+
+            &:focus {
+                border-color: #bcc4e1;
             }
-            textarea {
-                width: 100%;
-                border: 1px solid #D6DCF1;
-                border-radius: 7px;
-                height: 100px;
-                padding: 18px 24px;
-                line-height: 130%;
-                &::placeholder {
-                    color: #D6DCF1;
+        }
+        &-item {
+            &-banner {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                max-width: 100%;
+                input {
+                    width: 100%;
+                    max-width: unset;
                 }
-                &:focus {
-                    border-color: #bcc4e1;
+            }
+            &-numbers {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                > input {
+                    max-width: 300px;
+                }
+                &-box {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 30px;
+                    margin-top: 20px;
+                    &-item {
+                        display: flex;
+                        flex-direction: column;
+                        gap: 10px;
+                        max-width: 300px;
+                        text-align: center;
+                        input {
+                            width: 100%;
+                            max-width: unset;
+                        }
+                    }
+                    h6 {
+                        font-size: 24px;
+                        font-weight: 800;
+                    }
+                }
+            }
+            &-tarifs {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 30px;
+                &-item {
+                    text-align: center;
+                    display: flex;
+                    flex-direction: column;
+                    max-width: 500px;
+                    width: 100%;
+                    gap: 10px;
+                    input {
+                        max-width: unset;
+                        width: 100%;
+                    }
+                }
+                h6 {
+                    font-size: 24px;
+                    font-weight: 800;
+                }
+            }
+            &-footer {
+                h6 {
+                    font-size: 24px;
+                    font-weight: 800;
+                }
+                input {
+                    max-width: unset;
+                }
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                &-preview {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    max-width: 500px;
+                    width: 100%;
+                }
+                &-main {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    &-littleRows {
+                        display: flex;
+                        gap: 10px;
+                        flex-wrap: wrap;
+                        input {
+                            max-width: 300px;
+                            width: 100%;
+                        }
+                    }
+                    &-bigRows {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 10px;
+                    }
+                }
+            }
+            &-title {
+                font-weight: 700;
+                font-size: 24px;
+                opacity: .7;
+                margin-bottom: 20px;
+            }
+            &-advantages {
+                display: flex;
+                gap: 20px;
+                flex-wrap: wrap;
+                &-advantage {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+                    align-items: center;
+                    &-number {
+                        font-size: 24px;
+                        font-weight: 800;
+                    }
+                    input {
+                        width: 100%;
+                        max-width: unset;
+                    }
                 }
             }
         }

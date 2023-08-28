@@ -16,6 +16,7 @@ import getOrderWithCalculatePrice from "../../../utils/getOrderWithCalculatePric
 import { toast } from "react-hot-toast";
 import ModalWindow from "../../../components/ModalWindow";
 import getUploadShortName from "../../../utils/getUploadShortName";
+import getFormatUserTelephone from "../../../utils/getFormatUserTelephone";
 
 const Order = () => {
     const params = useParams();
@@ -122,6 +123,32 @@ const Order = () => {
                                     ))}
                                 </div>
                             </div>
+                            {order?.is_buy && <div className="order__row">
+                                <div className="order__row-title">
+                                    Контактные данные:
+                                </div>
+                                <div className="order__row-text">
+                                    {window.innerWidth <= 768 ? (
+                                        <>
+                                            {order.email}
+                                            <br />
+                                            {getFormatUserTelephone(
+                                                order.telephone[0],
+                                            )}
+                                            <br />
+                                            {order.fio}
+                                        </>
+                                    ) : (
+                                        <pre>
+											{order.email}{" "}
+                                            {getFormatUserTelephone(
+                                                order.telephone[0],
+                                            )}{" "}
+                                            {order.fio}
+										</pre>
+                                    )}
+                                </div>
+                            </div>}
                             <div className="order__row">
                                 <div className="order__row-title">Оценка:</div>
                                 <div className="order__row-text">{order.score}</div>

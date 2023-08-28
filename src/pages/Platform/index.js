@@ -67,8 +67,8 @@ const Homepage = () => {
                                         category={item.nomeclature[0][0]}
                                         key={item._id}
                                         id={item._id}
-                                        productGroup={item.nomeclature[0][1]}
-                                        nomenclature={item.nomeclature[0][2]}
+                                        productGroup={item.nomeclature[0][1] || "—"}
+                                        nomenclature={item.nomeclature[0][2] || "—"}
                                         region={item.region}
                                         estimation={item.score}
                                         price={item.price}
@@ -90,8 +90,8 @@ const Homepage = () => {
                                     category={item.nomeclature[0][0]}
                                     key={item._id}
                                     id={item._id}
-                                    productGroup={item.nomeclature[0][1]}
-                                    nomenclature={item.nomeclature[0][2]}
+                                    productGroup={item.nomeclature[0][1] || "—"}
+                                    nomenclature={item.nomeclature[0][2] || "—"}
                                     region={item.region}
                                     estimation={item.score}
                                     price={item.price}

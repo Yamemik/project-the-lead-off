@@ -51,64 +51,85 @@ const AdminPanelCreateOrder = () => {
 			.catch(err => console.log(err));
 	}, []);
 
+	const validate = () => {
+		if (
+			(newOrder.nomeclature[0][0] === "") ||
+			(newOrder.region[0] === "" && newOrder.region[1] === "") ||
+			newOrder.email === "" || newOrder.fio === "" || newOrder.telephone[0] === "" || newOrder.score === "" || newOrder.type_order === ""
+		) {
+			toast.error("Заполните обязательные поля");
+			return false
+		}
+		return true;
+	};
+
 	const addOrder = () => {
-		const formDataOpen = new FormData();
-		const formDataClose = new FormData();
-		const allUploads = [];
-		openUploads.map(({ file }) => {
-			formDataOpen.append("file", file);
-		});
-		closeUploads.map(({ file }) => {
-			formDataClose.append("file", file);
-		});
-		try {
-			axios
-				.post("/api/admin/uploads", formDataOpen, {
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				})
-				.then(({ data }) => {
-					data.map(file => allUploads.push({ ...file, open: true }));
-					axios
-						.post("/api/admin/uploads", formDataClose, {
-							headers: {
-								"Content-Type": "multipart/form-data",
-							},
-						})
-						.then(({ data }) => {
-							data.map(file =>
-								allUploads.push({ ...file, open: false }),
-							);
-							console.log({ ...newOrder, price: newOrderPrice });
-							axios
-								.post("/api/admin/order", {
-									...newOrder,
-									upload: [...allUploads],
-								})
-								.then(_ => {
-									toast.success("Заявка создана");
-									setNewOrderPrice(0);
-									handleResetOrder();
-								})
-								.catch(_ =>
-									toast.error("Ошибка при создании заявки"),
+		if (validate()) {
+			const formDataOpen = new FormData();
+			const formDataClose = new FormData();
+			const allUploads = [];
+			openUploads.map(({ file }) => {
+				formDataOpen.append("file", file);
+			});
+			closeUploads.map(({ file }) => {
+				formDataClose.append("file", file);
+			});
+			try {
+				axios
+					.post("/api/admin/uploads", formDataOpen, {
+						headers: {
+							"Content-Type": "multipart/form-data",
+						},
+					})
+					.then(({ data }) => {
+						data.map(file =>
+							allUploads.push({ ...file, open: true }),
+						);
+						axios
+							.post("/api/admin/uploads", formDataClose, {
+								headers: {
+									"Content-Type": "multipart/form-data",
+								},
+							})
+							.then(({ data }) => {
+								data.map(file =>
+									allUploads.push({ ...file, open: false }),
 								);
-						})
-						.catch(_ => {
-							setNewOrderPrice(0);
-							toast.error(
-								"Невозможно загрузить закрытые вложения",
-							);
-						});
-				})
-				.catch(_ => {
-					setNewOrderPrice(0);
-					toast.error("Невозможно загрузить открытые вложения");
-				});
-		} catch {
-			setNewOrderPrice(0);
-			toast.error("Невозможно загрузить вложения");
+								console.log({
+									...newOrder,
+									price: newOrderPrice,
+								});
+								axios
+									.post("/api/admin/order", {
+										...newOrder,
+										upload: [...allUploads],
+									})
+									.then(_ => {
+										toast.success("Заявка создана");
+										setNewOrderPrice(0);
+										handleResetOrder();
+									})
+									.catch(_ =>
+										toast.error(
+											"Ошибка при создании заявки",
+										),
+									);
+							})
+							.catch(_ => {
+								setNewOrderPrice(0);
+								toast.error(
+									"Невозможно загрузить закрытые вложения",
+								);
+							});
+					})
+					.catch(_ => {
+						setNewOrderPrice(0);
+						toast.error("Невозможно загрузить открытые вложения");
+					});
+			} catch {
+				setNewOrderPrice(0);
+				toast.error("Невозможно загрузить вложения");
+			}
 		}
 	};
 
@@ -233,6 +254,7 @@ const AdminPanelCreateOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<DropdownList
+									needValue={newOrder.nomeclature[0][0]}
 									curVal={resetCurrentValueDropdown}
 									setCurVal={() =>
 										setResentCurrentValueDropdown(false)
@@ -241,18 +263,13 @@ const AdminPanelCreateOrder = () => {
 									itemClick={text =>
 										setNewOrder({
 											...newOrder,
-											nomeclature: [
-												[
-													text,
-													newOrder.nomeclature[0][1],
-													newOrder.nomeclature[0][2],
-												],
-											],
+											nomeclature: [[text, "", ""]],
 										})
 									}
 								/>
 								{newOrder.nomeclature[0][0] && (
 									<DropdownList
+										needValue={newOrder.nomeclature[0][1]}
 										curVal={resetCurrentValueDropdown}
 										setCurVal={() =>
 											setResentCurrentValueDropdown(false)
@@ -266,8 +283,7 @@ const AdminPanelCreateOrder = () => {
 														newOrder
 															.nomeclature[0][0],
 														text,
-														newOrder
-															.nomeclature[0][2],
+														"",
 													],
 												],
 											})
@@ -277,6 +293,9 @@ const AdminPanelCreateOrder = () => {
 								{newOrder.nomeclature[0][0] &&
 									newOrder.nomeclature[0][1] && (
 										<DropdownList
+											needValue={
+												newOrder.nomeclature[0][2]
+											}
 											curVal={resetCurrentValueDropdown}
 											setCurVal={() =>
 												setResentCurrentValueDropdown(
@@ -309,6 +328,7 @@ const AdminPanelCreateOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<DropdownList
+									needValue={newOrder.region[0]}
 									curVal={resetCurrentValueDropdown}
 									setCurVal={() =>
 										setResentCurrentValueDropdown(false)
@@ -317,17 +337,18 @@ const AdminPanelCreateOrder = () => {
 									itemClick={arg =>
 										setNewOrder({
 											...newOrder,
-											region: [arg, newOrder.region[1]],
+											region: [arg, ""],
 										})
 									}
 								/>
 								{newOrder.region[0] && (
 									<DropdownList
+										needValue={newOrder.region[1]}
 										curVal={resetCurrentValueDropdown}
 										setCurVal={() =>
 											setResentCurrentValueDropdown(false)
 										}
-										values={getRegion("city")}
+										values={["Вся", ...getRegion("city")]}
 										itemClick={arg =>
 											setNewOrder({
 												...newOrder,
@@ -478,8 +499,7 @@ const AdminPanelCreateOrder = () => {
 						</div>
 						<div className="order__row">
 							<div className="order__row-title">
-								<span style={{ color: "red" }}>*</span> Тип
-								покупателя:
+								Тип покупателя:
 							</div>
 							<div className="order__row-text order__row-text--cg50">
 								<Checkbox
@@ -533,9 +553,7 @@ const AdminPanelCreateOrder = () => {
 							</div>
 						</div>
 						<div className="order__row">
-							<div className="order__row-title">
-								<span style={{ color: "red" }}>*</span> Срочная:
-							</div>
+							<div className="order__row-title">Срочная:</div>
 							<div className="order__row-text order__row-text--cg50">
 								<Checkbox
 									text="да"

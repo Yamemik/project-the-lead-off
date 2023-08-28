@@ -1,13 +1,9 @@
 const getAllBusinessLines = lines => {
-    let str = "";
-    lines.map((line, index) => {
-        if (index === lines.length - 1) {
-            str += `${line[0]} / ${line[1]} / ${line[2]}`;
-        } else {
-            str += `${line[0]} / ${line[1]} / ${line[2]}, `;
-        }
-    });
-    return str;
+	let arr = [];
+	lines.map((line, index) => {
+		arr.push(line.filter(item => item !== "").join(" / "));
+	});
+	return arr.join(", ");
 };
 
 export default getAllBusinessLines;

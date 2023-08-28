@@ -109,148 +109,165 @@ const AdminPanelEditOrder = () => {
 			.catch(err => console.log(err));
 	}, []);
 
+	const validate = () => {
+		if (
+			(newOrder.nomeclature[0][0] === "") ||
+			(newOrder.region[0] === "" && newOrder.region[1] === "") ||
+			newOrder.email === "" || newOrder.fio === "" || newOrder.telephone[0] === "" || newOrder.score === "" || newOrder.type_order === ""
+		) {
+			toast.error("Заполните обязательные поля");
+			return false
+		}
+		return true;
+	};
+
 	const handleSaveOrder = () => {
-		const formDataOpen = new FormData();
-		const formDataClose = new FormData();
-		const allUploads = [];
-		openUploads.map(({ file }) => {
-			formDataOpen.append("file", file);
-		});
-		closeUploads.map(({ file }) => {
-			formDataClose.append("file", file);
-		});
-		try {
-			axios
-				.post("/api/admin/uploads", formDataOpen, {
-					headers: {
-						"Content-Type": "multipart/form-data",
-					},
-				})
-				.then(({ data }) => {
-					data.map(file => allUploads.push({ ...file, open: true }));
-					axios
-						.post("/api/admin/uploads", formDataClose, {
-							headers: {
-								"Content-Type": "multipart/form-data",
-							},
-						})
-						.then(({ data }) => {
-							data.map(file =>
-								allUploads.push({ ...file, open: false }),
-							);
-                            console.log(allUploads);
-							axios
-								.patch(`/api/admin/order/${params.id}`, {
-									...newOrder,
-									upload: [...allUploads],
-								})
-								.then(_ => {
-									toast.success("Заявка обновлена");
-									for (const item of document.getElementsByClassName(
-										"checkbox__input",
-									)) {
-										item.checked = false;
-									}
-									axios
-										.get(`/api/user/order/${params.id}`)
-										.then(({ data }) => {
-											setNewOrder({
-												nomeclature: data.nomeclature,
-												region: data.region,
-												text: data.text,
-												upload: data.upload,
-												fio: data.fio,
-												email: data.email,
-												telephone: data.telephone,
-												score: data.score,
-												type_buyer: data.type_buyer,
-												type_order: data.type_order,
-												is_urgent: data.is_urgent,
-												is_open: data.is_open,
-											});
-											for (const item of document.getElementsByClassName(
-												"checkbox__input",
-											)) {
-												if (data.is_urgent === "да") {
-													if (
-														item.getAttribute(
-															"data-text",
-														) === "да"
-													) {
-														item.checked = true;
+		if (validate()) {
+			const formDataOpen = new FormData();
+			const formDataClose = new FormData();
+			const allUploads = [];
+			openUploads.map(({ file }) => {
+				formDataOpen.append("file", file);
+			});
+			closeUploads.map(({ file }) => {
+				formDataClose.append("file", file);
+			});
+			try {
+				axios
+					.post("/api/admin/uploads", formDataOpen, {
+						headers: {
+							"Content-Type": "multipart/form-data",
+						},
+					})
+					.then(({ data }) => {
+						data.map(file => allUploads.push({ ...file, open: true }));
+						axios
+							.post("/api/admin/uploads", formDataClose, {
+								headers: {
+									"Content-Type": "multipart/form-data",
+								},
+							})
+							.then(({ data }) => {
+								data.map(file =>
+									allUploads.push({ ...file, open: false }),
+								);
+								console.log(allUploads);
+								axios
+									.patch(`/api/admin/order/${params.id}`, {
+										...newOrder,
+										upload: [...newOrder.upload, ...allUploads],
+									})
+									.then(_ => {
+										toast.success("Заявка обновлена");
+										for (const item of document.getElementsByClassName(
+											"checkbox__input",
+										)) {
+											item.checked = false;
+										}
+										axios
+											.get(`/api/user/order/${params.id}`)
+											.then(({ data }) => {
+												setOpenUploads([]);
+												setCloseUploads([]);
+												setResentCurrentValueDropdown(true);
+												setNewOrder({
+													nomeclature: data.nomeclature,
+													region: data.region,
+													text: data.text,
+													upload: data.upload,
+													fio: data.fio,
+													email: data.email,
+													telephone: data.telephone,
+													score: data.score,
+													type_buyer: data.type_buyer,
+													type_order: data.type_order,
+													is_urgent: data.is_urgent,
+													is_open: data.is_open,
+												});
+												for (const item of document.getElementsByClassName(
+													"checkbox__input",
+												)) {
+													if (data.is_urgent === "да") {
+														if (
+															item.getAttribute(
+																"data-text",
+															) === "да"
+														) {
+															item.checked = true;
+														}
+													} else {
+														if (
+															item.getAttribute(
+																"data-text",
+															) === "нет"
+														) {
+															item.checked = true;
+														}
 													}
-												} else {
 													if (
-														item.getAttribute(
-															"data-text",
-														) === "нет"
+														data.type_order === "прямая"
 													) {
-														item.checked = true;
+														if (
+															item.getAttribute(
+																"data-text",
+															) === "прямая"
+														) {
+															item.checked = true;
+														}
+													} else {
+														if (
+															item.getAttribute(
+																"data-text",
+															) === "тендер"
+														) {
+															item.checked = true;
+														}
 													}
-												}
-												if (
-													data.type_order === "прямая"
-												) {
 													if (
-														item.getAttribute(
-															"data-text",
-														) === "прямая"
-													) {
-														item.checked = true;
-													}
-												} else {
-													if (
-														item.getAttribute(
-															"data-text",
-														) === "тендер"
-													) {
-														item.checked = true;
-													}
-												}
-												if (
-													data.type_buyer ===
-													"частная организация"
-												) {
-													if (
-														item.getAttribute(
-															"data-text",
-														) ===
+														data.type_buyer ===
 														"частная организация"
 													) {
-														item.checked = true;
-													}
-												} else {
-													if (
-														item.getAttribute(
-															"data-text",
-														) ===
-														"государственная организация"
-													) {
-														item.checked = true;
+														if (
+															item.getAttribute(
+																"data-text",
+															) ===
+															"частная организация"
+														) {
+															item.checked = true;
+														}
+													} else {
+														if (
+															item.getAttribute(
+																"data-text",
+															) ===
+															"государственная организация"
+														) {
+															item.checked = true;
+														}
 													}
 												}
-											}
-											setCurrentNumberOrder(
-												data.number_order,
-											);
-										})
-										.catch(err => console.log(err));
-								})
-								.catch(_ =>
-									toast.error("Ошибка при обновлении заявки"),
+												setCurrentNumberOrder(
+													data.number_order,
+												);
+											})
+											.catch(err => console.log(err));
+									})
+									.catch(_ =>
+										toast.error("Ошибка при обновлении заявки"),
+									);
+							})
+							.catch(_ => {
+								toast.error(
+									"Невозможно загрузить закрытые вложения",
 								);
-						})
-						.catch(_ => {
-							toast.error(
-								"Невозможно загрузить закрытые вложения",
-							);
-						});
-				})
-				.catch(_ => {
-					toast.error("Невозможно загрузить открытые вложения");
-				});
-		} catch {
-			toast.error("Невозможно загрузить вложения");
+							});
+					})
+					.catch(_ => {
+						toast.error("Невозможно загрузить открытые вложения");
+					});
+			} catch {
+				toast.error("Невозможно загрузить вложения");
+			}
 		}
 	};
 
@@ -340,6 +357,40 @@ const AdminPanelEditOrder = () => {
 		return arr;
 	};
 
+	const getFilename = file => {
+		return (
+			<a
+				href={`/uploads/${file.path}`}
+				download={file.originalname}
+				className="order__row-text-upload"
+				target="_blank"
+			>
+				{file.originalname.length > 12
+					? file.originalname.slice(0, 4) +
+					"..." +
+					file.originalname.slice(
+						file.originalname.length - 8,
+						file.originalname.length,
+					)
+					: file.originalname}
+			</a>
+		);
+	}
+
+	const handleDeleteFile = file => {
+		axios.patch(`/api/admin/order/${params.id}`, {
+			upload:
+				newOrder.upload.filter(upload => upload.filename !== file.filename)
+		}).then(res => {
+			axios
+				.get(`/api/user/order/${params.id}`)
+				.then(({ data }) => {
+					setNewOrder({ ...newOrder, upload: data.upload});
+				})
+				.catch(err => console.log(err));
+		}).catch(err => console.log(err));
+	}
+
 	return (
 		<LayoutPage title={`Редактирование заявки №${currentNumberOrder}`}>
 			<LayoutBlocks>
@@ -352,7 +403,7 @@ const AdminPanelEditOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<DropdownList
-									startValue={newOrder.nomeclature[0][0]}
+									needValue={newOrder.nomeclature[0][0]}
 									curVal={resetCurrentValueDropdown}
 									setCurVal={() =>
 										setResentCurrentValueDropdown(false)
@@ -364,8 +415,7 @@ const AdminPanelEditOrder = () => {
 											nomeclature: [
 												[
 													text,
-													newOrder.nomeclature[0][1],
-													newOrder.nomeclature[0][2],
+													"",""
 												],
 											],
 										})
@@ -373,7 +423,7 @@ const AdminPanelEditOrder = () => {
 								/>
 								{newOrder.nomeclature[0][0] && (
 									<DropdownList
-										startValue={newOrder.nomeclature[0][1]}
+										needValue={newOrder.nomeclature[0][1]}
 										curVal={resetCurrentValueDropdown}
 										setCurVal={() =>
 											setResentCurrentValueDropdown(false)
@@ -387,8 +437,7 @@ const AdminPanelEditOrder = () => {
 														newOrder
 															.nomeclature[0][0],
 														text,
-														newOrder
-															.nomeclature[0][2],
+														"",
 													],
 												],
 											})
@@ -398,9 +447,7 @@ const AdminPanelEditOrder = () => {
 								{newOrder.nomeclature[0][0] &&
 									newOrder.nomeclature[0][1] && (
 										<DropdownList
-											startValue={
-												newOrder.nomeclature[0][2]
-											}
+											needValue={newOrder.nomeclature[0][2]}
 											curVal={resetCurrentValueDropdown}
 											setCurVal={() =>
 												setResentCurrentValueDropdown(
@@ -433,7 +480,7 @@ const AdminPanelEditOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<DropdownList
-									startValue={newOrder.region[0]}
+									needValue={newOrder.region[0]}
 									curVal={resetCurrentValueDropdown}
 									setCurVal={() =>
 										setResentCurrentValueDropdown(false)
@@ -442,18 +489,18 @@ const AdminPanelEditOrder = () => {
 									itemClick={arg =>
 										setNewOrder({
 											...newOrder,
-											region: [arg, newOrder.region[1]],
+											region: [arg, ""],
 										})
 									}
 								/>
 								{newOrder.region[0] && (
 									<DropdownList
-										startValue={newOrder.region[1]}
+										needValue={newOrder.region[1]}
 										curVal={resetCurrentValueDropdown}
 										setCurVal={() =>
 											setResentCurrentValueDropdown(false)
 										}
-										values={getRegion("city")}
+										values={["Вся", ...getRegion("city")]}
 										itemClick={arg =>
 											setNewOrder({
 												...newOrder,
@@ -485,9 +532,9 @@ const AdminPanelEditOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<Input
-									oldFiles={newOrder.upload.filter(
+									/*oldFiles={newOrder.upload.filter(
 										file => file.open,
-									)}
+									)}*/
 									placeholder={"Прикрепить"}
 									type="upload"
 									setFiles={files => setOpenUploads(files)}
@@ -497,6 +544,19 @@ const AdminPanelEditOrder = () => {
 										setResentCurrentValueDropdown(false)
 									}
 								/>
+								{
+									newOrder.upload.filter(upload => upload.open).map(upload => (
+										<div className="input__file">
+											<p>{getFilename(upload)}</p>
+											<img
+												className="input__file-delete"
+												src="/img/UI/delete.svg"
+												alt="Удалить файл"
+												onClick={() => handleDeleteFile(upload)}
+											/>
+										</div>
+									))
+								}
 							</div>
 						</div>
 						<div className="order__row">
@@ -505,9 +565,9 @@ const AdminPanelEditOrder = () => {
 							</div>
 							<div className="order__row-text">
 								<Input
-									oldFiles={newOrder.upload.filter(
+									/*oldFiles={newOrder.upload.filter(
 										file => !file.open,
-									)}
+									)}*/
 									placeholder={"Прикрепить"}
 									type="upload"
 									setFiles={files => setCloseUploads(files)}
@@ -517,6 +577,19 @@ const AdminPanelEditOrder = () => {
 										setResentCurrentValueDropdown(false)
 									}
 								/>
+								{
+									newOrder.upload.filter(upload => !upload.open).map(upload => (
+										<div className="input__file">
+											<p>{getFilename(upload)}</p>
+											<img
+												className="input__file-delete"
+												src="/img/UI/delete.svg"
+												alt="Удалить файл"
+												onClick={() => handleDeleteFile(upload)}
+											/>
+										</div>
+									))
+								}
 							</div>
 						</div>
 						<div className="order__row">
@@ -611,7 +684,7 @@ const AdminPanelEditOrder = () => {
 						</div>
 						<div className="order__row">
 							<div className="order__row-title">
-								<span style={{ color: "red" }}>*</span> Тип
+								Тип
 								покупателя:
 							</div>
 							<div className="order__row-text order__row-text--cg50">
@@ -667,7 +740,7 @@ const AdminPanelEditOrder = () => {
 						</div>
 						<div className="order__row">
 							<div className="order__row-title">
-								<span style={{ color: "red" }}>*</span> Срочная:
+								Срочная:
 							</div>
 							<div className="order__row-text order__row-text--cg50">
 								<Checkbox
