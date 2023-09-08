@@ -94,7 +94,7 @@ router.delete('/admin/settings/score/:id', checkAuthIsAdmin, RateController.remo
 router.patch('/admin/settings/score/:id', checkAuthIsAdmin, createValidationIndexes, handlValidationErrors, RateController.updateSc);
 //settings
 router.post('/admin/settings/setting', checkAuth, SettingController.createSt);
-router.get('/admin/settings/setting', checkAuth, SettingController.getAllSt);
+router.get('/admin/settings/setting', SettingController.getAllSt);
 router.patch('/admin/settings/setting', checkAuth, SettingController.updateSt);
 router.delete('/admin/settings/setting', checkAuth, SettingController.removeSt);
 //about
@@ -120,12 +120,12 @@ router.post('/user/orders/filter', checkAuth, getAllForUserWithFilterValidation,
 router.patch('/user/order/setIsArchive/:id', checkAuth, OrderController.setIsArchive);
 router.patch('/user/order/sendCancel/:id', checkAuth, OrderController.sendCancel);
 //settings
-router.get('/admin/settings/region/:id', checkAuth, RegionController.getOneRg);
-router.get('/admin/settings/region', checkAuth, RegionController.getAllRg);
-router.get('/admin/settings/category/:id', checkAuth, CategoryController.getOneCt);
-router.get('/admin/settings/category', checkAuth, CategoryController.getAllCt);
-router.get('/admin/settings/score/', checkAuth, RateController.getOneSc);
-router.get('/admin/settings/about', checkAuth, SettingController.getAllAb);
+router.get('/admin/settings/region/:id', RegionController.getOneRg);
+router.get('/admin/settings/region', RegionController.getAllRg);
+router.get('/admin/settings/category/:id', CategoryController.getOneCt);
+router.get('/admin/settings/category', CategoryController.getAllCt);
+router.get('/admin/settings/score/', RateController.getOneSc);
+router.get('/admin/settings/about', SettingController.getAllAb);
 
 
 //PROGER
