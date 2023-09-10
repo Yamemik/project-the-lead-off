@@ -1,5 +1,5 @@
 import NumberOrder from '../models/NumberOrder.js';
-import UserOrder from '../models/NumberUser.js';
+import NumberUser from '../models/NumberUser.js';
 
 
 //order`s number
@@ -28,8 +28,7 @@ export const createNo = async (req, res) => {
       #swagger.tags = ["Added"]
    */
    try {
-      const doc = new NumberOrder({
-      });
+      const doc = new NumberOrder({});
 
       const entity = await doc.save();
 
@@ -48,7 +47,7 @@ export const CreateUserNumber = async (req, res) => {
       #swagger.tags = ["Added"]
    */
    try {
-      const doc = new NumberOrder();
+      const doc = new NumberUser({});
 
       const entity = await doc.save();
 
@@ -66,7 +65,7 @@ export const GetNumberUser = async (req, res) => {
       #swagger.tags = ["Added"]
    */
    try {
-      const object = await UserOrder.findOne({ id: 1 }).catch((err) => {
+      const object = await NumberUser.findOne({ id: 1 }).catch((err) => {
          res.status(404).json({
             message: 'not found'
          })

@@ -6,7 +6,7 @@ import UserModel from '../models/User.js';
 import UserNumberModel from '../models/NumberUser.js';
 import PaymentSchema from '../models/Payment.js';
 import * as Mailer from '../nodemailer/index.js';
-import { now } from 'mongoose';
+
 
 export const createUser = async (req, res) => {
    /*
@@ -22,7 +22,6 @@ export const createUser = async (req, res) => {
    const password = generatePassword(12, false);
    const salt = await bcrypt.genSalt(10);
    const hash = await bcrypt.hash(password, salt);
-
 
    try {
       const number = await UserNumberModel.findOneAndUpdate(
