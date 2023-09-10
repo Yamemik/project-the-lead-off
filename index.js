@@ -7,7 +7,7 @@ import swaggerUi from 'swagger-ui-express';
 
 import {
    UserController, OrderController, RegionController, CategoryController, RateController, SettingController,
-   NumberOrderController, UkassaController, PaymentController
+   NumberController, UkassaController, PaymentController
 } from './controllers/index.js';
 
 import { registerValidation, loginValidation, updateValidation, resentPassValidation, transValidation } from './validations/AdminValidation.js';
@@ -130,8 +130,10 @@ router.get('/admin/settings/about', SettingController.getAllAb);
 
 //PROGER
 //number order
-router.get('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.getAllNo);
-router.post('/admin/numberorder', checkAuthIsAdmin, NumberOrderController.createNo);
+router.get('/admin/numberorder', checkAuthIsAdmin, NumberController.getAllNo);
+router.post('/admin/numberorder', checkAuthIsAdmin, NumberController.createNo);
+router.get('/admin/number_user', checkAuthIsAdmin, NumberController.GetNumberUser);
+router.post('/admin/number_user', checkAuthIsAdmin, NumberController.CreateUserNumber);
 
 app.use('*', (req, res) => {
    res.sendFile("/var/www/frontend/index.html");

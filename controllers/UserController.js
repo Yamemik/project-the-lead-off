@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt';
 import generatePassword from 'password-generator';
 
 import UserModel from '../models/User.js';
+import UserNumberModel from '../models/NumberUser.js';
 import PaymentSchema from '../models/Payment.js';
 import * as Mailer from '../nodemailer/index.js';
 import { now } from 'mongoose';
@@ -22,8 +23,20 @@ export const createUser = async (req, res) => {
    const salt = await bcrypt.genSalt(10);
    const hash = await bcrypt.hash(password, salt);
 
+
    try {
+      const number = await UserNumberModel.findOneAndUpdate(
+         { id: 1 },
+         { $inc: { 'number': 1 } }
+      ).catch((err) => {
+         console.log(err);
+         res.status(404).json({
+            message: "not found or update (SettingModel)"
+         });
+      });
+
       const doc = new UserModel({
+         number_user: number.number,
          fio: req.body.fio,
          email: req.body.email,
          telephone: req.body.telephone,

@@ -1,6 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const UserSchema = new mongoose.Schema({
+   number_user: {
+      type: Number,
+      required: true
+   },
    fio: {
       type: String,
       required: true
