@@ -12,14 +12,14 @@ const yooKassa = new YooKassa({
 });
 
 export default async (req, res, next) => {
-   try{
+   try {
       const payments = await PaymentModel.find({ status: "pending" })
-      .catch((err) => { console.log(err) });
+         .catch((err) => { console.log(err) });
 
       if (!(Object.keys(payments).length === 0)) {
          for (let payment of payments) {
             const payment_ukassa = await yooKassa.getPayment(payment.payment.id)
-            .catch((err) => { console.log(err) });
+               .catch((err) => { console.log(err) });
 
             if (payment_ukassa.status == 'pending') {
                continue;
@@ -30,40 +30,35 @@ export default async (req, res, next) => {
                await PaymentModel.findByIdAndUpdate(payment._id, {
                   status: payment_ukassa.status,
                   payment: payment_ukassa
-               })
-               .catch((err) => { console.log(err) });
+               }).catch((err) => { console.log(err) });
             }
 
             if (payment_ukassa.status == 'succeeded') {
                const user = await UserModel.findById(payment.user_id);
                let count_amount = payment_ukassa.income_amount.value;
 
-               if(user.credit > 0 || user.credit < count_amount) {
+               if (user.credit > 0 && user.credit < count_amount) {
                   count_amount -= user.credit;
                   await UserModel.findByIdAndUpdate(payment.user_id, {
                      $inc: { 'balance': count_amount },
                      credit: 0
-                  })
-                  .catch((err) => { console.log(err) });
+                  }).catch((err) => { console.log(err) });
                }
-               if(user.credit > 0 || user.credit > count_amount) {
+               if (user.credit > 0 && user.credit > count_amount) {
                   await UserModel.findByIdAndUpdate(payment.user_id, {
                      $inc: { 'credit': -count_amount }
-                  })
-                  .catch((err) => { console.log(err) });
+                  }).catch((err) => { console.log(err) });
                }
-               if(user.credit === 0) {
+               if (user.credit === 0) {
                   await UserModel.findByIdAndUpdate(payment.user_id, {
                      $inc: { 'balance': payment_ukassa.income_amount.value }
-                  })
-                  .catch((err) => { console.log(err) });
+                  }).catch((err) => { console.log(err) });
                }
 
                await PaymentModel.findByIdAndUpdate(payment._id, {
                   status: payment_ukassa.status,
                   payment: payment_ukassa
-               })
-               .catch((err) => { console.log(err) });
+               }).catch((err) => { console.log(err) });
             }
          }
       }
