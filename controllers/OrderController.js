@@ -914,7 +914,7 @@ export const report_category = async (req, res) => {
             }).catch((err) => {
                return res.status(404).json({
                   message: 'orders not found'
-               })
+               });
             });
          }
 
