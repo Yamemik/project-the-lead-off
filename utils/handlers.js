@@ -58,7 +58,6 @@ export default async (req, res, next) => {
 
    const del_orders = await OrderModel.find({
       is_active: false,
-      is_cancel: false,
    }).catch((err) => {
       console.log(err);
    });
@@ -89,7 +88,6 @@ export default async (req, res, next) => {
 
       await OrderModel.deleteMany({
          is_active: false,
-         is_cancel: false
       }).catch((err) => {
          console.log(err);
       });
