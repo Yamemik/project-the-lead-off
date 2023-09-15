@@ -58,6 +58,7 @@ export default async (req, res, next) => {
 
    const del_orders = await OrderModel.find({
       is_active: false,
+      is_cancel: false,
    }).catch((err) => {
       console.log(err);
    });
