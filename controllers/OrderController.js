@@ -457,10 +457,10 @@ export const refund = async (req, res) => {
    const order = await OrderModel.findOneAndUpdate({ _id: req.params.order_id }, {
       is_buy: false,
       is_canceled: false,
-      is_cancel: true,
+      is_cancel: false,
       is_canceled_text: '',
-      answer: 'access',
-      user: req.userId
+      answer: '',
+      $unset: { user: "" },
    }).catch((err) => {
       console.log(err);
       res.status(404).json({
