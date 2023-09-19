@@ -84,6 +84,14 @@ export const updateCt = async (req, res) => {
                 schema: { $ref: "#/definitions/Category" }
       }
    */
+   const cat = await CategoryModel.find({ category: req.body.category }).catch((err) => {
+      console.log(err);
+   });
+   if (Object.keys(cat).length != 0) {
+      return res.status(403).json({
+         message: 'there is a duble',
+      });
+   };
    await CategoryModel.updateOne({ _id: req.params.id }, {
       $set: {
          category: req.body.category,
@@ -120,7 +128,7 @@ export const removeManyCt = async (req, res) => {
       #swagger.tags = ["Settings"]
       #swagger.summary = 'удалить категории'
    */
-   await CategoryModel.deleteMany({_id: { $in: req.body.categories}})
+   await CategoryModel.deleteMany({ _id: { $in: req.body.categories } })
       .then(() => res.json({
          access: true
       })).catch((err) => {
