@@ -1,16 +1,17 @@
 import mongoose, { Schema } from 'mongoose';
 
-const CategorySchema = new mongoose.Schema({  
-   category:{
+const CategorySchema = new mongoose.Schema({
+   category: {
       type: Array,
-      require: true
+      require: true,
+      unique: true,
    },
-   basePrice:{
+   basePrice: {
       type: Number,
       default: 0
    }
-},{
+}, {
    timestamps: true,
 });
 
-export default mongoose.model("Category",CategorySchema);
+export default mongoose.model("Category", CategorySchema);
