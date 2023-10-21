@@ -59,7 +59,8 @@ const doc = {
           "size": 1981
         }
       ],
-      $email: "email@yandex.ru",
+      organization: "неизвестно",
+      $email: ["email@yandex.ru", "box@mail.ru"],
       $telephone: ["tel1", "tel2"],
       $fio: "fio",
       $score: "мелкая",

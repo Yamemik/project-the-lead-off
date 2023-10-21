@@ -18,1704 +18,387 @@
     }
   },
   "paths": {
-    "/api/auth/reg": {
+    "/auth/reg": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Регистрация пользователя",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/auth/log": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Вход в аккаунт",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "login": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/user/{id}": {
-      "get": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Получить одного пользователя по id",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "изменить пользователя",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/User"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "удалить пользователя",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/user": {
-      "get": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Получить всех пользователей",
         "description": "",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/order": {
-      "get": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Получить все заявки",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Создание заявки",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "order",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "удалить заказы",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "orders": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/order/filter": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "user": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "nomeclature": {
-                  "example": "any"
-                },
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "price_min": {
-                  "example": "any"
-                },
-                "price_max": {
-                  "example": "any"
-                },
-                "is_archive": {
-                  "example": "any"
-                },
-                "is_sale": {
-                  "example": "any"
-                },
-                "is_express": {
-                  "example": "any"
-                },
-                "is_cancel": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/order/{id}": {
-      "patch": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "изменить заявку",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "order",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "удалить заказ",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/order/finddublicate": {
-      "post": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Получить дубли",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                },
-                "telephone": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/uploads": {
-      "post": {
-        "tags": [
-          "Order"
-        ],
-        "summary": "Загрузка файлов",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/order/refund/{order_id}": {
-      "patch": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "отменить заказ юзеру и вернуть деньги",
-        "description": "",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/order/canceled/{order_id}": {
-      "patch": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "отменить отмену",
-        "description": "",
-        "parameters": [
-          {
-            "name": "order_id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "is_canceled_text": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/report/user": {
-      "post": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "отчет по пользователю",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "date_begin": {
-                  "example": "any"
-                },
-                "date_end": {
-                  "example": "any"
-                },
-                "user_id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/report/category": {
-      "post": {
-        "tags": [
-          "Report"
-        ],
-        "summary": "отчет по категории",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "date_begin": {
-                  "example": "any"
-                },
-                "date_end": {
-                  "example": "any"
-                },
-                "nomeclature": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/ukassa/getall": {
-      "get": {
-        "tags": [
-          "Admin"
-        ],
-        "summary": "Получить все платежи",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/region": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание региона",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "regions",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Region"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить несколько регионов",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "regions": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все регионы",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/region/{id}": {
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменить регион",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "regions",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Region"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить регион",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить один регион",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/category": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание категории (корневой эл-т)",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "user",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Category"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить категории",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "categories": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все категории",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/category/{id}": {
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменить категорию",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "category",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Category"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить категорию",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить одну категорию",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/score": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание коэффициентов",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "indexes",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Rate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "deprecated": true
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить коэф-ты",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "rates": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/api/admin/settings/score/{id}": {
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить коэф",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": true
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Измениние коэффициентов",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "indexes",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Rate"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/setting": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание настроек",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "SettingModel",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Setting"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получить все настройки",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменение настроек",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "settings",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Setting"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "удалить настройки",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        },
-        "deprecated": false
-      }
-    },
-    "/api/admin/settings/about": {
-      "post": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Создание преимуществ",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "AboutModel",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/About"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Изменение преимуществ",
-        "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "AboutModel",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/About"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      },
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "получить преимущества",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить текущего пользователя",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        },
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ]
-      }
-    },
-    "/api/user/transaction": {
-      "patch": {
-        "tags": [
-          "User"
-        ],
-        "summary": "перевод другому пользователю",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "sum": {
-                  "example": "any"
-                },
-                "recipient_id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/resentpass": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Восстановление пароля/повторная отправка",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me/ukassa": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "payments",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "amount_value": {
-                  "example": "any"
-                },
-                "type": {
-                  "example": "any"
-                },
-                "return_url": {
-                  "example": "any"
-                },
-                "capture": {
-                  "example": "any"
-                },
-                "description": {
-                  "example": "any"
-                },
-                "metadata": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me/ukassa/getpayment/": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "getPayment",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "payment_id": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/me/ukassa/getall": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все платежи пользователя",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/order/{id}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить одну заявку",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "order",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
         "responses": {}
       }
     },
-    "/api/user/order": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все заявки по номенклатуре и региону пользователя без фильтров",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/orders/all": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все заявки",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/orders/all/issale": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все заявки is sale",
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/order/buyorder/{id}": {
+    "/auth/log": {
       "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "добавить пользователя во владельцы заказом(покупка)",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "sum": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/orders/filter": {
-      "post": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Получить все заявки по номенклатуре и региону пользователя c фильтрами",
-        "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nomeclature": {
-                  "example": "any"
-                },
-                "region": {
-                  "example": "any"
-                },
-                "score": {
-                  "example": "any"
-                },
-                "type_buyer": {
-                  "example": "any"
-                },
-                "type_order": {
-                  "example": "any"
-                },
-                "is_urgent": {
-                  "example": "any"
-                },
-                "price_min": {
-                  "example": "any"
-                },
-                "price_max": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/user/order/setIsArchive/{id}": {
-      "patch": {
-        "tags": [
-          "User"
-        ],
-        "summary": "установить заявке архив",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "is_archive": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/user/order/sendCancel/{id}": {
-      "patch": {
-        "tags": [
-          "User"
-        ],
-        "summary": "отправить заявку на отмену",
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "is_canceled_text": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/api/admin/settings/score/": {
-      "get": {
-        "tags": [
-          "Settings"
-        ],
-        "summary": "Получение 1 коэффициента",
         "description": "",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "responses": {}
       }
     },
-    "/api/admin/numberorder": {
+    "/admin/user/{id}": {
       "get": {
-        "tags": [
-          "Added"
-        ],
         "description": "",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/user": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       },
       "post": {
-        "tags": [
-          "Added"
-        ],
         "description": "",
         "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order/filter": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order/finddublicate": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/uploads": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order/refund/{order_id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/order/canceled/{order_id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/report/user": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/report/category": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/ukassa/getall": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/region": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/region/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/category": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/category/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/score": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/score/{id}": {
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/setting": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "delete": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/about": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/me": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/transaction": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/resentpass": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/me/ukassa": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/me/ukassa/getpayment/": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/me/ukassa/getall": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/order/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/order": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/orders/all": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/orders/all/issale": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/order/buyorder/{id}": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/orders/filter": {
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/order/setIsArchive/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/user/order/sendCancel/{id}": {
+      "patch": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/settings/score/": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/numberorder": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/admin/number_user": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      },
+      "post": {
+        "description": "",
+        "parameters": [],
+        "responses": {}
       }
     }
   },
@@ -1854,9 +537,19 @@
             }
           }
         },
-        "email": {
+        "organization": {
           "type": "string",
-          "example": "email@yandex.ru"
+          "example": "неизвестно"
+        },
+        "email": {
+          "type": "array",
+          "example": [
+            "email@yandex.ru",
+            "box@mail.ru"
+          ],
+          "items": {
+            "type": "string"
+          }
         },
         "telephone": {
           "type": "array",

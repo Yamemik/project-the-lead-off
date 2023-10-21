@@ -70,6 +70,7 @@ export default async (req, res, next) => {
             region: order_one.region,
             text: order_one.text,
             upload: order_one.upload,
+            organization: order_one.organization,
             email: order_one.email,
             telephone: order_one.telephone,
             fio: order_one.fio,

@@ -21,8 +21,13 @@ const OrderDeleteSchema = new mongoose.Schema({
       type: Array,
       require: false
    },
-   email: {
+   organization: {
       type: String,
+      require: false,
+      default: "неизвестно"
+   },
+   email: {
+      type: Array,
       require: false
    },
    telephone: {
